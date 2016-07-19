@@ -1,0 +1,7 @@
+There is a new inquiry from MedRep.in Web Application<br>
+<p>
+Name ${companyName}
+<p>
+Email ${emailId}
+<p>
+Contact Number ${mobileNumber}

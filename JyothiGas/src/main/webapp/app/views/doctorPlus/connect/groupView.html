@@ -1,0 +1,92 @@
+<md-content layout="column" layout-padding layout-wrap class="groupView">
+    <div>
+        <md-button ng-click="back()" class="md-primary" layout="row">
+            <i class="material-icons">keyboard_backspace</i>
+            <span>Back</span>
+        </md-button>
+    </div>
+    <div layout="row">
+        <div flex="60">
+            <div class="md-title">{{group.group_name}}</div>
+            <p>{{group.group_long_desc}}</p>
+            <md-button class="md-raised md-primary" ng-show="pendingGroups" ng-click="updateStatus('ACTIVE')">
+                Accept
+            </md-button>
+            <md-button class="md-raised md-warn" ng-show="pendingGroups" ng-click="updateStatus('REJECT')">
+                Reject
+            </md-button>
+            <md-button class="md-raised md-warn" ng-show="showJoin">
+                Join Group
+            </md-button>
+            <md-button class="md-raised md-warn" ng-show="showExit">
+                Exit Group
+            </md-button>
+        </div>
+        <div flex="40">
+            <img ng-src="{{'data:image/png;base64,'+group.group_img_data}}" style="width:100%;" class="md-avatar">
+        </div>
+    </div>
+    <md-divider></md-divider>
+    <md-tabs md-no-select-click md-dynamic-height md-border-bottom>
+        <md-tab label="Members">
+            <div class="md-title md-margin">Members: {{group.member.length}}</div>
+            <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="4" md-row-height="200px">
+                <md-grid-tile ng-repeat="contact in group.member | filter: searchContacts" md-colspan="1">
+                    <md-card class="mini-card md-whiteframe-13dp" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">{{contact.firstName}}</span>
+                                <span class="md-subhead">{{contact.therapeuticName}}</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                                <div class="md-media-sm card-media">
+                                    <img ng-src="{{'data:image/png;base64,'+contact.data}}" class="md-avatar" />
+                                </div>
+                            </md-card-title-media>
+                        </md-card-title>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button ng-click="manageContact(contact.id)">View</md-button>
+                        </md-card-actions>
+                    </md-card>
+                </md-grid-tile>
+            </md-grid-list>
+        </md-tab>
+        <md-tab label="Add Members">
+            
+        </md-tab>
+        <md-tab label="Pending Members">
+            <div class="md-title md-margin">Pending Members: {{pendingMembers.length}}</div>
+            <md-grid-list md-cols-xs="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="4" md-row-height="200px">
+                <md-grid-tile ng-repeat="contact in pendingMembers | filter: searchContacts" md-colspan="1">
+                    <md-card class="mini-card md-whiteframe-13dp" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">{{contact.firstName}}</span>
+                                <span class="md-subhead">{{contact.therapeuticName}}</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                                <div class="md-media-sm card-media">
+                                    <img ng-src="{{'data:image/png;base64,'+contact.data}}" class="md-avatar" />
+                                </div>
+                            </md-card-title-media>
+                        </md-card-title>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <span ng-click="updateMemberStatus(contact.member_id, 'REJECT')" class="group-icons">
+                                <md-tooltip md-direction="top">
+                                  Reject
+                                </md-tooltip>
+                                <i class="fa fa-times text-warning" aria-hidden="true"></i>
+                            </span>
+                            <span ng-click="updateMemberStatus(contact.member_id, 'ACTIVE')" class="group-icons">
+                                <md-tooltip md-direction="top">
+                                  Accept
+                                </md-tooltip>
+                                <i class="fa fa-check text-primary" aria-hidden="true"></i>
+                            </span>
+                        </md-card-actions>
+                    </md-card>
+                </md-grid-tile>
+            </md-grid-list>
+        </md-tab>
+    </md-tabs>
+</md-content>

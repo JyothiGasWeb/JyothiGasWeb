@@ -1,0 +1,11 @@
+<md-content layout-padding layout-wrap layout="column">
+    <h2 class="md-title">Search for Drugs</h2>
+    <md-autocomplete md-no-cache="noCache" md-selected-item="selectedItem" md-search-text-change="querySearch(searchText)" md-search-text="searchText" md-items="item in searchArr" md-item-text="item" md-min-length="0" placeholder="What is your favorite US state?">
+        <md-item-template>
+            <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+        </md-item-template>
+        <md-not-found>
+            NO Matches found
+        </md-not-found>
+    </md-autocomplete>
+</md-content>

@@ -1,0 +1,49 @@
+<md-content layout-padding layout-wrap class="contactView">
+    <div layout="column">
+        <div>
+            <md-button ng-click="back()" class="md-primary" layout="row">
+                <i class="material-icons">keyboard_backspace</i>
+                <span>Back</span>
+            </md-button>
+        </div>
+        <div layout="row">
+            <img ng-src="{{'data:image/png;base64,'+contact.imageData}}" class="contact-mainAvatar" />
+            <div>
+                <h3 class="md-title doc-name">{{contact.name}}</h3>
+                <div class="md-caption">{{contact.designation}}</div>
+            </div>
+        </div>
+        <md-divider md-inset></md-divider>
+        <div layout="row" layout-padding>
+            <div ng-repeat="group in contact.groups">
+                <img ng-src="{{'data:image/png;base64,'+group.imageData}}" class="group-avatar" />
+                <div>{{group.name}}</div>
+            </div>
+        </div>
+        <md-divider md-inset></md-divider>
+        <div ng-repeat="post in contact.posts">
+            <div layout="row">
+                <img ng-src="{{'data:image/png;base64,'+contact.imageData}}" class="contact-mainAvatar" />
+                <div>
+                    <h3 class="md-title doc-name">{{contact.name}}</h3>
+                    <div class="md-caption">{{contact.designation}}</div>
+                </div>
+            </div>
+            <div layout="column" layout-align="center center" layout-padding>
+                <p>{{post.description}}</p>
+                <img ng-if="post.imageData" ng-src="{{'data:image/png;base64,'+post.imageData}}" />
+                <div layout="row">
+                    <div class="md-margin">
+                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp; {{post.likes}}
+                    </div>
+                    <div class="md-margin">
+                        <i class="fa fa-share" aria-hidden="true"></i>&nbsp; {{post.shares}}
+                    </div>
+                    <div class="md-margin">
+                        <i class="fa fa-comment" aria-hidden="true"></i>&nbsp; {{post.comments}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</md-content>

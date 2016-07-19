@@ -1,0 +1,322 @@
+.index {
+  z-index: 1;
+}
+.pointer {
+  cursor: pointer;
+}
+.md-button {
+  text-transform: none;
+}
+.md-toast-content {
+  background-color: #ff5722 !important;
+  color: white;
+  font-weight: 800;
+}
+#loading-bar .bar {
+  background: #B25A6A;
+  height: 4px;
+}
+.close-icon {
+  color: red;
+}
+md-toolbar {
+  background-color: rgba(33, 150, 243, 0.7) !important;
+}
+.footer-main .license-footer {
+  align-self: flex-end;
+  padding: 16px 32px;
+  width: 100%;
+  text-align: center;
+  font-size: small;
+  border-top: 1px solid #ddd;
+}
+.main-avatar img {
+  margin-right: 16px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  flex: none;
+  width: 60px;
+  height: 60px;
+}
+#loading-bar-spinner .spinner-icon {
+  width: 18px;
+  height: 18px;
+  border: solid 4px transparent;
+  border-top-color: #B25A6A;
+  border-left-color: #B25A6A;
+  border-radius: 10px;
+}
+.reg-module .bg-img {
+  z-index: 0;
+  min-height: 100%;
+  min-width: 1024px;
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.reg-module .register-container {
+  z-index: 1;
+  min-height: 400px;
+  color: #2196f3;
+}
+.reg-module .register-container .register-icon {
+  cursor: pointer;
+  border: 2px solid #1799dd;
+  color: #1799dd;
+  border-radius: 50%;
+  padding: 33px;
+  background-color: #fff;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.reg-module .register-container .register-icon:hover {
+  background-color: #1799dd;
+  color: #fff;
+}
+.reg-module .register-form {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #2196f3;
+  border-radius: 15px;
+}
+.reg-module .register-form .md-block {
+  margin: 0;
+  padding: 0 10px;
+}
+.login .login-container {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 15px;
+}
+.login .login-content-padding {
+  min-height: 100%;
+  height: auto !important;
+  /*min-height hack*/
+  height: 100%;
+}
+.footer {
+  width: 100%;
+  height: 30px;
+  position: fixed;
+  bottom: 0;
+}
+.footer md-toolbar {
+  min-height: 30px;
+}
+.footer md-toolbar .md-toolbar-tools {
+  height: 30px;
+}
+@media (max-height: 500px) {
+  .footer {
+    position: relative;
+  }
+}
+@media (max-width: 500px) {
+  .reg-module .register-container .register-icon {
+    padding: 15px;
+  }
+}
+.doctor-register {
+  position: relative;
+}
+.side-bar {
+  height: 100%;
+}
+.side-bar md-content {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  color: #000;
+  height: 100%;
+  padding: 0 2px;
+  border-right: 1px solid #ccc;
+}
+.side-bar md-content .fa {
+  font-size: 18px;
+}
+.side-bar md-content .active-tab {
+  border-left: 3px solid #006600;
+}
+.main-bg {
+  background-color: #fff;
+}
+.main-bg .dashboard .dash-ctrls {
+  background-color: rgba(33, 150, 243, 0.3);
+  border-radius: 15px;
+}
+.main-bg .dashboard .dash-ctrls .dash-icon {
+  cursor: pointer;
+  border: 2px solid #1799dd;
+  color: #1799dd;
+  border-radius: 50%;
+  padding: 12px;
+  background-color: #fff;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.main-bg .dashboard .dash-ctrls .dash-icon:hover {
+  background-color: #1799dd;
+  color: #fff;
+}
+.main-bg .dashboard .dash-ctrls .appointments .panel.date {
+  margin: 0px;
+  width: 60px;
+  text-align: center;
+}
+.main-bg .dashboard .dash-ctrls .appointments .panel.date .month {
+  padding: 2px 0px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.main-bg .dashboard .dash-ctrls .appointments .panel.date .day {
+  padding: 3px 0px;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+.main-bg .dashboard .appointments {
+  margin: 0;
+  list-style-type: none;
+  padding: 0 15px;
+}
+.main-bg .dashboard .appointments li {
+  width: 100%;
+  height: 100px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+  padding: 0px;
+  margin: 0px 0px 10px;
+}
+.main-bg .dashboard .appointments time {
+  width: 100px;
+  height: 100px;
+  padding: 0px;
+  margin: 0px;
+  color: #ffffff;
+  background-color: #a552a7;
+  text-align: center;
+  text-transform: uppercase;
+}
+.main-bg .dashboard .appointments time .day {
+  display: block;
+  font-size: 38pt;
+  font-weight: 100;
+  line-height: 1;
+}
+.main-bg .dashboard .appointments time .month {
+  display: block;
+  font-size: 24pt;
+  font-weight: 900;
+  line-height: 1;
+}
+.doctorPlus .dHeader {
+  background-color: #88888A;
+  margin-bottom: 10px;
+  padding: 10px;
+  color: #fff;
+}
+.doctorPlus .plus-menu {
+  background-color: rgba(33, 150, 243, 0.5) !important;
+}
+.doctorPlus .contact-mainAvatar {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  flex: none;
+  width: 60px;
+  height: 60px;
+}
+.doctorPlus .transform .news-cardImg {
+  height: 200px;
+}
+.doctorPlus .mini-card {
+  border-radius: 10px !important;
+}
+.doctorPlus .mini-card .md-headline {
+  height: 64px;
+  overflow: hidden;
+  width: 115px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.doctorPlus .mini-card .md-subhead {
+  height: 20px;
+  overflow: hidden;
+  width: 115px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.doctorPlus .mini-card .group-icons {
+  margin-right: 5px;
+  cursor: pointer;
+}
+.doctorPlus .mini-card .edit-icon {
+  position: relative;
+  top: 1px;
+}
+.doctorPlus .mini-card .card-media {
+  overflow: hidden;
+}
+.doctorPlus .large-card .news-cardImg {
+  height: 250px;
+  overflow: hidden;
+}
+.contactView .contact-mainAvatar {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  flex: none;
+  width: 60px;
+  height: 60px;
+}
+.contactView .doc-name {
+  margin-bottom: 0;
+}
+.contactView .group-avatar {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  border-radius: 50%;
+  box-sizing: content-box;
+  flex: none;
+  width: 40px;
+  height: 40px;
+}
+.groupView .mini-card {
+  border-radius: 10px !important;
+}
+.groupView .mini-card .md-headline {
+  height: 64px;
+  overflow: hidden;
+  width: 115px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.groupView .mini-card .md-subhead {
+  height: 20px;
+  overflow: hidden;
+  width: 115px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.groupView .mini-card .group-icons {
+  margin-right: 5px;
+  cursor: pointer;
+}
+.groupView .mini-card .edit-icon {
+  position: relative;
+  top: 1px;
+}
+.groupView .mini-card .card-media {
+  overflow: hidden;
+}

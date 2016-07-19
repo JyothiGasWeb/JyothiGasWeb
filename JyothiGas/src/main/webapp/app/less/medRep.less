@@ -1,0 +1,369 @@
+.index {
+    z-index: 1;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.md-button {
+    text-transform: none;
+}
+
+.md-toast-content {
+    background-color: rgb(255, 87, 34) !important;
+    color: white;
+    font-weight: 800;
+}
+
+#loading-bar .bar {
+    background: #B25A6A;
+    height: 4px;
+}
+
+.close-icon {
+    color: red;
+}
+
+md-toolbar {
+    background-color: rgba(33, 150, 243, 0.7) !important;
+}
+
+.footer-main {
+    .license-footer {
+        align-self: flex-end;
+        padding: 16px 32px;
+        width: 100%;
+        text-align: center;
+        font-size: small;
+        border-top: 1px solid #ddd;
+    }
+}
+
+.main-avatar {
+    img {
+        margin-right: 16px;
+        border-radius: 50%;
+        box-sizing: content-box;
+        flex: none;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+#loading-bar-spinner .spinner-icon {
+    width: 18px;
+    height: 18px;
+    border: solid 4px transparent;
+    border-top-color: #B25A6A;
+    border-left-color: #B25A6A;
+    border-radius: 10px;
+}
+
+.reg-module {
+    .bg-img {
+        z-index: 0;
+        min-height: 100%;
+        min-width: 1024px;
+        /* Set up proportionate scaling */
+        width: 100%;
+        height: auto;
+        /* Set up positioning */
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    .register-container {
+        z-index: 1;
+        min-height: 400px;
+        color: rgb(33, 150, 243);
+        .register-icon {
+            cursor: pointer;
+            border: 2px solid #1799dd;
+            color: #1799dd;
+            border-radius: 50%;
+            padding: 33px;
+            background-color: #fff;
+            -webkit-transition: all 0.25s ease-in-out;
+            -moz-transition: all 0.25s ease-in-out;
+            -ms-transition: all 0.25s ease-in-out;
+            -o-transition: all 0.25s ease-in-out;
+            transition: all 0.25s ease-in-out;
+            &:hover {
+                background-color: #1799dd;
+                color: #fff;
+            }
+        }
+    }
+    .register-form {
+        background-color: rgba(255, 255, 255, 0.7);
+        color: rgb(33, 150, 243);
+        border-radius: 15px;
+        .md-block {
+            margin: 0;
+            padding: 0 10px;
+        }
+    }
+}
+
+.login {
+    .login-container {
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 15px;
+    }
+    .login-content-padding {
+        min-height: 100%;
+        height: auto !important;
+        /*min-height hack*/
+        height: 100%;
+    }
+}
+
+.footer {
+    width: 100%;
+    height: 30px;
+    position: fixed;
+    bottom: 0;
+    md-toolbar {
+        min-height: 30px;
+        .md-toolbar-tools {
+            height: 30px;
+        }
+    }
+}
+
+@media (max-height: 500px) {
+    .footer {
+        position: relative;
+    }
+}
+
+@media (max-width: 500px) {
+    .reg-module {
+        .register-container {
+            .register-icon {
+                padding: 15px;
+            }
+        }
+    }
+}
+
+.doctor-register {
+    position: relative;
+}
+
+.side-bar {
+    height: 100%;
+    md-content {
+        background-color: rgba(255, 255, 255, 0.5) !important;
+        color: #000;
+        height: 100%;
+        padding: 0 2px;
+        border-right: 1px solid #ccc;
+        .fa {
+            font-size: 18px;
+        }
+        .active-tab {
+            border-left: 3px solid #006600;
+        }
+    }
+}
+
+.main-bg {
+    background-color: #fff;
+    .dashboard {
+        .dash-ctrls {
+            background-color: rgba(33, 150, 243, 0.3);
+            border-radius: 15px;
+            .dash-icon {
+                cursor: pointer;
+                border: 2px solid #1799dd;
+                color: #1799dd;
+                border-radius: 50%;
+                padding: 12px;
+                background-color: #fff;
+                -webkit-transition: all 0.25s ease-in-out;
+                -moz-transition: all 0.25s ease-in-out;
+                -ms-transition: all 0.25s ease-in-out;
+                -o-transition: all 0.25s ease-in-out;
+                transition: all 0.25s ease-in-out;
+                &:hover {
+                    background-color: #1799dd;
+                    color: #fff;
+                }
+            }
+            .appointments {
+                .panel.date {
+                    margin: 0px;
+                    width: 60px;
+                    text-align: center;
+                    .month {
+                        padding: 2px 0px;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                    }
+                    .day {
+                        padding: 3px 0px;
+                        font-weight: 700;
+                        font-size: 1.5em;
+                    }
+                }
+            }
+        }
+        .appointments {
+            margin: 0;
+            list-style-type: none;
+            padding: 0 15px;
+            li {
+                width: 100%;
+                height: 100px;
+                padding: 0px;
+                background-color: rgb(255, 255, 255);
+                box-shadow: 0px 0px 5px rgb(51, 51, 51);
+                box-shadow: 0px 0px 5px rgba(51, 51, 51, 0.7);
+                padding: 0px;
+                margin: 0px 0px 10px;
+            }
+            time {
+                width: 100px;
+                height: 100px;
+                padding: 0px;
+                margin: 0px;
+                color: rgb(255, 255, 255);
+                background-color: rgb(165, 82, 167);
+                text-align: center;
+                text-transform: uppercase;
+                .day {
+                    display: block;
+                    font-size: 38pt;
+                    font-weight: 100;
+                    line-height: 1;
+                }
+                .month {
+                    display: block;
+                    font-size: 24pt;
+                    font-weight: 900;
+                    line-height: 1;
+                }
+            }
+        }
+    }
+}
+
+.doctorPlus {
+    .dHeader {
+        background-color: #88888A;
+        margin-bottom: 10px;
+        padding: 10px;
+        color: #fff;
+    }
+    .plus-menu {
+        background-color: rgba(33, 150, 243, 0.5) !important
+    }
+    .contact-mainAvatar {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-right: 16px;
+        border-radius: 50%;
+        box-sizing: content-box;
+        flex: none;
+        width: 60px;
+        height: 60px;
+    }
+    .transform {
+        .news-cardImg {
+            height: 200px;
+        }
+    }
+    .mini-card {
+        border-radius: 10px !important;
+        .md-headline {
+            height: 64px;
+            overflow: hidden;
+            width: 115px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .md-subhead {
+            height: 20px;
+            overflow: hidden;
+            width: 115px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .group-icons {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .edit-icon {
+            position: relative;
+            top: 1px;
+        }
+        .card-media {
+            overflow: hidden;
+        }
+    }
+    .large-card {
+        .news-cardImg {
+            height: 250px;
+            overflow: hidden;
+        }
+    }
+}
+
+.contactView {
+    .contact-mainAvatar {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-right: 16px;
+        border-radius: 50%;
+        box-sizing: content-box;
+        flex: none;
+        width: 60px;
+        height: 60px;
+    }
+    .doc-name {
+        margin-bottom: 0;
+    }
+    .group-avatar {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-right: 16px;
+        border-radius: 50%;
+        box-sizing: content-box;
+        flex: none;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.groupView{
+    .mini-card {
+        border-radius: 10px !important;
+        .md-headline {
+            height: 64px;
+            overflow: hidden;
+            width: 115px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .md-subhead {
+            height: 20px;
+            overflow: hidden;
+            width: 115px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .group-icons {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .edit-icon {
+            position: relative;
+            top: 1px;
+        }
+        .card-media {
+            overflow: hidden;
+        }
+    }
+}

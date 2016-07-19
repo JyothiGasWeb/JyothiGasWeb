@@ -1,0 +1,104 @@
+<md-tabs id="doctorPlusDash.connect" md-no-select-click md-selected="currentTab" md-dynamic-height md-border-bottom>
+    <md-tab label="My Contacts" ui-sref="doctorPlusDash.connect.myContacts">
+        <md-content>
+        </md-content>
+    </md-tab>
+    <md-tab label="Suggested Contacts" ui-sref="doctorPlusDash.connect.suggestedContacts">
+    </md-tab>
+    <md-tab label="Pending Contacts" ui-sref="doctorPlusDash.connect.pendingContacts">
+        <md-content>
+        </md-content>
+    </md-tab>
+    <md-tab label="My Groups" ui-sref="doctorPlusDash.connect.myGroups">
+        <md-content ng-show="showGroups">
+            <md-button class="md-raised md-primary" ng-click="addGroup(false)">Create Group</md-button>
+            <md-divider></md-divider>
+            <br/>
+            <md-grid-list md-cols-xs="1" md-cols-sm="3" md-cols-md="3" md-cols-gt-md="4" md-row-height="200px">
+                <md-grid-tile ng-repeat="group in myGroups | filter: searchContacts" md-colspan="1">
+                    <md-card class="mini-card md-whiteframe-13dp" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">{{group.group_name}}</span>
+                                <span class="md-subhead">{{group.membersCount}}</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                                <div class="md-media-sm card-media">
+                                    <img ng-if="group.group_img_data" ng-src="{{'data:image/png;base64,'+group.group_img_data}}" class="md-avatar" />
+                                    <img ng-if="!group.group_img_data" src="app/images/group-img.png" />
+                                </div>
+                            </md-card-title-media>
+                        </md-card-title>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <span ng-click="deleteGroup(group)" class="group-icons">
+                                <md-tooltip md-direction="top">
+                                  Delete
+                                </md-tooltip>
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </span>
+                            <span ng-click="editGroup(group)" class="group-icons edit-icon">
+                                <md-tooltip md-direction="top">
+                                  Edit
+                                </md-tooltip>
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </span>
+                            <span ng-click="manageGroup(group.group_id)" class="group-icons">
+                                <md-tooltip md-direction="top">
+                                  View
+                                </md-tooltip>
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </span>
+                        </md-card-actions>
+                    </md-card>
+                </md-grid-tile>
+            </md-grid-list>
+        </md-content>
+        <md-content ng-show="!showGroups" layout="column" layout-padding>
+            <div class="md-title">Create Group</div>
+            <div layout="row" layout-align="center center">
+                <form name="groupForm" flex="70">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Name</label>
+                        <input required ng-model="groupobj.group_name" name="title" autocomplete="off">
+                        <div ng-messages="groupForm.title.$error" role="alert">
+                            <div ng-message-exp="['required']">
+                                Group Name cannot be empty
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Short Description</label>
+                        <input required ng-model="groupobj.group_short_desc" name="title" autocomplete="off">
+                        <div ng-messages="groupForm.title.$error" role="alert">
+                            <div ng-message-exp="['required']">
+                                Group Name cannot be empty
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Long Description</label>
+                        <textarea ng-model="groupobj.group_long_desc" md-maxlength="150" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Logo</label>
+                        <!-- <img ngf-thumbnail="groupobj.group_img_data || 'mod_nbos/assets/images/placeholder.png'" style="width: 200px; height:200px;"> -->
+                        <input type='file' ng-model="groupobj.group_img_data" base-sixty-four-input>
+                    </md-input-container>
+                    <div layout="row">
+                        <span flex></span>
+                        <md-button class="md-raised md-warn" ng-click="addGroup(true)">Cancel</md-button>
+                        <md-button class="md-raised md-primary" ng-disabled="groupForm.$invalid" ng-click="createGroup()">Create</md-button>
+                    </div>
+                </form>
+            </div>
+        </md-content>
+    </md-tab>
+    <md-tab label="Suggested Groups" ui-sref="doctorPlusDash.connect.suggestedGroups">
+        <md-content>
+        </md-content>
+    </md-tab>
+    <md-tab label="Pending Groups" ui-sref="doctorPlusDash.connect.pendingGroups">
+        <md-content>
+        </md-content>
+    </md-tab>
+</md-tabs>

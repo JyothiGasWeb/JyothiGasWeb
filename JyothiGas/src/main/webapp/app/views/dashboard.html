@@ -1,0 +1,118 @@
+<div layout="column" layout-fill class="dashboard">
+    <!-- <div layout="row" layout-align="end end" flex class="md-margin">
+        <h1 class="md-title">Welcome Dr. {{userObj.username}}</h1>
+    </div>
+    <md-divider class="md-margin"></md-divider> -->
+    <!--  <ul class="appointments">
+        <li ng-repeat="appointment in appointments">
+            <div layout="row">
+                <time datetime="2014-07-20">
+                    <span class="day">4</span>
+                    <span class="month">Jul</span>
+                    <span class="year">2014</span>
+                </time>
+                <div class="md-margin">
+                    <h3>{{ appointment.title}}</h3>
+                    <h4>{{ appointment.appointmentDesc }}</h4>
+                </div>
+            </div>
+        </li>
+    </ul> -->
+    <div layout="row" layout-xs="column" layout-padding>
+        <div class="panel panel-info" flex="50" flex-xs="100">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-calendar"></span> 
+                    Appointments
+                </h3>
+            </div>
+            <div class="panel-body">
+                <ul class="media-list">
+                    <li class="media" ng-repeat="appointment in appointments">
+                        <div class="media-left">
+                            <div class="panel panel-info text-center date">
+                                <div class="panel-heading month">
+                                    <span class="panel-title strong">
+                                        Mar
+                                    </span>
+                                </div>
+                                <div class="panel-body day text-info">
+                                    23
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                {{appointment.title}}
+                            </h4>
+                            <p>
+                                {{appointment.appointmentDesc}}
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-default btn-block">More »</a>
+            </div>
+        </div>
+        <div class="panel panel-info" flex="50" flex-xs="100">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-bell-o"></span> 
+                    Notifications
+                </h3>
+            </div>
+            <div class="panel-body">
+                <ul class="media-list">
+                    <li class="media" ng-repeat="notification in notifications">
+                        <div class="media-body">
+                            <p>
+                                {{notification.notificationDesc}}
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#" class="btn btn-default btn-block">More »</a>
+            </div>
+        </div>
+    </div>
+    <div flex class="dash-ctrls md-padding md-margin md-whiteframe-17dp">
+        <md-grid-list md-cols="3" md-gutter="1em" md-row-height="100px">
+            <md-grid-tile>
+                <div layout="column" layout-align="center center">
+                    <i class="fa fa-bell dash-icon" aria-hidden="true"></i>
+                    <h3 class="md-title">Notifications</h3>
+                </div>
+            </md-grid-tile>
+            <md-grid-tile>
+                <div layout="column" layout-align="center center">
+                    <i class="fa fa-weixin dash-icon" aria-hidden="true"></i>
+                    <h3 class="md-title">Surveys</h3>
+                </div>
+            </md-grid-tile>
+            <md-grid-tile>
+                <div layout="column" layout-align="center center">
+                    <i class="fa fa-bar-chart dash-icon" aria-hidden="true"></i>
+                    <h3 class="md-title">Activity Score</h3>
+                </div>
+            </md-grid-tile>
+            <md-grid-tile>
+                <div layout="column" layout-align="center center">
+                    <i class="fa fa-bullhorn dash-icon" aria-hidden="true"></i>
+                    <h3 class="md-title">Marketing Campaigns</h3>
+                </div>
+            </md-grid-tile>
+            <md-grid-tile>
+                <div layout="column" layout-align="center center">
+                    <i class="fa fa-search dash-icon" aria-hidden="true"></i>
+                    <h3 class="md-title">Search for drugs</h3>
+                </div>
+            </md-grid-tile>
+            <md-grid-tile>
+                <div layout="column" layout-align="center center">
+                    <i class="fa fa-stethoscope dash-icon" aria-hidden="true" ui-sref="doctorPlusDash.transform.regulatory"></i>
+                    <h3 class="md-title">Doctor+</h3>
+                </div>
+            </md-grid-tile>
+        </md-grid-list>
+    </div>
+</div>

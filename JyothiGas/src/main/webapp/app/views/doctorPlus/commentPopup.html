@@ -1,0 +1,19 @@
+<md-dialog aria-label="Comment" ng-cloak flex="50">
+    <form name="commentForm">
+        <md-dialog-content class="md-dialog-content">
+            <h2 class="md-display-1">Add Comment</h2>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Add Image</label>
+                <input type='file' ng-model="commentObj.img" base-sixty-four-input>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Comment</label>
+                <textarea ng-model="commentObj.comment" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+            </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end end">
+            <md-button md-no-ink class="md-warn md-raised" ng-click="closeDialog()">Cancel</md-button>
+            <md-button md-no-ink class="md-primary md-raised" ng-click="create()" ng-disabled="commentForm.$invalid">Ok</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
