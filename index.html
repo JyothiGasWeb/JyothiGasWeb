@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="clientApp">
+
+<head>
+    <title>Sample</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app/styles/libs/angular-material.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="app/styles/libs/loading-bar.min.css">
+    <link rel="stylesheet" type="text/css" href="app/styles/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="app/styles/index.css">
+    <script type="text/javascript">
+    less = {
+        env: "development",
+        rootpath: "/app/styles"
+    };
+    /*var console = {};
+    console.log = function() {};*/
+    </script>
+</head>
+
+<body layout="row">
+   <div ui-view layout="row" flex="100"></div>
+    <!-- 3rd Party files-->
+    <script src="app/scripts/libs/less.min.js" data-env="development"></script>
+    <script src="app/scripts/libs/jquery.js"></script>
+    <script src="app/scripts/libs/angular.js"></script>
+    <script src="app/scripts/libs/angular-resource.js"></script>
+    <script src="app/scripts/libs/angular-ui-router.js"></script>
+    <script src="app/scripts/libs/angular-animate.js"></script>
+    <script src="app/scripts/libs/angular-cookies.js"></script>
+    <script src="app/scripts/libs/angular-aria.js"></script>
+    <script src="app/scripts/libs/angular-sanitize.js"></script>
+    <script src="app/scripts/libs/angular-messages.js"></script>
+    <script src="app/scripts/libs/angular-material.js"></script>
+    <script src="app/scripts/libs/loading-bar.min.js"></script>
+    <script src="app/scripts/libs/angular-local-storage.min.js"></script>
+    <script src="app/scripts/libs/angular-material-calendar.js"></script>
+    <script src="app/scripts/libs/ng-file-upload.min.js"></script>
+    <script src="app/scripts/libs/ng-file-upload-shim.min.js"></script>
+    <script src="app/scripts/libs/angular-base64-upload.js"></script>
+    <script src="app/scripts/libs/http-auth-interceptor.js"></script>
+    <script src="app/scripts/libs/ng-google-chart.min.js"></script>
+    <script src="app/scripts/libs/underscore.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="app/scripts/app.js"></script>
+    <script src="app/scripts/directives/directives.js"></script>
+    <!-- Controllers -->
+    <script src="app/scripts/controllers/LayoutCtrl.js"></script>
+    <script src="app/scripts/controllers/HeaderCtrl.js"></script>
+    <script src="app/scripts/controllers/LandingPageCtrl.js"></script>
+    <script src="app/scripts/controllers/LoginCtrl.js"></script>
+    <script src="app/scripts/controllers/RegisterNewCtrl.js"></script>
+    <script src="app/scripts/controllers/RegisterOldCtrl.js"></script>
+
+    <!-- Services -->
+    <script src="app/scripts/services/AlertService.js"></script>
+    <script src="app/scripts/services/LoginService.js"></script>
+    <script src="app/scripts/services/RegisterService.js"></script>
+    <script src="app/scripts/services/SessionService.js"></script>
+</body>
+
+</html>

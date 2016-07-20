@@ -1,0 +1,64 @@
+<div layout="column" tabindex="-1" role="main" flex="" class="login">
+    <md-toolbar class="md-whiteframe-glow-z1">
+        <div class="md-toolbar-tools docs-toolbar-tools" tabindex="-1">
+            <img src="app/images/logo.png" class="logo" ui-sref="login">
+        </div>
+    </md-toolbar>
+    <md-content md-scroll-y="" layout="column" flex="" class="login-container">
+        <div layout-padding flex="noshrink">
+            <div class="layout-content">
+                <section layout="row" layout-align="center center">
+                    <md-content flex="50" layout-padding class="login-content md-whiteframe-8dp">
+                        <h1 class="md-title">Sign In</h1>
+                        <md-divider></md-divider>
+                        <form name="loginForm" ng-submit="validateuser(loginForm);" autocomplete="off">
+                            <md-input-container class="md-block">
+                                <label>Email</label>
+                                <input required name="userName" ng-model="user.username" ng-pattern="/^.+@.+\..+$/">
+                                <div ng-messages="loginForm.userName.$error" role="alert">
+                                    <div ng-message-exp="['required', 'pattern']">
+                                        Enter valid email address
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Password</label>
+                                <input required type="password" name="userPassword" ng-model="user.password" minlength="2" />
+                                <div ng-messages="loginForm.userPassword.$error" role="alert">
+                                    <div ng-message-exp="['required', 'minlength']">
+                                        Your password was required to have a minimum length of 8.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <div layout="row" layout-align="center center">
+                                    <md-button class="md-raised md-primary" type="submit" ng-disabled="loginForm.$invalid || disableLogin" style="width:50%;">Sign In
+                                    </md-button>
+                                </div>
+                            </md-input-container>
+                            <div layout="row" layout-align="center center">
+                                <md-button class="md-raised md-accent" ui-sref="forgotPassword">Forgot Password?</md-button>
+                            </div>
+                            <div layout="row">
+                                <div class="md-body-2">
+                                    New Customer
+                                    <md-button class="md-accent" ng-click="registerNew()">Register Here</md-button>
+                                </div>
+                                <div class="md-body-2">
+                                    Existing Customer
+                                    <md-button class="md-accent" ng-click="registerOld()">Register Here</md-button>
+                                </div>
+                            </div>
+                        </form>
+                    </md-content>
+                </section>
+            </div>
+        </div>
+        <div layout="row" flex="noshrink" layout-align="center center" class="layout-align-center-center layout-row">
+            <div id="license-footer" flex="" class="ng-binding flex">
+                Powered by Jyothi Gas ©2014–2016. Code licensed under the <a ng-href="./license" class="md-accent" href="./license">MIT License</a>. Documentation licensed under
+                <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" class="md-default-theme md-accent">CC BY 4.0</a>.
+            </div>
+        </div>
+    </md-content>
+</div>

@@ -1,0 +1,26 @@
+<div layout-fill class="reg-module register">
+    <img src="app/images/login-img.jpg" class="bg-img" alt="image you want in background"></img>
+    <div layout="column">
+        <nav class="fixed-toolbar home" ng-include="'app/views/header/loginHeader.html'"></nav>
+        <div layout="row" layout-xs="column" layout-align="center center" layout-margin class="register-container">
+            <div flex="25" layout="column" layout-align="center center">
+                <i class="fa fa-stethoscope fa-2x register-icon" ui-sref="registerDoctor" aria-hidden="true"></i>
+                <h3 class="md-title">Doctor</h3>
+            </div>
+            <div flex="25" layout="column" layout-align="center center">
+                <i class="fa fa-building fa-2x register-icon" ui-sref="registerCompany" aria-hidden="true"></i>
+                <h3 class="md-title">Company</h3>
+            </div>
+            <div flex="25" layout="column" layout-align="center center">
+                <i class="fa fa-medkit fa-2x register-icon"></i>
+                <h3 class="md-title">Pharmacy</h3>
+            </div>
+            <div flex="25" layout="column" layout-align="center center">
+                <i class="fa fa-wheelchair fa-2x register-icon"></i>
+                <h3 class="md-title"> Patient</h3>
+            </div>
+        </div>
+        <div ui-view></div>
+        <nav class="fixed-toolbar footer" ng-include="'app/views/header/loginFooter.html'"></nav>
+    </div>
+</div>

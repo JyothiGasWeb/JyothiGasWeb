@@ -1,0 +1,23 @@
+<md-sidenav class="md-sidenav-left side-bar" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-toolbar class="md-tall">
+        <div layout="column" class="md-toolbar-tools-bottom inset">
+            <user-avatar class="main-avatar">
+                <img ng-src="{{'data:image/png;base64,'+user.dPicture}}">
+            </user-avatar>
+            <span></span>
+            <div>{{user.firstName}} {{user.lastName}}</div>
+        </div>
+    </md-toolbar>
+    <md-content flex ng-controller="NavCtrl">
+        <md-list>
+            <md-list-item class="md-1-line" ng-class="{'active-tab': currentPage == listItem.extNmae}" ng-repeat="listItem in navList" ui-sref="{{listItem.link}}">
+                <i class="{{listItem.icon}}" ng-if="listItem.icon"></i>
+                <div class="md-list-item-text" layout="column">
+                    <div class="md-body-2" style="text-align:left; margin-left:5px">{{ listItem.name}}</div>
+                </div>
+                <md-divider></md-divider>
+            </md-list-item>
+            <md-divider></md-divider>
+        </md-list>
+    </md-content>
+</md-sidenav>
