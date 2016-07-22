@@ -89,7 +89,7 @@ angular.module('clientApp', [
             })
             .state('consumerDash', {
                 url: '/consumerDash',
-                templateUrl: "app/views/consumer/consumerDash",
+                templateUrl: "app/views/consumer/consumerDash.html",
                 controller: "ConsumerDashCtrl",
                 parent: 'layout',
                 data: {
@@ -107,12 +107,13 @@ angular.module('clientApp', [
             .primaryPalette('red')
             .accentPalette('blue');
 
+
         $mdThemingProvider.theme('docs-dark', 'default')
             .primaryPalette('yellow')
             .accentPalette('green')
             .dark();
         $mdThemingProvider.theme('altTheme')
-            .primaryPalette('light-blue')
+            .primaryPalette('grey')
     }])
     .run(function($state, $rootScope, $stateParams, LoginService) {
 

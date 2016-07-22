@@ -1,3 +1,4 @@
+<div md-theme="altTheme">
 <md-sidenav class="md-sidenav-left side-bar" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
     <md-toolbar class="md-tall">
         <div layout="column" class="md-toolbar-tools-bottom inset">
@@ -5,7 +6,7 @@
                 <img ng-src="{{'data:image/png;base64,'+user.dPicture}}">
             </user-avatar>
             <span></span>
-            <div>{{user.firstName}} {{user.lastName}}</div>
+            <div>James Cameron</div>
         </div>
     </md-toolbar>
     <md-content flex ng-controller="NavCtrl">
@@ -21,3 +22,4 @@
         </md-list>
     </md-content>
 </md-sidenav>
+</div>

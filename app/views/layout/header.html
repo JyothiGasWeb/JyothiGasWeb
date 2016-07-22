@@ -1,11 +1,11 @@
-<md-toolbar ng-cloak ng-controller="HeaderCtrl">
+<md-toolbar ng-cloak ng-controller="HeaderCtrl" md-theme="altTheme">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()" hide-gt-md>
             <i class="material-icons">reorder</i>
         </md-button>
-        <h2 class="md-title app-title">
-            <span>Sample</span>App
-        </h2>
+        <div>
+            <img src="app/images/logo.png" class="logo" ui-sref="login">
+        </div>
         <span flex></span>
         <md-menu md-offset="0 30" md-position-mode="target-right target">
             <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">

@@ -16,7 +16,7 @@ angular.module('clientApp')
                             "refreshToken": response.refresh_token.value
                         }
                         SessionService.updateTokens(tokens);
-                    }else{
+                    } else {
                         AlertService.alert("Something went Wrong Please login Again", 'md-warn');
                     }
                     //$state.reload();
@@ -84,54 +84,64 @@ angular.module('clientApp')
                 $scope.currentPage = toState.data.name;
             })
         $scope.navList = [{
-            "name": "Dashboard",
+            "name": "Home",
             "icon": "fa fa-home",
-            "link": "dashboard",
-            "extNmae": "dashboard"
+            "link": "consumerDash",
+            "extNmae": "consumerDash"
         }, {
-            "name": "Notifications",
-            "icon": "fa fa-bell",
-            "link": "notifications",
-            "extNmae": "notifications"
+            "name": "Book Refill",
+            "icon": "fa fa-external-link",
+            "link": "bookRefill",
+            "extNmae": "bookRefill"
         }, {
-            "name": "DoctorPlus",
-            "icon": "fa fa-stethoscope",
-            "link": "doctorPlusDash.transform.newsUpdates",
-            "extNmae": "doctorPlus"
+            "name": "Price List",
+            "icon": "fa fa-money",
+            "link": "priceList",
+            "extNmae": "priceList"
         }, {
-            "name": "Surveys",
-            "icon": "fa fa-weixin",
-            "link": "surveys",
-            "extNmae": "surveys"
+            "name": "Change Dealer Request",
+            "icon": "fa fa-copy",
+            "link": "chDealerReq",
+            "extNmae": "chDealerReq"
         }, {
-            "name": "Activity Score",
-            "icon": "fa fa-bar-chart",
-            "link": "activityScore",
-            "extNmae": "activityScore"
+            "name": "Address Change Request",
+            "icon": "fa fa-map-marker",
+            "link": "addChangeReq",
+            "extNmae": "addChangeReq"
         }, {
-            "name": "Marketing Campaigns",
-            "icon": "fa fa-bullhorn",
-            "link": "marketingCamp",
-            "extNmae": "marketingCamp"
+            "name": "Transfer Connection",
+            "icon": "fa fa-exchange",
+            "link": "transferCon",
+            "extNmae": "transferCon"
         }, {
-            "name": "MedRep Meetings",
-            "icon": "fa fa-users",
-            "link": "meetings",
-            "extNmae": "meetings"
+            "name": "Surrender Connection",
+            "icon": "fa fa fa-suitcase",
+            "link": "surrenderCon",
+            "extNmae": "surrenderCon"
         }, {
-            "name": "Discussion Forums",
-            "icon": "fa fa fa-comment",
-            "link": "discussions",
-            "extNmae": "discussions"
-        }, {
-            "name": "Search for Drugs",
+            "name": "Mechanic Service",
             "icon": "fa fa-search",
-            "link": "drugSearch",
-            "extNmae": "drugSearch"
+            "link": "mechanicServ",
+            "extNmae": "mechanicServ"
         }, {
-            "name": "News & Updates",
-            "icon": "fa fa-newspaper-o",
-            "link": "news",
-            "extNmae": "news"
+            "name": "Contact your Dealer",
+            "icon": "fa fa-search",
+            "link": "ctctDealer",
+            "extNmae": "ctctDealer"
+        }, {
+            "name": "Safety Tips",
+            "icon": "fa fa-info",
+            "link": "safetyTips",
+            "extNmae": "safetyTips"
+        }, {
+            "name": "Feedback",
+            "icon": "fa fa-comment-o",
+            "link": "feedback",
+            "extNmae": "feedback"
+        }, {
+            "name": "Booking History",
+            "icon": "fa fa-history",
+            "link": "bookingHistory",
+            "extNmae": "bookingHistory"
         }]
     }]);
