@@ -79,6 +79,24 @@ angular.module('clientApp', [
                     type: 'login'
                 }
             })
+            .state('forgotPasswd', {
+                url: '/forgotPasswd',
+                templateUrl: "app/views/forgotPasswd.html",
+                controller: "ForgotPasswdCtrl",
+                data: {
+                    type: 'login'
+                }
+            })
+            .state('consumerDash', {
+                url: '/consumerDash',
+                templateUrl: "app/views/consumer/consumerDash",
+                controller: "ConsumerDashCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'Dashboard'
+                }
+            })
 
 
     }])

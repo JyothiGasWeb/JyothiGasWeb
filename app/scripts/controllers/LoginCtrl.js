@@ -20,6 +20,7 @@ angular.module('clientApp')
 
         $scope.validateuser = function() {
             LoginService.login($scope.user).then(function(response) {
+                var response = {"isAuthenticated":true,"isDoctor":true,"isMedRep":false,"isMedRepManager":false,"accessToken":"3e94cf78-aaf5-40ca-ab30-ab2201321176","userId":null,"refresh_token":{"refreshToken":null,"expireToken":0,"value":"a0ab2930-1094-4210-970b-86fedd37480e","expiration":-1429051979},"username":"Dinesh","medRep":false,"medRepManager":false,"doctor":true,"authenticated":true}
                 if (response.accessToken && response.username) {
                     var userObj = {
                         "accessToken": response.accessToken,
@@ -49,7 +50,7 @@ angular.module('clientApp')
         }
 
         var init = function() {
-            console.log(SessionService.getSession())
+            //console.log(SessionService.getSession())
         }
         init();
     }]);
