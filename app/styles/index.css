@@ -1,54 +1,126 @@
 /*
 * footer styles
 */
+body {
+  min-width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+legend {
+  display: block;
+  width: auto;
+  padding: 0 5px;
+  margin-bottom: 0;
+  font-size: inherit;
+  line-height: inherit;
+  border: auto;
+  border-bottom: none;
+}
+fieldset {
+  border: 2px groove threedface;
+  padding: 5px;
+}
 #license-footer {
   align-self: flex-end;
   padding: 16px 32px;
   width: 100%;
   text-align: center;
   font-size: small;
-  border-top: 1px solid #ddd;
-  background-color: #f6f6f6;
+  border-top: 1px solid #000;
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #000;
 }
 md-input-container {
   margin: 10px 0 !important;
 }
+md-menu-divider {
+  background-color: #ff9999 !important;
+}
 .login md-toolbar {
-  background-color: #f6f6f6 !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
 }
 .login md-toolbar .logo {
   cursor: pointer;
   width: 200px;
 }
 .login .login-container {
-  background-image: url('../images/bg.jpg');
+  background-image: url('../images/blur-bg.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 .login .login-container .login-content {
-  border: 1px solid #999;
   border-radius: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+}
+.login .login-container .login-content md-input-container label {
+  color: #fff;
+}
+.login .login-container .login-content md-input-container .md-input {
+  color: #fff;
 }
 .register md-toolbar {
-  background-color: #f6f6f6 !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
 }
 .register md-toolbar .logo {
   cursor: pointer;
   width: 200px;
 }
 .register .register-container {
-  background-image: url('../images/bg.jpg');
+  background-image: url('../images/blur-bg.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 .register .register-container .register-content {
-  border: 1px solid #999;
   border-radius: 10px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+}
+.register .register-container .register-content md-input-container label {
+  color: #fff;
+}
+.register .register-container .register-content md-input-container .md-input {
+  color: #fff;
 }
 .layout md-toolbar {
-  background-color: #f6f6f6 !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
 }
 .layout md-toolbar .logo {
   cursor: pointer;
   width: 200px;
+}
+.layout .layout-container {
+  background-image: url('../images/blur-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.layout .layout-container .layout-main-content {
+  background-color: transparent !important;
+}
+.layout .layout-container .side-nav {
+  width: 280px;
+  max-width: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.layout .layout-container .side-nav .left-nav-container .side-bar {
+  width: 280px;
+  max-width: 280px;
+  background: transparent !important;
+}
+.layout .layout-container .side-nav .left-nav-container .side-bar md-content {
+  background-color: rgba(0, 0, 0, 0.55) !important;
+  color: #fff;
+}
+.dashboard .dashboard-container {
+  border-right: 1px solid #fff;
+}
+.dashboard .dashboard-container .dashboard-links {
+  border-bottom: 1px solid #fff;
+  padding: 20px 0;
+  cursor: pointer;
+}
+.dashboard .dashboard-container .dashboard-links .dash-img {
+  width: 60px;
+  height: 60px;
 }

@@ -94,7 +94,27 @@ angular.module('clientApp', [
                 parent: 'layout',
                 data: {
                     type: 'login',
-                    name: 'Dashboard'
+                    name: 'consumerDash'
+                }
+            })
+             .state('bookRefill', {
+                url: '/bookRefill',
+                templateUrl: "app/views/consumer/bookRefill.html",
+                controller: "BookRefillCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'bookRefill'
+                }
+            })
+             .state('addressChange', {
+                url: '/addressChange',
+                templateUrl: "app/views/consumer/addressChange.html",
+                controller: "AddressChangeCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'addressChange'
                 }
             })
 
@@ -104,16 +124,16 @@ angular.module('clientApp', [
 
         //Angular Material Theme Configuration
         $mdThemingProvider.theme('default')
-            .primaryPalette('red')
-            .accentPalette('blue');
-
+            .primaryPalette('blue')
+            .accentPalette('red')
+            .dark();
 
         $mdThemingProvider.theme('docs-dark', 'default')
             .primaryPalette('yellow')
             .accentPalette('green')
             .dark();
         $mdThemingProvider.theme('altTheme')
-            .primaryPalette('grey')
+            .primaryPalette('blue')
     }])
     .run(function($state, $rootScope, $stateParams, LoginService) {
 

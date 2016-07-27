@@ -2,14 +2,15 @@
 <html ng-app="clientApp">
 
 <head>
-    <title>Sample</title>
+    <title>Jyothi Gas</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="app/styles/libs/angular-material.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="app/styles/libs/loading-bar.min.css">
-    <link rel="stylesheet" type="text/css" href="app/styles/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="app/styles/font-awesome.min.css"><!-- 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+
     <link rel="stylesheet" type="text/css" href="app/styles/index.css">
     <script type="text/javascript">
     less = {
@@ -21,8 +22,8 @@
     </script>
 </head>
 
-<body layout="row">
-   <div ui-view layout="row" flex="100"></div>
+<body layout="column">
+   <div ui-view layout="column" flex="100"></div>
     <!-- 3rd Party files-->
     <script src="app/scripts/libs/less.min.js" data-env="development"></script>
     <script src="app/scripts/libs/jquery.js"></script>
@@ -44,7 +45,7 @@
     <script src="app/scripts/libs/http-auth-interceptor.js"></script>
     <script src="app/scripts/libs/ng-google-chart.min.js"></script>
     <script src="app/scripts/libs/underscore.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="app/scripts/libs/bootstrap.min.js"></script>
     <script src="app/scripts/app.js"></script>
     <script src="app/scripts/directives/directives.js"></script>
     <!-- Controllers -->
@@ -58,6 +59,8 @@
 
     <!-- Consumer -->
     <script src="app/scripts/controllers/consumer/ConsumerDashCtrl.js"></script>
+    <script src="app/scripts/controllers/consumer/BookRefillCtrl.js"></script>
+    <script src="app/scripts/controllers/consumer/AddressChangeCtrl.js"></script>
     <!-- Services -->
     <script src="app/scripts/services/AlertService.js"></script>
     <script src="app/scripts/services/LoginService.js"></script>

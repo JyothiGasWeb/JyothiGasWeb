@@ -106,8 +106,8 @@ angular.module('clientApp')
         }, {
             "name": "Address Change Request",
             "icon": "fa fa-map-marker",
-            "link": "addChangeReq",
-            "extNmae": "addChangeReq"
+            "link": "addressChange",
+            "extNmae": "addressChange"
         }, {
             "name": "Transfer Connection",
             "icon": "fa fa-exchange",

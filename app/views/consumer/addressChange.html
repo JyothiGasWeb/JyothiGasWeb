@@ -1,0 +1,51 @@
+<div class="md-padding">
+    <h2 class="md-title">Change Address request</h2>
+    <div class="layout-padding">
+        <fieldset>
+            <legend>Current Address:</legend>
+            <div layout="column">
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="25" class="md-body-2">Dealer:</div>
+                    <div>{{current.dealer}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="25" class="md-body-2">Consumer No:</div>
+                    <div>{{current.consumerNo}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="25" class="md-body-2">Consumer Name:</div>
+                    <div>{{current.consumerName}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="25" class="md-body-2">Address:</div>
+                    <div>{{current.address}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="25" class="md-body-2">Contact No:</div>
+                    <div>{{current.contactNo}}</div>
+                </div>
+            </div>
+        </fieldset>
+        <div layout="column" layout-padding>
+            <form>
+                <md-input-container class="md-block">
+                    <label>New Address</label>
+                    <textarea ng-model="user.newAddress" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+                </md-input-container>
+                <md-input-container class="md-block">
+                	<label>New Pin code</label>
+                    <input ng-model="user.newPinCode">
+                </md-input-container>
+                <div layout="row" layout-align="end end">
+                	<md-button class="md-warn md-raised">Reset</md-button>
+                	<md-button class="md-primary md-raised">Submit</md-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

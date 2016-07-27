@@ -1,0 +1,83 @@
+<section class="layout-padding">
+    <h2 class="md-title">Book Refill</h2>
+    <div layout="row" layout-align="center center">
+        <div flex="50">
+            <form name="refillForm" ng-show="isForm">
+                <md-input-container class="md-block">
+                    <label>Dealer</label>
+                    <input required name="dealer" ng-model="user.dealer" />
+                    <div ng-messages="refillForm.dealer.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                            Dealer Name is Required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Consumer No</label>
+                    <input required name="consumerNo" ng-model="user.consumerNo" />
+                    <div ng-messages="refillForm.consumerNo.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                            consumer Number is Required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Consumer Name</label>
+                    <input required name="consumerName" ng-model="user.consumerName" />
+                    <div ng-messages="refillForm.consumerName.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                            Consumer Name is Required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Dealer</label>
+                    <input required name="dealer" ng-model="user.dealer" />
+                    <div ng-messages="refillForm.dealer.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                            Dealer Name is Required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Address</label>
+                    <input required name="address" ng-model="user.address" />
+                    <div ng-messages="refillForm.address.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                            Address is Required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Contact No</label>
+                    <input required name="contactNo" ng-model="user.contactNo" />
+                    <div ng-messages="refillForm.contactNo.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                            Contact Number is Required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Dealer</label>
+                    <input required name="dealer" ng-model="user.dealer" />
+                    <div ng-messages="refillForm.dealer.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                            Dealer Name is Required
+                        </div>
+                    </div>
+                </md-input-container>
+                <div layout="row" layout-align="end end">
+                    <md-button class="md-warn md-raised" ng-click=reset()>Reset</md-button>
+                    <md-button class="md-primary md-raised" ng-disabled="refillForm.$invalid" ng-click="bookRefill()">Confirm</md-button>
+                </div>
+            </form>
+            <div ng-show="!isForm">
+                <div>Thank you for booking with us Your booking reference no is 12433445
+                </div>
+                <br>
+                <div>Your cylinder will be delivered within 6hrs from booking. It will be delivered by 20th april 16 before 6 PM</div>
+                <div>Your Dealer contact No: 96876786876</div>
+            </div>
+        </div>
+    </div>
+</section>
