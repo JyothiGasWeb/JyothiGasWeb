@@ -117,6 +117,15 @@ angular.module('clientApp', [
                     name: 'addressChange'
                 }
             })
+            .state('priceList', {
+                url: '/priceList',
+                templateUrl: "app/views/consumer/priceList.html",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'priceList'
+                }
+            })
             .state('safetyTips', {
                 url: '/safetyTips',
                 templateUrl: "app/views/consumer/safetyTips.html",
