@@ -124,3 +124,8 @@ md-menu-divider {
   width: 60px;
   height: 60px;
 }
+.bookings .bookings-list {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 10px 0;
+}

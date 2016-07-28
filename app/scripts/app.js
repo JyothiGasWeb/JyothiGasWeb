@@ -97,7 +97,7 @@ angular.module('clientApp', [
                     name: 'consumerDash'
                 }
             })
-             .state('bookRefill', {
+            .state('bookRefill', {
                 url: '/bookRefill',
                 templateUrl: "app/views/consumer/bookRefill.html",
                 controller: "BookRefillCtrl",
@@ -107,7 +107,7 @@ angular.module('clientApp', [
                     name: 'bookRefill'
                 }
             })
-             .state('addressChange', {
+            .state('addressChange', {
                 url: '/addressChange',
                 templateUrl: "app/views/consumer/addressChange.html",
                 controller: "AddressChangeCtrl",
@@ -115,6 +115,16 @@ angular.module('clientApp', [
                 data: {
                     type: 'login',
                     name: 'addressChange'
+                }
+            })
+            .state('bookingHistory', {
+                url: '/bookingHistory',
+                templateUrl: "app/views/consumer/bookingHistory.html",
+                controller: "BookingHistoryCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'bookingHistory'
                 }
             })
 
