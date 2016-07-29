@@ -23,7 +23,7 @@
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Password</label>
-                                <input required type="password" name="userPassword" ng-model="user.password" minlength="2" />
+                                <input required type="password" name="userPassword" ng-model="user.password" minlength="8" maxlength="12" />
                                 <div ng-messages="loginForm.userPassword.$error" role="alert">
                                     <div ng-message-exp="['required', 'minlength']">
                                         Your password was required to have a minimum length of 8.
