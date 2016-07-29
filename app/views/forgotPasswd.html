@@ -11,20 +11,19 @@
                     <md-content flex="50" layout-padding class="login-content md-whiteframe-8dp">
                         <h1 class="md-title">Forgot Password</h1>
                         <md-divider></md-divider>
-                        <form name="forgotForm" ng-submit="validateuser(forgotForm);" autocomplete="off">
+                        <form name="forgotForm" autocomplete="off">
                             <md-input-container class="md-block">
-                                <label>Mobile</label>
+                                <label>Email/Phone</label>
                                 <input required name="mobile" ng-model="user.mobile">
                                 <div ng-messages="forgotForm.mobile.$error" role="alert">
                                     <div ng-message-exp="['required']">
-                                        Enter valid Mobile Number
+                                        Enter valid Email or Mobile Number
                                     </div>
                                 </div>
                             </md-input-container>
                             <div layout="row" layout-align="end end">
-                                <md-button class="md-accent md-raised" ng-disabled="forgotForm.$invalid">Submit</md-button>
+                                <md-button class="md-accent md-raised" ng-disabled="forgotForm.$invalid" ng-click="validateuser($event)">Submit</md-button>
                             </div>
-
                         </form>
                     </md-content>
                 </section>
@@ -32,8 +31,7 @@
         </div>
         <div layout="row" flex="noshrink" layout-align="center center" class="layout-align-center-center layout-row">
             <div id="license-footer" flex="" class="ng-binding flex">
-                Powered by Jyothi Gas ©2014–2016. Code licensed under the <a ng-href="./license" class="md-accent" href="./license">MIT License</a>. Documentation licensed under
-                <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" class="md-default-theme md-accent">CC BY 4.0</a>.
+                Powered by Jyothi Gas ©2014–2016.
             </div>
         </div>
     </md-content>
