@@ -101,8 +101,8 @@ angular.module('clientApp')
         }, {
             "name": "Change Dealer Request",
             "icon": "fa fa-copy",
-            "link": "chDealerReq",
-            "extNmae": "chDealerReq"
+            "link": "dealerChange",
+            "extNmae": "dealerChange"
         }, {
             "name": "Address Change Request",
             "icon": "fa fa-map-marker",
@@ -121,8 +121,8 @@ angular.module('clientApp')
         }, {
             "name": "Mechanic Service",
             "icon": "fa fa-search",
-            "link": "mechanicServ",
-            "extNmae": "mechanicServ"
+            "link": "mechanicService",
+            "extNmae": "mechanicService"
         }, {
             "name": "Contact your Dealer",
             "icon": "fa fa-search",

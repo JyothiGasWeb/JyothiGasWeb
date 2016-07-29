@@ -149,6 +149,16 @@ angular.module('clientApp', [
                     name: 'consumerDash'
                 }
             })
+            .state('dealerChange', {
+                url: '/dealerChange',
+                templateUrl: "app/views/consumer/dealerChange.html",
+                controller: "DealerChangeCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'dealerChange'
+                }
+            })
             .state('addressChange', {
                 url: '/addressChange',
                 templateUrl: "app/views/consumer/addressChange.html",
@@ -157,6 +167,16 @@ angular.module('clientApp', [
                 data: {
                     type: 'login',
                     name: 'addressChange'
+                }
+            })
+            .state('mechanicService', {
+                url: '/mechanicService',
+                templateUrl: "app/views/consumer/mechanicService.html",
+                controller: "MechanicServiceCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'mechanicService'
                 }
             })
             .state('priceList', {
@@ -204,12 +224,10 @@ angular.module('clientApp', [
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
             .accentPalette('red')
-            .dark();
 
         $mdThemingProvider.theme('docs-dark', 'default')
             .primaryPalette('yellow')
             .accentPalette('green')
-            .dark();
         $mdThemingProvider.theme('altTheme')
             .primaryPalette('blue')
     }])
