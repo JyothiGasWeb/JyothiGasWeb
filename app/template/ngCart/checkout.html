@@ -1,5 +1,6 @@
 
 <div ng-if="service=='http' || service == 'log'">
+    <md-button class="md-warn md-raised" ng-click="ngCart.empty()">Reset</md-button>
     <md-button class="md-primary md-raised" ng-click="checkout()" ng-disabled="!ngCart.getTotalItems()" ng-transclude>Checkout</md-button>
 </div>
 
