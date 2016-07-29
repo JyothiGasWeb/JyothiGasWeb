@@ -20,7 +20,9 @@ angular.module('clientApp', [
         'ngFileUpload',
         'naif.base64',
         'http-auth-interceptor',
-        'underscore'
+        'underscore',
+        'md.data.table',
+        'ngCart'
     ])
     .constant('APP_CONFIG', {
         API_URL: ''
@@ -107,6 +109,46 @@ angular.module('clientApp', [
                     name: 'bookRefill'
                 }
             })
+            .state('domesticConnection', {
+                url: '/domesticConnection',
+                templateUrl: "app/views/consumer/domesticConnection.html",
+                controller: "DomesticConnectionCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'consumerDash'
+                }
+            })
+            .state('commercial', {
+                url: '/commercial',
+                templateUrl: "app/views/consumer/commercial.html",
+                controller: "CommercialCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'consumerDash'
+                }
+            })
+            .state('industrial', {
+                url: '/industrial',
+                templateUrl: "app/views/consumer/industrial.html",
+                controller: "IndustrialCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'consumerDash'
+                }
+            })
+            .state('searchDealer', {
+                url: '/searchDealer',
+                templateUrl: "app/views/consumer/searchDealer.html",
+                controller: "SearchDealerCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'consumerDash'
+                }
+            })
             .state('addressChange', {
                 url: '/addressChange',
                 templateUrl: "app/views/consumer/addressChange.html",
@@ -143,6 +185,14 @@ angular.module('clientApp', [
                 data: {
                     type: 'login',
                     name: 'bookingHistory'
+                }
+            })
+            .state('checkout', {
+                url: '/checkout',
+                templateUrl: "app/views/consumer/checkout.html",
+                controller: "CheckoutCtrl",
+                data: {
+                    type: 'login'
                 }
             })
 
