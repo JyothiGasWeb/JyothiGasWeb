@@ -28,6 +28,10 @@ angular.module('clientApp')
                 });
         };
 
+        $scope.login = function(){
+            $state.go('login');
+        }
+
         var init = function() {
 
         }

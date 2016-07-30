@@ -89,6 +89,11 @@ angular.module('clientApp')
             "link": "consumerDash",
             "extNmae": "consumerDash"
         }, {
+            "name": "My Profile",
+            "icon": "fa fa-user",
+            "link": "profile",
+            "extNmae": "profile"
+        },{
             "name": "Book Refill",
             "icon": "fa fa-external-link",
             "link": "bookRefill",
@@ -118,12 +123,7 @@ angular.module('clientApp')
             "icon": "fa fa fa-suitcase",
             "link": "surrenderCon",
             "extNmae": "surrenderCon"
-        }, {
-            "name": "Mechanic Service",
-            "icon": "fa fa-search",
-            "link": "mechanicService",
-            "extNmae": "mechanicService"
-        }, {
+        },{
             "name": "Contact your Dealer",
             "icon": "fa fa-search",
             "link": "ctctDealer",

@@ -13,16 +13,17 @@
                         <md-divider></md-divider>
                         <form name="forgotForm" autocomplete="off">
                             <md-input-container class="md-block">
-                                <label>Email/Phone</label>
-                                <input required name="mobile" ng-model="user.mobile">
-                                <div ng-messages="forgotForm.mobile.$error" role="alert">
-                                    <div ng-message-exp="['required']">
-                                        Enter valid Email or Mobile Number
+                                <label>Email</label>
+                                <input required name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/">
+                                <div ng-messages="forgotForm.email.$error" role="alert">
+                                    <div ng-message-exp="['required', 'pattern']">
+                                        Enter valid Email
                                     </div>
                                 </div>
                             </md-input-container>
                             <div layout="row" layout-align="end end">
-                                <md-button class="md-accent md-raised" ng-disabled="forgotForm.$invalid" ng-click="validateuser($event)">Submit</md-button>
+                                <md-button class="md-accent md-raised" ng-click="login()">Back</md-button>
+                                <md-button class="md-primary md-raised" ng-disabled="forgotForm.$invalid" ng-click="validateuser($event)">Submit</md-button>
                             </div>
                         </form>
                     </md-content>
