@@ -3,46 +3,145 @@
     <div layout="column" class="">
         <div layout="row" layout-align="center center">
             <div flex="33" layout="column" class="dashboard-container">
-                <div class="dashboard-links" layout="column" layout-align="center center" ui-sref="bookRefill">
-                	<img src="app/images/book-refill.png" class="dash-img">
-                    Book Refill
-                </div>
-                <div class="dashboard-links" layout="column" layout-align="center center" ui-sref="industrial">
-                	<img src="app/images/industrial-connection.png" class="dash-img">
-                    Industrial Connection
-                </div>
-                <div class="dashboard-links" layout="column" layout-align="center center">
-                    <img src="app/images/contact-us.png" class="dash-img">
-                    Contact Details
-                </div>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Book Refill</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/book-refill.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="bookRefill">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Industrial Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/industrial-connection.png" class="dash-img"> 
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="industrial">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Contact Details</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/contact-us.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="industrial">view</md-button>
+                    </md-card-actions>
+                </md-card>
             </div>
             <div flex="33" layout="column" class="dashboard-container">
-                <div class="dashboard-links" layout="column" layout-align="center center" ui-sref="domesticConnection">
-                	<img src="app/images/domestic-connection.png" class="dash-img">
-                    Domestic Connection
-                </div>
-                <div class="dashboard-links" layout="column" layout-align="center center">
-                	<img src="app/images/appliances.png" class="dash-img">
-                    Our Apppliances
-                </div>
-                <div class="dashboard-links" layout="column" layout-align="center center">
-                	<img src="app/images/price-list.png" class="dash-img">
-                    Price List
-                </div>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Domestic Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                               <img src="app/images/domestic-connection.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="domesticConnection">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Our Apppliances</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                               <img src="app/images/appliances.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Price List</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                               <img src="app/images/price-list.png" class="dash-img"> 
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary">view</md-button>
+                    </md-card-actions>
+                </md-card>
             </div>
             <div flex="33" layout="column" class="dashboard-container">
-                <div class="dashboard-links" layout="column" layout-align="center center" ui-sref="commercial">
-                	<img src="app/images/commercial-connection.png" class="dash-img">
-                    Commercial Connection
-                </div>
-                <div class="dashboard-links" layout="column" layout-align="center center" ui-sref="searchDealer">
-                	<img src="app/images/search-dealer.png" class="dash-img">
-                    Search Dealer
-                </div>
-                <div class="dashboard-links" layout="column" layout-align="center center">
-                	<img src="app/images/logout.png" class="dash-img">
-                	Logout
-                </div>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Commercial Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                              <img src="app/images/commercial-connection.png" class="dash-img"> 
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="commercial">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Search Dealer</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                              <img src="app/images/search-dealer.png" class="dash-img"> 
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Logout</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                              <img src="app/images/logout.png" class="dash-img"> 
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary">Logout</md-button>
+                    </md-card-actions>
+                </md-card>
             </div>
         </div>
     </div>

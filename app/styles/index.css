@@ -115,17 +115,28 @@ md-menu-divider {
   background-color: #1C2B36 !important;
   color: #fff;
 }
-.dashboard .dashboard-container {
-  border-right: 1px solid #666;
+.dashboard .dashboard-container .dashboard-cards {
+  border-radius: 8px;
+  -webkit-transition: all 200ms ease-in;
+  -webkit-transform: scale(1);
+  -ms-transition: all 200ms ease-in;
+  -ms-transform: scale(1);
+  -moz-transition: all 200ms ease-in;
+  -moz-transform: scale(1);
+  transition: all 200ms ease-in;
+  transform: scale(1);
 }
-.dashboard .dashboard-container .dashboard-links {
-  border-bottom: 1px solid #666;
-  padding: 20px 0;
-  cursor: pointer;
-}
-.dashboard .dashboard-container .dashboard-links .dash-img {
-  width: 60px;
-  height: 60px;
+.dashboard .dashboard-container .dashboard-cards:hover {
+  box-shadow: 0px 0px 150px #000000;
+  z-index: 999;
+  -webkit-transition: all 200ms ease-in;
+  -webkit-transform: scale(1.5);
+  -ms-transition: all 200ms ease-in;
+  -ms-transform: scale(1.5);
+  -moz-transition: all 200ms ease-in;
+  -moz-transform: scale(1.5);
+  transition: all 200ms ease-in;
+  transform: scale(1.5);
 }
 .bookings .bookings-list {
   border: 1px solid #ccc;
