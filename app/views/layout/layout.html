@@ -2,9 +2,9 @@
 <div layout="column" tabindex="-1" role="main" flex="" class="layout">
     <section ui-view="header" class="layout"></section>
     <div layout="row" class="layout-container">
-        <nav ui-view="nav" md-scroll-y layout="column" class="side-nav layout">
+        <nav ui-view="nav" md-scroll-y layout="column" class="side-nav layout" flex-xs="0" flex-sm="0" flex-md="0">
         </nav>
-        <md-content md-scroll-y layout="column" flex class="layout-main-content">
+        <md-content md-scroll-y layout="column" flex class="layout-main-content" flex-xs="100" flex-sm="100" flex-md="100">
             <div ui-view flex="noshrink"></div>
             <div layout="row" flex="noshrink" layout-align="center center" class="layout-align-center-center layout-row">
                 <div id="license-footer" flex="" class="ng-binding flex">

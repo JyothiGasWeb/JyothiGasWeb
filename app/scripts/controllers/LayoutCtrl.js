@@ -134,11 +134,6 @@ angular.module('clientApp')
             "link": "safetyTips",
             "extNmae": "safetyTips"
         }, {
-            "name": "Feedback",
-            "icon": "fa fa-comment-o",
-            "link": "feedback",
-            "extNmae": "feedback"
-        }, {
             "name": "Booking History",
             "icon": "fa fa-history",
             "link": "bookingHistory",
