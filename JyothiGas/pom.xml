@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jyothigas</groupId>
-	<artifactId>spring-framework.version</artifactId>
-	<name>Jyothi Gas Web Application</name>
+	<artifactId>jyothigas</artifactId>
+	<name>jyothigas</name>
 	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<!-- <properties> <java-version>1.6</java-version> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> 
 		<spring-framework.version>4.0.7.RELEASE</spring-framework.version> Web <jsp.version>2.2</jsp.version> 
@@ -217,6 +217,12 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 		</dependency>
+
+		<!-- <dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>sqljdbc4</artifactId>
+			<version>4.0</version>
+		</dependency> -->
 
 	</dependencies>
 	<build>

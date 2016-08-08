@@ -4,7 +4,7 @@ import javax.servlet.ServletException;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import com.jyothigas.service.EmailService;
+import com.jyothigas.app.service.EmailService;
 
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	  @Override

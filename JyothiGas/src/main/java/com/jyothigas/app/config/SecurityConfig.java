@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 
-import com.jyothigas.service.AuthenticationService;
+import com.jyothigas.app.service.AuthenticationService;
 import com.jyothigas.utils.UnauthorisedEntryPoint;
 
 

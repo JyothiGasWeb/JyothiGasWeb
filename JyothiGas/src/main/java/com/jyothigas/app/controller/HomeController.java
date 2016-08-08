@@ -1,4 +1,4 @@
-package com.jyothigas.app;
+package com.jyothigas.app.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
