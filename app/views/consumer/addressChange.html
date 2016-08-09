@@ -38,12 +38,17 @@
                     <textarea ng-model="user.newAddress" md-maxlength="150" rows="1" md-select-on-focus></textarea>
                 </md-input-container>
                 <md-input-container class="md-block">
-                	<label>New Pin code</label>
-                    <input ng-model="user.newPinCode">
+                    <label>New Pin code</label>
+                    <input required name="pinCode" ng-model="user.newPinCode" ng-pattern="/^\d{6}$/">
+                    <div ng-messages="registerForm.pinCode.$error" role="alert">
+                        <div ng-message-exp="['required', 'pattern']">
+                            Add a valid pin code
+                        </div>
+                    </div>
                 </md-input-container>
                 <div layout="row" layout-align="end end">
-                	<md-button class="md-warn md-raised">Reset</md-button>
-                	<md-button class="md-primary md-raised">Submit</md-button>
+                    <md-button class="md-warn md-raised">Reset</md-button>
+                    <md-button class="md-primary md-raised">Submit</md-button>
                 </div>
             </form>
         </div>
