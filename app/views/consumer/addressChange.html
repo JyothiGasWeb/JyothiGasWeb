@@ -32,7 +32,7 @@
             </div>
         </fieldset>
         <div layout="column" layout-padding>
-            <form>
+            <form name="addressForm">
                 <md-input-container class="md-block">
                     <label>New Address</label>
                     <textarea ng-model="user.newAddress" md-maxlength="150" rows="1" md-select-on-focus></textarea>
@@ -40,7 +40,7 @@
                 <md-input-container class="md-block">
                     <label>New Pin code</label>
                     <input required name="pinCode" ng-model="user.newPinCode" ng-pattern="/^\d{6}$/">
-                    <div ng-messages="registerForm.pinCode.$error" role="alert">
+                    <div ng-messages="addressForm.pinCode.$error" role="alert">
                         <div ng-message-exp="['required', 'pattern']">
                             Add a valid pin code
                         </div>
