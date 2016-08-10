@@ -29,7 +29,6 @@ import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.PasswordProtector;
 
 @Controller
-@RequestMapping("/jyothigas")
 public class RegistrationController {
 	private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
