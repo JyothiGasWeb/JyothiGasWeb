@@ -11,8 +11,9 @@ public class Booking implements java.io.Serializable {
 	private Date last_issue;
 	private Date last_deleivery;
 	private int qunatity;
-	private String product_type;
+	private int connectionTypeId;
 	private String status;
+	private String reference;
 
 	public int getId() {
 		return id;
@@ -70,20 +71,28 @@ public class Booking implements java.io.Serializable {
 		this.qunatity = qunatity;
 	}
 
-	public String getProduct_type() {
-		return product_type;
-	}
-
-	public void setProduct_type(String product_type) {
-		this.product_type = product_type;
-	}
-
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getConnectionTypeId() {
+		return connectionTypeId;
+	}
+
+	public void setConnectionTypeId(int connectionTypeId) {
+		this.connectionTypeId = connectionTypeId;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 }

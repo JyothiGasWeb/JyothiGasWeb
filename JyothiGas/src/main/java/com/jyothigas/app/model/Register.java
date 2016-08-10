@@ -14,6 +14,7 @@ public class Register implements java.io.Serializable {
 	private int connectionTypeId;
 	private int dealerId;
 	private String status;
+	private int connectionQty;
 
 	public int getId() {
 		return id;
@@ -109,6 +110,14 @@ public class Register implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getConnectionQty() {
+		return connectionQty;
+	}
+
+	public void setConnectionQty(int connectionQty) {
+		this.connectionQty = connectionQty;
 	}
 
 }

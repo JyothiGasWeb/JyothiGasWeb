@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jyothigas.app.dao.ConnectionTypeDAO;
 import com.jyothigas.app.dao.ConsumerDAO;
 import com.jyothigas.app.dao.DealerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.dao.RoleDAO;
+import com.jyothigas.app.entity.ConnectionTypeEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
 import com.jyothigas.app.entity.DealerEntiy;
 import com.jyothigas.app.entity.RegistrationEntity;
@@ -36,6 +38,9 @@ public class ConsumerService {
 	
 	@Autowired
 	DealerDAO dealerDAO;
+	
+	@Autowired
+	ConnectionTypeDAO connectionTypeDAO;
 
 	/**
 	 * Method for fetch Consumer Details 
@@ -59,6 +64,8 @@ public class ConsumerService {
 					consumerDetails.setAreaCode(registrationEntity.getAreaCode());
 					consumerDetails.setRoleId(registrationEntity.getRoleId());
 					consumerDetails.setAddress(registrationEntity.getAddress());
+					consumerDetails.setConnectionQty(registrationEntity.getConnectionQty());
+					consumerDetails.setStatus(registrationEntity.getStatus());
 					//Fetching the Role Details
 					List<RoleEntity> roleEntityList = roleDAO.findByRoleId(registrationEntity.getRoleId());
 					if (roleEntityList.size() > 0) {
@@ -78,6 +85,12 @@ public class ConsumerService {
 						consumerDetails.setDealerName(dealerEntiy.getDealer_name());
 					}
 					//Fetching the connection type details
+					ConnectionTypeEntity connectionTypeEntity = connectionTypeDAO.findById(ConnectionTypeEntity.class, registrationEntity.getConnectionTypeId());
+					if(connectionTypeEntity != null){
+						consumerDetails.setConnectionTypeName(connectionTypeEntity.getConnectionType());
+						consumerDetails.setConnectionTypeDesc(connectionTypeEntity.getConnectionDesc());
+						consumerDetails.setConnectionPrice(connectionTypeEntity.getConnectionPrice());
+					}
 					
 				}
 			}

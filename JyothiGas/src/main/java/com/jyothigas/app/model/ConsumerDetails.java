@@ -15,7 +15,12 @@ public class ConsumerDetails {
 	private String dealerName;
 	private int dealerId;
 	private String connectionTypeName;
+	private String connectionTypeDesc;
+	private int connectionPrice;
 	private int connectionTypeId;
+	private String status;
+	
+	private int connectionQty;
 	
 
 	public int getReg_id() {
@@ -126,8 +131,40 @@ public class ConsumerDetails {
 		return connectionTypeId;
 	}
 
+	public String getConnectionTypeDesc() {
+		return connectionTypeDesc;
+	}
+
+	public void setConnectionTypeDesc(String connectionTypeDesc) {
+		this.connectionTypeDesc = connectionTypeDesc;
+	}
+
+	public int getConnectionPrice() {
+		return connectionPrice;
+	}
+
+	public void setConnectionPrice(int connectionPrice) {
+		this.connectionPrice = connectionPrice;
+	}
+
 	public void setConnectionTypeId(int connectionTypeId) {
 		this.connectionTypeId = connectionTypeId;
+	}
+
+	public int getConnectionQty() {
+		return connectionQty;
+	}
+
+	public void setConnectionQty(int connectionQty) {
+		this.connectionQty = connectionQty;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

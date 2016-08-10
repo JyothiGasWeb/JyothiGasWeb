@@ -25,6 +25,7 @@ public class RegistrationEntity implements java.io.Serializable {
 	private int connectionTypeId;
 	private int dealerId;
 	private String status;
+	private int connectionQty;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -134,6 +135,15 @@ public class RegistrationEntity implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Column(name = "Connection_Qty")
+	public int getConnectionQty() {
+		return connectionQty;
+	}
+
+	public void setConnectionQty(int connectionQty) {
+		this.connectionQty = connectionQty;
 	}
 
 }

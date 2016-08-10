@@ -20,12 +20,53 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 
 	private static final Log log = LogFactory.getLog(BookingDAO.class);
 	
+	public List<BookingEntity> findAllBookings() {
+		log.info("Getting BookingEntity Instance");
+		List<BookingEntity> bookingEntity = new ArrayList<BookingEntity>();
+		try {
+			bookingEntity = entityManager.createQuery("select s from BookingEntity s ",BookingEntity.class)
+					.getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			log.error("Failed : " + e);
+		}
+		return bookingEntity;
+	}
+	
 	public List<BookingEntity> findByConsumerId(Integer consumer_id) {
 		log.info("Getting BookingEntity Instance with consumer_id: " + consumer_id);
 		List<BookingEntity> bookingEntity = new ArrayList<BookingEntity>();
 		try {
 			bookingEntity = entityManager.createQuery("select s from BookingEntity s Where s.consumer_id = :consumer_id ",BookingEntity.class)
 					.setParameter("consumer_id", consumer_id)
+					.getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			log.error("Failed : " + e);
+		}
+		return bookingEntity;
+	}
+	
+	public List<BookingEntity> findByConnectionTypeId(Integer connectionTypeId) {
+		log.info("Getting BookingEntity Instance with connectionTypeId: " + connectionTypeId);
+		List<BookingEntity> bookingEntity = new ArrayList<BookingEntity>();
+		try {
+			bookingEntity = entityManager.createQuery("select s from BookingEntity s Where s.connectionTypeId = :connectionTypeId ",BookingEntity.class)
+					.setParameter("connectionTypeId", connectionTypeId)
+					.getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			log.error("Failed : " + e);
+		}
+		return bookingEntity;
+	}
+	
+	public List<BookingEntity> findByStatus(String status) {
+		log.info("Getting BookingEntity Instance with status: " + status);
+		List<BookingEntity> bookingEntity = new ArrayList<BookingEntity>();
+		try {
+			bookingEntity = entityManager.createQuery("select s from BookingEntity s Where s.status = :status ",BookingEntity.class)
+					.setParameter("status", status)
 					.getResultList();
 			log.info("get successfull");
 		} catch (Exception e) {

@@ -19,7 +19,7 @@ import com.jyothigas.utils.JyothiGasProperty;
 
 @Service("smsService")
 public class SMSService {
-	
+
 	public static final String VERIFY_NO = "VERIFY_NO";
 	public static final String RESET_PASSWORD = "RESET_PASSWORD";
 	public static final String ACCOUNT_ACTIVATION = "ACCOOUNT_ACTIVATION";
@@ -28,16 +28,15 @@ public class SMSService {
 	public static final String FEEDBACK = "FEEDBACK";
 	public static final String NOTIFICATION = "NOTIFICATION";
 	public static final String INVITE = "INVITE";
-	
-	private Map<String,String> templateMap = new HashMap<String, String>();
-	
+
+	private Map<String, String> templateMap = new HashMap<String, String>();
+
 	private static final Log log = LogFactory.getLog(SMSService.class);
-	
+
 	@Autowired
 	private VelocityEngine velocityEngine;
-	
-	public SMSService()
-	{
+
+	public SMSService() {
 		templateMap.put(SMSService.VERIFY_NO + "_TEMPLATE", "Mobile_Verification.vm");
 		templateMap.put(SMSService.RESET_PASSWORD + "_TEMPLATE", "Mobile_PasswordReset.vm");
 		templateMap.put(SMSService.ACCOUNT_ACTIVATION + "_TEMPLATE", "Mobile_Activation.vm");
@@ -46,39 +45,48 @@ public class SMSService {
 		templateMap.put(SMSService.FEEDBACK + "_TEMPLATE", "Mobile_Feedback.vm");
 		templateMap.put(SMSService.NOTIFICATION + "_TEMPLATE", "Mobile_Notification.vm");
 		templateMap.put(SMSService.INVITE + "_TEMPLATE", "Mobile_Invite.vm");
-		
+
 	}
-	
-	public void sendSMS(SMS sms)
-	{
-		try
-		{
-		 RestTemplate restTemplate = new RestTemplate();
-		 Template template = velocityEngine.getTemplate(templateMap.get(sms.getTemplate() + "_TEMPLATE"));
-		 VelocityContext velocityContext = new VelocityContext();
-		 Map<String,String> valueMap = sms.getValueMap();
-		 if(valueMap != null)
-		 {
-			  for(String key :valueMap.keySet())
-			  {
-				  velocityContext.put(key, valueMap.get(key));
-			  }
-		 }		 
-		 StringWriter stringWriter = new StringWriter();
-		 template.merge(velocityContext, stringWriter);
-		 String message = stringWriter.toString();
-		 String baseURL = JyothiGasProperty.getInstance().getProperties("sms.url");
-		 baseURL = baseURL + "&to=" + sms.getPhoneNumber();
-		 baseURL = baseURL + "&from=JYOGAS";
-		 baseURL = baseURL + "&message=" + message;
-		 log.info("Sending text message to " + sms.getPhoneNumber());
-		 ResponseEntity<String> response = restTemplate.getForEntity(baseURL,String.class);
-		 log.info("Response received from SMS country " + response.getBody());
-		}
-		catch(Exception e)
-		{
+
+	public void sendSMS(SMS sms) {
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			Template template = velocityEngine.getTemplate(templateMap.get(sms.getTemplate() + "_TEMPLATE"));
+			VelocityContext velocityContext = new VelocityContext();
+			Map<String, String> valueMap = sms.getValueMap();
+			if (valueMap != null) {
+				for (String key : valueMap.keySet()) {
+					velocityContext.put(key, valueMap.get(key));
+				}
+			}
+			StringWriter stringWriter = new StringWriter();
+			template.merge(velocityContext, stringWriter);
+			String message = stringWriter.toString();
+			String baseURL = JyothiGasProperty.getInstance().getProperties("sms.url");
+			baseURL = baseURL + "&to=" + sms.getPhoneNumber();
+			baseURL = baseURL + "&from=JYOGAS";
+			baseURL = baseURL + "&message=" + message;
+			log.info("Sending text message to " + sms.getPhoneNumber());
+			ResponseEntity<String> response = restTemplate.getForEntity(baseURL, String.class);
+			log.info("Response received from SMS country " + response.getBody());
+		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Send SMS failed", e);
+		}
+	}
+
+	public void sendMessage(String message, String contact) {
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			String baseURL = JyothiGasProperty.getInstance().getProperties("sms.url");
+			baseURL = baseURL + "&to=" + contact;
+			baseURL = baseURL + "&from=JYOGAS";
+			baseURL = baseURL + "&message=" + message;
+			log.info("Sending text message to " + contact);
+			ResponseEntity<String> response = restTemplate.getForEntity(baseURL, String.class);
+			log.info("Response received from SMS country " + response.getBody());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
