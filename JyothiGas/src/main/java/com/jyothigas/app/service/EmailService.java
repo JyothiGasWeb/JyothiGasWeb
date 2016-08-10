@@ -4,6 +4,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
@@ -24,6 +25,14 @@ import com.jyothigas.utils.JyothiGasProperty;
 @Service("emailService")
 @EnableAsync
 public class EmailService {
+	private Map<String,String> templateMap = new HashMap<String, String>();
+	public EmailService()
+	{
+		templateMap.put("EMAIL_FROM", "test@smsquaretech.com");
+		templateMap.put("EMAIL_OTP_TEMPLATE", "Email_OTP.vm");
+		templateMap.put("EMAIL_OTP_SUBJECT", "Verification: One Time Password");
+		
+	}
 	
 	private static final Log log = LogFactory.getLog(EmailService.class);
 
@@ -32,8 +41,6 @@ public class EmailService {
 
 	@Autowired
 	private VelocityEngine velocityEngine;
-	
-	private Map<String,String> templateMap = new HashMap<String, String>();
 
 	public static final String VERIFY_EMAIL = "VERIFY_EMAIL";
 	public static final String RESET_PASSWORD = "RESET_PASSWORD";
@@ -78,6 +85,7 @@ public class EmailService {
 			}
 
 		} catch (Exception e) {
+			System.out.println(e);
 			log.error("Send Email Error ", e);
 		}
 
