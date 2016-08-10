@@ -77,6 +77,7 @@ public class SMSService {
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			log.error("Send SMS failed", e);
 		}
 	}

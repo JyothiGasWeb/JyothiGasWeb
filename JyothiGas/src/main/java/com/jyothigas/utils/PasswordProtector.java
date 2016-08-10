@@ -44,7 +44,7 @@ public class PasswordProtector {
     }
 */
     public static void main(String[] args) {
-		System.out.println(decrypt("QuLd+iFNgD+bcvYrGuL41Q=="));
+		System.out.println(encrypt("Test123"));
 		
 	}
     public static String encrypt(String property)

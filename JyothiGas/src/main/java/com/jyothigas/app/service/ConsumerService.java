@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jyothigas.app.dao.ConsumerDAO;
+import com.jyothigas.app.dao.DealerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.dao.RoleDAO;
 import com.jyothigas.app.entity.ConsumerEntity;
+import com.jyothigas.app.entity.DealerEntiy;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.entity.RoleEntity;
 import com.jyothigas.app.model.ConsumerDetails;
+import com.jyothigas.app.model.Register;
 
 @Service("consumerService")
 @Transactional
@@ -30,6 +33,9 @@ public class ConsumerService {
 
 	@Autowired
 	ConsumerDAO consumerDAO;
+	
+	@Autowired
+	DealerDAO dealerDAO;
 
 	/**
 	 * Method for fetch Consumer Details 
@@ -53,14 +59,26 @@ public class ConsumerService {
 					consumerDetails.setAreaCode(registrationEntity.getAreaCode());
 					consumerDetails.setRoleId(registrationEntity.getRoleId());
 					consumerDetails.setAddress(registrationEntity.getAddress());
+					//Fetching the Role Details
 					List<RoleEntity> roleEntityList = roleDAO.findByRoleId(registrationEntity.getRoleId());
 					if (roleEntityList.size() > 0) {
 						consumerDetails.setRoleName(roleEntityList.get(0).getName());
 					}
+					
+					//Fetching the Consumer Id
 					List<ConsumerEntity> consumerEntity = consumerDAO.findByRegId(registrationEntity.getId());
 					if (consumerEntity.size() > 0) {
 						consumerDetails.setConsumer_id(consumerEntity.get(0).getId());
 					 }
+					
+					//Fetching the Dealer Details
+					DealerEntiy dealerEntiy = dealerDAO.findById(DealerEntiy.class, registrationEntity.getDealerId());
+					if(dealerEntiy != null){
+						consumerDetails.setDealerId(registrationEntity.getDealerId());
+						consumerDetails.setDealerName(dealerEntiy.getDealer_name());
+					}
+					//Fetching the connection type details
+					
 				}
 			}
 		} catch (Exception e) {
@@ -69,6 +87,42 @@ public class ConsumerService {
 		}
 
 		return consumerDetails;
+	}
+
+	/**
+	 * Method for update consumer data
+	 * @param register
+	 * @return
+	 */
+	public int updateConsumer(Register register) {
+		int result = 0;
+		try {
+			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class, register.getId());
+			if(registrationEntity != null){
+				if(register.getAddress() != null){
+					registrationEntity.setAddress(register.getAddress());
+				}
+				if(register.getDealerId() > 0){
+					registrationEntity.setDealerId(register.getDealerId());
+				}
+				if(register.getConnectionTypeId() > 0){
+					registrationEntity.setConnectionTypeId(register.getConnectionTypeId());
+				}
+				if(register.getAreaCode() != null){
+					registrationEntity.setAreaCode(register.getAreaCode());
+				}
+				if(register.getStatus() != null){
+					registrationEntity.setStatus(register.getStatus());
+				}
+				registrationEntity.setId(register.getId());
+				RegistrationEntity entity = registrationDAO.merge(registrationEntity);
+				result = entity.getId();
+			}
+		} catch (Exception e) {
+			result = 0;
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

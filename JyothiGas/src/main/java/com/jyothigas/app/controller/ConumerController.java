@@ -24,19 +24,20 @@ import com.jyothigas.utils.Constant;
 public class ConumerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ConumerController.class);
-	
+
 	@Autowired
 	ConsumerService consumerService;
 	
 	/**
 	 * API for fetch consumer details using email
+	 * 
 	 * @param register
 	 * @return
 	 */
 	@RequestMapping(value = Constant.GET_CONSUMER_DETAILS, method = RequestMethod.POST)
 	public @ResponseBody Object getConsumerDetails(@RequestBody Register register) {
 		logger.info("Getting User Details..");
-		
+
 		try {
 			ConsumerDetails consumerDetails = consumerService.fetchConsumerDetailsByEmail(register.getEmail());
 			return consumerDetails;
@@ -50,7 +51,37 @@ public class ConumerController {
 			appResponse.setHttpErrorCode(405);
 			appResponse.setOauth2ErrorCode("invalid_token");
 			appObjList.add(appResponse);
-			return new ResponseEntity<List<AppResponse>>(appObjList,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	/**
+	 * API for update consumer details
+	 * 
+	 * @param register
+	 * @return
+	 */
+	@RequestMapping(value = Constant.UPDATE_CONSUMER, method = RequestMethod.POST)
+	public @ResponseBody AppResponse updateConsumer(@RequestBody Register register) {
+		logger.info("Registering the User");
+		AppResponse appResponse = new AppResponse();
+
+		try {
+			int result = consumerService.updateConsumer(register);
+			if (result > 0) {
+				appResponse.setStatus("OK");
+				appResponse.setMessage("Success");
+				appResponse.setHttpErrorCode(200);
+				appResponse.setOauth2ErrorCode("valid_token");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			appResponse.setHttpErrorCode(405);
+			appResponse.setOauth2ErrorCode("invalid_token");
+
+		}
+		return appResponse;
 	}
 }

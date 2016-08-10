@@ -21,6 +21,7 @@ import com.jyothigas.app.model.Mail;
 import com.jyothigas.app.model.OTP;
 import com.jyothigas.app.model.Register;
 import com.jyothigas.app.model.SMS;
+import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.PasswordProtector;
 
 @Service("registrationService")
@@ -56,6 +57,7 @@ public class RegistrationService {
 			logger.info("User Registration...");
 			BeanUtils.copyProperties(register, registrationEntity);
 			registrationEntity.setEncyPassword(PasswordProtector.encrypt(register.getEncyPassword()));
+			registrationEntity.setStatus(Constant.NEW);
 			registrationEntity = registrationDAO.merge(registrationEntity);
 			result = registrationEntity.getId();
 

@@ -12,6 +12,11 @@ public class ConsumerDetails {
 	private int roleId;
 	private String roleName;
 	private String address;
+	private String dealerName;
+	private int dealerId;
+	private String connectionTypeName;
+	private int connectionTypeId;
+	
 
 	public int getReg_id() {
 		return reg_id;
@@ -91,6 +96,38 @@ public class ConsumerDetails {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getDealerName() {
+		return dealerName;
+	}
+
+	public void setDealerName(String dealerName) {
+		this.dealerName = dealerName;
+	}
+
+	public int getDealerId() {
+		return dealerId;
+	}
+
+	public void setDealerId(int dealerId) {
+		this.dealerId = dealerId;
+	}
+
+	public String getConnectionTypeName() {
+		return connectionTypeName;
+	}
+
+	public void setConnectionTypeName(String connectionTypeName) {
+		this.connectionTypeName = connectionTypeName;
+	}
+
+	public int getConnectionTypeId() {
+		return connectionTypeId;
+	}
+
+	public void setConnectionTypeId(int connectionTypeId) {
+		this.connectionTypeId = connectionTypeId;
 	}
 
 }

@@ -9,4 +9,8 @@ public class Constant {
 	public static final String NEW_SMSOTP = "/getNewSMSOTP/{email}";
 	public static final String LOGIN = "/login";
 	public static final String GET_CONSUMER_DETAILS = "/getConsumerDetails";
+	public static final String GET_DEALER_DETAILS = "/getDealers";
+	public static final String UPDATE_CONSUMER = "/updateConsumer";
+	public static final String NEW = "NEW";
+	public static final String GET_APPLIANCES = "/getAppliances";
 }

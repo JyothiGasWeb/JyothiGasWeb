@@ -11,6 +11,9 @@ public class Register implements java.io.Serializable {
 	private String encyPassword;
 	private int roleId;
 	private String address;
+	private int connectionTypeId;
+	private int dealerId;
+	private String status;
 
 	public int getId() {
 		return id;
@@ -82,6 +85,30 @@ public class Register implements java.io.Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public int getConnectionTypeId() {
+		return connectionTypeId;
+	}
+
+	public void setConnectionTypeId(int connectionTypeId) {
+		this.connectionTypeId = connectionTypeId;
+	}
+
+	public int getDealerId() {
+		return dealerId;
+	}
+
+	public void setDealerId(int dealerId) {
+		this.dealerId = dealerId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
