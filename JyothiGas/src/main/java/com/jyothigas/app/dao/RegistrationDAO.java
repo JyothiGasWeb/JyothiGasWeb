@@ -34,6 +34,20 @@ public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
 		return registrationEntity;
 	}
 	
+	public List<RegistrationEntity> findByStatus(String status) {
+		log.info("Getting UserEntity Instance with status: " + status);
+		List<RegistrationEntity> registrationEntity = new ArrayList<RegistrationEntity>();
+		try {
+			registrationEntity = entityManager.createQuery("select s from RegistrationEntity s Where s.status = :status",RegistrationEntity.class)
+					.setParameter("status", status)
+					.getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			log.error("Failed : " + e);
+		}
+		return registrationEntity;
+	}
+	
 	
 	public List<RegistrationEntity> findByMobileNo(String contactNo) {
 		log.info("Getting UserEntity Instance with contactNo: " + contactNo);

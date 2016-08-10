@@ -17,8 +17,9 @@ public class OTPDAO extends JyothiGasDAO<OTPEntity> {
 		try {
 
 			instance = entityManager
-					.createQuery("select s from OTPEntity s Where s.verificationId = :verificationId limit 1", OTPEntity.class)
-					.setParameter("verificationId", verificationId).setMaxResults(1).getSingleResult();
+					.createQuery("select s from OTPEntity s Where s.verificationId = :verificationId ", OTPEntity.class)
+					.setParameter("verificationId", verificationId)
+					.getResultList().get(0);
 			log.info("get successful");
 
 		} catch (RuntimeException re) {
