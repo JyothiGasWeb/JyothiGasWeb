@@ -256,6 +256,14 @@ angular.module('clientApp', [
                     type: 'login'
                 }
             })
+            .state('contactUs', {
+                url: '/contactUs',
+                templateUrl: "app/views/consumer/contactUs.html",
+                parent: 'layout',
+                data: {
+                    type: 'login'
+                }
+            })
 
 
     }])
