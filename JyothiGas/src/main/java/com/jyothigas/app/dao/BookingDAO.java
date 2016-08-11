@@ -10,7 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
-import com.jyothigas.app.service.BookingEntity;
+import com.jyothigas.app.entity.BookingEntity;
 
 @Repository("bookingDAO")
 public class BookingDAO extends JyothiGasDAO<BookingEntity> {
@@ -42,6 +42,24 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 					.getResultList();
 			log.info("get successfull");
 		} catch (Exception e) {
+			log.error("Failed : " + e);
+		}
+		return bookingEntity;
+	}
+	
+	/*
+	 * For now assuming there will be only one type of booking; later when
+	 * product will be added this needs to be changed @Rishabh
+	 */
+	public BookingEntity findInProgressOrderDetail(int bookingId) {
+		log.info("Getting BookingEntity Instance with consumer_id: " + bookingId);
+		BookingEntity bookingEntity = new BookingEntity();
+		try {
+			bookingEntity = entityManager.createQuery("select s from BookingEntity s Where s.id = :bookingId and s.status ='PENDING'",BookingEntity.class)
+					.setParameter("bookingId", bookingId).getResultList().get(0);
+			log.info("get successfull");
+		} catch (Exception e) {
+			System.out.println(e);
 			log.error("Failed : " + e);
 		}
 		return bookingEntity;

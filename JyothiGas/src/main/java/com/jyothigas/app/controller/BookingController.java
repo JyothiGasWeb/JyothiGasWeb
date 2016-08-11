@@ -12,10 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyothigas.app.model.AppResponse;
 import com.jyothigas.app.model.Booking;
+import com.jyothigas.app.model.OrderDetail;
 import com.jyothigas.app.service.BookingService;
 import com.jyothigas.utils.Constant;
 
@@ -164,6 +166,7 @@ public class BookingController {
 		}
 	}
 	
+	
 	/**
 	 * API for fetch booking details using consumer
 	 * 
@@ -190,6 +193,34 @@ public class BookingController {
 			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
+	/**
+	 * API for fetch booking details using consumer
+	 * 
+	 * @param register
+	 * @return
+	 */
+	@RequestMapping(value = Constant.GET_IN_PROGRESS_BOOKING, method = RequestMethod.POST)
+	public @ResponseBody Object findInProgressOrderDetail(@RequestParam Integer bookingId) {
+		logger.info("Getting User Details..");
+		try {
+			OrderDetail bookingDetail = bookingService.findInProgressOrderDetail(bookingId);
+			return bookingDetail;
+		} catch (Exception e) {
+			logger.error("Error While Getting User Details..");
+			e.printStackTrace();
+			List<AppResponse> appObjList = new ArrayList<AppResponse>();
+			AppResponse appResponse = new AppResponse();
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			appResponse.setHttpErrorCode(405);
+			appResponse.setOauth2ErrorCode("invalid_token");
+			appObjList.add(appResponse);
+			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	
 	
 }

@@ -57,7 +57,8 @@ public class JyothiGasDAO<E> {
 			log.info("get successful");
 			return instance;
 		} catch (RuntimeException re) {
-			log.error("get failed", re);
+			System.out.println(re);
+			log.error("get failed for "+type.getName(), re);
 		}
 		return instance;
 	}

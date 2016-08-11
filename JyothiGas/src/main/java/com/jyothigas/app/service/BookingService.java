@@ -1,5 +1,6 @@
 package com.jyothigas.app.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,37 +14,45 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jyothigas.app.dao.BookingDAO;
+import com.jyothigas.app.dao.ConnectionTypeDAO;
 import com.jyothigas.app.dao.ConsumerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
+import com.jyothigas.app.entity.BookingEntity;
+import com.jyothigas.app.entity.ConnectionTypeEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.Booking;
+import com.jyothigas.app.model.OrderDetail;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.OTPUtil;
 
 @Service("bookingService")
 @Transactional
 public class BookingService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
 
 	@Autowired
 	BookingDAO bookingDAO;
-	
+
 	@Autowired
 	SMSService smsService;
-	
+
 	@Autowired
 	RegistrationDAO registrationDAO;
 
 	@Autowired
 	ConsumerDAO consumerDAO;
-	
+
+	@Autowired
+	ConnectionTypeDAO connectionTypeDao;
+
 	/**
 	 * Method for Insert booking data
+	 * 
 	 * @param booking
 	 */
-	public int insertBookingCylinder(Booking booking){
+	public int insertBookingCylinder(Booking booking) {
 		logger.info("Inserting booking data...");
 		int result = 0;
 		String refToken = String.valueOf(OTPUtil.generateIntToken());
@@ -51,9 +60,9 @@ public class BookingService {
 		try {
 			BeanUtils.copyProperties(booking, bookingEntity);
 			bookingEntity.setBooking_date(new Date());
-			if(checkDeliveryDate().before(new Date())){
+			if (checkDeliveryDate().before(new Date())) {
 				bookingEntity.setDate_of_deleivery(new Date());
-			}else{
+			} else {
 				bookingEntity.setDate_of_deleivery(getDeliveryDate());
 			}
 			bookingEntity.setReference(refToken);
@@ -61,8 +70,9 @@ public class BookingService {
 			bookingDAO.persist(bookingEntity);
 			result = 1;
 			ConsumerEntity consumerEntity = consumerDAO.findById(ConsumerEntity.class, booking.getConsumer_id());
-			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class, consumerEntity.getReg_id());
-			//Send reference to mobile
+			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
+					consumerEntity.getReg_id());
+			// Send reference to mobile
 			smsService.sendMessage(Constant.BOOKING_MESSAGE + refToken, registrationEntity.getContactNo());
 		} catch (Exception e) {
 			result = 0;
@@ -71,12 +81,13 @@ public class BookingService {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Method for update booking status
+	 * 
 	 * @param booking
 	 */
-	public int updateBookingCylinderStatus(Booking booking){
+	public int updateBookingCylinderStatus(Booking booking) {
 		logger.info("Update booking data...");
 		int result = 0;
 		try {
@@ -91,13 +102,14 @@ public class BookingService {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Method for fetch booking details by status
+	 * 
 	 * @param booking
 	 * @return
 	 */
-	public List<Booking> fetchBookingsByStatus(Booking booking){
+	public List<Booking> fetchBookingsByStatus(Booking booking) {
 		logger.info("fetchBookingsByStatus...");
 		List<Booking> bookingList = new ArrayList<Booking>();
 		try {
@@ -113,13 +125,14 @@ public class BookingService {
 		}
 		return bookingList;
 	}
-	
+
 	/**
 	 * Method for fetch booking details by consumer
+	 * 
 	 * @param booking
 	 * @return
 	 */
-	public List<Booking> findByConsumerId(Booking booking){
+	public List<Booking> findByConsumerId(Booking booking) {
 		logger.info("findByConsumerId...");
 		List<Booking> bookingList = new ArrayList<Booking>();
 		try {
@@ -135,13 +148,14 @@ public class BookingService {
 		}
 		return bookingList;
 	}
-	
+
 	/**
 	 * Method for fetch booking details by Connection type
+	 * 
 	 * @param booking
 	 * @return
 	 */
-	public List<Booking> findByConnectionTypeId(Booking booking){
+	public List<Booking> findByConnectionTypeId(Booking booking) {
 		logger.info("findByConnectionTypeId...");
 		List<Booking> bookingList = new ArrayList<Booking>();
 		try {
@@ -157,13 +171,40 @@ public class BookingService {
 		}
 		return bookingList;
 	}
-	
+
 	/**
-	 * Method fetch all booking details
+	 * Method for fetch booking details by status and custid
+	 * 
 	 * @param booking
 	 * @return
 	 */
-	public List<Booking> findAllBookings(){
+	public OrderDetail findInProgressOrderDetail(int bookingId) {
+		logger.info("findInProgressOrderDetail...");
+		OrderDetail order = null;
+		try {
+			// Step-1 get booking detail
+			BookingEntity bookingEntity = bookingDAO.findInProgressOrderDetail(bookingId);
+			System.out.println(bookingEntity.getConnectionTypeId());
+			// Step-2 get connection type detail
+			ConnectionTypeEntity connectionType = connectionTypeDao.findById(ConnectionTypeEntity.class,
+					bookingEntity.getConnectionTypeId());
+			System.out.println(connectionType);
+			// Step-3 make booking details for UI
+			 order = createOrderDetail(connectionType, bookingEntity);
+		} catch (Exception e) {
+			logger.error("Error in findByConnectionTypeId");
+			e.printStackTrace();
+		}
+		return order;
+	}
+
+	/**
+	 * Method fetch all booking details
+	 * 
+	 * @param booking
+	 * @return
+	 */
+	public List<Booking> findAllBookings() {
 		logger.info("findAllBookings...");
 		List<Booking> bookingList = new ArrayList<Booking>();
 		try {
@@ -179,13 +220,14 @@ public class BookingService {
 		}
 		return bookingList;
 	}
-	
+
 	/**
 	 * Method for check booking DateTime (Before 6 PM)
+	 * 
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
-	private Date checkDeliveryDate(){
+	private Date checkDeliveryDate() {
 		Date date = null;
 		try {
 			date = new Date(new Date().getYear(), new Date().getMonth(), new Date().getDate(), 18, 0);
@@ -194,9 +236,10 @@ public class BookingService {
 		}
 		return date;
 	}
-	
+
 	/**
 	 * Method for get Delivery Date
+	 * 
 	 * @return
 	 */
 	private Date getDeliveryDate() {
@@ -208,6 +251,30 @@ public class BookingService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	    return cal.getTime();
+		return cal.getTime();
+	}
+
+	// For now only for cylinder
+	private OrderDetail createOrderDetail(ConnectionTypeEntity connectionType, BookingEntity entity) {
+		OrderDetail order = new OrderDetail();
+		order.setQunatity(entity.getQunatity());
+		order.setBooking_date(entity.getBooking_date());
+		BigDecimal price = new BigDecimal(String.valueOf(entity.getQunatity() * connectionType.getConnectionPrice()));
+		order.setConnectionPrice(price);
+		order.setConnectionDesc(connectionType.getConnectionDesc());
+		order.setConnectionType(connectionType.getConnectionType());
+		order.setConsumer_id(entity.getConsumer_id());
+		order.setId(entity.getId());
+		order.setLast_deleivery(entity.getLast_deleivery());
+		order.setLast_issue(entity.getLast_issue());
+		order.setStatus(entity.getStatus());
+		BigDecimal delvCharges = new BigDecimal("120.00");
+		order.setDeliveryCharges(delvCharges);
+		BigDecimal hndlCharges = new BigDecimal("70.00");
+		order.setHandlingCharges(hndlCharges);
+		BigDecimal totalCharges = price.add(delvCharges).add(hndlCharges);
+		order.setTotalCharges(totalCharges);
+		return order;
+
 	}
 }

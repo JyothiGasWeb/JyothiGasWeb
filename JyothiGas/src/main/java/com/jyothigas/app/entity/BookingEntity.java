@@ -1,4 +1,4 @@
-package com.jyothigas.app.service;
+package com.jyothigas.app.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

@@ -18,7 +18,7 @@ public class Constant {
 	public static final String GET_BOOKING_BY_CONSUMER = "/getBookingByConsumer";
 	public static final String GET_BOOKING_BY_CONNECTION_TYPE = "/getBookingByConnectionType";
 	public static final String GET_ALL_BOOKINGS = "/getAllBookings";
-	
+	public static final String GET_IN_PROGRESS_BOOKING = "/getInprogressBooking";
 	
 	public static final String NEW = "NEW";
 	public static final String BOOKING_MESSAGE = "Dear consumer your booking reference no. is ";
