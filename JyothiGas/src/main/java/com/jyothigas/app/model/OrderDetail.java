@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderDetail {
-	private int id;
+	private int booking_id;
 	private int consumer_id;
 	private Date booking_date;
 	private Date last_issue;
@@ -18,12 +18,12 @@ public class OrderDetail {
 	private BigDecimal handlingCharges;
 	private BigDecimal totalCharges;
 
-	public int getId() {
-		return id;
+	public int getBooking_id() {
+		return booking_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setBooking_id(int booking_id) {
+		this.booking_id = booking_id;
 	}
 
 	public int getConsumer_id() {

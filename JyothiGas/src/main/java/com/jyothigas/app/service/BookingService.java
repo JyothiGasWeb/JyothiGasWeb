@@ -264,7 +264,7 @@ public class BookingService {
 		order.setConnectionDesc(connectionType.getConnectionDesc());
 		order.setConnectionType(connectionType.getConnectionType());
 		order.setConsumer_id(entity.getConsumer_id());
-		order.setId(entity.getId());
+		order.setBooking_id(entity.getId());
 		order.setLast_deleivery(entity.getLast_deleivery());
 		order.setLast_issue(entity.getLast_issue());
 		order.setStatus(entity.getStatus());
