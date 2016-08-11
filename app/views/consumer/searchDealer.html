@@ -4,13 +4,18 @@
 	</h2>
 	<br>
 	<div>
-		<form>
+		<form name="dealerForm">
 			<md-input-container class="md-block">
 				<label>Pin Code</label>
-				<input ng-model="dealer.pincode">
+				<input required name="pinCode" ng-model="dealer.pincode" ng-pattern="/^\d{6}$/">
+                    <div ng-messages="dealerForm.pinCode.$error" role="alert">
+                        <div ng-message-exp="['required', 'pattern']">
+                            Add a valid pin code
+                        </div>
+                    </div>
 			</md-input-container>
 			<div class="row" layout-align="center center">
-				<md-button class="md-primary md-raised">Search Dealer</md-button>
+				<md-button class="md-primary md-raised" ng-disabled="dealerForm.$invalid">Search Dealer</md-button>
 			</div>
 		</form>
 	</div>
