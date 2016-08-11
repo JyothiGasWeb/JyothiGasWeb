@@ -22,7 +22,8 @@ angular.module('clientApp', [
         'http-auth-interceptor',
         'underscore',
         'md.data.table',
-        'ngCart'
+        'ngCart',
+        'mdPickers'
     ])
     .constant('APP_CONFIG', {
         API_URL: ''

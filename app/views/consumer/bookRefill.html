@@ -51,17 +51,23 @@
                     </md-slider-container>
                 </div>
                 <div layout="row">
-                    <span flex></span>
-                    <md-button class="md-primary md-raised" ng-click="bookRefill()">Confirm</md-button>
+                    <span flex="10"></span>
+                    <div flex="35" class="md-body-2">Preferred Time</div>
+                    <mdp-time-picker ng-model="currentDate"></mdp-time-picker>
                 </div>
             </div>
-            <div ng-show="!isForm">
-                <div>Thank you for booking with us Your booking reference no is 12433445
-                </div>
-                <br>
-                <div>Your cylinder will be delivered within 6hrs from booking. It will be delivered by 20th april 16 before 6 PM</div>
-                <div>Your Dealer contact No: 96876786876</div>
+            <div layout="row">
+                <span flex></span>
+                <md-button class="md-primary md-raised" ng-click="bookRefill()">Confirm</md-button>
             </div>
-        </md-content>
+    </div>
+    <div ng-show="!isForm">
+        <div>Thank you for booking with us Your booking reference no is 12433445
+        </div>
+        <br>
+        <div>Your cylinder will be delivered within 6hrs from booking. It will be delivered by 20th april 16 before 6 PM</div>
+        <div>Your Dealer contact No: 96876786876</div>
+    </div>
+    </md-content>
     </div>
 </section>
