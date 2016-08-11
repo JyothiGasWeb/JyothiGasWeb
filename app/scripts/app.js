@@ -109,6 +109,16 @@ angular.module('clientApp', [
                     name: 'bookRefill'
                 }
             })
+            .state('profile', {
+                url: '/profile',
+                templateUrl: "app/views/consumer/profile.html",
+                controller: "ProfileCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'profile'
+                }
+            })
             .state('domesticConnection', {
                 url: '/domesticConnection',
                 templateUrl: "app/views/consumer/domesticConnection.html",
@@ -133,6 +143,16 @@ angular.module('clientApp', [
                 url: '/industrial',
                 templateUrl: "app/views/consumer/industrial.html",
                 controller: "IndustrialCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'consumerDash'
+                }
+            })
+            .state('appliances', {
+                url: '/appliances',
+                templateUrl: "app/views/consumer/appliances.html",
+                controller: "AppliancesCtrl",
                 parent: 'layout',
                 data: {
                     type: 'login',
@@ -188,6 +208,16 @@ angular.module('clientApp', [
                     name: 'priceList'
                 }
             })
+            .state('contactDealer', {
+                url: '/contactDealer',
+                templateUrl: "app/views/consumer/contactDealer.html",
+                controller: "ContactDealerCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'contactDealer'
+                }
+            })
             .state('safetyTips', {
                 url: '/safetyTips',
                 templateUrl: "app/views/consumer/safetyTips.html",
@@ -205,6 +235,16 @@ angular.module('clientApp', [
                 data: {
                     type: 'login',
                     name: 'bookingHistory'
+                }
+            })
+            .state('surrender', {
+                url: '/surrender',
+                templateUrl: "app/views/consumer/surrender.html",
+                controller: "SurrenderCtrl",
+                parent: 'layout',
+                data: {
+                    type: 'login',
+                    name: 'surrender'
                 }
             })
             .state('checkout', {

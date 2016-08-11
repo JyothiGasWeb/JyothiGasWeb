@@ -18,8 +18,8 @@
                 <td md-cell>{{ item.getName() }}</td>
                 <td md-cell><span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.getQuantity()==1}" ng-click="item.setQuantity(-1, true)"></span>&nbsp;&nbsp; {{ item.getQuantity() | number }}&nbsp;&nbsp;
                     <span class="glyphicon glyphicon-plus" ng-click="item.setQuantity(1, true)"></span></td>
-                <td md-cell>{{ item.getPrice() | currency}}</td>
-                <td md-cell>{{ item.getTotal() | currency }}</td>
+                <td md-cell>{{ item.getPrice() | currency: '&#8377;' }}</td>
+                <td md-cell>{{ item.getTotal() | currency: '&#8377;' }}</td>
             </tr>
         </tbody>
         <tfoot md-foot>
@@ -28,21 +28,21 @@
                 <td md-cell></td>
                 <td md-cell></td>
                 <td md-cell>Tax ({{ ngCart.getTaxRate() }}%):</td>
-                <td md-cell>{{ ngCart.getTax() | currency }}</td>
+                <td md-cell>{{ ngCart.getTax() | currency: '&#8377;' }}</td>
             </tr>
             <tr md-row ng-show="ngCart.getShipping()">
                 <td md-cell></td>
                 <td md-cell></td>
                 <td md-cell></td>
                 <td md-cell>Shipping:</td>
-                <td md-cell>{{ ngCart.getShipping() | currency }}</td>
+                <td md-cell>{{ ngCart.getShipping() | currency: '&#8377;' }}</td>
             </tr>
             <tr md-row>
                 <td md-cell></td>
                 <td md-cell></td>
                 <td md-cell></td>
                 <td md-cell>Total:</td>
-                <td md-cell>{{ ngCart.totalCost() | currency }}</td>
+                <td md-cell>{{ ngCart.totalCost() | currency: '&#8377;' }}</td>
             </tr>
         </tfoot>
     </table>

@@ -2,75 +2,59 @@
     <h2 class="md-title">Book Refill</h2>
     <div layout="row" layout-align="center center">
         <md-content flex="60" layout-padding class="md-whiteframe-8dp bookRefill-content">
-            <form name="refillForm" ng-show="isForm">
-                <md-input-container class="md-block">
-                    <label>Dealer</label>
-                    <input required name="dealer" ng-model="user.dealer" />
-                    <div ng-messages="refillForm.dealer.$error" role="alert">
-                        <div ng-message-exp="['required']">
-                            Dealer Name is Required
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Consumer No</label>
-                    <input required name="consumerNo" ng-model="user.consumerNo" />
-                    <div ng-messages="refillForm.consumerNo.$error" role="alert">
-                        <div ng-message-exp="['required']">
-                            consumer Number is Required
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Consumer Name</label>
-                    <input required name="consumerName" ng-model="user.consumerName" />
-                    <div ng-messages="refillForm.consumerName.$error" role="alert">
-                        <div ng-message-exp="['required']">
-                            Consumer Name is Required
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Dealer</label>
-                    <input required name="dealer" ng-model="user.dealer" />
-                    <div ng-messages="refillForm.dealer.$error" role="alert">
-                        <div ng-message-exp="['required']">
-                            Dealer Name is Required
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Address</label>
-                    <input required name="address" ng-model="user.address" />
-                    <div ng-messages="refillForm.address.$error" role="alert">
-                        <div ng-message-exp="['required']">
-                            Address is Required
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Contact No</label>
-                    <input required name="contactNo" ng-model="user.contactNo" />
-                    <div ng-messages="refillForm.contactNo.$error" role="alert">
-                        <div ng-message-exp="['required']">
-                            Contact Number is Required
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>Dealer</label>
-                    <input required name="dealer" ng-model="user.dealer" />
-                    <div ng-messages="refillForm.dealer.$error" role="alert">
-                        <div ng-message-exp="['required']">
-                            Dealer Name is Required
-                        </div>
-                    </div>
-                </md-input-container>
-                <div layout="row" layout-align="end end">
-                    <md-button class="md-warn md-raised" ng-click=reset()>Reset</md-button>
-                    <md-button class="md-primary md-raised" ng-disabled="refillForm.$invalid" ng-click="bookRefill()">Confirm</md-button>
+            <div ng-show="isForm">
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="35" class="md-body-2">Dealer:</div>
+                    <div>{{refillObj.dealerName}}</div>
                 </div>
-            </form>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="35" class="md-body-2">Consumer No:</div>
+                    <div>{{refillObj.consumerNo}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="35" class="md-body-2">Consumer Name:</div>
+                    <div>{{refillObj.consumerName}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="35" class="md-body-2">Address:</div>
+                    <div>{{refillObj.address}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="35" class="md-body-2">Contact No:</div>
+                    <div>{{refillObj.contact}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="45"></span>
+                    <md-input-container>
+                        <label>Product Type - Price</label>
+                        <md-select ng-model="productType">
+                            <md-option ng-repeat="type in productTypes" value="{{type}}">
+                                {{type}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="35" class="md-body-2">No Of Cylinders</div>
+                    <md-slider-container>
+                        <md-slider flex ng-model="cylinders" min="1" max="5" aria-label="cylinder" step="1" id="cylinder-slider" class="md-accent">
+                        </md-slider>
+                        <md-input-container>
+                            <input flex type="number" ng-model="cylinders" aria-label="cylinder" aria-controls="cylinder-slider">
+                        </md-input-container>
+                    </md-slider-container>
+                </div>
+                <div layout="row">
+                    <span flex></span>
+                    <md-button class="md-primary md-raised" ng-click="bookRefill()">Confirm</md-button>
+                </div>
+            </div>
             <div ng-show="!isForm">
                 <div>Thank you for booking with us Your booking reference no is 12433445
                 </div>

@@ -121,13 +121,13 @@ angular.module('clientApp')
         }, {
             "name": "Surrender Connection",
             "icon": "fa fa fa-suitcase",
-            "link": "surrenderCon",
-            "extNmae": "surrenderCon"
+            "link": "surrender",
+            "extNmae": "surrender"
         },{
             "name": "Contact your Dealer",
-            "icon": "fa fa-search",
-            "link": "ctctDealer",
-            "extNmae": "ctctDealer"
+            "icon": "fa fa-phone",
+            "link": "contactDealer",
+            "extNmae": "contactDealer"
         }, {
             "name": "Safety Tips",
             "icon": "fa fa-info",
