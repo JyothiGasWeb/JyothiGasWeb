@@ -119,8 +119,13 @@ angular.module('clientApp')
             "link": "transferCon",
             "extNmae": "transferCon"
         }, {
-            "name": "Surrender Connection",
+            "name": "Mechanic Service",
             "icon": "fa fa fa-suitcase",
+            "link": "mechanicService",
+            "extNmae": "mechanicService"
+        },{
+            "name": "Surrender Connection",
+            "icon": "fa fa fa-ban",
             "link": "surrender",
             "extNmae": "surrender"
         },{
