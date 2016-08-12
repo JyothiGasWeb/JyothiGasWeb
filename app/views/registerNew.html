@@ -14,7 +14,7 @@
                         <form name="registerForm" ng-submit="validateuser(registerForm);" autocomplete="off">
                             <md-input-container class="md-block">
                                 <label>Full Name</label>
-                                <input required name="fullName" ng-model="user.fullName">
+                                <input required name="fullName" ng-model="user.name">
                                 <div ng-messages="registerForm.fullName.$error" role="alert">
                                     <div ng-message-exp="['required']">
                                         Enter valid Full Name
@@ -23,7 +23,7 @@
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Mobile</label>
-                                <input required name="mobile" ng-model="user.mobile" ng-pattern="/^\d{10}$/">
+                                <input required name="mobile" ng-model="user.contactNo" ng-pattern="/^\d{10}$/">
                                 <div ng-messages="registerForm.mobile.$error" role="alert">
                                     <div ng-message-exp="['required', 'pattern']">
                                         Enter valid Mobile Number
@@ -32,21 +32,13 @@
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Email</label>
-                                <input required name="userName" ng-model="user.username" ng-pattern="/^.+@.+\..+$/">
-                                <div ng-messages="registerForm.userName.$error" role="alert">
+                                <input required name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/">
+                                <div ng-messages="registerForm.email.$error" role="alert">
                                     <div ng-message-exp="['required', 'pattern']">
                                         Enter valid email address
                                     </div>
                                 </div>
                             </md-input-container>
-                            <md-autocomplete md-selected-item="selectedItem" md-search-text-change="searchTextChange(searchText)" md-search-text="searchText" md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)" md-item-text="item.display" md-min-length="0" placeholder="Search Dealer">
-                                <md-item-template>
-                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.display}}</span>
-                                </md-item-template>
-                                <md-not-found>
-                                    No dealers matching "{{searchText}}" were found.
-                                </md-not-found>
-                            </md-autocomplete>
                             <md-input-container class="md-block">
                                 <label>City</label>
                                 <md-select ng-model="user.city" name="city" required>
@@ -63,18 +55,34 @@
                                     </div>
                                 </div>
                             </md-input-container>
+                            <div layout="row">
+                                <md-input-container class="md-block" flex="40">
+                                    <label>Pin Code</label>
+                                    <input required name="areaCode" ng-model="user.areaCode" ng-pattern="/^\d{6}$/">
+                                    <div ng-messages="registerForm.areaCode.$error" role="alert">
+                                        <div ng-message-exp="['required', 'pattern']">
+                                            Add a valid pin code
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-button class="md-primary" ng-disabled="registerForm.areaCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
+                            </div>
                             <md-input-container class="md-block">
-                                <label>Pin Code</label>
-                                <input required name="pinCode" ng-model="user.pinCode" ng-pattern="/^\d{6}$/">
-                                <div ng-messages="registerForm.pinCode.$error" role="alert">
-                                    <div ng-message-exp="['required', 'pattern']">
-                                        Add a valid pin code
+                                <label>Dealers</label>
+                                <md-select ng-model="user.dealerId" required name="dealer">
+                                    <md-option ng-repeat="dealer in dealers" value="{{dealer.id}}">
+                                        {{dealer.dealer_name}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="registerForm.dealer.$error" role="alert">
+                                    <div ng-message-exp="['required']">
+                                        Dealer is mandatory
                                     </div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Password</label>
-                                <input required type="password" name="userPassword" ng-model="user.password" minlength="8" maxlength="12" />
+                                <input required type="password" name="userPassword" ng-model="user.encyPassword" minlength="8" maxlength="12" />
                                 <div ng-messages="registerForm.userPassword.$error" role="alert">
                                     <div ng-message-exp="['required', 'minlength', 'maxlength']">
                                         Your password was required to have a minimum length of 8 and maximum length of 12.
@@ -83,7 +91,7 @@
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Confirm Password</label>
-                                <input required type="password" name="ConfirmPasswd" ng-model="user.confirmPassword" required compare-to="user.password" />
+                                <input required type="password" name="ConfirmPasswd" ng-model="user.confirmPassword" required compare-to="user.encyPassword" />
                                 <div ng-messages="registerForm.ConfirmPasswd.$error" role="alert">
                                     <div ng-message-exp="['required', 'compareTo']">
                                         Your password Should Match.
@@ -95,8 +103,35 @@
                                 <textarea ng-model="user.address" md-maxlength="150" rows="1" md-select-on-focus></textarea>
                             </md-input-container>
                             <md-input-container class="md-block">
+                                <label>Connection Type</label>
+                                <md-select ng-model="user.connectionTypeId" name="connection" required>
+                                    <md-option value="1">
+                                        Domestic
+                                    </md-option>
+                                    <md-option value="2">
+                                        Industrial
+                                    </md-option>
+                                    <md-option value="3">
+                                        Commercial
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="registerForm.connection.$error" role="alert">
+                                    <div ng-message-exp="['required']">
+                                        Connection Type is Required
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-slider-container>
+                                <span class="md-body-1">No Of Cylinders</span>
+                                <md-slider flex ng-model="user.connectionQty" min="1" max="5" aria-label="cylinder" step="1" id="cylinder-slider" class="md-accent">
+                                </md-slider>
+                                <md-input-container>
+                                    <input flex type="number" ng-model="user.connectionQty" aria-label="cylinder" aria-controls="cylinder-slider">
+                                </md-input-container>
+                            </md-slider-container>
+                            <md-input-container class="md-block">
                                 <div layout="row" layout-align="center center">
-                                    <md-button class="md-raised md-primary" type="submit" ng-disabled="registerForm.$invalid || disableLogin" style="width:50%;">Sign Up
+                                    <md-button class="md-raised md-primary" type="submit" ng-disabled="registerForm.$invalid || disableLogin" style="width:50%;" ng-click="register()">Sign Up
                                     </md-button>
                                 </div>
                             </md-input-container>

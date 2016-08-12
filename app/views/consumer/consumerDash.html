@@ -30,7 +30,7 @@
                         </md-card-title-media>
                     </md-card-title>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-primary" ui-sref="industrial">view</md-button>
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'industrial')">view</md-button>
                     </md-card-actions>
                 </md-card>
                 <md-card class="dashboard-cards">
@@ -62,7 +62,7 @@
                         </md-card-title-media>
                     </md-card-title>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-primary" ui-sref="domesticConnection">view</md-button>
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'domestic')">view</md-button>
                     </md-card-actions>
                 </md-card>
                 <md-card class="dashboard-cards">
@@ -109,7 +109,7 @@
                         </md-card-title-media>
                     </md-card-title>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-primary" ui-sref="commercial">view</md-button>
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'commercial')">view</md-button>
                     </md-card-actions>
                 </md-card>
                 <md-card class="dashboard-cards">

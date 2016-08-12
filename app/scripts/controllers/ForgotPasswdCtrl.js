@@ -6,9 +6,7 @@ angular.module('clientApp')
         $scope.validateuser = function(ev) {
             $mdDialog.show({
                     controller: function($scope, $mdDialog, AlertService) {
-                        $scope.moduleObj = {
-                            "clientSecret": "nbosSecret"
-                        };
+                       
                         $scope.create = function() {
                             $mdDialog.hide(response);
                         };

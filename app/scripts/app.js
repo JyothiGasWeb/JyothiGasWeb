@@ -26,7 +26,7 @@ angular.module('clientApp', [
         'mdPickers'
     ])
     .constant('APP_CONFIG', {
-        API_URL: ''
+        API_URL: 'http://localhost:8080/jyothiGas/'
     })
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         //cfpLoadingBarProvider.latencyThreshold = 100;
@@ -96,7 +96,6 @@ angular.module('clientApp', [
                 controller: "ConsumerDashCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'consumerDash'
                 }
             })
@@ -106,7 +105,6 @@ angular.module('clientApp', [
                 controller: "BookRefillCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'bookRefill'
                 }
             })
@@ -116,17 +114,15 @@ angular.module('clientApp', [
                 controller: "ProfileCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'profile'
                 }
             })
-            .state('domesticConnection', {
-                url: '/domesticConnection',
+            .state('domestic', {
+                url: '/domestic',
                 templateUrl: "app/views/consumer/domesticConnection.html",
                 controller: "DomesticConnectionCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'consumerDash'
                 }
             })
@@ -136,7 +132,6 @@ angular.module('clientApp', [
                 controller: "CommercialCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'consumerDash'
                 }
             })
@@ -146,7 +141,6 @@ angular.module('clientApp', [
                 controller: "IndustrialCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'consumerDash'
                 }
             })
@@ -156,7 +150,6 @@ angular.module('clientApp', [
                 controller: "AppliancesCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'consumerDash'
                 }
             })
@@ -166,7 +159,6 @@ angular.module('clientApp', [
                 controller: "SearchDealerCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'consumerDash'
                 }
             })
@@ -176,7 +168,6 @@ angular.module('clientApp', [
                 controller: "DealerChangeCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'dealerChange'
                 }
             })
@@ -186,7 +177,6 @@ angular.module('clientApp', [
                 controller: "AddressChangeCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'addressChange'
                 }
             })
@@ -196,7 +186,6 @@ angular.module('clientApp', [
                 controller: "MechanicServiceCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'mechanicService'
                 }
             })
@@ -205,7 +194,6 @@ angular.module('clientApp', [
                 templateUrl: "app/views/consumer/priceList.html",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'priceList'
                 }
             })
@@ -215,7 +203,6 @@ angular.module('clientApp', [
                 controller: "ContactDealerCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'contactDealer'
                 }
             })
@@ -224,7 +211,6 @@ angular.module('clientApp', [
                 templateUrl: "app/views/consumer/safetyTips.html",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'safetyTips'
                 }
             })
@@ -234,7 +220,6 @@ angular.module('clientApp', [
                 controller: "BookingHistoryCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'bookingHistory'
                 }
             })
@@ -244,25 +229,18 @@ angular.module('clientApp', [
                 controller: "SurrenderCtrl",
                 parent: 'layout',
                 data: {
-                    type: 'login',
                     name: 'surrender'
                 }
             })
             .state('checkout', {
                 url: '/checkout',
                 templateUrl: "app/views/consumer/checkout.html",
-                controller: "CheckoutCtrl",
-                data: {
-                    type: 'login'
-                }
+                controller: "CheckoutCtrl"
             })
             .state('contactUs', {
                 url: '/contactUs',
                 templateUrl: "app/views/consumer/contactUs.html",
-                parent: 'layout',
-                data: {
-                    type: 'login'
-                }
+                parent: 'layout'
             })
 
 
@@ -293,7 +271,7 @@ angular.module('clientApp', [
 
                     if (angular.isDefined(next.data) && angular.isDefined(next.data.type) && next.data.type === 'login') {
                         event.preventDefault();
-                        $state.go('dashboard');
+                        $state.go('consumerDash');
                     }
 
                 } else {

@@ -82,6 +82,10 @@ md-menu-divider {
 .register .register-container .register-content md-input-container label {
   color: #000;
 }
+.register .register-container .register-content md-input-container ._md-select-placeholder {
+  color: #000;
+  font-size: 14px;
+}
 .register .register-container .register-content md-input-container .md-input {
   color: #000;
 }

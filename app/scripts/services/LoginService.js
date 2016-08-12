@@ -23,9 +23,9 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
-        loginService.getUser = function(token) {
+        loginService.getConsumer = function(obj) {
             var deferred = $q.defer();
-            LoginFactory.user().get({ 'token': token }, function(success) {
+            LoginFactory.consumer().post(obj, function(success) {
                 deferred.resolve(success);
             }, function(error) {
 
@@ -51,7 +51,7 @@ angular.module('clientApp')
 
         var loginFact = {};
         loginFact.authenticate = function() {
-            return $resource(APP_CONFIG.API_URL + 'authenticate', {}, {
+            return $resource(APP_CONFIG.API_URL + 'login', {}, {
                 'save': {
                     method: 'POST'
                 }
@@ -59,11 +59,10 @@ angular.module('clientApp')
             })
         };
 
-        loginFact.user = function() {
-            return $resource(APP_CONFIG.API_URL + 'getUserPreferences', {}, {
-                'get': {
-                    method: 'GET',
-                    isArray: true
+        loginFact.consumer = function() {
+            return $resource(APP_CONFIG.API_URL + 'getConsumerDetails', {}, {
+                'post': {
+                    method: 'POST',
                 }
 
             })

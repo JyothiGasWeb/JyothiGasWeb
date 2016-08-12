@@ -1,39 +1,96 @@
 angular.module('clientApp')
     .controller('RegisterNewCtrl', ['$scope', 'RegisterService', '$state', 'AlertService', '$mdDialog', '$q', function($scope, RegisterService, $state, AlertService, $mdDialog, $q) {
 
-        $scope.querySearch = function(query) {
-            var results = query ? $scope.dealers.filter(createFilterFor(query)) : $scope.dealers,
-                deferred;
-            if (self.simulateQuery) {
-                deferred = $q.defer();
-                $timeout(function() { deferred.resolve(results); }, Math.random() * 1000, false);
-                return deferred.promise;
-            } else {
-                return results;
+
+        $scope.dealers = [];
+        $scope.availableDealers = [];
+        var getAllDealers = function() {
+            $scope.availableDealers = [{
+                "id": 1,
+                "dealer_email": "dealer@email.com",
+                "dealer_name": "Dealer1",
+                "dealer_contact_no": "12345678",
+                "dealer_city": "Bangalore",
+                "dealer_area_code": "123456",
+                "dealer_address": "Dealer address"
+            }];
+            RegisterService.getAllDealers().then(function(response){
+                $scope.availableDealers = response;
+                console.log($scope.availableDealers)
+            }, function(error){
+                console.log("error getting dealers list");
+            })
+        };
+
+        $scope.filterDealers = function() {
+            $scope.dealers = [];
+            for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
+                if ($scope.user.areaCode == $scope.availableDealers[i].dealer_area_code) {
+                    $scope.dealers.push($scope.availableDealers[i]);
+                }
             }
         };
 
-        $scope.selectedItem = null;
-
-        function loadAll() {
-            var dealers = 'Jyothi enterprises, Parvathi Enterprises';
-            return dealers.split(/, +/g).map(function(state) {
-                return {
-                    value: state.toLowerCase(),
-                    display: state
-                };
-            });
-        }
-
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-            return function filterFn(state) {
-                return ($scope.dealers.indexOf(lowercaseQuery) === 0);
+        $scope.register = function() {
+            var userObj = {
+                "email": $scope.user.email,
+                "name": $scope.user.name,
+                "contactNo": $scope.user.contactNo,
+                "city": $scope.user.city,
+                "areaCode": $scope.user.areaCode,
+                "encyPassword": $scope.user.encyPassword,
+                "roleId": 1,
+                "address": $scope.user.address,
+                "connectionTypeId": $scope.user.connectionTypeId,
+                "dealerId": $scope.user.dealerId,
+                "status": "New",
+                "connectionQty": $scope.user.connectionQty,
             };
-        }
+
+            RegisterService.register(userObj).then(function(response) {
+                if (response && response.status == 'OK') {
+                    validateuser($scope.user.contactNo);
+                }
+            }, function(error) {
+                console.log("error Registering User")
+            })
+        };
+
+        var validateuser = function(mobile) {
+            $mdDialog.show({
+                    controller: function($scope, $mdDialog, RegisterService, mobile) {
+                        $scope.otpObj = {};
+                        $scope.create = function() {
+                            RegisterService.validateOtp($scope.otpObj).then(function(response){
+                                $mdDialog.hide(response);
+                            }, function(error){
+                                console.log("error validating OTP");
+                            });
+                        };
+
+                        $scope.closeDialog = function() {
+                            $mdDialog.cancel();
+                        }
+                    },
+                    templateUrl: 'app/views/consumer/registerOtp.html',
+                    parent: angular.element(document.body),
+                    targetEvent: document.body,
+                    locals: {
+                        "mobile":mobile
+                    }
+                })
+                .then(function() {
+                    $state.go('login');
+                }, function() {
+                    $scope.status = 'You cancelled the dialog.';
+                });
+        };
 
         function init() {
-            $scope.dealers = loadAll();
+            getAllDealers();
+            $scope.user = {
+                "connectionQty": 1
+            }
         }
 
         init();
