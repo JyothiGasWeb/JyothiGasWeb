@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -140,13 +139,13 @@ public class RegistrationController {
 	 * @param email
 	 * @return
 	 */
-	@RequestMapping(value = Constant.NEW_SMSOTP, method = RequestMethod.GET)
-	public @ResponseBody AppResponse getNewSMSOTP(@PathVariable("email") String email) {
+	@RequestMapping(value = Constant.NEW_SMSOTP, method = RequestMethod.POST)
+	public @ResponseBody AppResponse getNewSMSOTP(@RequestBody OTP otpObj) {
 		logger.info("Request received for Get new SMS OTP");
 		AppResponse response = new AppResponse();
 		try {
 
-			Register register = registrationService.findUserByEmailId(email);
+			Register register = registrationService.findUserByEmailId(otpObj.getVerificationId());
 			if (register != null) {
 				OTP otp = new OTP();
 				otp.setVerificationId(register.getContactNo());
