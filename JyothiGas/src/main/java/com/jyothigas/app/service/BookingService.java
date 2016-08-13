@@ -67,8 +67,9 @@ public class BookingService {
 			}
 			bookingEntity.setReference(refToken);
 			bookingEntity.setStatus("PENDING");
-			bookingDAO.persist(bookingEntity);
-			result = 1;
+			BookingEntity bookingEntityObj = bookingDAO.merge(bookingEntity);
+			result = bookingEntityObj.getId();
+			
 			ConsumerEntity consumerEntity = consumerDAO.findById(ConsumerEntity.class, booking.getConsumer_id());
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
 					consumerEntity.getReg_id());
