@@ -5,15 +5,6 @@ angular.module('clientApp')
         $scope.dealers = [];
         $scope.availableDealers = [];
         var getAllDealers = function() {
-            $scope.availableDealers = [{
-                "id": 1,
-                "dealer_email": "dealer@email.com",
-                "dealer_name": "Dealer1",
-                "dealer_contact_no": "12345678",
-                "dealer_city": "Bangalore",
-                "dealer_area_code": "123456",
-                "dealer_address": "Dealer address"
-            }];
             RegisterService.getAllDealers().then(function(response){
                 $scope.availableDealers = response;
                 console.log($scope.availableDealers)

@@ -11,12 +11,12 @@
                 <div layout="row">
                     <span flex="10"></span>
                     <div flex="35" class="md-body-2">Consumer No:</div>
-                    <div>{{refillObj.consumerNo}}</div>
+                    <div>{{refillObj.consumer_id}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10"></span>
                     <div flex="35" class="md-body-2">Consumer Name:</div>
-                    <div>{{refillObj.consumerName}}</div>
+                    <div>{{refillObj.name}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10"></span>
@@ -26,18 +26,12 @@
                 <div layout="row">
                     <span flex="10"></span>
                     <div flex="35" class="md-body-2">Contact No:</div>
-                    <div>{{refillObj.contact}}</div>
+                    <div>{{refillObj.contactNo}}</div>
                 </div>
                 <div layout="row">
-                    <span flex="45"></span>
-                    <md-input-container>
-                        <label>Product Type - Price</label>
-                        <md-select ng-model="productType">
-                            <md-option ng-repeat="type in productTypes" value="{{type}}">
-                                {{type}}
-                            </md-option>
-                        </md-select>
-                    </md-input-container>
+                    <span flex="10"></span>
+                    <div flex="35" class="md-body-2">Product Type - Price</div>
+                    <div>{{refillObj.connectionTypeDesc}} - {{refillObj.connectionPrice}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10"></span>
@@ -50,24 +44,24 @@
                         </md-input-container>
                     </md-slider-container>
                 </div>
-                <div layout="row">
+                <div layout="row" style="display:none;">
                     <span flex="10"></span>
                     <div flex="35" class="md-body-2">Preferred Time</div>
                     <mdp-time-picker ng-model="currentDate"></mdp-time-picker>
                 </div>
+                <div layout="row">
+                    <span flex></span>
+                    <md-button class="md-primary md-raised" ng-click="bookRefill()">Confirm</md-button>
+                </div>
             </div>
-            <div layout="row">
-                <span flex></span>
-                <md-button class="md-primary md-raised" ng-click="bookRefill()">Confirm</md-button>
+            <div ng-show="!isForm">
+                <div class="md-body-1" ng-show="!isNextDay">
+                    Thank you for booking with us. Your Cylinder will be delivered from 4hrs from booking
+                </div>
+                <div class="md-body-1" ng-show="isNextDay">
+                    Thank you for booking with us. Since your booking is recorded after 8PM, the cylinder will be delivered tomorrow.
+                </div>
             </div>
-    </div>
-    <div ng-show="!isForm">
-        <div>Thank you for booking with us Your booking reference no is 12433445
-        </div>
-        <br>
-        <div>Your cylinder will be delivered within 6hrs from booking. It will be delivered by 20th april 16 before 6 PM</div>
-        <div>Your Dealer contact No: 96876786876</div>
-    </div>
-    </md-content>
+        </md-content>
     </div>
 </section>

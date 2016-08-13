@@ -26,7 +26,7 @@ angular.module('clientApp', [
         'mdPickers'
     ])
     .constant('APP_CONFIG', {
-        API_URL: 'http://localhost:8080/jyothiGas/'
+        API_URL: 'http://localhost:8080/jyothigas/'
     })
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         //cfpLoadingBarProvider.latencyThreshold = 100;
@@ -235,12 +235,18 @@ angular.module('clientApp', [
             .state('checkout', {
                 url: '/checkout',
                 templateUrl: "app/views/consumer/checkout.html",
-                controller: "CheckoutCtrl"
+                controller: "CheckoutCtrl",
+                data: {
+                    name: 'consumerDash'
+                }
             })
             .state('contactUs', {
                 url: '/contactUs',
                 templateUrl: "app/views/consumer/contactUs.html",
-                parent: 'layout'
+                parent: 'layout',
+                data: {
+                    name: 'consumerDash'
+                }
             })
 
 
