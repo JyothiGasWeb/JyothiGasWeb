@@ -36,25 +36,20 @@ public class BookingController {
 	 * @return
 	 */
 	@RequestMapping(value = Constant.INSERT_BOOKING, method = RequestMethod.POST)
-	public @ResponseBody AppResponse insertBookingCylinder(@RequestBody Booking booking) {
+	public @ResponseBody Object insertBookingCylinder(@RequestBody Booking booking) {
 		logger.info("insertBookingCylinder....");
 		AppResponse appResponse = new AppResponse();
 		try {
-			int result = bookingService.insertBookingCylinder(booking);
-			if (result > 0) {
-				appResponse.setStatus("OK");
-				appResponse.setMessage("Success");
-				appResponse.setHttpErrorCode(200);
-				appResponse.setOauth2ErrorCode("valid_token");
-			}
+			Booking result = bookingService.insertBookingCylinder(booking);
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			appResponse.setStatus("Error");
 			appResponse.setMessage("Please try after sometime");
 			appResponse.setHttpErrorCode(405);
 			appResponse.setOauth2ErrorCode("invalid_token");
+			return appResponse;
 		}
-		return appResponse;
 	}
 	
 	/**

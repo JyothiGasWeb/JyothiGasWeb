@@ -52,9 +52,9 @@ public class BookingService {
 	 * 
 	 * @param booking
 	 */
-	public int insertBookingCylinder(Booking booking) {
+	public Booking insertBookingCylinder(Booking booking) {
 		logger.info("Inserting booking data...");
-		int result = 0;
+		Booking bookingObj = new Booking();
 		String refToken = String.valueOf(OTPUtil.generateIntToken());
 		BookingEntity bookingEntity = new BookingEntity();
 		try {
@@ -68,19 +68,19 @@ public class BookingService {
 			bookingEntity.setReference(refToken);
 			bookingEntity.setStatus("PENDING");
 			BookingEntity bookingEntityObj = bookingDAO.merge(bookingEntity);
-			result = bookingEntityObj.getId();
 			
 			ConsumerEntity consumerEntity = consumerDAO.findById(ConsumerEntity.class, booking.getConsumer_id());
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
 					consumerEntity.getReg_id());
 			// Send reference to mobile
 			smsService.sendMessage(Constant.BOOKING_MESSAGE + refToken, registrationEntity.getContactNo());
+			
+			BeanUtils.copyProperties(bookingEntityObj, bookingObj);
 		} catch (Exception e) {
-			result = 0;
 			logger.error("Error in Inserting booking data...");
 			e.printStackTrace();
 		}
-		return result;
+		return bookingObj;
 	}
 
 	/**
