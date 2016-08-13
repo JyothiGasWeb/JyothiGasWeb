@@ -67,10 +67,10 @@ public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
 		log.info("Checking for user login credentials : " + email);
 		RegistrationEntity registrationEntity = new RegistrationEntity();
 		try {
-			registrationEntity = entityManager.createQuery("select s from RegistrationEntity s Where s.email = :email and s.encyPassword = :encyPassword limit 1",RegistrationEntity.class)
+			registrationEntity = entityManager.createQuery("select s from RegistrationEntity s Where s.email = :email and s.encyPassword = :encyPassword ",RegistrationEntity.class)
 					.setParameter("email", email)
 					.setParameter("encyPassword", encyPassword)
-					.setMaxResults(1).getSingleResult();
+					.getResultList().get(0);
 			log.info("get successfull");
 		} catch (Exception e) {
 			log.error("Failed : " + e);
