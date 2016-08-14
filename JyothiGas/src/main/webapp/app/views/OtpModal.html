@@ -5,7 +5,7 @@
             <div class="md-body-2">OTP has been sent to registered Email/ Mobile number</div>
             <md-input-container class="md-block">
                 <label>New Password</label>
-                <input required type="password" name="userPassword" ng-model="user.password" minlength="8" maxlength="12" />
+                <input required type="password" name="userPassword" ng-model="userObj.newPassword" minlength="8" maxlength="12" />
                 <div ng-messages="optForm.userPassword.$error" role="alert">
                     <div ng-message-exp="['required', 'minlength', 'maxlength']">
                         Your password was required to have a minimum length of 8 and maximum length of 12.
@@ -14,7 +14,7 @@
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Confirm Password</label>
-                <input required type="password" name="ConfirmPasswd" ng-model="otpObj.confirmPassword" required compare-to="user.password" />
+                <input required type="password" name="ConfirmPasswd" ng-model="userObj.confirmPassword" required compare-to="userObj.newPassword" />
                 <div ng-messages="optForm.ConfirmPasswd.$error" role="alert">
                     <div ng-message-exp="['required', 'compareTo']">
                         Your password Should Match.
@@ -23,7 +23,7 @@
             </md-input-container>
             <md-input-container class="md-block">
                 <label>OTP</label>
-                <input required name="otp" ng-model="user.otp">
+                <input required name="otp" ng-model="userObj.otp">
                 <div ng-messages="optForm.otp.$error" role="alert">
                     <div ng-message-exp="['required']">
                         OTP Cannot be Empty
@@ -33,7 +33,7 @@
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end end">
             <md-button md-no-ink class="md-warn md-raised" ng-click="closeDialog()">Cancel</md-button>
-            <md-button md-no-ink class="md-primary md-raised">Resend OTP</md-button>
+            <!-- <md-button md-no-ink class="md-primary md-raised">Resend OTP</md-button> -->
             <md-button md-no-ink class="md-primary md-raised" ng-click="create()" ng-disabled="optForm.$invalid">Submit</md-button>
         </md-dialog-actions>
     </form>

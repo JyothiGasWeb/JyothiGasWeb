@@ -34,6 +34,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jyothi_gas"/>
-	<classpathentry kind="lib" path="D:/workspace_mars_svn/JyothiGasWeb/JyothiGas/src/main/webapp/WEB-INF/lib/sqljdbc4-2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Installation/Jars/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
