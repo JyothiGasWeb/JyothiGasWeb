@@ -7,17 +7,17 @@
                 <div layout="row">
                     <span flex="10"></span>
                     <div flex="25" class="md-body-2">Dealer:</div>
-                    <div>{{current.dealer}}</div>
+                    <div>{{current.dealerName}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10"></span>
                     <div flex="25" class="md-body-2">Consumer No:</div>
-                    <div>{{current.consumerNo}}</div>
+                    <div>{{current.consumer_id}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10"></span>
                     <div flex="25" class="md-body-2">Consumer Name:</div>
-                    <div>{{current.consumerName}}</div>
+                    <div>{{current.name}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10"></span>
@@ -36,10 +36,10 @@
                 <div class="md-title">Service Required</div>
                 <md-input-container class="md-block">
                     <label>Comments</label>
-                    <textarea ng-model="user.newAddress" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+                    <textarea ng-model="user.comments" md-maxlength="150" rows="1" md-select-on-focus></textarea>
                 </md-input-container>
                 <div layout="row" layout-align="end end">
-                	<md-button class="md-warn md-raised">Reset</md-button>
+                	<md-button class="md-warn md-raised" ng-click="reset()">Reset</md-button>
                 	<md-button class="md-primary md-raised">Submit</md-button>
                 </div>
             </form>
