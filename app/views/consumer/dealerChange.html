@@ -2,32 +2,37 @@
     <h2 class="md-title">Change Dealer request</h2>
     <div class="layout-padding">
         <fieldset>
-            <legend>Current Address:</legend>
+            <legend>Current Dealer:</legend>
             <div layout="column">
                 <div layout="row">
                     <span flex="10"></span>
-                    <div flex="25" class="md-body-2">Dealer:</div>
-                    <div>{{current.dealerName}}</div>
-                </div>
-                <div layout="row">
-                    <span flex="10"></span>
-                    <div flex="25" class="md-body-2">Consumer No:</div>
-                    <div>{{current.consumer_id}}</div>
-                </div>
-                <div layout="row">
-                    <span flex="10"></span>
-                    <div flex="25" class="md-body-2">Consumer Name:</div>
-                    <div>{{current.name}}</div>
+                    <div flex="25" class="md-body-2">Dealer Name:</div>
+                    <div>{{current.dealer_name}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10"></span>
                     <div flex="25" class="md-body-2">Address:</div>
-                    <div>{{current.address}}</div>
+                    <div>{{current.dealer_address}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="25" class="md-body-2">District:</div>
+                    <div>{{current.dealer_city}}</div>
+                </div>
+                <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="25" class="md-body-2">Pin code:</div>
+                    <div>{{current.dealer_area_code}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10"></span>
                     <div flex="25" class="md-body-2">Contact No:</div>
-                    <div>{{current.contactNo}}</div>
+                    <div>{{current.dealer_contact_no}}</div>
+                </div>
+                 <div layout="row">
+                    <span flex="10"></span>
+                    <div flex="25" class="md-body-2">Email:</div>
+                    <div>{{current.dealer_email}}</div>
                 </div>
             </div>
         </fieldset>
@@ -47,7 +52,7 @@
                     </div>
                 </md-input-container>
                 <div layout="row" layout-align="end end">
-                	<md-button class="md-warn md-raised">Reset</md-button>
+                	<md-button class="md-warn md-raised" ng-click="reset()">Reset</md-button>
                 	<md-button class="md-primary md-raised">Submit</md-button>
                 </div>
             </form>
