@@ -56,10 +56,14 @@
             </div>
             <div ng-show="!isForm">
                 <div class="md-body-1" ng-show="!isNextDay">
-                    Thank you for booking with us. Your Cylinder will be delivered from 4hrs from booking
+                    Thank you for booking with us. Your total bill amount is Rs. {{totalPrice}}, your booking refernce no is {{refNo}}.
+                    <br/>
+                    Your Cylinder will be delivered from 4hrs from booking
                 </div>
                 <div class="md-body-1" ng-show="isNextDay">
-                    Thank you for booking with us. Since your booking is recorded after 8PM, the cylinder will be delivered tomorrow.
+                    Thank you for booking with us. Your total bill amount is Rs. {{totalPrice}}, your booking refernce no is {{refNo}}.
+                    <br/>
+                    Since your booking is recorded after 8PM, the cylinder will be delivered tomorrow.
                 </div>
             </div>
         </md-content>

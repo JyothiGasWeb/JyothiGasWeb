@@ -114,7 +114,7 @@ module.exports = function(grunt) {
     grunt.registerTask('serve', [
         'less',
         //'bowercopy',
-        'connect:localServer',
+        //'connect:localServer',
         'watch'
     ]);
 };

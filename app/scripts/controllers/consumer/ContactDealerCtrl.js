@@ -4,23 +4,21 @@
  * Description
  */
 angular.module('clientApp').
-controller('ContactDealerCtrl', ['$scope', function($scope) {
+controller('ContactDealerCtrl', ['$scope', 'RegisterService', 'SessionService', function($scope, RegisterService, SessionService) {
 
 
     var getContactDetails = function() {
-        $scope.dealer = {
-            "name": "General Electric and Radio Ser",
-            "address1": "Main Road",
-            "address2": "Opp. Collectorate Office",
-            "district": "Thane",
-            "pinCode": "400601",
-            "email": "generalelectronic@gmail.com",
-            "phone":"02225476969",
-            "mobile":"5470098",
-            "proprietor":"Kailash Dudani",
-            "inchargeName": "Resmi Devasia",
-            "inchargeEmail":"resmidevasia@bharatpetrolium.in"
-        }
+        RegisterService.getAllDealers().then(function(response) {
+            $scope.availableDealers = response;
+            for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
+                if(SessionService.getConsumerSession().consumer.dealerId == $scope.availableDealers[i].id){
+                    $scope.dealer = $scope.availableDealers[i];
+                    break;
+                }
+            }
+        }, function(error) {
+            console.log("error getting dealers list");
+        })
     };
 
     var init = function() {

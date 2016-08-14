@@ -3,10 +3,10 @@
     <md-list flex>
         <md-list-item class="md-3-line bookings-list md-whiteframe-5dp"  ng-repeat="item in bookings">
             <div class="md-list-item-text" layout="column">
-                <div><b>Ref no:</b> {{item.refNo}}</div>
-                <div><b>Order No</b> {{item.orderNo}}</div>
-                <div><b>Order Date</b> {{item.orderDate}}</div>
-                <div><b>Delivery Date</b> {{item.deliveryDate}}</div>
+                <div><b>Ref no:</b> {{item.reference}}</div>
+                <div><b>Order No</b> {{item.id}}</div>
+                <div><b>Order Date</b> {{item.booking_date}}</div>
+                <div><b>Delivery Date</b> {{item.date_of_deleivery}}</div>
             </div>
             <div class="md-secondary"><b>Status:</b> {{item.status}}</div>
         </md-list-item>

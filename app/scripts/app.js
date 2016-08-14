@@ -192,6 +192,7 @@ angular.module('clientApp', [
             .state('priceList', {
                 url: '/priceList',
                 templateUrl: "app/views/consumer/priceList.html",
+                controller: "PriceListCtrl",
                 parent: 'layout',
                 data: {
                     name: 'priceList'

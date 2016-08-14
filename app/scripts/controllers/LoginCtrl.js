@@ -14,7 +14,7 @@ angular.module('clientApp')
                     "connectionTypeName": response.connectionTypeName,
                     "connectionTypeId": response.connectionTypeId
                 }
-                SessionService.setConsumerSession(userObj);
+                SessionService.setConsumerSession(response);
                 SessionService.setSession(userObj);
                 $state.go('consumerDash');
                 console.log(response)

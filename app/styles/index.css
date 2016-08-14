@@ -162,3 +162,12 @@ md-menu-divider {
 .bookRefill .bookRefill-content md-input-container .md-input {
   color: #333;
 }
+.dash-content-bg {
+  margin: 0 auto;
+  border-radius: 8px;
+  background: transparent;
+}
+.price-table th,
+.price-table td {
+  text-align: center !important;
+}

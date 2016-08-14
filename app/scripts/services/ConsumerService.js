@@ -12,6 +12,16 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
+        conService.getConsumerBookings = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.bookings().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
         return conService;
     }])
     .factory('ConsumerFactory', ['$resource', 'APP_CONFIG', function($resource, APP_CONFIG) {
@@ -22,6 +32,16 @@ angular.module('clientApp')
             return $resource(APP_CONFIG.API_URL + 'bookCylinder', {}, {
                 'post': {
                     method: 'POST',
+                }
+
+            })
+        };
+
+        conFact.bookings = function() {
+            return $resource(APP_CONFIG.API_URL + 'getBookingByConsumer', {}, {
+                'post': {
+                    method: 'POST',
+                    isArray:true
                 }
 
             })

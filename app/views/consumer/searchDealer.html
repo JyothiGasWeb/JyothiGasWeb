@@ -1,22 +1,38 @@
 <div class="md-padding">
-	<h2 class="md-title">
+    <h2 class="md-title">
 		Search Dealer
 	</h2>
-	<br>
-	<div>
-		<form name="dealerForm">
-			<md-input-container class="md-block">
-				<label>Pin Code</label>
-				<input required name="pinCode" ng-model="dealer.pincode" ng-pattern="/^\d{6}$/">
-                    <div ng-messages="dealerForm.pinCode.$error" role="alert">
-                        <div ng-message-exp="['required', 'pattern']">
-                            Add a valid pin code
-                        </div>
+    <br>
+    <div>
+        <form name="dealerForm">
+            <md-input-container class="md-block">
+                <label>Pin Code</label>
+                <input required name="pinCode" ng-model="dealer.areaCode" ng-pattern="/^\d{6}$/">
+                <div ng-messages="dealerForm.pinCode.$error" role="alert">
+                    <div ng-message-exp="['required', 'pattern']">
+                        Enter a valid pin code
                     </div>
-			</md-input-container>
-			<div class="row" layout-align="center center">
-				<md-button class="md-primary md-raised" ng-disabled="dealerForm.$invalid">Search Dealer</md-button>
-			</div>
-		</form>
-	</div>
+                </div>
+            </md-input-container>
+            <div class="row" layout-align="center center">
+                <md-button class="md-primary md-raised" ng-disabled="dealerForm.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
+            </div>
+        </form>
+        <div ng-if="showDealers">
+            <md-list flex ng-if="dealers.length > 0">
+                <md-list-item class="md-3-line bookings-list md-whiteframe-5dp" ng-repeat="item in dealers">
+                    <div class="md-list-item-text" layout="column">
+                        <div><b>Name</b> {{item.dealer_name}}</div>
+                        <div><b>Contact No</b> {{item.dealer_contact_no}}</div>
+                        <div><b>Email</b> {{item.dealer_email}}</div>
+                        <div><b>City</b> {{item.dealer_city}}</div>
+                    </div>
+                    <div class="md-secondary"><b>Area Code:</b> {{item.dealer_area_code}}</div>
+                </md-list-item>
+            </md-list>
+            <div class="md-title" ng-if="dealers.length == 0" layout="column" layout-align="center center">
+                No Dealers found in the selected area.
+            </div>
+        </div>
+    </div>
 </div>
