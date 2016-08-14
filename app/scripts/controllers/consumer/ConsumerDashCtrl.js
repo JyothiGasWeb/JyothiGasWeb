@@ -1,10 +1,10 @@
 angular.module('clientApp')
-    .controller('ConsumerDashCtrl', ['$scope', 'SessionService', '$state', '$mdDialog', function($scope, SessionService, $state, $mdDialog) {
+    .controller('ConsumerDashCtrl', ['$scope', 'SessionService', '$state', '$mdDialog', 'ngCart', function($scope, SessionService, $state, $mdDialog, ngCart) {
 
-
-        var userConnectionType = SessionService.getConsumerSession().connectionTypeName;
+        var userConnectionType = SessionService.getConsumerSession().consumer.connectionTypeName;
         $scope.userLogout = function() {
             SessionService.deleteSession();
+            ngCart.empty();
             $state.go('login')
         };
 

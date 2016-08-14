@@ -14,7 +14,7 @@
                         <form name="forgotForm" autocomplete="off">
                             <md-input-container class="md-block">
                                 <label>Email</label>
-                                <input required name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/">
+                                <input required name="email" ng-model="user.verificationId" ng-pattern="/^.+@.+\..+$/">
                                 <div ng-messages="forgotForm.email.$error" role="alert">
                                     <div ng-message-exp="['required', 'pattern']">
                                         Enter valid Email

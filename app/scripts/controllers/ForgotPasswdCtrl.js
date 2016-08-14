@@ -4,29 +4,50 @@ angular.module('clientApp')
         $scope.user = {};
 
         $scope.validateuser = function(ev) {
-            $mdDialog.show({
-                    controller: function($scope, $mdDialog, AlertService) {
-                       
-                        $scope.create = function() {
-                            $mdDialog.hide(response);
-                        };
+            LoginService.newOtp($scope.user).then(function(response) {
+                $mdDialog.show({
+                        controller: function($scope, $mdDialog, AlertService, username, LoginService, $timeout) {
+                            $scope.userObj = {
+                                "userName": username,
+                                "verificationType": ""
+                            };
+                            $scope.create = function() {
+                                LoginService.forgotPasswd($scope.userObj).then(function(response) {
+                                    if (response.status == 'OK') {
+                                        AlertService.alert("Password Changed Successfully", 'md-primary');
+                                        $timeout(function() {
+                                            $mdDialog.hide(response);
+                                        }, 1000);
+                                    }
+                                }, function(error) {
+                                    AlertService.alert("something went wrong. Please try again later", 'md-warn');
+                                })
 
-                        $scope.closeDialog = function() {
-                            $mdDialog.cancel();
+                            };
+
+                            $scope.closeDialog = function() {
+                                $mdDialog.cancel();
+                            }
+                        },
+                        templateUrl: 'app/views/OtpModal.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        locals: {
+                            "username": $scope.user.verificationId
                         }
-                    },
-                    templateUrl: 'app/views/OtpModal.html',
-                    parent: angular.element(document.body),
-                    targetEvent: ev
-                })
-                .then(function() {
-                   
-                }, function() {
-                    $scope.status = 'You cancelled the dialog.';
-                });
+                    })
+                    .then(function() {
+                        $scope.login();
+                    }, function() {
+                        $scope.status = 'You cancelled the dialog.';
+                    });
+            }, function(error) {
+
+            })
+
         };
 
-        $scope.login = function(){
+        $scope.login = function() {
             $state.go('login');
         }
 

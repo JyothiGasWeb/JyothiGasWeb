@@ -43,6 +43,28 @@ angular.module('clientApp')
                 deferred.reject(error);
             });
             return deferred.promise;
+        };
+
+        loginService.newOtp = function(obj) {
+            var deferred = $q.defer();
+            LoginFactory.otp().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        loginService.forgotPasswd = function(obj) {
+            var deferred = $q.defer();
+            LoginFactory.passwd().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+
+                deferred.reject(error);
+            });
+            return deferred.promise;
         }
 
         return loginService;
@@ -72,6 +94,24 @@ angular.module('clientApp')
             return $resource(APP_CONFIG.API_URL + 'refresh', {}, {
                 'get': {
                     method: 'GET'
+                }
+
+            })
+        };
+
+        loginFact.otp = function() {
+            return $resource(APP_CONFIG.API_URL + 'getNewSMSOTP', {}, {
+                'post': {
+                    method: 'POST'
+                }
+
+            })
+        };
+
+        loginFact.passwd = function() {
+            return $resource(APP_CONFIG.API_URL + 'forgotPassword', {}, {
+                'post': {
+                    method: 'POST'
                 }
 
             })
