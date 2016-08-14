@@ -1,61 +1,59 @@
-
-<div layout="column" layout-fill class="reg-module login">
-    <img src="app/images/login-img.jpg" class="bg-img" alt="image you want in background"></img>
-    <header class="home">
-        <nav class="fixed-toolbar" ng-include="'app/views/header/loginHeader.html'"></nav>
-    </header>
-    <main class='md-padding login-content-padding' layout-gt-sm="row" layout-sm="column" layout-xs="column" flex>
-        <div flex class="index">
-            <h2 class="md-display-1">Welcome to MEDREP!</h2>
+<div layout="column" tabindex="-1" role="main" flex="" class="login">
+    <md-toolbar class="md-whiteframe-glow-z1">
+        <div class="md-toolbar-tools docs-toolbar-tools" tabindex="-1">
+            <img src="app/images/logo.png" class="logo" ui-sref="login">
         </div>
-        <div style=" width: 600px;" layout="row" layout-align="center center">
-            <section md-whiteframe="1" flex>
-                <md-content layout-padding class="login-container">
-                    <md-tabs md-dynamic-height md-border-bottom>
-                        <md-tab label="Sign In">
-                            <h1 class="md-title">Existing User</h1>
-                            <form name="loginForm" ng-submit="validateuser(loginForm);">
-                                <md-input-container class="md-block">
-                                    <label>Email</label>
-                                    <input required name="userName" ng-model="user.username" ng-pattern="/^.+@.+\..+$/">
-                                    <div ng-messages="loginForm.userName.$error" role="alert">
-                                        <div ng-message-exp="['required', 'pattern']">
-                                            Enter valid email address
-                                        </div>
+    </md-toolbar>
+    <md-content md-scroll-y="" layout="column" flex="" class="login-container">
+        <div layout-padding flex="noshrink">
+            <div class="layout-content">
+                <section layout="row" layout-align="end end">
+                    <md-content flex="50" layout-padding class="login-content md-whiteframe-8dp">
+                        <h1 class="md-title">SIGN IN</h1>
+                        <md-divider></md-divider>
+                        <form name="loginForm" autocomplete="off">
+                            <md-input-container class="md-block">
+                                <label>Email</label>
+                                <input required name="userName" ng-model="user.username" ng-pattern="/^.+@.+\..+$/">
+                                <div ng-messages="loginForm.userName.$error" role="alert">
+                                    <div ng-message-exp="['required', 'pattern']">
+                                        Enter valid email address
                                     </div>
-                                </md-input-container>
-                                <md-input-container class="md-block">
-                                    <label>Password</label>
-                                    <input required type="password" name="userPassword" ng-model="user.password" minlength="2" />
-                                    <div ng-messages="loginForm.userPassword.$error" role="alert">
-                                        <div ng-message-exp="['required', 'minlength']">
-                                            Your password was required to have a minimum length of 8.
-                                        </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Password</label>
+                                <input required type="password" name="userPassword" ng-model="user.password" minlength="8" maxlength="12" />
+                                <div ng-messages="loginForm.userPassword.$error" role="alert">
+                                    <div ng-message-exp="['required', 'minlength']">
+                                        Your password was required to have a minimum length of 8.
                                     </div>
-                                </md-input-container>
-                                <md-input-container class="md-block">
-                                    <md-button class="md-raised md-primary" type="submit" ng-disabled="loginForm.$invalid || disableLogin" style="width: 100%;">Sign In
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <div layout="row" layout-align="center center">
+                                    <md-button class="md-raised md-primary" type="submit" ng-disabled="loginForm.$invalid || disableLogin" style="width:50%;" ng-click="validateuser()">Sign In
                                     </md-button>
-                                </md-input-container>
-                                <md-button class="md-raised md-primary" ui-sref="forgotPassword">Forgot Password?</md-button>
-                                <hr/>
-                            </form>
-                        </md-tab>
-                        <md-tab label="Sign Up">
-                            <div style="min-height:350px;" layout="column">
-                                <h1 class="md-title">New User</h1>
-                                <p>
-                                    create an account to access medrep application
-                                </p>
-                                <md-button class="md-raised md-primary" ui-sref="register">Sign Up Now</md-button>
+                                </div>
+                            </md-input-container>
+                            <div layout="row" layout-align="center center">
+                                <md-button class="md-raised md-accent" ui-sref="forgotPasswd">Forgot Password?</md-button>
                             </div>
-                        </md-tab>
-                    </md-tabs>
-                </md-content>
-            </section>
+                            <div layout="row" layout-align="center center">
+                                <div class="md-body-2">
+                                    New Customer
+                                    <md-button class="md-accent" ng-click="registerNew()">Register Here</md-button>
+                                </div>
+                            </div>
+                        </form>
+                    </md-content>
+                </section>
+            </div>
         </div>
-    </main>
-    <footer class="footer" vertical-scroll ng-include="'app/views/header/loginFooter.html'"> 
-        <nav></nav>
-    </footer>
+        <div layout="row" flex="noshrink" layout-align="center center" class="layout-align-center-center layout-row">
+            <div id="license-footer" flex="" class="ng-binding flex">
+                Powered by Jyothi Gas ©2014–2016.
+            </div>
+        </div>
+    </md-content>
 </div>

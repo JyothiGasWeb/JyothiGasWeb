@@ -1,10 +1,14 @@
-angular.module('medRepApp')
-    .controller('ForgotPasswordCtrl', ['$scope', 'RegisterService', function($scope, RegisterService) {
+angular.module('clientApp')
+    .controller('ForgotPasswCtrl', ['$scope', 'RegisterService', '$state', function($scope, RegisterService, $state) {
 
     	$scope.medRepObj = {};
     	
     	$scope.forgotPassword = function(){
     		
     	};
+
+    	$scope.back = function(){
+    		$state.go('login');
+    	}
 
     }]);

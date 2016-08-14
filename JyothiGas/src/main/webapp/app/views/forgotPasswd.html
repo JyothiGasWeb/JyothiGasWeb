@@ -1,0 +1,39 @@
+<div layout="column" role="main" class="login" flex>
+    <md-toolbar class="md-whiteframe-glow-z1">
+        <div class="md-toolbar-tools docs-toolbar-tools" tabindex="-1">
+            <img src="app/images/logo.png" class="logo" ui-sref="login">
+        </div>
+    </md-toolbar>
+    <md-content md-scroll-y="" layout="column" flex="" class="login-container">
+        <div layout-padding flex="noshrink">
+            <div class="layout-content">
+                <section layout="row" layout-align="center center">
+                    <md-content flex="50" layout-padding class="login-content md-whiteframe-8dp">
+                        <h1 class="md-title">Forgot Password</h1>
+                        <md-divider></md-divider>
+                        <form name="forgotForm" autocomplete="off">
+                            <md-input-container class="md-block">
+                                <label>Email</label>
+                                <input required name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/">
+                                <div ng-messages="forgotForm.email.$error" role="alert">
+                                    <div ng-message-exp="['required', 'pattern']">
+                                        Enter valid Email
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <div layout="row" layout-align="end end">
+                                <md-button class="md-accent md-raised" ng-click="login()">Back</md-button>
+                                <md-button class="md-primary md-raised" ng-disabled="forgotForm.$invalid" ng-click="validateuser($event)">Submit</md-button>
+                            </div>
+                        </form>
+                    </md-content>
+                </section>
+            </div>
+        </div>
+        <div layout="row" flex="noshrink" layout-align="center center" class="layout-align-center-center layout-row">
+            <div id="license-footer" flex="" class="ng-binding flex">
+                Powered by Jyothi Gas ©2014–2016.
+            </div>
+        </div>
+    </md-content>
+</div>
