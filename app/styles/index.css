@@ -167,7 +167,10 @@ md-menu-divider {
   border-radius: 8px;
   background: transparent;
 }
-.price-table th,
-.price-table td {
+.price-table-container {
+  border-radius: 8px;
+}
+.price-table-container .price-table th,
+.price-table-container .price-table td {
   text-align: center !important;
 }
