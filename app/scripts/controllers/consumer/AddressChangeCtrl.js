@@ -4,17 +4,11 @@
  * Description
  */
 angular.module('clientApp').
-controller('AddressChangeCtrl', ['$scope', function($scope) {
+controller('AddressChangeCtrl', ['$scope', 'SessionService', function($scope, SessionService) {
 
 	$scope.current = {};
     var getCurrentAdd = function() {
-    	$scope.current = {
-    		"dealer": "Parvathi enterprises",
-    		"consumerNo": "123234",
-    		"consumerName": "Nivetha Thomas",
-    		"address": "no 14, 165street 5th block",
-    		"contactNo": "987654321"
-    	}
+        $scope.current = SessionService.getConsumerSession().consumer;
     }
     var init = function() {
         getCurrentAdd();
