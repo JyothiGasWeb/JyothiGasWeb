@@ -12,7 +12,7 @@ angular.module('clientApp')
             if (type == userConnectionType.toLowerCase()) {
                 $state.go(type)
             } else {
-                var message = "Being a " + userConnectionType + "Customer you are not allowed to book " + type + "Connection. Please register separately for " + type + " connection";
+                var message = "Being a " + userConnectionType + " customer you are not allowed to book " + type + " connection. Please register separately for " + type + " connection";
                 var confirm = $mdDialog.confirm()
                     .title(message)
                     .textContent('')
