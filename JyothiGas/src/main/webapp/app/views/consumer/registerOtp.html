@@ -1,0 +1,22 @@
+<md-dialog aria-label="OTP" ng-cloak flex="50">
+    <form name="optForm">
+        <md-dialog-content class="md-dialog-content">
+            <h2 class="md-display-1">Confirm OTP</h2>
+            <div class="md-body-2">OTP has been sent to registered Email/ Mobile number</div>
+            <md-input-container class="md-block">
+                <label>OTP</label>
+                <input required name="otp" ng-model="otpObj.verificationId">
+                <div ng-messages="optForm.otp.$error" role="alert">
+                    <div ng-message-exp="['required']">
+                        OTP Cannot be Empty
+                    </div>
+                </div>
+            </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end end">
+            <md-button md-no-ink class="md-warn md-raised" ng-click="closeDialog()">Cancel</md-button>
+            <md-button md-no-ink class="md-primary md-raised">Resend OTP</md-button>
+            <md-button md-no-ink class="md-primary md-raised" ng-click="create()" ng-disabled="optForm.$invalid">Submit</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

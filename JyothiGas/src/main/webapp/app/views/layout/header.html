@@ -1,24 +1,15 @@
-<md-toolbar ng-cloak ng-controller="HeaderCtrl">
+<md-toolbar ng-cloak ng-controller="HeaderCtrl" md-theme="altTheme">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleLeft()" hide-gt-md>
             <i class="material-icons">reorder</i>
         </md-button>
+        <div>
+            <img src="app/images/logo.png" class="logo" ui-sref="login">
+        </div>
         <span flex></span>
-        <!-- <md-menu md-offset="0 30" md-position-mode="target-right target">
-            <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
-                <i md-menu-origin class="material-icons">notifications</i>
-            </md-button>
-            <md-menu-content width="4">
-                <md-menu-item ng-repeat="notification in notifications">
-                    <md-button>
-                        {{notification.notificationDesc}}
-                    </md-button>
-                </md-menu-item>
-                <md-menu-item>
-                    <md-button>More</md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu> -->
+        <div ui-sref="checkout">
+            <ngcart-summary></ngcart-summary>
+        </div>
         <md-menu md-offset="0 30" md-position-mode="target-right target">
             <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
                 <!--<md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>-->
@@ -32,8 +23,8 @@
                             <p>Settings</p>
                         </div>
                     </md-button>
-                    </md-button>
                 </md-menu-item>
+                <md-menu-divider></md-menu-divider>
                 <md-menu-item>
                     <md-button ui-sref="profile">
                         <div layout="row" layout-align="center center">

@@ -1,0 +1,19 @@
+<div layout="column" tabindex="-1" role="main" flex="" class="login">
+    <md-toolbar class="md-whiteframe-glow-z1">
+        <div class="md-toolbar-tools docs-toolbar-tools" tabindex="-1">
+            <img src="app/images/logo.png" class="logo" ui-sref="login">
+        </div>
+    </md-toolbar>
+    <md-content md-scroll-y="" layout="column" flex="" class="">
+        <div layout="column" layout-align="center center" layout-margin>
+            <div class="md-title">Summary</div>
+            <ngcart-cart></ngcart-cart>
+            <ngcart-checkout service="http" settings="{ url:'/checkout' }"></ngcart-checkout>
+        </div>
+        <div layout="row" flex="noshrink" layout-align="center center" class="layout-align-center-center layout-row">
+            <div id="license-footer" flex="" class="ng-binding flex">
+                Powered by Jyothi Gas ©2014–2016.
+            </div>
+        </div>
+    </md-content>
+</div>
