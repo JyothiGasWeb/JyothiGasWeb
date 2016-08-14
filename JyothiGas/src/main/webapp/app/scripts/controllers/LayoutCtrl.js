@@ -1,5 +1,5 @@
-angular.module('medRepApp')
-    .controller('LayoutCtrl', ['$scope', '$timeout', '$mdSidenav', 'SessionService', '$rootScope', 'LoginService', '$state', function($scope, $timeout, $mdSidenav, SessionService, $rootScope, LoginService, $state) {
+angular.module('clientApp')
+    .controller('LayoutCtrl', ['$scope', '$timeout', '$mdSidenav', 'SessionService', '$rootScope', 'LoginService', '$state', 'AlertService', function($scope, $timeout, $mdSidenav, SessionService, $rootScope, LoginService, $state, AlertService) {
         $scope.toggleLeft = buildDelayedToggler('left');
         $scope.toggleRight = buildToggler('right');
         $scope.isOpenRight = function() {
@@ -9,14 +9,18 @@ angular.module('medRepApp')
         $rootScope.$on('event:auth-forbidden', function(event, attr) {
             var refreshToken = SessionService.getSession().refreshToken;
             if (attr.data[0] && attr.data[0].httpErrorCode == 405) {
-                LoginService.getRefreshToken(refreshToken).then(function(response){
-                    var tokens  = {
-                        "accessToken": response.accessToken,
-                        "refreshToken": response.refresh_token.value
+                LoginService.getRefreshToken(refreshToken).then(function(response) {
+                    if (response && response.accessToken && response.refresh_token) {
+                        var tokens = {
+                            "accessToken": response.accessToken,
+                            "refreshToken": response.refresh_token.value
+                        }
+                        SessionService.updateTokens(tokens);
+                    } else {
+                        AlertService.alert("Something went Wrong Please login Again", 'md-warn');
                     }
-                    SessionService.updateTokens(tokens);
                     //$state.reload();
-                }, function(error){
+                }, function(error) {
 
                 })
             }
@@ -80,54 +84,64 @@ angular.module('medRepApp')
                 $scope.currentPage = toState.data.name;
             })
         $scope.navList = [{
-            "name": "Dashboard",
+            "name": "Home",
             "icon": "fa fa-home",
-            "link": "dashboard",
-            "extNmae": "dashboard"
+            "link": "consumerDash",
+            "extNmae": "consumerDash"
         }, {
-            "name": "Notifications",
-            "icon": "fa fa-bell",
-            "link": "notifications",
-            "extNmae": "notifications"
+            "name": "My Profile",
+            "icon": "fa fa-user",
+            "link": "profile",
+            "extNmae": "profile"
+        },{
+            "name": "Book Refill",
+            "icon": "fa fa-external-link",
+            "link": "bookRefill",
+            "extNmae": "bookRefill"
         }, {
-            "name": "DoctorPlus",
-            "icon": "fa fa-stethoscope",
-            "link": "doctorPlusDash.transform.regulatory",
-            "extNmae": "doctorPlus"
+            "name": "Price List",
+            "icon": "fa fa-money",
+            "link": "priceList",
+            "extNmae": "priceList"
         }, {
-            "name": "Surveys",
-            "icon": "fa fa-weixin",
-            "link": "surveys",
-            "extNmae": "surveys"
+            "name": "Change Dealer Request",
+            "icon": "fa fa-copy",
+            "link": "dealerChange",
+            "extNmae": "dealerChange"
         }, {
-            "name": "Activity Score",
-            "icon": "fa fa-bar-chart",
-            "link": "activityScore",
-            "extNmae": "activityScore"
+            "name": "Address Change Request",
+            "icon": "fa fa-map-marker",
+            "link": "addressChange",
+            "extNmae": "addressChange"
         }, {
-            "name": "Marketing Campaigns",
-            "icon": "fa fa-bullhorn",
-            "link": "dashboard",
-            "extNmae": "dashboard"
+            "name": "Transfer Connection",
+            "icon": "fa fa-exchange",
+            "link": "transferCon",
+            "extNmae": "transferCon"
         }, {
-            "name": "MedRep Meetings",
-            "icon": "fa fa-users",
-            "link": "dashboard",
-            "extNmae": "dashboard"
+            "name": "Mechanic Service",
+            "icon": "fa fa fa-suitcase",
+            "link": "mechanicService",
+            "extNmae": "mechanicService"
+        },{
+            "name": "Surrender Connection",
+            "icon": "fa fa fa-ban",
+            "link": "surrender",
+            "extNmae": "surrender"
+        },{
+            "name": "Contact your Dealer",
+            "icon": "fa fa-phone",
+            "link": "contactDealer",
+            "extNmae": "contactDealer"
         }, {
-            "name": "Discussion Forums",
-            "icon": "fa fa fa-comment",
-            "link": "dashboard",
-            "extNmae": "dashboard"
+            "name": "Safety Tips",
+            "icon": "fa fa-info",
+            "link": "safetyTips",
+            "extNmae": "safetyTips"
         }, {
-            "name": "Search for Drugs",
-            "icon": "fa fa-search",
-            "link": "drugSearch",
-            "extNmae": "drugSearch"
-        }, {
-            "name": "News & Updates",
-            "icon": "fa fa-newspaper-o",
-            "link": "dashboard",
-            "extNmae": "dashboard"
+            "name": "Booking History",
+            "icon": "fa fa-history",
+            "link": "bookingHistory",
+            "extNmae": "bookingHistory"
         }]
     }]);

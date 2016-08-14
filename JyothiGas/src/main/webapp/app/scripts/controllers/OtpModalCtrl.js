@@ -1,5 +1,5 @@
 angular.module('medRepApp')
-    .controller('OtpModalCtrl', ['$scope', '$mdDialog', 'RegisterService', 'Number', function($scope, $mdDialog, RegisterService, Number) {
+    .controller('clientApp', ['$scope', '$mdDialog', 'RegisterService', 'Number', function($scope, $mdDialog, RegisterService, Number) {
 
         $scope.regenerate = function() {
         	RegisterService.regenerateOtp(Number).then(function(response){

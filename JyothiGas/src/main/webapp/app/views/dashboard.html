@@ -1,32 +1,14 @@
 <div layout="column" layout-fill class="dashboard">
-    <!-- <div layout="row" layout-align="end end" flex class="md-margin">
-        <h1 class="md-title">Welcome Dr. {{userObj.username}}</h1>
-    </div>
-    <md-divider class="md-margin"></md-divider> -->
-    <!--  <ul class="appointments">
-        <li ng-repeat="appointment in appointments">
-            <div layout="row">
-                <time datetime="2014-07-20">
-                    <span class="day">4</span>
-                    <span class="month">Jul</span>
-                    <span class="year">2014</span>
-                </time>
-                <div class="md-margin">
-                    <h3>{{ appointment.title}}</h3>
-                    <h4>{{ appointment.appointmentDesc }}</h4>
-                </div>
-            </div>
-        </li>
-    </ul> -->
-    <div layout="row" layout-xs="column" layout-padding>
-        <div class="panel panel-info" flex="50" flex-xs="100">
-            <div class="panel-heading">
-                <h3 class="panel-title">
+    <h3 class="md-title dash-main-title">DASHBOARD</h3>
+    <div layout="row" layout-xs="column" layout-padding class="dash-components">
+        <div class="panel panel-info dash-panel" flex="50" flex-xs="100">
+            <div class="panel-heading dash-panel-heading">
+                <h3 class="panel-title dash-panel-title">
                     <span class="fa fa-calendar"></span> 
                     Appointments
                 </h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body dash-panel-body">
                 <ul class="media-list">
                     <li class="media" ng-repeat="appointment in appointments">
                         <div class="media-left">
@@ -54,24 +36,26 @@
                 <a href="#" class="btn btn-default btn-block">More »</a>
             </div>
         </div>
-        <div class="panel panel-info" flex="50" flex-xs="100">
-            <div class="panel-heading">
-                <h3 class="panel-title">
+        <div class="panel panel-info dash-panel" flex="50" flex-xs="100">
+            <div class="panel-heading dash-panel-heading">
+                <h3 class="panel-title dash-panel-title">
                     <span class="fa fa-bell-o"></span> 
                     Notifications
                 </h3>
             </div>
-            <div class="panel-body">
-                <ul class="media-list">
-                    <li class="media" ng-repeat="notification in notifications">
-                        <div class="media-body">
-                            <p>
-                                {{notification.notificationDesc}}
-                            </p>
-                        </div>
+            <div class="panel-body dash-panel-body">
+                <ul class="media-list notifications-list">
+                    <li ng-repeat="notification in notifications" ng-class="{active: activeItem}" ng-mouseenter="activeItem=true" ng-mouseleave="activeItem=false" class="ui-sortable-handle">
+                        <div class="blur-container">
+                            <div class="blur-box"></div>
+                        </div><i class="mark" style="background-color: #209e91;"></i>
+                        <label class="todo-checkbox custom-checkbox custom-input-success">
+                            <span class="cut-with-dots ng-binding">{{notification.notificationDesc}}</span>
+                        </label>
                     </li>
+
                 </ul>
-                <a href="#" class="btn btn-default btn-block">More »</a>
+                <a ui-sref="notifications" class="btn btn-default btn-block">More »</a>
             </div>
         </div>
     </div>
@@ -109,7 +93,7 @@
             </md-grid-tile>
             <md-grid-tile>
                 <div layout="column" layout-align="center center">
-                    <i class="fa fa-stethoscope dash-icon" aria-hidden="true" ui-sref="doctorPlusDash.transform.regulatory"></i>
+                    <i class="fa fa-stethoscope dash-icon" aria-hidden="true" ui-sref="doctorPlusDash.transform.newsUpdates"></i>
                     <h3 class="md-title">Doctor+</h3>
                 </div>
             </md-grid-tile>

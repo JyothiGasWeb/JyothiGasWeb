@@ -1,14 +1,14 @@
 'use strict';
 /**
  * @ngdoc overview
- * @name medRepApp
+ * @name clientApp
  * @description
- * # medRepApp
+ * # clientApp
  *
  * Main module of the application.
  */
 
-angular.module('medRepApp', [
+angular.module('clientApp', [
         'ui.router',
         'ngResource',
         'ngCookies',
@@ -17,19 +17,17 @@ angular.module('medRepApp', [
         'angular-loading-bar',
         'ngAnimate',
         'LocalStorageModule',
-        'materialCalendar',
         'ngFileUpload',
         'naif.base64',
         'http-auth-interceptor',
-        'googlechart'
+        'underscore',
+        'md.data.table',
+        'ngCart',
+        'mdPickers'
     ])
     .constant('APP_CONFIG', {
-        API_URL: 'http://183.82.106.234:8080/medrep-web/'
+        API_URL: 'http://122.175.36.113:8080/jyothigas/'
     })
-    .config(['$httpProvider', function($httpProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    }])
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         //cfpLoadingBarProvider.latencyThreshold = 100;
     }])
@@ -68,377 +66,187 @@ angular.module('medRepApp', [
                     type: 'login'
                 }
             })
-            .state('register', {
-                url: '/register',
-                templateUrl: "app/views/register.html",
-                controller: "RegisterCtrl",
+            .state('registerNew', {
+                url: '/registerNew',
+                templateUrl: "app/views/registerNew.html",
+                controller: "RegisterNewCtrl",
                 data: {
                     type: 'login'
                 }
             })
-            .state('registerDoctor', {
-                url: '/register/doctor',
-                templateUrl: "app/views/registerDoctor.html",
-                controller: "RegisterCtrl",
+            .state('registerOld', {
+                url: '/registerOld',
+                templateUrl: "app/views/registerOld.html",
+                controller: "RegisterOldCtrl",
                 data: {
                     type: 'login'
                 }
             })
-            .state('registerCompany', {
-                url: '/register/company',
-                templateUrl: "app/views/registerCompany.html",
-                controller: "RegisterCtrl",
+            .state('forgotPasswd', {
+                url: '/forgotPasswd',
+                templateUrl: "app/views/forgotPasswd.html",
+                controller: "ForgotPasswdCtrl",
                 data: {
                     type: 'login'
                 }
             })
-            .state('forgotPassword', {
-                url: '/forgotPassword',
-                templateUrl: "app/views/forgotPassword.html",
-                controller: "ForgotPasswordCtrl",
-                data: {
-                    type: 'login'
-                }
-            })
-            .state('dashboard', {
-                url: '/dashboard',
-                templateUrl: "app/views/dashboard.html",
-                parent: 'layout',
-                controller: "DashboardCtrl",
-                data: {
-                    'name': "dashboard"
-                }
-            })
-            .state('drugSearch', {
-                url: '/searchDrugs',
-                templateUrl: "app/views/searchDrugs.html",
-                parent: 'layout',
-                controller: "SearchDrugsCtrl",
-                data: {
-                    'name': "drugSearch"
-                }
-            })
-            .state('notifications', {
-                url: '/notifications',
-                templateUrl: "app/views/notifications.html",
-                parent: 'layout',
-                controller: "NotificationsCtrl",
-                data: {
-                    'name': "notifications"
-                }
-            })
-            .state('activityScore', {
-                url: '/activityScore',
-                templateUrl: "app/views/ActivityScore.html",
-                parent: 'layout',
-                controller: "ActivityScoreCtrl",
-                data: {
-                    'name': "activityScore"
-                }
-            })
-            .state('surveys', {
-                url: '/surveys',
-                templateUrl: "app/views/surveys.html",
-                parent: 'layout',
-                controller: "SurveysCtrl",
-                data: {
-                    'name': "surveys"
-                }
-            })
-
-
-        .state('doctorPlusDash', {
-                url: '/doctorPlus',
-                templateUrl: "app/views/doctorPlus/doctorPlusDash.html",
-                parent: 'layout',
-                controller: "DoctorPlusDashCtrl",
-                data: {
-                    'name': "doctorPlus"
-                }
-            })
-            .state('doctorPlusDash.transform', {
-                abstract: true,
-                url: '/transform',
-                templateUrl: "app/views/doctorPlus/doctorPlusTransform.html",
-                controller: "DoctorPlusTransformCtrl"
-            })
-            .state('doctorPlusDash.transform.regulatory', {
-                url: '/regulatory',
-                data: {
-                    'selectedTab': 0,
-                    'name': "doctorPlus"
-
-                },
-                views: {
-                    'regulatory': {
-                        templateUrl: 'app/views/doctorPlus/transform/regulatory.html',
-                        controller: "RegulatoryCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.education', {
-                url: '/education',
-                data: {
-                    'selectedTab': 1,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'education': {
-                        templateUrl: 'app/views/doctorPlus/transform/education.html',
-                        controller: "EducationCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.journal', {
-                url: '/journal',
-                data: {
-                    'selectedTab': 2,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'journal': {
-                        templateUrl: 'app/views/doctorPlus/transform/journal.html',
-                        controller: "JournalCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.medicalInnovation', {
-                url: '/medicalInnovation',
-                data: {
-                    'selectedTab': 3,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'medicalInnovation': {
-                        templateUrl: 'app/views/doctorPlus/transform/medicalInnovation.html',
-                        controller: "MedicalInnovationCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.webcasts', {
-                url: '/webcasts',
-                data: {
-                    'selectedTab': 4,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'webcasts': {
-                        templateUrl: 'app/views/doctorPlus/transform/webcasts.html',
-                        controller: "WebcastsCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.bestPractices', {
-                url: '/bestPractices',
-                data: {
-                    'selectedTab': 5,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'bestPractices': {
-                        templateUrl: 'app/views/doctorPlus/transform/bestPractices.html',
-                        controller: "BestPracticesCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.caseStudies', {
-                url: '/caseStudies',
-                data: {
-                    'selectedTab': 6,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'caseStudies': {
-                        templateUrl: 'app/views/doctorPlus/transform/caseStudies.html',
-                        controller: "CaseStudiesCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.whitepapers', {
-                url: '/whitepapers',
-                data: {
-                    'selectedTab': 7,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'whitepapers': {
-                        templateUrl: 'app/views/doctorPlus/transform/whitepapers.html',
-                        controller: "WhitepapersCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.videos', {
-                url: '/videos',
-                data: {
-                    'selectedTab': 8,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'videos': {
-                        templateUrl: 'app/views/doctorPlus/transform/videos.html',
-                        controller: "VideosCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.transform.clinicalTrials', {
-                url: '/clinicalTrials',
-                data: {
-                    'selectedTab': 9,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'clinicalTrials': {
-                        templateUrl: 'app/views/doctorPlus/transform/clinicalTrials.html',
-                        controller: "ClinicalTrialsCtrl"
-                    }
-                }
-            })
-
-        .state('transformView', {
-                url: '/doctorPlus/transform/:from/:id',
-                templateUrl: "app/views/doctorPlus/transform/transformView.html",
-                controller: "TransformViewCtrl",
+            .state('consumerDash', {
+                url: '/consumerDash',
+                templateUrl: "app/views/consumer/consumerDash.html",
+                controller: "ConsumerDashCtrl",
                 parent: 'layout',
                 data: {
-                    'name': "doctorPlus"
+                    name: 'consumerDash'
                 }
             })
-            .state('doctorPlusDash.share', {
-                url: '/share',
-                templateUrl: "app/views/doctorPlus/doctorPlusShare.html",
-                controller: "DoctorPlusShareCtrl",
-                data: {
-                    'name': "doctorPlus"
-                }
-            })
-            .state('doctorPlusDash.shareDetails', {
-                url: '/share/details/:postId',
-                templateUrl: "app/views/doctorPlus/share/shareDetails.html",
-                controller: "ShareDetailsCtrl",
-                data: {
-                    'name': "doctorPlus"
-                }
-            })
-            .state('doctorPlusDash.connect', {
-                abstract: true,
-                url: '/connect',
-                templateUrl: 'app/views/doctorPlus/doctorPlusConnect.html',
-                controller: "DoctorPlusConnectCtrl",
-                data: {
-                    'name': "doctorPlus"
-                }
-            })
-            .state('doctorPlusDash.connect.myContacts', {
-                url: '/myContacts',
-                data: {
-                    'selectedTab': 0,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'myContacts': {
-                        templateUrl: 'app/views/doctorPlus/connect/myContacts.html',
-                        controller: "MyContactsCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.connect.suggestedContacts', {
-                url: '/suggestedContacts',
-                data: {
-                    'selectedTab': 1,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'suggestedContacts': {
-                        templateUrl: 'app/views/doctorPlus/connect/suggestedContacts.html',
-                        controller: "SuggestedContactsCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.connect.pendingContacts', {
-                url: '/pendingContacts',
-                data: {
-                    'selectedTab': 2,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'pendingContacts': {
-                        templateUrl: 'app/views/doctorPlus/connect/pendingContacts.html',
-                        controller: "PendingContactsCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.connect.myGroups', {
-                url: '/myGroups',
-                data: {
-                    'selectedTab': 3,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'myGroups': {
-                        templateUrl: 'app/views/doctorPlus/connect/myGroups.html',
-                        controller: "MyGroupsCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.connect.suggestedGroups', {
-                url: '/suggestedGroups',
-                data: {
-                    'selectedTab': 4,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'suggestedGroups': {
-                        templateUrl: 'app/views/doctorPlus/connect/suggestedGroups.html',
-                        controller: "SuggestedGroupsCtrl"
-                    }
-                }
-            })
-            .state('doctorPlusDash.connect.pendingGroups', {
-                url: '/pendingGroups',
-                data: {
-                    'selectedTab': 5,
-                    'name': "doctorPlus"
-                },
-                views: {
-                    'pendingGroups': {
-                        templateUrl: 'app/views/doctorPlus/connect/pendingGroups.html',
-                        controller: "PendingGroupsCtrl"
-                    }
-                }
-            })
-            .state('connectView', {
-                url: '/doctorPlus/connect/:from/:id',
-                templateUrl: "app/views/doctorPlus/connect/connectView.html",
-                controller: "ConnectViewCtrl",
+            .state('bookRefill', {
+                url: '/bookRefill',
+                templateUrl: "app/views/consumer/bookRefill.html",
+                controller: "BookRefillCtrl",
                 parent: 'layout',
                 data: {
-                    'name': "doctorPlus"
+                    name: 'bookRefill'
                 }
             })
-            .state('addContacts', {
-                url: '/doctorPlus/addContacts',
-                templateUrl: "app/views/doctorPlus/connect/addContact.html",
-                controller: "AddContactCtrl",
+            .state('profile', {
+                url: '/profile',
+                templateUrl: "app/views/consumer/profile.html",
+                controller: "ProfileCtrl",
                 parent: 'layout',
                 data: {
-                    'name': "doctorPlus"
+                    name: 'profile'
                 }
             })
-            .state('groupView', {
-                url: '/doctorPlus/groups/:from/:id',
-                templateUrl: "app/views/doctorPlus/connect/groupView.html",
-                controller: "GroupViewCtrl",
+            .state('domestic', {
+                url: '/domestic',
+                templateUrl: "app/views/consumer/domesticConnection.html",
+                controller: "DomesticConnectionCtrl",
                 parent: 'layout',
                 data: {
-                    'name': "doctorPlus"
+                    name: 'consumerDash'
                 }
             })
-            .state('doctorPlusDash.serve', {
-                url: '/serve',
-                templateUrl: "app/views/doctorPlus/DoctorPlusServe.html",
-                controller: "DoctorPlusServeCtrl",
+            .state('commercial', {
+                url: '/commercial',
+                templateUrl: "app/views/consumer/commercial.html",
+                controller: "CommercialCtrl",
+                parent: 'layout',
                 data: {
-                    'name': "doctorPlus"
+                    name: 'consumerDash'
+                }
+            })
+            .state('industrial', {
+                url: '/industrial',
+                templateUrl: "app/views/consumer/industrial.html",
+                controller: "IndustrialCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'consumerDash'
+                }
+            })
+            .state('appliances', {
+                url: '/appliances',
+                templateUrl: "app/views/consumer/appliances.html",
+                controller: "AppliancesCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'consumerDash'
+                }
+            })
+            .state('searchDealer', {
+                url: '/searchDealer',
+                templateUrl: "app/views/consumer/searchDealer.html",
+                controller: "SearchDealerCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'consumerDash'
+                }
+            })
+            .state('dealerChange', {
+                url: '/dealerChange',
+                templateUrl: "app/views/consumer/dealerChange.html",
+                controller: "DealerChangeCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'dealerChange'
+                }
+            })
+            .state('addressChange', {
+                url: '/addressChange',
+                templateUrl: "app/views/consumer/addressChange.html",
+                controller: "AddressChangeCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'addressChange'
+                }
+            })
+            .state('mechanicService', {
+                url: '/mechanicService',
+                templateUrl: "app/views/consumer/mechanicService.html",
+                controller: "MechanicServiceCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'mechanicService'
+                }
+            })
+            .state('priceList', {
+                url: '/priceList',
+                templateUrl: "app/views/consumer/priceList.html",
+                controller: "PriceListCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'priceList'
+                }
+            })
+            .state('contactDealer', {
+                url: '/contactDealer',
+                templateUrl: "app/views/consumer/contactDealer.html",
+                controller: "ContactDealerCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'contactDealer'
+                }
+            })
+            .state('safetyTips', {
+                url: '/safetyTips',
+                templateUrl: "app/views/consumer/safetyTips.html",
+                parent: 'layout',
+                data: {
+                    name: 'safetyTips'
+                }
+            })
+            .state('bookingHistory', {
+                url: '/bookingHistory',
+                templateUrl: "app/views/consumer/bookingHistory.html",
+                controller: "BookingHistoryCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'bookingHistory'
+                }
+            })
+            .state('surrender', {
+                url: '/surrender',
+                templateUrl: "app/views/consumer/surrender.html",
+                controller: "SurrenderCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'surrender'
+                }
+            })
+            .state('checkout', {
+                url: '/checkout',
+                templateUrl: "app/views/consumer/checkout.html",
+                controller: "CheckoutCtrl",
+                data: {
+                    name: 'consumerDash'
+                }
+            })
+            .state('contactUs', {
+                url: '/contactUs',
+                templateUrl: "app/views/consumer/contactUs.html",
+                parent: 'layout',
+                data: {
+                    name: 'consumerDash'
                 }
             })
 
@@ -449,14 +257,13 @@ angular.module('medRepApp', [
         //Angular Material Theme Configuration
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
-            .accentPalette('red');
+            .accentPalette('red')
 
         $mdThemingProvider.theme('docs-dark', 'default')
             .primaryPalette('yellow')
             .accentPalette('green')
-            .dark();
         $mdThemingProvider.theme('altTheme')
-            .primaryPalette('light-blue')
+            .primaryPalette('blue')
     }])
     .run(function($state, $rootScope, $stateParams, LoginService) {
 
@@ -471,7 +278,7 @@ angular.module('medRepApp', [
 
                     if (angular.isDefined(next.data) && angular.isDefined(next.data.type) && next.data.type === 'login') {
                         event.preventDefault();
-                        $state.go('dashboard');
+                        $state.go('consumerDash');
                     }
 
                 } else {
