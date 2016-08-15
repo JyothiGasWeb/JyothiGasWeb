@@ -22,7 +22,9 @@ public class Constant {
 	public static final String GET_CONNECTION_TYPE = "/getConnectionType";
 	public static final String GET_CONNECTION_BY_TYPE = "/getConnectionsByType";
 	public static final String NEW_SMSOTP = "/getNewSMSOTP";
-	
+	public static final String GET_MECHANIC_BY_DEALER_ID = "/getMechanicByDealerID";
+	public static final String ADD_MECHANIC_SERVICE = "/addMechanicService";
+	public static final String UPDATE_MECHANIC_SERVICE = "/updateMechanicService";
 	
 	public static final String NEW = "NEW";
 	public static final String STATUS_SURRENDER = "SURRENDERED";
