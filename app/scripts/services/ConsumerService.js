@@ -22,6 +22,16 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
+        conService.changeAddress = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.address().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
         return conService;
     }])
     .factory('ConsumerFactory', ['$resource', 'APP_CONFIG', function($resource, APP_CONFIG) {
@@ -42,6 +52,15 @@ angular.module('clientApp')
                 'post': {
                     method: 'POST',
                     isArray:true
+                }
+
+            })
+        };
+
+        conFact.address = function() {
+            return $resource(APP_CONFIG.API_URL + 'updateConsumer', {}, {
+                'post': {
+                    method: 'POST'
                 }
 
             })

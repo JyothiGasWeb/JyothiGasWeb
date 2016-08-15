@@ -46,7 +46,7 @@ angular.module('clientApp')
             return session;
         };
 
-        this.updateTokens = function(tokens) {
+        this.updateAddress = function(tokens) {
             if (localStorageService.isSupported) {
                 localStorageService.set("accessToken", tokens.accessToken);
                 localStorageService.set("refreshToken", tokens.refreshToken);
