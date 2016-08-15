@@ -253,4 +253,32 @@ public class RegistrationController {
 		}
 		return appResponse;
 	}
+	
+	/**
+	 * API for register
+	 * 
+	 * @param register
+	 * @return
+	 */
+	@RequestMapping(value = Constant.SURRENDER, method = RequestMethod.POST)
+	public @ResponseBody AppResponse surrenderConnection(@RequestBody Register register) {
+		logger.info("Registering the User");
+		AppResponse appResponse = new AppResponse();
+
+		try {
+			if (registrationService.surrenderConnection(register)) {
+				appResponse.setMessage("Successfully Surrendered.");
+				appResponse.setStatus("OK");
+				appResponse.setHttpErrorCode(200);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			appResponse.setHttpErrorCode(405);
+			appResponse.setOauth2ErrorCode("invalid_token");
+
+		}
+		return appResponse;
+	}
 }

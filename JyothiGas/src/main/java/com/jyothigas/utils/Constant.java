@@ -3,6 +3,7 @@ package com.jyothigas.utils;
 public class Constant {
 
 	public static final String REGISTER = "/register";
+	public static final String SURRENDER = "/surrenderConnection";
 	public static final String GET_OTP = "/getOtp";
 	public static final String PHONE_VERIFICATION = "/verifyMobileNo";
 	public static final String LOGIN = "/login";
@@ -19,9 +20,12 @@ public class Constant {
 	public static final String GET_ALL_BOOKINGS = "/getAllBookings";
 	public static final String GET_IN_PROGRESS_BOOKING = "/getInprogressBooking";
 	public static final String GET_CONNECTION_TYPE = "/getConnectionType";
+	public static final String GET_CONNECTION_BY_TYPE = "/getConnectionsByType";
 	public static final String NEW_SMSOTP = "/getNewSMSOTP";
 	
+	
 	public static final String NEW = "NEW";
+	public static final String STATUS_SURRENDER = "SURRENDERED";
 	public static final String BOOKING_MESSAGE = "Dear consumer your booking reference no. is ";
 
 	//Not Working API's

@@ -180,13 +180,14 @@ public class RegistrationService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-				
+
 		return register;
 	}
 
 	public void updatePassword(ForgotPassword forgotPassword) {
 		try {
-			List<RegistrationEntity> registrationEntityList = registrationDAO.findByEmailId(forgotPassword.getUserName());
+			List<RegistrationEntity> registrationEntityList = registrationDAO
+					.findByEmailId(forgotPassword.getUserName());
 			for (RegistrationEntity registrationEntity : registrationEntityList) {
 				registrationEntity.setEncyPassword(PasswordProtector.encrypt(forgotPassword.getNewPassword()));
 				registrationDAO.merge(registrationEntity);
@@ -194,14 +195,15 @@ public class RegistrationService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public boolean verifyLoginCredentials(LoginRequest loginRequest) {
 		boolean result = true;
 		try {
-			RegistrationEntity entity = registrationDAO.checkLoginCredentials(loginRequest.getUsername(), PasswordProtector.encrypt(loginRequest.getPassword()));
-			if(entity.getEmail() == null || entity.getEncyPassword() == null){
+			RegistrationEntity entity = registrationDAO.checkLoginCredentials(loginRequest.getUsername(),
+					PasswordProtector.encrypt(loginRequest.getPassword()));
+			if (entity.getEmail() == null || entity.getEncyPassword() == null) {
 				result = false;
 			}
 		} catch (Exception e) {
@@ -209,4 +211,20 @@ public class RegistrationService {
 		}
 		return result;
 	}
+
+	// for surrendering the connection
+	public boolean surrenderConnection(Register register) {
+		boolean result = false;
+		try {
+			RegistrationEntity registerEntity = registrationDAO.findById(RegistrationEntity.class, register.getId());
+			registerEntity.setSurrenderInfo(register.getSurrenderInfo());
+			registerEntity.setStatus(Constant.STATUS_SURRENDER);
+			registrationDAO.merge(registerEntity);
+			result = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }

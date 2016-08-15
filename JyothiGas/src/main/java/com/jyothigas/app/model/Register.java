@@ -15,6 +15,7 @@ public class Register implements java.io.Serializable {
 	private int dealerId;
 	private String status;
 	private int connectionQty;
+	private String surrenderInfo;
 
 	public int getId() {
 		return id;
@@ -118,6 +119,14 @@ public class Register implements java.io.Serializable {
 
 	public void setConnectionQty(int connectionQty) {
 		this.connectionQty = connectionQty;
+	}
+
+	public String getSurrenderInfo() {
+		return surrenderInfo;
+	}
+
+	public void setSurrenderInfo(String surrenderInfo) {
+		this.surrenderInfo = surrenderInfo;
 	}
 
 }

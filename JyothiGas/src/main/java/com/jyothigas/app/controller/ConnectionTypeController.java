@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyothigas.app.model.AppResponse;
@@ -38,6 +39,34 @@ public class ConnectionTypeController {
 		logger.info("FetchAllConnection....");
 		try {
 			List<ConnectionType> connectionList = connectionTypeService.findAllConnectionTypes();
+			return connectionList;
+		} catch (Exception e) {
+			logger.error("Error While Getting User Details..");
+			e.printStackTrace();
+			List<AppResponse> appObjList = new ArrayList<AppResponse>();
+			AppResponse appResponse = new AppResponse();
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			appResponse.setHttpErrorCode(405);
+			appResponse.setOauth2ErrorCode("invalid_token");
+			appObjList.add(appResponse);
+			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
+		}
+
+	}
+	
+	
+	/**
+	 * API for FetchAllConnection Baased on Type e.g: DOMESTIC
+	 * 
+	 * @param
+	 * @return
+	 */
+	@RequestMapping(value = Constant.GET_CONNECTION_BY_TYPE, method = RequestMethod.GET)
+	public @ResponseBody Object fetchAllConnectionByType(@RequestParam String connectionType) {
+		logger.info("Fetch Connection....");
+		try {
+			List<ConnectionType> connectionList = connectionTypeService.fetchAllConnectionByType(connectionType);
 			return connectionList;
 		} catch (Exception e) {
 			logger.error("Error While Getting User Details..");

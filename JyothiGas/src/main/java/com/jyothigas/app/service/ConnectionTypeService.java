@@ -38,4 +38,22 @@ public class ConnectionTypeService {
 		}
 		return connList;
 	}
+	
+	
+	public List<ConnectionType> fetchAllConnectionByType(String connectionType) {
+		logger.info("fetchAllConnection...");
+		List<ConnectionType> connList = new ArrayList<ConnectionType>();
+		try {
+			List<ConnectionTypeEntity> connectionEntityList = connectionTypeDao.fetchAllConnectionByType(connectionType);
+			for (ConnectionTypeEntity connection : connectionEntityList) {
+				ConnectionType conn = new ConnectionType();
+				BeanUtils.copyProperties(connection, conn);
+				connList.add(conn);
+			}
+		} catch (Exception e) {
+			logger.error("Error in fetchAllConnection");
+			e.printStackTrace();
+		}
+		return connList;
+	}
 }

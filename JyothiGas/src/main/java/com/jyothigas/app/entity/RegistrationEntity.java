@@ -26,6 +26,7 @@ public class RegistrationEntity implements java.io.Serializable {
 	private int dealerId;
 	private String status;
 	private int connectionQty;
+	private String surrenderInfo;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -144,6 +145,15 @@ public class RegistrationEntity implements java.io.Serializable {
 
 	public void setConnectionQty(int connectionQty) {
 		this.connectionQty = connectionQty;
+	}
+
+	@Column(name = "surrender_info")
+	public String getSurrenderInfo() {
+		return surrenderInfo;
+	}
+
+	public void setSurrenderInfo(String surrenderInfo) {
+		this.surrenderInfo = surrenderInfo;
 	}
 
 }

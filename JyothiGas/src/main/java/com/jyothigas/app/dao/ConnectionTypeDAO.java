@@ -46,4 +46,18 @@ public class ConnectionTypeDAO extends JyothiGasDAO<ConnectionTypeEntity> {
 		}
 		return conumerEntity;
 	}
+	
+	public List<ConnectionTypeEntity> fetchAllConnectionByType(String connectionType) {
+		log.info("Getting ApplianceEntity Instance...");
+		List<ConnectionTypeEntity> conumerEntity = new ArrayList<ConnectionTypeEntity>();
+		try {
+			conumerEntity = entityManager
+					.createQuery("select s from ConnectionTypeEntity s where s.connectionType=:connectionType", ConnectionTypeEntity.class)
+					.setParameter("connectionType", connectionType).getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			log.error("Failed : " + e);
+		}
+		return conumerEntity;
+	}
 }
