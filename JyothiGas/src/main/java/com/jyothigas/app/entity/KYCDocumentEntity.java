@@ -28,6 +28,18 @@ public class KYCDocumentEntity {
 	@Column(name = "CreatedDate")
 	private Date createdDate;
 
+	@Column(name = "CustId")
+	private int custId;
+	
+	
+	public int getCustId() {
+		return custId;
+	}
+
+	public void setCustId(int custId) {
+		this.custId = custId;
+	}
+
 	public int getId() {
 		return id;
 	}

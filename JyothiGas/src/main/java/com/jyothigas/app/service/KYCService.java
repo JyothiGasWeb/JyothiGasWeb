@@ -21,7 +21,8 @@ public class KYCService {
 		entity.setCreatedDate(Calendar.getInstance().getTime());
 		entity.setDocumentName(name);
 		entity.setLocation(location);
-		kycDao.persist(entity);
+		entity.setCustId(Integer.parseInt(custId));
+		kycDao.merge(entity);
 	}
 
 }

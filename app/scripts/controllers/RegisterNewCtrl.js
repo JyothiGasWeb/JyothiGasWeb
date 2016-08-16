@@ -5,10 +5,10 @@ angular.module('clientApp')
         $scope.dealers = [];
         $scope.availableDealers = [];
         var getAllDealers = function() {
-            RegisterService.getAllDealers().then(function(response) {
+            RegisterService.getAllDealers().then(function(response){
                 $scope.availableDealers = response;
                 console.log($scope.availableDealers)
-            }, function(error) {
+            }, function(error){
                 console.log("error getting dealers list");
             })
         };
@@ -35,14 +35,12 @@ angular.module('clientApp')
                 "connectionTypeId": $scope.user.connectionTypeId,
                 "dealerId": $scope.user.dealerId,
                 "status": "New",
-                "connectionQty": 1,
+                "connectionQty": $scope.user.connectionQty,
             };
 
             RegisterService.register(userObj).then(function(response) {
                 if (response && response.status == 'OK') {
                     validateuser($scope.user.contactNo);
-                } else if (response.status == 'Fail') {
-                    AlertService.alert(response.message, 'md-warn', 2000);
                 }
             }, function(error) {
                 console.log("error Registering User")
@@ -54,9 +52,9 @@ angular.module('clientApp')
                     controller: function($scope, $mdDialog, RegisterService, mobile) {
                         $scope.otpObj = {};
                         $scope.create = function() {
-                            RegisterService.validateOtp($scope.otpObj).then(function(response) {
+                            RegisterService.validateOtp($scope.otpObj).then(function(response){
                                 $mdDialog.hide(response);
-                            }, function(error) {
+                            }, function(error){
                                 console.log("error validating OTP");
                             });
                         };
@@ -69,7 +67,7 @@ angular.module('clientApp')
                     parent: angular.element(document.body),
                     targetEvent: document.body,
                     locals: {
-                        "mobile": mobile
+                        "mobile":mobile
                     }
                 })
                 .then(function() {
