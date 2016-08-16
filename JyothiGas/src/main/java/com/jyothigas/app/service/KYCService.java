@@ -25,4 +25,9 @@ public class KYCService {
 		kycDao.merge(entity);
 	}
 
+	public KYCDocumentEntity getDocument(int custId) {
+		KYCDocumentEntity entity = kycDao.findById(KYCDocumentEntity.class, custId);
+		return entity;
+	}
+
 }
