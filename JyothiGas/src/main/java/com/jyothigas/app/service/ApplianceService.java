@@ -18,9 +18,10 @@ public class ApplianceService {
 
 	@Autowired
 	ApplianceDAO applianceDAO;
-	
+
 	/**
 	 * Method for fetch all appliances
+	 * 
 	 * @return
 	 */
 	public List<Appliances> fetchAllAppliance() {
@@ -36,5 +37,15 @@ public class ApplianceService {
 			e.printStackTrace();
 		}
 		return appliancesList;
+	}
+
+	// Add appliance
+	public Appliances addAppliance(Appliances appliance) {
+		Appliances applianceBean = new Appliances();
+		ApplianceEntity entity = new ApplianceEntity();
+		BeanUtils.copyProperties(appliance, entity);
+		ApplianceEntity entityObj = applianceDAO.merge(entity);
+		BeanUtils.copyProperties(entityObj, applianceBean);
+		return appliance;
 	}
 }

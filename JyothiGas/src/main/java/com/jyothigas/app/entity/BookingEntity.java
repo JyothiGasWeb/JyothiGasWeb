@@ -3,11 +3,13 @@ package com.jyothigas.app.entity;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +28,8 @@ public class BookingEntity implements java.io.Serializable {
 	private int connectionTypeId;
 	private String status;
 	private String reference;
+/*	@OneToMany
+	private List<ApplianceEntity> appliances;*/
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -124,5 +128,15 @@ public class BookingEntity implements java.io.Serializable {
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
+
+/*	public List<ApplianceEntity> getAppliances() {
+		return appliances;
+	}
+
+	public void setAppliances(List<ApplianceEntity> appliances) {
+		this.appliances = appliances;
+	}*/
+
+
 
 }

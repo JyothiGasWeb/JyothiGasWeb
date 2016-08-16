@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +22,7 @@ public class ApplianceController {
 
 	@Autowired
 	ApplianceService applianceService;
-	
+
 	/**
 	 * API for fetch all appliances
 	 * 
@@ -35,7 +36,7 @@ public class ApplianceController {
 			List<Appliances> appliancesList = applianceService.fetchAllAppliance();
 			return appliancesList;
 		} catch (Exception e) {
-			logger.error("Error while fetching appliances.."+e);
+			logger.error("Error while fetching appliances.." + e);
 			AppResponse appResponse = new AppResponse();
 			appResponse.setStatus("Error");
 			appResponse.setMessage("Please try after sometime");
@@ -44,6 +45,31 @@ public class ApplianceController {
 			e.printStackTrace();
 			return appResponse;
 		}
-		
+
+	}
+
+	/**
+	 * API for fetch all appliances
+	 * 
+	 * @param register
+	 * @return
+	 */
+	@RequestMapping(value = Constant.ADD_APPLIANCES, method = RequestMethod.POST)
+	public @ResponseBody Object addAppliance(@RequestBody Appliances appliance) {
+		logger.info("Fetch all Appliances..");
+		try {
+			Appliances applianceObj = applianceService.addAppliance(appliance);
+			return applianceObj;
+		} catch (Exception e) {
+			logger.error("Error while Saving appliance.." + e);
+			AppResponse appResponse = new AppResponse();
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			appResponse.setHttpErrorCode(405);
+			appResponse.setOauth2ErrorCode("invalid_token");
+			e.printStackTrace();
+			return appResponse;
+		}
+
 	}
 }

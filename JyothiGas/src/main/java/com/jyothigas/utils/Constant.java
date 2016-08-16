@@ -12,6 +12,7 @@ public class Constant {
 	public static final String GET_DEALER_DETAILS = "/getDealers";
 	public static final String UPDATE_CONSUMER = "/updateConsumer";
 	public static final String GET_APPLIANCES = "/getAppliances";
+	public static final String ADD_APPLIANCES = "/addAppliance";
 	public static final String INSERT_BOOKING = "/bookCylinder";
 	public static final String GET_BOOKING_BY_STATUS = "/getBookingByStatus";
 	public static final String UPDATE_BOOKING = "/updateBooking";
@@ -25,6 +26,7 @@ public class Constant {
 	public static final String GET_MECHANIC_BY_DEALER_ID = "/getMechanicByDealerID";
 	public static final String ADD_MECHANIC_SERVICE = "/addMechanicService";
 	public static final String UPDATE_MECHANIC_SERVICE = "/updateMechanicService";
+	public static final String GET_ALL_NOTIFICATION = "/getAllNotification";
 	
 	public static final String NEW = "NEW";
 	public static final String STATUS_SURRENDER = "SURRENDERED";
