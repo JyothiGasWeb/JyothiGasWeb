@@ -35,7 +35,7 @@ angular.module('clientApp')
                 "connectionTypeId": $scope.user.connectionTypeId,
                 "dealerId": $scope.user.dealerId,
                 "status": "New",
-                "connectionQty": $scope.user.connectionQty,
+                "connectionQty": 1,
             };
 
             RegisterService.register(userObj).then(function(response) {
