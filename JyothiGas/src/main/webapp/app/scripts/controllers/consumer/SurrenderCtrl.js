@@ -4,7 +4,9 @@
  * Description
  */
 angular.module('clientApp').
-controller('SurrenderCtrl', ['$scope', '$mdDialog', function($scope, $mdDialog) {
+controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionService', 'AlertService', function($scope, $mdDialog, ConsumerService, SessionService, AlertService) {
+
+    var consumer = SessionService.getConsumerSession().consumer;
 
     $scope.surrender = function(ev) {
         // Appending dialog to document.body to cover sidenav in docs app
@@ -16,9 +18,19 @@ controller('SurrenderCtrl', ['$scope', '$mdDialog', function($scope, $mdDialog) 
             .ok('Please do it!')
             .cancel('No');
         $mdDialog.show(confirm).then(function() {
-            
+            var obj = {
+                "id": consumer.reg_id,
+                "surrenderInfo": "Relocation"
+            }
+            ConsumerService.surrenderConnection(obj).then(function(response) {
+                if (response.status == 'OK') {
+                    AlertService.alert("Connection surrenderred Successfully", 'md-primary', 100000);
+                }
+            }, function(error) {
+                console.log("Error");
+            })
         }, function() {
-            
+
         });
     };
 

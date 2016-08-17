@@ -10,11 +10,11 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
 
-        medRep: appConfig,
+        jyothiGas: appConfig,
         less: {
             compile: {
                 files: {
-                    'app/styles/medRep.css': 'app/less/medRep.less',
+                    'app/styles/index.css': 'app/less/index.less',
                 }
             }
         },
@@ -25,8 +25,8 @@ module.exports = function(grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= medRep.dist %>/{,*/}*',
-                        '!<%= medRep.dist %>/.git{,*/}*'
+                        '<%= jyothiGas.dist %>/{,*/}*',
+                        '!<%= jyothiGas.dist %>/.git{,*/}*'
                     ]
                 }]
             },
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
             },
             libs: {
                 options: {
-                    destPrefix: '<%= medRep.src %>/scripts/libs'
+                    destPrefix: '<%= jyothiGas.src %>/scripts/libs'
                 },
                 files: {
                     'jquery.js': 'jquery/dist/jquery.min.js',
@@ -64,7 +64,7 @@ module.exports = function(grunt) {
             },
             pluginStyles: {
                 options: {
-                    destPrefix: '<%= medRep.src %>/styles/libs'
+                    destPrefix: '<%= jyothiGas.src %>/styles/libs'
                 },
                 files: {
                     'angular-material.css': 'angular-material/angular-material.css',

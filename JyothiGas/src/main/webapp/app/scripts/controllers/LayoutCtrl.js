@@ -104,12 +104,12 @@ angular.module('clientApp')
             "link": "priceList",
             "extNmae": "priceList"
         }, {
-            "name": "Change Dealer Request",
+            "name": "Change Dealer",
             "icon": "fa fa-copy",
             "link": "dealerChange",
             "extNmae": "dealerChange"
         }, {
-            "name": "Address Change Request",
+            "name": "Update Address",
             "icon": "fa fa-map-marker",
             "link": "addressChange",
             "extNmae": "addressChange"

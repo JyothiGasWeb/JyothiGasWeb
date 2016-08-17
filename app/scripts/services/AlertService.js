@@ -1,11 +1,16 @@
 angular.module('clientApp')
     .service('AlertService', ['$mdToast', function($mdToast) {
 
-        this.alert = function(message, style) {
+        this.alert = function(message, style, delay) {
+            if(!delay){
+                delay = 1500;
+            }else{
+                delay = delay;
+            }
             var toast = $mdToast.simple()
                 .textContent(message)
                 .action('X')
-                .hideDelay(500)
+                .hideDelay(delay)
                 .highlightAction(true)
                 .highlightClass(style)
                 .position("top right");
