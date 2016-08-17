@@ -28,8 +28,6 @@ public class BookingEntity implements java.io.Serializable {
 	private int connectionTypeId;
 	private String status;
 	private String reference;
-/*	@OneToMany
-	private List<ApplianceEntity> appliances;*/
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -100,16 +98,14 @@ public class BookingEntity implements java.io.Serializable {
 		this.qunatity = qunatity;
 	}
 
-	
 	@Column(name = "Status")
 	public String getStatus() {
 		return status;
 	}
-	
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 	@Column(name = "Connection_Type_Id")
 	public int getConnectionTypeId() {
@@ -128,15 +124,5 @@ public class BookingEntity implements java.io.Serializable {
 	public void setReference(String reference) {
 		this.reference = reference;
 	}
-
-/*	public List<ApplianceEntity> getAppliances() {
-		return appliances;
-	}
-
-	public void setAppliances(List<ApplianceEntity> appliances) {
-		this.appliances = appliances;
-	}*/
-
-
 
 }

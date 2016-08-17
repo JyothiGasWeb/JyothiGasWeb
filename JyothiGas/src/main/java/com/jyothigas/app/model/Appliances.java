@@ -7,6 +7,7 @@ public class Appliances implements java.io.Serializable{
 	private String appliance_Pic;
 	private String appliance_Details;
 	private int applliance_Cost;
+	private int quantity;
 
 	public int getId() {
 		return id;
@@ -46,6 +47,14 @@ public class Appliances implements java.io.Serializable{
 
 	public void setApplliance_Cost(int applliance_Cost) {
 		this.applliance_Cost = applliance_Cost;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 }

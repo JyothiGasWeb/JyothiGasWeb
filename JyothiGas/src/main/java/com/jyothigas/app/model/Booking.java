@@ -3,8 +3,6 @@ package com.jyothigas.app.model;
 import java.util.Date;
 import java.util.List;
 
-import com.jyothigas.app.entity.ApplianceEntity;
-
 public class Booking implements java.io.Serializable {
 
 	private int id;
@@ -17,7 +15,8 @@ public class Booking implements java.io.Serializable {
 	private int connectionTypeId;
 	private String status;
 	private String reference;
-	private List<ApplianceEntity> appliances;
+	private List<ApplianceBooking> applianceIds;
+	private List<Appliances> appliancesObj;
 
 	public int getId() {
 		return id;
@@ -99,12 +98,20 @@ public class Booking implements java.io.Serializable {
 		this.reference = reference;
 	}
 
-	public List<ApplianceEntity> getAppliances() {
-		return appliances;
+	public List<ApplianceBooking> getApplianceIds() {
+		return applianceIds;
 	}
 
-	public void setAppliances(List<ApplianceEntity> appliances) {
-		this.appliances = appliances;
+	public void setApplianceIds(List<ApplianceBooking> applianceIds) {
+		this.applianceIds = applianceIds;
+	}
+
+	public List<Appliances> getAppliancesObj() {
+		return appliancesObj;
+	}
+
+	public void setAppliancesObj(List<Appliances> appliancesObj) {
+		this.appliancesObj = appliancesObj;
 	}
 
 }

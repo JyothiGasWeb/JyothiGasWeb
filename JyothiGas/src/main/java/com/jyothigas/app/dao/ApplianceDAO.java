@@ -14,7 +14,7 @@ import com.jyothigas.app.entity.ApplianceEntity;
 
 @Repository("applianceDAO")
 public class ApplianceDAO extends JyothiGasDAO<ApplianceEntity> {
-	
+
 	@PersistenceContext
 	EntityManager entityManger;
 
@@ -22,15 +22,30 @@ public class ApplianceDAO extends JyothiGasDAO<ApplianceEntity> {
 
 	public List<ApplianceEntity> findAllAppliances() {
 		log.info("Getting ApplianceEntity Instance...");
-		List<ApplianceEntity> conumerEntity = new ArrayList<ApplianceEntity>();
+		List<ApplianceEntity> applianceList = new ArrayList<ApplianceEntity>();
 		try {
-			conumerEntity = entityManager.createQuery("select s from ApplianceEntity s ", ApplianceEntity.class)
+			applianceList = entityManager.createQuery("select s from ApplianceEntity s ", ApplianceEntity.class)
 					.getResultList();
 			log.info("get successfull");
 		} catch (Exception e) {
 			log.error("Failed : " + e);
 		}
-		return conumerEntity;
+		return applianceList;
+	}
+
+	public List<ApplianceEntity> findAllAppliancesById(List<Integer> ids) {
+		log.info("Getting ApplianceEntity Instance...");
+		List<ApplianceEntity> applianceList = new ArrayList<ApplianceEntity>();
+		try {
+			applianceList = entityManager
+					.createQuery("select s from ApplianceEntity s where s.id in (:ids)", ApplianceEntity.class)
+					.setParameter("ids", ids).getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("Failed : " + e);
+		}
+		return applianceList;
 	}
 
 }
