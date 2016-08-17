@@ -171,6 +171,15 @@ angular.module('clientApp', [
                     name: 'dealerChange'
                 }
             })
+            .state('transferConnection', {
+                url: '/transferConnection',
+                templateUrl: "app/views/consumer/TransferConnection.html",
+                controller: "DealerChangeCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'transferConnection'
+                }
+            })
             .state('addressChange', {
                 url: '/addressChange',
                 templateUrl: "app/views/consumer/addressChange.html",

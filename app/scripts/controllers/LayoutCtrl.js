@@ -116,8 +116,8 @@ angular.module('clientApp')
         }, {
             "name": "Transfer Connection",
             "icon": "fa fa-exchange",
-            "link": "transferCon",
-            "extNmae": "transferCon"
+            "link": "transferConnection",
+            "extNmae": "transferConnection"
         }, {
             "name": "Mechanic Service",
             "icon": "fa fa fa-suitcase",

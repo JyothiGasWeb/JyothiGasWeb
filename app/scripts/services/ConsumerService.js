@@ -1,6 +1,22 @@
 angular.module('clientApp')
-    .factory('ConsumerService', ['$q', 'ConsumerFactory', 'SessionService', function($q, ConsumerFactory, SessionService) {
+    .factory('ConsumerService', ['$q', 'ConsumerFactory', 'SessionService', 'Upload', 'APP_CONFIG', function($q, ConsumerFactory, SessionService, Upload, APP_CONFIG) {
         var conService = {};
+
+        conService.updateFile = function(id, file) {
+            var deferred = $q.defer();
+            Upload.upload({
+                url: APP_CONFIG.API_URL + 'uploadFile',
+                file: file,
+            }).success(function(data, status, headers, config) {
+                console.log(data);
+                deferred.resolve(data);
+
+            }).error(function(error) {
+                deferred.reject();
+
+            });
+            return deferred.promise;
+        };
 
         conService.bookRefill = function(obj) {
             var deferred = $q.defer();

@@ -47,6 +47,10 @@ md-menu-divider {
     background-color: #ff9999 !important;
 }
 
+.page-title {
+    font-size: 24px;
+}
+
 .login {
     md-toolbar {
         background-color: #1C2B36 !important;
@@ -139,6 +143,9 @@ md-menu-divider {
                     md-content {
                         background-color: #33435D !important;
                         color: #fff;
+                        md-list {
+                            padding: 0;
+                        }
                         md-list-item:nth-of-type(even) {
                             background-color: #3D4D67;
                         }
@@ -254,16 +261,27 @@ md-menu-divider {
     top: 8px;
 }
 
-.surrender{
-    .md-body-1{
+.surrender {
+    .md-body-1 {
+        text-align: justify;
+        padding: 0 8px;
+    }
+    .md-body-2{
+        padding: 8px 8px 0 8px;
+    }
+}
+
+.safety-tips {
+    md-content {
+        background-color: transparent !important;
+        border-radius: 8px;
         text-align: justify;
     }
 }
 
-.safety-tips{
-    md-content{
-        background-color: transparent !important;
-        border-radius: 8px;
-        text-align: justify;
+.jyothi-form {
+    label {
+        font-size: 16px !important;
+        color: #33435D !important;
     }
 }

@@ -16,6 +16,10 @@ controller('ProfileCtrl', ['$scope', 'SessionService', 'RegisterService', 'Consu
         })
     };
 
+    $scope.updateFile = function(){
+        
+    }
+
     var getConsumer = function() {
         $scope.consumer = JSON.parse(JSON.stringify(SessionService.getConsumerSession().consumer));
         $scope.filterDealers();

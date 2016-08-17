@@ -1,53 +1,44 @@
 <section class="md-padding bookRefill">
-    <h2 class="md-title">Book Refill</h2>
+    <h2 class="md-title page-title">Book Refill</h2>
     <div layout="row" layout-align="center center">
-        <md-content flex="60" layout-padding class="md-whiteframe-8dp bookRefill-content">
-            <form name="dealerForm">
+        <md-content flex="60" layout-padding class="md-whiteframe-8dp dash-content-bg">
+            <form name="dealerForm" class="jyothi-form">
                 <div ng-show="isForm">
-                    <div layout="row">
-                        <span flex="10"></span>
-                        <div flex="35" class="md-body-2">Dealer:</div>
-                        <div>{{refillObj.dealerName}}</div>
-                    </div>
-                    <div layout="row">
-                        <span flex="10"></span>
-                        <div flex="35" class="md-body-2">Consumer No:</div>
-                        <div>{{refillObj.consumer_id}}</div>
-                    </div>
-                    <div layout="row">
-                        <span flex="10"></span>
-                        <div flex="35" class="md-body-2">Consumer Name:</div>
-                        <div>{{refillObj.name}}</div>
-                    </div>
-                    <div layout="row">
-                        <span flex="10"></span>
-                        <div flex="35" class="md-body-2">Address:</div>
-                        <div>{{refillObj.address}}</div>
-                    </div>
-                    <div layout="row">
-                        <span flex="10"></span>
-                        <div flex="35" class="md-body-2">Contact No:</div>
-                        <div>{{refillObj.contactNo}}</div>
-                    </div>
-                    <div layout="row">
-                        <span flex="10"></span>
-                        <div flex="35" class="md-body-2">Product Type - Price</div>
-                        <md-input-container class="md-block">
-                            <md-select ng-model="connectionType" required name="product">
-                                <md-option ng-repeat="item in connections" value="{{item}}">
-                                    {{item.connectionDesc}} - {{item.connectionPrice}}
-                                </md-option>
-                            </md-select>
-                            <div ng-messages="dealerForm.product.$error" role="alert">
-                                <div ng-message-exp="['required']">
-                                    Dealer is mandatory
-                                </div>
+                    <md-input-container class="md-block">
+                        <label>Dealer</label>
+                        <input name="name" ng-model="refillObj.dealerName" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Consumer No</label>
+                        <input name="name" ng-model="refillObj.consumer_id" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Consumer Name</label>
+                        <input name="name" ng-model="refillObj.name" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Address</label>
+                        <input name="name" ng-model="refillObj.address" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Contact No</label>
+                        <input name="name" ng-model="refillObj.contactNo" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Product Type - Price</label>
+                        <md-select ng-model="connectionType" required name="product">
+                            <md-option ng-repeat="item in connections" value="{{item}}">
+                                {{item.connectionDesc}} - {{item.connectionPrice}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="dealerForm.product.$error" role="alert">
+                            <div ng-message-exp="['required']">
+                                Dealer is mandatory
                             </div>
-                        </md-input-container>
-                    </div>
-                    <div layout="row">
-                        <span flex="10"></span>
-                        <div flex="35" class="md-body-2">No Of Cylinders</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="row" layout-align="start center">
+                        <div flex="30" class="md-body-2">No Of Cylinders</div>
                         <md-slider-container>
                             <md-slider flex ng-model="cylinders" min="1" max="150" aria-label="cylinder" step="1" id="cylinder-slider" class="md-accent">
                             </md-slider>
@@ -58,7 +49,7 @@
                     </div>
                     <div layout="row" style="display:none;">
                         <span flex="10"></span>
-                        <div flex="35" class="md-body-2">Preferred Time</div>
+                        <div flex="30" class="md-body-2">Preferred Time</div>
                         <mdp-time-picker ng-model="currentDate"></mdp-time-picker>
                     </div>
                     <div layout="row">

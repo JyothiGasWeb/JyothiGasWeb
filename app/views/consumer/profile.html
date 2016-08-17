@@ -1,20 +1,20 @@
 <section class="layout-padding">
-    <h2 class="md-title">My Profile</h2>
+    <h2 class="md-title page-title">My Profile</h2>
     <md-content class="md-padding md-whiteframe-8dp dash-content-bg" layout="column" flex="60">
-        <form name="consumerForm" class="md-padding">
+        <form name="consumerForm" class="md-padding jyothi-form">
             <md-input-container class="md-block">
                 <label>Name</label>
                 <input name="name" ng-model="consumer.name" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Address</label>
-                <textarea ng-model="consumer.address" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+                <textarea ng-model="consumer.address" md-maxlength="150" rows="1" md-select-on-focus ng-disabled="true"></textarea>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>City</label>
                 <input name="city" ng-model="consumer.city" ng-disabled="true">
             </md-input-container>
-            <div layout="row">
+            <!-- <div layout="row">
                 <md-input-container class="md-block" flex="40">
                     <label>Pin Code</label>
                     <input required name="areaCode" ng-model="consumer.areaCode" ng-pattern="/^\d{6}$/">
@@ -25,19 +25,19 @@
                     </div>
                 </md-input-container>
                 <md-button class="md-primary" ng-disabled="consumerForm.areaCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
-            </div>
+            </div> -->
             <md-input-container class="md-block">
-                <label>Dealers</label>
-                <md-select ng-model="consumer.dealerId" name="dealer">
-                    <md-option ng-repeat="dealer in dealers" value="{{dealer.id}}">
-                        {{dealer.dealer_name}}
-                    </md-option>
-                </md-select>
-                <div ng-messages="consumerForm.dealer.$error" role="alert">
-                    <div ng-message-exp="['required']">
-                        Dealer is mandatory
+                <label>Pin Code</label>
+                <input required name="areaCode" ng-model="consumer.areaCode" ng-pattern="/^\d{6}$/" ng-disabled="true">
+                <div ng-messages="consumerForm.areaCode.$error" role="alert">
+                    <div ng-message-exp="['required', 'pattern']">
+                        Add a valid pin code
                     </div>
                 </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Dealer</label>
+                <input required name="areaCode" ng-model="consumer.dealerName" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Email</label>
@@ -46,6 +46,10 @@
             <md-input-container class="md-block">
                 <label>Contact No</label>
                 <input name="contact" ng-model="consumer.contactNo" ng-disabled="true">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>KYC Documents</label>
+                <input type="file" class="form-control fileUpload" ngf-select="" ng-model="kyc" name="file" ng-change="updateFile()" />
             </md-input-container>
             <div layout="row" layout-align="center center">
                 <md-button class="md-raised md-primary" type="submit" ng-disabled="consumerForm.$invalid" style="width:50%;" ng-click="update()">Update
