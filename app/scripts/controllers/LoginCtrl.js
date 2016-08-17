@@ -30,7 +30,7 @@ angular.module('clientApp')
                 } else if (response.accessToken && !response.username) {
                     AlertService.alert("Account not activated", 'md-warn');
                 } else {
-                    AlertService.alert("Email password did not match", 'md-warn');
+                    AlertService.alert("Email and password did not match", 'md-warn');
                 }
             }, function(response) {
                 console.log(response);

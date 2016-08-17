@@ -202,3 +202,16 @@ md-menu-divider {
 .price-table-container .price-table td {
   text-align: center !important;
 }
+.remove-cart {
+  cursor: pointer;
+  position: relative;
+  top: 8px;
+}
+.surrender .md-body-1 {
+  text-align: justify;
+}
+.safety-tips md-content {
+  background-color: transparent !important;
+  border-radius: 8px;
+  text-align: justify;
+}

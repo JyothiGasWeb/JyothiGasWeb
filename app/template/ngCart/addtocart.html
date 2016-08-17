@@ -1,6 +1,5 @@
 <div ng-hide="attrs.id">
     <a class="btn btn-lg btn-primary" ng-disabled="true" ng-transclude></a>
-
 </div>
 <div ng-show="attrs.id">
     <div>
@@ -8,11 +7,12 @@
             <select name="quantity" id="quantity" ng-model="q"
                     ng-options=" v for v in qtyOpt"></select>
         </span>
-        <md-button class="md-primary md-raised"
-           ng-click="ngCart.addItem(id, name, price, q, data)"
-           ng-transclude>Add to cart</md-button>
+        <md-button class="md-primary md-raised" ng-click="ngCart.addItem(id, name, price, q, data)" ng-transclude>Add to cart</md-button>
+        <md-button class="md-icon-button" aria-label="remove">
+            <md-tooltip md-direction="top">
+                Remove From Cart
+            </md-tooltip>
+            <i class="material-icons remove-cart" ng-show="inCart()" ng-click="ngCart.removeItemById(id)">remove_shopping_cart</i>
+        </md-button>
     </div>
-    <mark  ng-show="inCart()">
-        This item is in your cart. <a ng-click="ngCart.removeItemById(id)" style="cursor: pointer;">Remove</a>
-    </mark>
 </div>

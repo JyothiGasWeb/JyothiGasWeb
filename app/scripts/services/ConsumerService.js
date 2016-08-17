@@ -72,6 +72,26 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
+        conService.updateConsumer = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.consumer().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        conService.getAllNotifications = function() {
+            var deferred = $q.defer();
+            ConsumerFactory.notifications().get(function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
         return conService;
     }])
     .factory('ConsumerFactory', ['$resource', 'APP_CONFIG', function($resource, APP_CONFIG) {
@@ -137,6 +157,25 @@ angular.module('clientApp')
         conFact.connectionTypes = function() {
             return $resource(APP_CONFIG.API_URL + 'getConnectionsByType', {}, {
                 'post': {
+                    method: 'GET',
+                    isArray: true
+                }
+
+            })
+        };
+
+        conFact.consumer = function() {
+            return $resource(APP_CONFIG.API_URL + 'updateConsumer', {}, {
+                'post': {
+                    method: 'POST',
+                }
+
+            })
+        };
+
+        conFact.notifications = function() {
+            return $resource(APP_CONFIG.API_URL + 'getAllNotification', {}, {
+                'get': {
                     method: 'GET',
                     isArray: true
                 }
