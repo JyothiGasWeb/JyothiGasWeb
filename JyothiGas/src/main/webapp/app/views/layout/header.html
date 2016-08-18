@@ -7,6 +7,22 @@
             <img src="app/images/logo.png" class="logo" ui-sref="login">
         </div>
         <span flex></span>
+        <md-menu md-offset="0 30" md-position-mode="target-right target">
+            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                <i md-menu-origin class="material-icons">notifications</i>
+            </md-button>
+            <md-menu-content width="4">
+                <md-menu-item>
+                    <md-list ng-cloak>
+                        <md-list-item ng-repeat="item in notifications">
+                            <div class="md-list-item-text">
+                                <div>{{ item.title }}</div>
+                                <div class="md-caption">{{item.short_desc}}</div>
+                            </div>
+                        </md-list-item>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
         <div ui-sref="checkout">
             <ngcart-summary></ngcart-summary>
         </div>

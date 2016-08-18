@@ -1,6 +1,22 @@
 angular.module('clientApp')
-    .factory('ConsumerService', ['$q', 'ConsumerFactory', 'SessionService', function($q, ConsumerFactory, SessionService) {
+    .factory('ConsumerService', ['$q', 'ConsumerFactory', 'SessionService', 'Upload', 'APP_CONFIG', function($q, ConsumerFactory, SessionService, Upload, APP_CONFIG) {
         var conService = {};
+
+        conService.updateFile = function(id, file) {
+            var deferred = $q.defer();
+            Upload.upload({
+                url: APP_CONFIG.API_URL + 'uploadFile',
+                file: file,
+            }).success(function(data, status, headers, config) {
+                console.log(data);
+                deferred.resolve(data);
+
+            }).error(function(error) {
+                deferred.reject();
+
+            });
+            return deferred.promise;
+        };
 
         conService.bookRefill = function(obj) {
             var deferred = $q.defer();
@@ -65,6 +81,26 @@ angular.module('clientApp')
         conService.getConnectionTypes = function(obj) {
             var deferred = $q.defer();
             ConsumerFactory.connectionTypes().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        conService.updateConsumer = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.consumer().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        conService.getAllNotifications = function() {
+            var deferred = $q.defer();
+            ConsumerFactory.notifications().get(function(success) {
                 deferred.resolve(success);
             }, function(error) {
                 deferred.reject(error);
@@ -137,6 +173,25 @@ angular.module('clientApp')
         conFact.connectionTypes = function() {
             return $resource(APP_CONFIG.API_URL + 'getConnectionsByType', {}, {
                 'post': {
+                    method: 'GET',
+                    isArray: true
+                }
+
+            })
+        };
+
+        conFact.consumer = function() {
+            return $resource(APP_CONFIG.API_URL + 'updateConsumer', {}, {
+                'post': {
+                    method: 'POST',
+                }
+
+            })
+        };
+
+        conFact.notifications = function() {
+            return $resource(APP_CONFIG.API_URL + 'getAllNotification', {}, {
+                'get': {
                     method: 'GET',
                     isArray: true
                 }

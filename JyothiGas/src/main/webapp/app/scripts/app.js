@@ -27,7 +27,6 @@ angular.module('clientApp', [
     ])
     .constant('APP_CONFIG', {
         API_URL: 'http://122.175.36.113:8080/jyothigas/'
-       // API_URL: 'http://localhost:8080/jyothigas/'
     })
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         //cfpLoadingBarProvider.latencyThreshold = 100;
@@ -172,6 +171,15 @@ angular.module('clientApp', [
                     name: 'dealerChange'
                 }
             })
+            .state('transferConnection', {
+                url: '/transferConnection',
+                templateUrl: "app/views/consumer/TransferConnection.html",
+                controller: "DealerChangeCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'transferConnection'
+                }
+            })
             .state('addressChange', {
                 url: '/addressChange',
                 templateUrl: "app/views/consumer/addressChange.html",
@@ -246,6 +254,14 @@ angular.module('clientApp', [
                 url: '/contactUs',
                 templateUrl: "app/views/consumer/contactUs.html",
                 parent: 'layout',
+                data: {
+                    name: 'consumerDash'
+                }
+            })
+            .state('success', {
+                url: '/success',
+                templateUrl: "app/views/consumer/success.html",
+                controller: "SuccessCtrl",
                 data: {
                     name: 'consumerDash'
                 }

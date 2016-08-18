@@ -1,7 +1,7 @@
-<div class="alert alert-warning" role="alert" ng-show="ngCart.getTotalItems() === 0">
+<div class="alert alert-warning" role="alert" ng-show="ngCart.getTotalItems() === 0 && !ngCart.isSuccess">
     Your cart is empty
 </div>
-<md-table-container ng-show="ngCart.getTotalItems() > 0">
+<md-table-container ng-show="ngCart.getTotalItems() > 0 && !ngCart.isSuccess">
     <table md-table>
         <thead md-head>
             <tr md-row>
