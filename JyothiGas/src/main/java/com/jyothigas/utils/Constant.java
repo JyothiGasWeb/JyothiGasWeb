@@ -12,8 +12,10 @@ public class Constant {
 	public static final String GET_DEALER_DETAILS = "/getDealers";
 	public static final String UPDATE_CONSUMER = "/updateConsumer";
 	public static final String GET_APPLIANCES = "/getAppliances";
+	public static final String GET_PRODUCT_BY_TYPE = "/getProductByType";
 	public static final String ADD_APPLIANCES = "/addAppliance";
-	public static final String INSERT_BOOKING = "/bookCylinder";
+	public static final String BOOK_CONNECTION = "/bookConnection";
+	public static final String BOOK_APPLIANCES = "/bookAppliances";
 	public static final String GET_BOOKING_BY_STATUS = "/getBookingByStatus";
 	public static final String UPDATE_BOOKING = "/updateBooking";
 	public static final String GET_BOOKING_BY_CONSUMER = "/getBookingByConsumer";

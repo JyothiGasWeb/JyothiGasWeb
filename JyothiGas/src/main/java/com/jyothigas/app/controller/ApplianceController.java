@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyothigas.app.model.AppResponse;
@@ -62,6 +63,24 @@ public class ApplianceController {
 			return applianceObj;
 		} catch (Exception e) {
 			logger.error("Error while Saving appliance.." + e);
+			AppResponse appResponse = new AppResponse();
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			appResponse.setHttpErrorCode(405);
+			appResponse.setOauth2ErrorCode("invalid_token");
+			e.printStackTrace();
+			return appResponse;
+		}
+	}
+
+	@RequestMapping(value = Constant.GET_PRODUCT_BY_TYPE, method = RequestMethod.GET)
+	public @ResponseBody Object getAppliancesByType(@RequestParam Integer connectionTypeID) {
+		logger.info("Fetch all Appliances..");
+		try {
+			List<Appliances> appliancesList = applianceService.findAppliancesByConnectionTypeId(connectionTypeID);
+			return appliancesList;
+		} catch (Exception e) {
+			logger.error("Error while fetching appliances.." + e);
 			AppResponse appResponse = new AppResponse();
 			appResponse.setStatus("Error");
 			appResponse.setMessage("Please try after sometime");

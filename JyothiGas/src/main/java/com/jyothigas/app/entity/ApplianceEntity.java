@@ -12,11 +12,17 @@ import javax.persistence.Table;
 @Table(name = "Appliance")
 public class ApplianceEntity implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 657092305171893359L;
 	private int id;
 	private String appliance_Name;
 	private String appliance_Pic;
 	private String appliance_Details;
 	private int applliance_Cost;
+	@Column(name = "ConnectionTypeId")
+	private int connectionTypeId;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -64,5 +70,15 @@ public class ApplianceEntity implements java.io.Serializable {
 	public void setApplliance_Cost(int applliance_Cost) {
 		this.applliance_Cost = applliance_Cost;
 	}
+
+	public int getConnectionTypeId() {
+		return connectionTypeId;
+	}
+
+	public void setConnectionTypeId(int connectionTypeId) {
+		this.connectionTypeId = connectionTypeId;
+	}
+	
+	
 
 }

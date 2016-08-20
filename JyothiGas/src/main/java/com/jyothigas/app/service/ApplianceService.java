@@ -38,6 +38,21 @@ public class ApplianceService {
 		}
 		return appliancesList;
 	}
+	
+	public List<Appliances> findAppliancesByConnectionTypeId(int id) {
+		List<Appliances> appliancesList = new ArrayList<Appliances>();
+		try {
+			List<ApplianceEntity> appliancesEntityList = applianceDAO.findAppliancesByConnectionTypeId(id);
+			for (ApplianceEntity applianceEntity : appliancesEntityList) {
+				Appliances appliances = new Appliances();
+				BeanUtils.copyProperties(applianceEntity, appliances);
+				appliancesList.add(appliances);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return appliancesList;
+	}
 
 	// Add appliance
 	public Appliances addAppliance(Appliances appliance) {

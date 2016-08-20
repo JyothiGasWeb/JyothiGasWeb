@@ -203,7 +203,7 @@ public class RegistrationService {
 		try {
 			RegistrationEntity entity = registrationDAO.checkLoginCredentials(loginRequest.getUsername(),
 					PasswordProtector.encrypt(loginRequest.getPassword()));
-			if (entity.getEmail() == null || entity.getEncyPassword() == null) {
+			if (entity.getStatus().equalsIgnoreCase("INACTIVE")) {
 				result = false;
 			}
 		} catch (Exception e) {

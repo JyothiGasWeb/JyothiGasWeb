@@ -1,12 +1,17 @@
 package com.jyothigas.app.model;
 
-public class Appliances implements java.io.Serializable{
+public class Appliances implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5240490356158474999L;
 	private int id;
 	private String appliance_Name;
 	private String appliance_Pic;
 	private String appliance_Details;
 	private int applliance_Cost;
+	// quantity will be used to show booked appliances quantity
 	private int quantity;
 
 	public int getId() {

@@ -2,6 +2,10 @@ package com.jyothigas.app.model;
 
 public class Register implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6013184916318431767L;
 	private int id;
 	private String email;
 	private String name;
@@ -16,6 +20,7 @@ public class Register implements java.io.Serializable {
 	private String status;
 	private int connectionQty;
 	private String surrenderInfo;
+	private String userType;
 
 	public int getId() {
 		return id;
@@ -127,6 +132,14 @@ public class Register implements java.io.Serializable {
 
 	public void setSurrenderInfo(String surrenderInfo) {
 		this.surrenderInfo = surrenderInfo;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 }

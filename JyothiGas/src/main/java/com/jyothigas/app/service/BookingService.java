@@ -19,13 +19,13 @@ import com.jyothigas.app.dao.ConnectionTypeDAO;
 import com.jyothigas.app.dao.ConsumerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.entity.ApplianceBookingEntity;
-import com.jyothigas.app.entity.BookingEntity;
+import com.jyothigas.app.entity.ConsumerConnectionEntity;
 import com.jyothigas.app.entity.ConnectionTypeEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.ApplianceBooking;
 import com.jyothigas.app.model.Appliances;
-import com.jyothigas.app.model.Booking;
+import com.jyothigas.app.model.ConsumerConnection;
 import com.jyothigas.app.model.OrderDetail;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.OTPUtil;
@@ -62,11 +62,11 @@ public class BookingService {
 	 * 
 	 * @param booking
 	 */
-	public Booking insertBookingCylinder(Booking booking) {
+	public ConsumerConnection insertBookingCylinder(ConsumerConnection booking) {
 		logger.info("Inserting booking data...");
-		Booking bookingObj = new Booking();
+		ConsumerConnection bookingObj = new ConsumerConnection();
 		String refToken = String.valueOf(OTPUtil.generateIntToken());
-		BookingEntity bookingEntity = new BookingEntity();
+		ConsumerConnectionEntity bookingEntity = new ConsumerConnectionEntity();
 		try {
 			BeanUtils.copyProperties(booking, bookingEntity);
 			bookingEntity.setBooking_date(new Date());
@@ -77,7 +77,7 @@ public class BookingService {
 			}
 			bookingEntity.setReference(refToken);
 			bookingEntity.setStatus("PENDING");
-			BookingEntity bookingEntityObj = bookingDAO.merge(bookingEntity);
+			ConsumerConnectionEntity bookingEntityObj = bookingDAO.merge(bookingEntity);
 
 			// Saving AppliancesIds to booking
 			List<ApplianceBookingEntity> applianceEntityList = createAppliaceBookingEntity(booking.getApplianceIds(),
@@ -120,11 +120,11 @@ public class BookingService {
 	 * 
 	 * @param booking
 	 */
-	public int updateBookingCylinderStatus(Booking booking) {
+	public int updateBookingCylinderStatus(ConsumerConnection booking) {
 		logger.info("Update booking data...");
 		int result = 0;
 		try {
-			BookingEntity bookingEntity = bookingDAO.findById(BookingEntity.class, booking.getId());
+			ConsumerConnectionEntity bookingEntity = bookingDAO.findById(ConsumerConnectionEntity.class, booking.getId());
 			bookingEntity.setStatus("IN PROGRESS");
 			bookingDAO.merge(bookingEntity);
 			result = 1;
@@ -142,13 +142,13 @@ public class BookingService {
 	 * @param booking
 	 * @return
 	 */
-	public List<Booking> fetchBookingsByStatus(Booking booking) {
+	public List<ConsumerConnection> fetchBookingsByStatus(ConsumerConnection booking) {
 		logger.info("fetchBookingsByStatus...");
-		List<Booking> bookingList = new ArrayList<Booking>();
+		List<ConsumerConnection> bookingList = new ArrayList<ConsumerConnection>();
 		try {
-			List<BookingEntity> bookingEntityList = bookingDAO.findByStatus(booking.getStatus());
-			for (BookingEntity bookingEntity : bookingEntityList) {
-				Booking bookingObj = new Booking();
+			List<ConsumerConnectionEntity> bookingEntityList = bookingDAO.findByStatus(booking.getStatus());
+			for (ConsumerConnectionEntity bookingEntity : bookingEntityList) {
+				ConsumerConnection bookingObj = new ConsumerConnection();
 				BeanUtils.copyProperties(bookingEntity, bookingObj);
 				bookingEntity.getId();
 				List<Appliances> applianceList = commonService.getApplianceByBookingId(bookingEntity.getId());
@@ -168,13 +168,13 @@ public class BookingService {
 	 * @param booking
 	 * @return
 	 */
-	public List<Booking> findByConsumerId(Booking booking) {
+	public List<ConsumerConnection> findByConsumerId(ConsumerConnection booking) {
 		logger.info("findByConsumerId...");
-		List<Booking> bookingList = new ArrayList<Booking>();
+		List<ConsumerConnection> bookingList = new ArrayList<ConsumerConnection>();
 		try {
-			List<BookingEntity> bookingEntityList = bookingDAO.findByConsumerId(booking.getConsumer_id());
-			for (BookingEntity bookingEntity : bookingEntityList) {
-				Booking bookingObj = new Booking();
+			List<ConsumerConnectionEntity> bookingEntityList = bookingDAO.findByConsumerId(booking.getConsumer_id());
+			for (ConsumerConnectionEntity bookingEntity : bookingEntityList) {
+				ConsumerConnection bookingObj = new ConsumerConnection();
 				BeanUtils.copyProperties(bookingEntity, bookingObj);
 				List<Appliances> applianceList = commonService.getApplianceByBookingId(bookingEntity.getId());
 				bookingObj.setAppliancesObj(applianceList);
@@ -193,13 +193,13 @@ public class BookingService {
 	 * @param booking
 	 * @return
 	 */
-	public List<Booking> findByConnectionTypeId(Booking booking) {
+	public List<ConsumerConnection> findByConnectionTypeId(ConsumerConnection booking) {
 		logger.info("findByConnectionTypeId...");
-		List<Booking> bookingList = new ArrayList<Booking>();
+		List<ConsumerConnection> bookingList = new ArrayList<ConsumerConnection>();
 		try {
-			List<BookingEntity> bookingEntityList = bookingDAO.findByConnectionTypeId(booking.getConnectionTypeId());
-			for (BookingEntity bookingEntity : bookingEntityList) {
-				Booking bookingObj = new Booking();
+			List<ConsumerConnectionEntity> bookingEntityList = bookingDAO.findByConnectionTypeId(booking.getConnectionTypeId());
+			for (ConsumerConnectionEntity bookingEntity : bookingEntityList) {
+				ConsumerConnection bookingObj = new ConsumerConnection();
 				BeanUtils.copyProperties(bookingEntity, bookingObj);
 				List<Appliances> applianceList = commonService.getApplianceByBookingId(bookingEntity.getId());
 				bookingObj.setAppliancesObj(applianceList);
@@ -223,7 +223,7 @@ public class BookingService {
 		OrderDetail order = null;
 		try {
 			// Step-1 get booking detail
-			BookingEntity bookingEntity = bookingDAO.findInProgressOrderDetail(bookingId);
+			ConsumerConnectionEntity bookingEntity = bookingDAO.findInProgressOrderDetail(bookingId);
 			System.out.println(bookingEntity.getConnectionTypeId());
 			// Step-2 get connection type detail
 			ConnectionTypeEntity connectionType = connectionTypeDao.findById(ConnectionTypeEntity.class,
@@ -244,13 +244,13 @@ public class BookingService {
 	 * @param booking
 	 * @return
 	 */
-	public List<Booking> findAllBookings() {
+	public List<ConsumerConnection> findAllBookings() {
 		logger.info("findAllBookings...");
-		List<Booking> bookingList = new ArrayList<Booking>();
+		List<ConsumerConnection> bookingList = new ArrayList<ConsumerConnection>();
 		try {
-			List<BookingEntity> bookingEntityList = bookingDAO.findAllBookings();
-			for (BookingEntity bookingEntity : bookingEntityList) {
-				Booking bookingObj = new Booking();
+			List<ConsumerConnectionEntity> bookingEntityList = bookingDAO.findAllBookings();
+			for (ConsumerConnectionEntity bookingEntity : bookingEntityList) {
+				ConsumerConnection bookingObj = new ConsumerConnection();
 				BeanUtils.copyProperties(bookingEntity, bookingObj);
 				List<Appliances> applianceList = commonService.getApplianceByBookingId(bookingEntity.getId());
 				bookingObj.setAppliancesObj(applianceList);
@@ -297,7 +297,7 @@ public class BookingService {
 	}
 
 	// For now only for cylinder
-	private OrderDetail createOrderDetail(ConnectionTypeEntity connectionType, BookingEntity entity) {
+	private OrderDetail createOrderDetail(ConnectionTypeEntity connectionType, ConsumerConnectionEntity entity) {
 		OrderDetail order = new OrderDetail();
 		order.setQunatity(entity.getQunatity());
 		order.setBooking_date(entity.getBooking_date());

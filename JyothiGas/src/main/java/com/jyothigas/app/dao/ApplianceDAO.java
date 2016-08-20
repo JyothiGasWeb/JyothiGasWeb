@@ -48,4 +48,18 @@ public class ApplianceDAO extends JyothiGasDAO<ApplianceEntity> {
 		return applianceList;
 	}
 
+	public List<ApplianceEntity> findAppliancesByConnectionTypeId(Integer id) {
+		log.info("Getting ApplianceEntity Instance...");
+		List<ApplianceEntity> applianceList = new ArrayList<ApplianceEntity>();
+		try {
+			applianceList = entityManager
+					.createQuery("select s from ApplianceEntity s where s.connectionTypeId =:id", ApplianceEntity.class)
+					.setParameter("id", id).getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("Failed : " + e);
+		}
+		return applianceList;
+	}
 }

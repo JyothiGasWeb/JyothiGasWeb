@@ -1,23 +1,14 @@
-package com.jyothigas.app.entity;
-
-import static javax.persistence.GenerationType.IDENTITY;
+package com.jyothigas.app.model;
 
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+public class ConsumerConnection implements java.io.Serializable {
 
-@Entity
-@Table(name = "Booking")
-public class BookingEntity implements java.io.Serializable {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2242391092920269445L;
 	private int id;
 	private int consumer_id;
 	private Date booking_date;
@@ -28,10 +19,13 @@ public class BookingEntity implements java.io.Serializable {
 	private int connectionTypeId;
 	private String status;
 	private String reference;
+	private double gasRefill_charges;
+	private double handling_charges;
+	private double delievery_charges;
+	private double total;
+	private List<ApplianceBooking> applianceIds;
+	private List<Appliances> appliancesObj;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "Id", nullable = false)
 	public int getId() {
 		return id;
 	}
@@ -40,7 +34,6 @@ public class BookingEntity implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "Cust_Id")
 	public int getConsumer_id() {
 		return consumer_id;
 	}
@@ -49,8 +42,6 @@ public class BookingEntity implements java.io.Serializable {
 		this.consumer_id = consumer_id;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Booking_Date")
 	public Date getBooking_date() {
 		return booking_date;
 	}
@@ -59,8 +50,6 @@ public class BookingEntity implements java.io.Serializable {
 		this.booking_date = booking_date;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Date_Of_Delivery")
 	public Date getDate_of_deleivery() {
 		return date_of_deleivery;
 	}
@@ -69,8 +58,6 @@ public class BookingEntity implements java.io.Serializable {
 		this.date_of_deleivery = date_of_deleivery;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Last_Date_Of_Issue")
 	public Date getLast_issue() {
 		return last_issue;
 	}
@@ -79,8 +66,6 @@ public class BookingEntity implements java.io.Serializable {
 		this.last_issue = last_issue;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Last_Date_Of_Delivery")
 	public Date getLast_deleivery() {
 		return last_deleivery;
 	}
@@ -89,7 +74,6 @@ public class BookingEntity implements java.io.Serializable {
 		this.last_deleivery = last_deleivery;
 	}
 
-	@Column(name = "Quantity")
 	public int getQunatity() {
 		return qunatity;
 	}
@@ -98,7 +82,6 @@ public class BookingEntity implements java.io.Serializable {
 		this.qunatity = qunatity;
 	}
 
-	@Column(name = "Status")
 	public String getStatus() {
 		return status;
 	}
@@ -107,7 +90,6 @@ public class BookingEntity implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "Connection_Type_Id")
 	public int getConnectionTypeId() {
 		return connectionTypeId;
 	}
@@ -116,13 +98,60 @@ public class BookingEntity implements java.io.Serializable {
 		this.connectionTypeId = connectionTypeId;
 	}
 
-	@Column(name = "Reference")
 	public String getReference() {
 		return reference;
 	}
 
 	public void setReference(String reference) {
 		this.reference = reference;
+	}
+
+	public List<ApplianceBooking> getApplianceIds() {
+		return applianceIds;
+	}
+
+	public void setApplianceIds(List<ApplianceBooking> applianceIds) {
+		this.applianceIds = applianceIds;
+	}
+
+	public List<Appliances> getAppliancesObj() {
+		return appliancesObj;
+	}
+
+	public void setAppliancesObj(List<Appliances> appliancesObj) {
+		this.appliancesObj = appliancesObj;
+	}
+
+	public double getGasRefill_charges() {
+		return gasRefill_charges;
+	}
+
+	public void setGasRefill_charges(double gasRefill_charges) {
+		this.gasRefill_charges = gasRefill_charges;
+	}
+
+	public double getHandling_charges() {
+		return handling_charges;
+	}
+
+	public void setHandling_charges(double handling_charges) {
+		this.handling_charges = handling_charges;
+	}
+
+	public double getDelievery_charges() {
+		return delievery_charges;
+	}
+
+	public void setDelievery_charges(double delievery_charges) {
+		this.delievery_charges = delievery_charges;
+	}
+
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 }

@@ -21,9 +21,9 @@ import com.jyothigas.app.service.ConsumerService;
 import com.jyothigas.utils.Constant;
 
 @Controller
-public class ConumerController {
+public class ConsumerController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConumerController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConsumerController.class);
 
 	@Autowired
 	ConsumerService consumerService;

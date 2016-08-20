@@ -13,6 +13,10 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "Registration", uniqueConstraints = { @UniqueConstraint(columnNames = "Role_Id") })
 public class RegistrationEntity implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1240300618104412980L;
 	private int id;
 	private String email;
 	private String name;
@@ -27,6 +31,7 @@ public class RegistrationEntity implements java.io.Serializable {
 	private String status;
 	private int connectionQty;
 	private String surrenderInfo;
+	private String userType;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -147,13 +152,22 @@ public class RegistrationEntity implements java.io.Serializable {
 		this.connectionQty = connectionQty;
 	}
 
-	@Column(name = "surrender_info")
+	@Column(name = "Surrender_info")
 	public String getSurrenderInfo() {
 		return surrenderInfo;
 	}
 
 	public void setSurrenderInfo(String surrenderInfo) {
 		this.surrenderInfo = surrenderInfo;
+	}
+
+	@Column(name = "UserType")
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 }

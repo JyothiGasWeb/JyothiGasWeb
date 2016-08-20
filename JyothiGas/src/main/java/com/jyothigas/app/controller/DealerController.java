@@ -21,7 +21,7 @@ import com.jyothigas.utils.Constant;
 @Controller
 public class DealerController {
 
-private static final Logger logger = LoggerFactory.getLogger(ConumerController.class);
+private static final Logger logger = LoggerFactory.getLogger(ConsumerController.class);
 	
 	@Autowired
 	DealerService dealerService;
