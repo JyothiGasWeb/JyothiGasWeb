@@ -10,6 +10,16 @@
                     Domestic cylender details as description etc. we have an extensive gas agency network. Currently our gas domestic agency network is present in Karnataka and TamilNadu.
                 </div>
                 <md-content layout="column" layout-padding class="md-whiteframe-8dp">
+                    <div layout="row" layout-align="center center">
+                        <div flex="30">Cylinder Type:</div>
+                        <div flex>
+                            <md-select ng-model="connection.connectionType" ng-model-options="{trackBy: '$value.id'}" required name="product" ng-change="calculate()">
+                                <md-option ng-repeat="item in products" ng-value="{{item}}">
+                                    {{item.appliance_Name}} - {{item.applliance_Cost}}
+                                </md-option>
+                            </md-select>
+                        </div>
+                    </div>
                     <div layout="row">
                         <div flex="30">Cylinder Deposit:</div>
                         <div flex>Rs. 2000</div>
@@ -24,31 +34,31 @@
                     </div>
                     <div layout="row">
                         <div flex="30">Gas Refill Charges:</div>
-                        <div flex>Rs. 650</div>
+                        <div flex>Rs. {{connection.connectionType.applliance_Cost}}</div>
                     </div>
                     <md-divider></md-divider>
                     <div layout="row">
                         <div flex="30">Total Charges:</div>
-                        <div flex>Rs. 3250</div>
+                        <div flex>Rs. {{total}}</div>
                     </div>
                     <md-divider></md-divider>
-                    <ngcart-addtocart id="item1" name="Domestic Cylinder" price="3250" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
+                    <ngcart-addtocart id="item1" name="Domestic Cylinder" price="{{total}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
                 </md-content>
                 <div class="md-title">Appliances</div>
                 <md-content layout="column" layout-padding class="md-whiteframe-8dp">
-                    <div layout="row" layout-align="center center" layout-padding>
+                    <div layout="row" layout-align="center center" layout-padding ng-repeat="appliance in appliances">
                         <div>
                             <img src="app/images/3burner.png" style="width: 100px;">
                         </div>
                         <div flex layout="column" layout-padding>
-                            <div class="md-body-2">3 Burner Glass Top</div>
+                            <div class="md-body-2">{{appliance.appliance_Name}}</div>
                             <div>Offering you the flexibility</div>
-                            <div class="md-title">Price: Rs. 1450</div>
-                            <ngcart-addtocart id="item2" name="3 Burner Glass Top" price="1450" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
+                            <div class="md-title">Price: Rs. {{appliance.applliance_Cost}}</div>
+                            <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.applliance_Cost}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
                         </div>
+                        <md-divider></md-divider>
                     </div>
-                    <md-divider></md-divider>
-                    <div layout="row" layout-align="center center" layout-padding>
+                    <!-- <div layout="row" layout-align="center center" layout-padding>
                         <div>
                             <img src="app/images/3burner.png" style="width: 100px;">
                         </div>
@@ -70,7 +80,7 @@
                             <div class="md-title">Price: Rs. 1750</div>
                             <ngcart-addtocart id="item" name="Gas Tube" price="1750" quantity="1">Add to Cart</ngcart-addtocart quantity-max="5">
                         </div>
-                    </div>
+                    </div> -->
                 </md-content>
             </div>
         </div>

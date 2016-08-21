@@ -8,7 +8,7 @@
         <div layout-padding flex="noshrink">
             <div class="layout-content">
                 <section layout="row" layout-align="center center">
-                    <md-content flex="50" layout-padding class="register-content md-whiteframe-8dp">
+                    <md-content flex="50" layout-padding class="register-content md-whiteframe-8dp" flex-sm="100" flex-xs="100">
                         <h1 class="md-title">SIGN UP - New Customer</h1>
                         <md-divider></md-divider>
                         <form name="registerForm" ng-submit="validateuser(registerForm);" autocomplete="off">
@@ -66,6 +66,7 @@
                                     </div>
                                 </md-input-container>
                                 <md-button class="md-primary" ng-disabled="registerForm.areaCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
+                                <md-progress-circular md-mode="indeterminate" ng-show="searchDeal"></md-progress-circular>
                             </div>
                             <md-input-container class="md-block">
                                 <label>Dealers</label>
@@ -99,6 +100,17 @@
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block">
+                                <md-radio-group layout="row" ng-model="user.userType" name="userType" required>
+                                    <md-radio-button value="EXISTING" class="md-primary">Existing User</md-radio-button>
+                                    <md-radio-button value="NEW" class="md-primary"> New User </md-radio-button>
+                                </md-radio-group>
+                                <div ng-messages="registerForm.userType.$error" role="alert">
+                                    <div ng-message-exp="['required']">
+                                        User Type is Required.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
                                 <label>Address</label>
                                 <textarea ng-model="user.address" md-maxlength="150" rows="1" md-select-on-focus></textarea>
                             </md-input-container>
@@ -121,14 +133,6 @@
                                     </div>
                                 </div>
                             </md-input-container>
-                            <!-- <md-slider-container>
-                                <span class="md-body-1">No Of Cylinders</span>
-                                <md-slider flex ng-model="user.connectionQty" min="1" max="5" aria-label="cylinder" step="1" id="cylinder-slider" class="md-accent">
-                                </md-slider>
-                                <md-input-container>
-                                    <input flex type="number" ng-model="user.connectionQty" aria-label="cylinder" aria-controls="cylinder-slider">
-                                </md-input-container>
-                            </md-slider-container> -->
                             <md-input-container class="md-block">
                                 <div layout="row" layout-align="center center">
                                     <md-button class="md-raised md-primary" type="submit" ng-disabled="registerForm.$invalid || disableLogin" style="width:50%;" ng-click="register()">Sign Up
