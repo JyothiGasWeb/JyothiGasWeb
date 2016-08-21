@@ -247,9 +247,6 @@ public class RegistrationController {
 			e.printStackTrace();
 			appResponse.setStatus("Error");
 			appResponse.setMessage("Please try after sometime");
-			appResponse.setHttpErrorCode(405);
-			appResponse.setOauth2ErrorCode("invalid_token");
-
 		}
 		return appResponse;
 	}

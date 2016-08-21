@@ -26,6 +26,7 @@ public class ConsumerDAO extends JyothiGasDAO<ConsumerEntity> {
 					.getResultList().get(0);
 			log.info("get successfull");
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("Failed : " + e);
 		}
 		return conumerEntity;

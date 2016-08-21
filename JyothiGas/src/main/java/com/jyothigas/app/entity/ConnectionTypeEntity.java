@@ -20,7 +20,6 @@ public class ConnectionTypeEntity implements java.io.Serializable {
 	private String connectionType;
 	private String connectionDesc;
 	private int connectionPrice;
-	private int connectionTypeId;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -58,15 +57,6 @@ public class ConnectionTypeEntity implements java.io.Serializable {
 
 	public void setConnectionPrice(int connectionPrice) {
 		this.connectionPrice = connectionPrice;
-	}
-
-	@Column(name = "ConnectionTypeId")
-	public int getConnectionTypeId() {
-		return connectionTypeId;
-	}
-
-	public void setConnectionTypeId(int connectionTypeId) {
-		this.connectionTypeId = connectionTypeId;
 	}
 
 }

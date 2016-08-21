@@ -19,9 +19,17 @@ public class ConsumerDetails {
 	private int connectionPrice;
 	private int connectionTypeId;
 	private String status;
-	
+	private String userType;
+
 	private int connectionQty;
-	
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 
 	public int getReg_id() {
 		return reg_id;

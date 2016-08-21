@@ -29,6 +29,7 @@ public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
 					.getResultList();
 			log.info("get successfull");
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("Failed : " + e);
 		}
 		return registrationEntity;

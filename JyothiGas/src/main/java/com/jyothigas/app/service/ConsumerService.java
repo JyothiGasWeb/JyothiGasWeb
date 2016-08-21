@@ -68,6 +68,7 @@ public class ConsumerService {
 					consumerDetails.setConnectionQty(registrationEntity.getConnectionQty());
 					consumerDetails.setStatus(registrationEntity.getStatus());
 					consumerDetails.setConnectionTypeId(registrationEntity.getConnectionTypeId());
+					consumerDetails.setUserType(registrationEntity.getUserType());
 					// Fetching the Role Details
 					List<RoleEntity> roleEntityList = roleDAO.findByRoleId(registrationEntity.getRoleId());
 					if (roleEntityList.size() > 0) {
