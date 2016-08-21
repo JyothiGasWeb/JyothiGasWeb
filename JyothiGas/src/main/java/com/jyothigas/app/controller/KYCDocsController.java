@@ -34,7 +34,7 @@ public class KYCDocsController {
 	KYCService kycService;
 
 	@RequestMapping(value = Constant.KYC_UPLOAD, method = RequestMethod.POST)
-	public @ResponseBody Object uploadDocument(@RequestParam("custId") String custId,
+	public @ResponseBody Object uploadDocument(@RequestParam("custId") Integer custId,
 			@RequestParam("file") MultipartFile file) {
 		AppResponse appResponse = new AppResponse();
 		if (!file.isEmpty()) {

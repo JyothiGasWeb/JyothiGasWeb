@@ -16,17 +16,21 @@ public class KYCService {
 	@Autowired
 	KYCDocumentDAO kycDao;
 
-	public void saveDocument(String name, String location, String custId) {
-		KYCDocumentEntity entity = new KYCDocumentEntity();
+	public void saveDocument(String name, String location, int custId) {
+
+		KYCDocumentEntity entity = kycDao.findByCustomerId(custId);
+		if (null == entity) {
+			entity = new KYCDocumentEntity();
+		}
 		entity.setCreatedDate(Calendar.getInstance().getTime());
 		entity.setDocumentName(name);
 		entity.setLocation(location);
-		entity.setCustId(Integer.parseInt(custId));
+		entity.setCustId(custId);
 		kycDao.merge(entity);
 	}
 
 	public KYCDocumentEntity getDocument(int custId) {
-		KYCDocumentEntity entity = kycDao.findById(KYCDocumentEntity.class, custId);
+		KYCDocumentEntity entity = kycDao.findByCustomerId(custId);
 		return entity;
 	}
 
