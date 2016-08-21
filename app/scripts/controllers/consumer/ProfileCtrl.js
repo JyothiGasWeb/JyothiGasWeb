@@ -17,8 +17,17 @@ controller('ProfileCtrl', ['$scope', 'SessionService', 'RegisterService', 'Consu
     };
 
     $scope.updateFile = function(){
-        
-    }
+        var obj = {
+            "custId": $scope.consumer.consumer_id
+        };
+        ConsumerService.updateFile($scope.consumer.consumer_id, $scope.kyc).then(function(response){
+            console.log(response);
+            AlertService.alert("KYC Documents updated Successfully");
+        }, function(error){
+            console.log("error updating KYC documents")
+        })
+
+    };
 
     var getConsumer = function() {
         $scope.consumer = JSON.parse(JSON.stringify(SessionService.getConsumerSession().consumer));

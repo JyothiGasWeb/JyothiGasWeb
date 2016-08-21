@@ -206,7 +206,12 @@ md-menu-divider {
 }
 .price-table-container .price-table th,
 .price-table-container .price-table td {
-  text-align: center !important;
+  text-align: left !important;
+}
+.price-table-container .price-table th {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #33435D !important;
 }
 .remove-cart {
   cursor: pointer;
@@ -228,4 +233,14 @@ md-menu-divider {
 .jyothi-form label {
   font-size: 16px !important;
   color: #33435D !important;
+}
+.contact-dealer .md-body-2 {
+  font-weight: 600;
+  font-size: 16px;
+}
+.contact-dealer .md-body-1 {
+  line-height: 24px;
+}
+.notifications .notification-title {
+  cursor: pointer;
 }

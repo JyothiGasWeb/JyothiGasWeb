@@ -1,0 +1,12 @@
+<section layout="column" layout-padding class="bookings">
+    <h2 class="md-title page-title">Notifications</h2>
+    <md-list flex>
+        <md-list-item class="md-3-line bookings-list md-whiteframe-5dp" ng-repeat="item in notifications">
+            <div class="md-list-item-text" layout="column">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.short_desc }}</p>
+            </div>
+            <div class="md-secondary"><b>Date:</b> {{item.created_date}}</div>
+        </md-list-item>
+    </md-list>
+</section>

@@ -1,5 +1,5 @@
 angular.module('clientApp')
-    .controller('BookRefillCtrl', ['$scope', 'SessionService', 'AlertService', 'ConsumerService', function($scope, SessionService, AlertService, ConsumerService) {
+    .controller('BookRefillCtrl', ['$scope', 'SessionService', 'AlertService', 'ConsumerService', 'RegisterService', function($scope, SessionService, AlertService, ConsumerService, RegisterService) {
 
         $scope.isForm = true;
         $scope.connectionType = {};
@@ -7,6 +7,20 @@ angular.module('clientApp')
             $scope.refillObj = SessionService.getConsumerSession().consumer;
             $scope.cylinders = SessionService.getConsumerSession().consumer.connectionQty;
             getConnectionTypes();
+        };
+
+        var getDealer = function() {
+            RegisterService.getAllDealers().then(function(response) {
+                $scope.availableDealers = response;
+                for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
+                    if (SessionService.getConsumerSession().consumer.dealerId == $scope.availableDealers[i].id) {
+                        $scope.dealer = $scope.availableDealers[i];
+                        break;
+                    }
+                }
+            }, function(error) {
+                console.log("error getting dealers list");
+            })
         };
 
         var getConnectionTypes = function() {
@@ -49,6 +63,7 @@ angular.module('clientApp')
 
         var init = function() {
             getDetails();
+            getDealer();
         };
         init();
     }])

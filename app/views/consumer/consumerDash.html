@@ -1,7 +1,7 @@
 <div layout="column" layout-padding class="dashboard">
     <h2 class="md-title page-title">DASHBOARD</h2>
-    <div layout="column" class="">
-        <div layout="row" layout-align="center center">
+    <div layout="column">
+        <div layout="row" layout-align="center center" hide show-gt-sm show-xl show-lg>
             <div flex="33" layout="column" class="dashboard-container">
                 <md-card class="dashboard-cards col-lightBlue">
                     <md-card-title>
@@ -25,7 +25,7 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                                <img src="app/images/industrial-connection.png" class="dash-img"> 
+                                <img src="app/images/industrial-connection.png" class="dash-img">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
@@ -57,7 +57,7 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                               <img src="app/images/domestic-connection.png" class="dash-img">
+                                <img src="app/images/domestic-connection.png" class="dash-img">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
@@ -72,7 +72,7 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                               <img src="app/images/appliances.png" class="dash-img">
+                                <img src="app/images/appliances.png" class="dash-img">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
@@ -87,7 +87,7 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                               <img src="app/images/price-list.png" class="dash-img"> 
+                                <img src="app/images/price-list.png" class="dash-img">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
@@ -104,7 +104,7 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                              <img src="app/images/commercial-connection.png" class="dash-img"> 
+                                <img src="app/images/commercial-connection.png" class="dash-img">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
@@ -119,7 +119,7 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                              <img src="app/images/search-dealer.png" class="dash-img"> 
+                                <img src="app/images/search-dealer.png" class="dash-img">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
@@ -134,12 +134,263 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                              <img src="app/images/logout.png" class="dash-img"> 
+                                <img src="app/images/logout.png" class="dash-img">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
                     <md-card-actions layout="row" layout-align="end center">
                         <md-button class="md-primary" ng-click="userLogout()">Logout</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </div>
+        <div layout="row" layout-align="center center" hide show-sm>
+            <div flex="50" layout="column" class="dashboard-container">
+                <md-card class="dashboard-cards col-lightBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Book Refill</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/book-refill.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="bookRefill">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards col-darkBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Commercial Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/commercial-connection.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'commercial')">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards col-lightBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Our Apppliances</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/appliances.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="appliances">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Contact Details</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/contact-us.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="contactUs">view</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+            <div flex="50" layout="column" class="dashboard-container">
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Domestic Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/domestic-connection.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'domestic')">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards col-darkBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Industrial Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/industrial-connection.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'industrial')">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Search Dealer</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/search-dealer.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="searchDealer">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards col-darkBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Price List</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/price-list.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="priceList">view</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </div>
+        <!-- Small Screen -->
+        <div layout="row" layout-align="center center" hide show-xs>
+            <div flex="100" layout="column" class="dashboard-container">
+                <md-card class="dashboard-cards col-lightBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Book Refill</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/book-refill.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="bookRefill">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Domestic Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/domestic-connection.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'domestic')">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards col-darkBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Commercial Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/commercial-connection.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'commercial')">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards col-darkBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Industrial Connection</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/industrial-connection.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ng-click="checkConnection($event, 'industrial')">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards col-lightBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Our Apppliances</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/appliances.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="appliances">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Search Dealer</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/search-dealer.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="searchDealer">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards col-darkBlue">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Price List</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/price-list.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="priceList">view</md-button>
+                    </md-card-actions>
+                </md-card>
+                <md-card class="dashboard-cards">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Contact Details</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="app/images/contact-us.png" class="dash-img">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-primary" ui-sref="contactUs">view</md-button>
                     </md-card-actions>
                 </md-card>
             </div>

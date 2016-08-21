@@ -1,0 +1,9 @@
+<md-dialog aria-label="Notification" ng-cloak flex="50">
+    <md-dialog-content class="md-dialog-content">
+        <h2>{{notification.title}}</h2>
+        <p>{{notification.long_desc}}</p>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" layout-align="end end">
+        <md-button md-no-ink class="md-primary md-raised" ng-click="closeDialog()">OK</md-button>
+    </md-dialog-actions>
+</md-dialog>
