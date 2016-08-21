@@ -1,8 +1,5 @@
 package com.jyothigas.app.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -20,13 +17,13 @@ public class ConsumerDAO extends JyothiGasDAO<ConsumerEntity> {
 
 	private static final Log log = LogFactory.getLog(ConsumerDAO.class);
 
-	public List<ConsumerEntity> findByRegId(Integer reg_id) {
+	public ConsumerEntity findByRegId(Integer reg_id) {
 		log.info("Getting ConsumerEntity Instance with reg_id: " + reg_id);
-		List<ConsumerEntity> conumerEntity = new ArrayList<ConsumerEntity>();
+		ConsumerEntity conumerEntity = new ConsumerEntity();
 		try {
 			conumerEntity = entityManager.createQuery("select s from ConsumerEntity s Where s.reg_id = :reg_id ",ConsumerEntity.class)
 					.setParameter("reg_id", reg_id)
-					.getResultList();
+					.getResultList().get(0);
 			log.info("get successfull");
 		} catch (Exception e) {
 			log.error("Failed : " + e);

@@ -27,7 +27,7 @@ public class ConsumerController {
 
 	@Autowired
 	ConsumerService consumerService;
-	
+
 	/**
 	 * API for fetch consumer details using email
 	 * 
@@ -61,7 +61,8 @@ public class ConsumerController {
 	 * @param register
 	 * @return
 	 */
-	@RequestMapping(value = Constant.UPDATE_CONSUMER, method = RequestMethod.POST)
+	@RequestMapping(value = { Constant.UPDATE_CONSUMER, Constant.UPDATE_ADDRESS,
+			Constant.UPDATE_DEALER }, method = RequestMethod.POST)
 	public @ResponseBody AppResponse updateConsumer(@RequestBody Register register) {
 		logger.info("Registering the User");
 		AppResponse appResponse = new AppResponse();

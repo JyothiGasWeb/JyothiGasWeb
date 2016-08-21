@@ -11,6 +11,8 @@ public class Constant {
 	
 	public static final String GET_DEALER_DETAILS = "/getDealers";
 	public static final String UPDATE_CONSUMER = "/updateConsumer";
+	public static final String UPDATE_ADDRESS = "/updateAddress";
+	public static final String UPDATE_DEALER = "/updateDealer";
 	public static final String GET_APPLIANCES = "/getAppliances";
 	public static final String GET_PRODUCT_BY_TYPE = "/getProductByType";
 	public static final String ADD_APPLIANCES = "/addAppliance";
@@ -32,8 +34,10 @@ public class Constant {
 	public static final String KYC_UPLOAD = "/uploadFile";
 	public static final String KYC_DOWNLOAD = "/downloadFile";
 	
-	public static final String NEW = "NEW";
+	public static final String ACTIVE = "ACTIVE";
+	public static final String INACTIVE = "INACTIVE";
 	public static final String STATUS_SURRENDER = "SURRENDERED";
+	public static final String STATUS_TRANSFERRED = "TRANSFERRED";
 	public static final String BOOKING_MESSAGE = "Dear consumer your booking reference no. is ";
 
 	//Not Working API's

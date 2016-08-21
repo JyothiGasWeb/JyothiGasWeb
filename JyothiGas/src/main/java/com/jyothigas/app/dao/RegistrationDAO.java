@@ -65,7 +65,7 @@ public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
 
 	public RegistrationEntity checkLoginCredentials(String email, String encyPassword) {
 		log.info("Checking for user login credentials : " + email);
-		RegistrationEntity registrationEntity = new RegistrationEntity();
+		RegistrationEntity registrationEntity = null;
 		try {
 			registrationEntity = entityManager.createQuery("select s from RegistrationEntity s Where s.email = :email and s.encyPassword = :encyPassword ",RegistrationEntity.class)
 					.setParameter("email", email)

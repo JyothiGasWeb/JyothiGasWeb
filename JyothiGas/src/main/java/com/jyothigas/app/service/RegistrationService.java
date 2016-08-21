@@ -57,7 +57,7 @@ public class RegistrationService {
 			logger.info("User Registration...");
 			BeanUtils.copyProperties(register, registrationEntity);
 			registrationEntity.setEncyPassword(PasswordProtector.encrypt(register.getEncyPassword()));
-			registrationEntity.setStatus(Constant.NEW);
+			registrationEntity.setStatus(Constant.INACTIVE);
 			registrationEntity = registrationDAO.merge(registrationEntity);
 			result = registrationEntity.getId();
 
@@ -203,7 +203,7 @@ public class RegistrationService {
 		try {
 			RegistrationEntity entity = registrationDAO.checkLoginCredentials(loginRequest.getUsername(),
 					PasswordProtector.encrypt(loginRequest.getPassword()));
-			if (entity.getStatus().equalsIgnoreCase("INACTIVE")) {
+			if (null != entity && entity.getStatus().equalsIgnoreCase(Constant.INACTIVE)) {
 				result = false;
 			}
 		} catch (Exception e) {
@@ -217,8 +217,12 @@ public class RegistrationService {
 		boolean result = false;
 		try {
 			RegistrationEntity registerEntity = registrationDAO.findById(RegistrationEntity.class, register.getId());
+			ConsumerEntity consumerEntity = consumerDAO.findByRegId(register.getId());
+			consumerEntity.setConnectionStatus(Constant.STATUS_SURRENDER);
+			System.out.println(consumerEntity.getReg_id());
+			consumerDAO.merge(consumerEntity);
 			registerEntity.setSurrenderInfo(register.getSurrenderInfo());
-			registerEntity.setStatus(Constant.STATUS_SURRENDER);
+			registerEntity.setStatus(Constant.INACTIVE);
 			registrationDAO.merge(registerEntity);
 			result = true;
 		} catch (Exception e) {
