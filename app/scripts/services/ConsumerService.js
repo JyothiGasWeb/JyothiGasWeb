@@ -6,9 +6,8 @@ angular.module('clientApp')
             var deferred = $q.defer();
             Upload.upload({
                 url: APP_CONFIG.API_URL + 'uploadFile',
-                file: file,
+                data: {file: file, 'custId': id}
             }).success(function(data, status, headers, config) {
-                console.log(data);
                 deferred.resolve(data);
 
             }).error(function(error) {

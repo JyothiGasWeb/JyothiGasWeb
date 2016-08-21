@@ -26,7 +26,7 @@ angular.module('clientApp', [
         'mdPickers'
     ])
     .constant('APP_CONFIG', {
-        API_URL: 'http://122.175.36.113:8080/jyothigas/'
+        API_URL: 'http://localhost:8080/jyothigas/'
     })
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         //cfpLoadingBarProvider.latencyThreshold = 100;
@@ -121,6 +121,15 @@ angular.module('clientApp', [
                 url: '/domestic',
                 templateUrl: "app/views/consumer/domesticConnection.html",
                 controller: "DomesticConnectionCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'consumerDash'
+                }
+            })
+            .state('notifications', {
+                url: '/notifications',
+                templateUrl: "app/views/consumer/notifications.html",
+                controller: "NotificationsCtrl",
                 parent: 'layout',
                 data: {
                     name: 'consumerDash'

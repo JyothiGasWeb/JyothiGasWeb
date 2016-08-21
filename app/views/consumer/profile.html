@@ -1,6 +1,6 @@
 <section class="layout-padding">
     <h2 class="md-title page-title">My Profile</h2>
-    <md-content class="md-padding md-whiteframe-8dp dash-content-bg" layout="column" flex="60">
+    <md-content class="md-padding md-whiteframe-8dp dash-content-bg" layout="column" flex="60" flex-sm="100" flex-xs="100">
         <form name="consumerForm" class="md-padding jyothi-form">
             <md-input-container class="md-block">
                 <label>Name</label>
@@ -48,11 +48,13 @@
                 <input name="contact" ng-model="consumer.contactNo" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
-                <label>KYC Documents</label>
-                <input type="file" class="form-control fileUpload" ngf-select="" ng-model="kyc" name="file" ng-change="updateFile()" />
+               <!--  <input type="file" class="form-control fileUpload" ngf-select="" ng-model="kyc" name="file" /> -->
+                <md-button class="md-raised md-primary" ngf-select="" ng-model="kyc" name="file" >KYC Documents</md-button>
+                {{kyc.name}}
+                <!-- <input type='file' ng-model="kyc" base-sixty-four-input required> -->
             </md-input-container>
             <div layout="row" layout-align="center center">
-                <md-button class="md-raised md-primary" type="submit" ng-disabled="consumerForm.$invalid" style="width:50%;" ng-click="update()">Update
+                <md-button class="md-raised md-primary" type="submit" ng-disabled="consumerForm.$invalid" style="width:50%;" ng-click="updateFile()">Update
                 </md-button>
             </div>
         </form>

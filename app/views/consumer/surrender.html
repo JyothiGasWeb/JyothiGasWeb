@@ -25,6 +25,7 @@
     </div>
     <div layout="row">
         <span flex></span>
-        <md-button class="md-primary md-raised" ng-click="surrender($event)">Surrender</md-button> 
+        <md-button class="md-primary md-raised" ng-click="surrender($event)" ng-show="!isSurrender">Surrender</md-button>
+        <div class="md-headline" ng-show="isSurrender" style="margin-right:10px;">Status: Surrendered</div> 
     </div>
 </section>

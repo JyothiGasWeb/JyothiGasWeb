@@ -1,7 +1,7 @@
 <section class="md-padding bookRefill">
     <h2 class="md-title page-title">Book Refill</h2>
     <div layout="row" layout-align="center center">
-        <md-content flex="60" layout-padding class="md-whiteframe-8dp dash-content-bg">
+        <md-content flex="60" layout-padding class="md-whiteframe-8dp dash-content-bg" flex-sm="100" flex-xs="100">
             <form name="dealerForm" class="jyothi-form">
                 <div ng-show="isForm">
                     <md-input-container class="md-block">
@@ -62,10 +62,12 @@
                 <div class="md-body-1" ng-show="!isNextDay">
                     Thank you for booking with us. Your total bill amount is Rs. {{totalPrice}}, your booking refernce no is {{refNo}}.
                     <br/> Your Cylinder will be delivered from 6hrs from booking
+                    <br/> Please contact {{dealer.dealer_name}} in case of any queries at {{dealer.dealer_contact_no}}
                 </div>
                 <div class="md-body-1" ng-show="isNextDay">
                     Thank you for booking with us. Your total bill amount is Rs. {{totalPrice}}, your booking refernce no is {{refNo}}.
                     <br/> Since your booking is recorded after 8PM, the cylinder will be delivered tomorrow.
+                    <br/> Please contact {{dealer.dealer_name}} in case of any queries at {{dealer.dealer_contact_no}}
                 </div>
             </div>
         </md-content>
