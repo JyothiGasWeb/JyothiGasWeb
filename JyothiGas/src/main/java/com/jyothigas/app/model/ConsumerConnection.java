@@ -15,7 +15,7 @@ public class ConsumerConnection implements java.io.Serializable {
 	private Date date_of_deleivery;
 	private Date last_issue;
 	private Date last_deleivery;
-	private int qunatity;
+	private int quantity;
 	private int connectionTypeId;
 	private String status;
 	private String reference;
@@ -74,12 +74,14 @@ public class ConsumerConnection implements java.io.Serializable {
 		this.last_deleivery = last_deleivery;
 	}
 
-	public int getQunatity() {
-		return qunatity;
+
+
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQunatity(int qunatity) {
-		this.qunatity = qunatity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public String getStatus() {
