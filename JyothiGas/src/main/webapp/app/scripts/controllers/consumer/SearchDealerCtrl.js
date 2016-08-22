@@ -4,7 +4,7 @@
  * Description
  */
 angular.module('clientApp').
-controller('SearchDealerCtrl', ['$scope', 'RegisterService', function($scope, RegisterService) {
+controller('SearchDealerCtrl', ['$scope', 'RegisterService', 'ConsumerService', 'AlertService', function($scope, RegisterService, ConsumerService, AlertService) {
 
 	$scope.showDealers = false;
     var getAllDealers = function() {
@@ -15,6 +15,10 @@ controller('SearchDealerCtrl', ['$scope', 'RegisterService', function($scope, Re
             console.log("error getting dealers list");
         })
     };
+
+    $scope.updateDealer = function(){
+        //Need to integrate with API
+    }
 
     $scope.filterDealers = function() {
         $scope.dealers = [];

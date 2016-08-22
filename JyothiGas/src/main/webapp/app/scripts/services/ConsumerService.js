@@ -6,14 +6,33 @@ angular.module('clientApp')
             var deferred = $q.defer();
             Upload.upload({
                 url: APP_CONFIG.API_URL + 'uploadFile',
-                file: file,
+                data: { file: file, 'custId': id }
             }).success(function(data, status, headers, config) {
-                console.log(data);
                 deferred.resolve(data);
 
             }).error(function(error) {
                 deferred.reject();
 
+            });
+            return deferred.promise;
+        };
+
+        conService.getProductType = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.productType().get(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        conService.getAppliances = function() {
+            var deferred = $q.defer();
+            ConsumerFactory.appliances().get({ 'method': 'getAppliances' }, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
             });
             return deferred.promise;
         };
@@ -108,6 +127,26 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
+        conService.bookConnection = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.connection().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        conService.bookAppliances = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.appliances().post({ 'method': 'bookAppliances' }, obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
         return conService;
     }])
     .factory('ConsumerFactory', ['$resource', 'APP_CONFIG', function($resource, APP_CONFIG) {
@@ -194,6 +233,40 @@ angular.module('clientApp')
                 'get': {
                     method: 'GET',
                     isArray: true
+                }
+
+            })
+        };
+
+        conFact.productType = function() {
+            return $resource(APP_CONFIG.API_URL + 'getProductByType', {}, {
+                'get': {
+                    method: 'GET',
+                    isArray: true
+                }
+
+            })
+        };
+
+        conFact.appliances = function() {
+            return $resource(APP_CONFIG.API_URL + ':method', {
+                method: '@method'
+            }, {
+                'get': {
+                    method: 'GET',
+                    isArray: true
+                },
+                'post': {
+                    method: 'POST'
+                }
+
+            })
+        };
+
+        conFact.connection = function() {
+            return $resource(APP_CONFIG.API_URL + 'bookConnection', {}, {
+                'post': {
+                    method: 'POST'
                 }
 
             })

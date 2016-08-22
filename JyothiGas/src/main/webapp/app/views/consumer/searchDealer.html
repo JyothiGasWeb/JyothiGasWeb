@@ -20,14 +20,18 @@
         </form>
         <div ng-if="showDealers">
             <md-list flex ng-if="dealers.length > 0">
-                <md-list-item class="md-3-line bookings-list md-whiteframe-5dp" ng-repeat="item in dealers">
+                <md-list-item class="md-3-line bookings-list md-whiteframe-5dp md-padding" ng-repeat="item in dealers">
                     <div class="md-list-item-text" layout="column">
                         <div><b>Name</b> {{item.dealer_name}}</div>
                         <div><b>Contact No</b> {{item.dealer_contact_no}}</div>
                         <div><b>Email</b> {{item.dealer_email}}</div>
                         <div><b>City</b> {{item.dealer_city}}</div>
                     </div>
-                    <div class="md-secondary"><b>Area Code:</b> {{item.dealer_area_code}}</div>
+                    <div class="md-secondary"></div>
+                    <div class="md-secondary">
+                    <md-button class="md-primary" ng-click="updateDealer(item)">Pick Dealer</md-button>
+                    <b>Area Code:</b> {{item.dealer_area_code}}
+                    </div>
                 </md-list-item>
             </md-list>
             <div class="md-title" ng-if="dealers.length == 0" layout="column" layout-align="center center">

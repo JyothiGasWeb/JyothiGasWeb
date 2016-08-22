@@ -7,58 +7,34 @@
             <img src="app/images/logo.png" class="logo" ui-sref="login">
         </div>
         <span flex></span>
-        <md-menu md-offset="0 30" md-position-mode="target-right target">
+        <md-menu md-offset="0 30" md-position-mode="target-right target" class="notifications">
             <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
                 <i md-menu-origin class="material-icons">notifications</i>
             </md-button>
             <md-menu-content width="4">
-                <md-menu-item>
-                    <md-list ng-cloak>
-                        <md-list-item ng-repeat="item in notifications">
-                            <div class="md-list-item-text">
-                                <div>{{ item.title }}</div>
-                                <div class="md-caption">{{item.short_desc}}</div>
-                            </div>
-                        </md-list-item>
+                <md-menu-item ng-repeat="item in notifications">
+                    <md-button ng-click="openNotifi($event, item)">
+                        <div layout="row" layout-align="center center">
+                            <p>{{ item.title }}</p>
+                        </div>
+                    </md-button>
                 </md-menu-item>
+                <md-divider></md-divider>
+                <div layout="row" layout-align="end end">
+                    <md-button class="md-primary" ui-sref="notifications">more</md-button>
+                </div>
             </md-menu-content>
         </md-menu>
         <div ui-sref="checkout">
             <ngcart-summary></ngcart-summary>
         </div>
-        <md-menu md-offset="0 30" md-position-mode="target-right target">
-            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
-                <!--<md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>-->
-                <i md-menu-origin class="material-icons">account_box</i>
-            </md-button>
-            <md-menu-content width="4">
-                <md-menu-item>
-                    <md-button ui-sref="settings">
-                        <div layout="row" layout-align="center center">
-                            <i class="material-icons">settings</i> &nbsp;&nbsp;&nbsp;
-                            <p>Settings</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-                <md-menu-divider></md-menu-divider>
-                <!-- <md-menu-item>
-                    <md-button ui-sref="profile">
-                        <div layout="row" layout-align="center center">
-                            <i class="material-icons">person</i> &nbsp;&nbsp;&nbsp;
-                            <p>Profile</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-                <md-menu-divider></md-menu-divider> -->
-                <md-menu-item>
-                    <md-button ng-click="userLogout()">
-                        <div layout="row" layout-align="center center">
-                            <i class="material-icons">exit_to_app</i> &nbsp;&nbsp;&nbsp;
-                            <p>Logout</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
+        <md-button ng-click="userLogout()">
+            <div layout="row" layout-align="center center">
+                <i class="material-icons">exit_to_app</i> &nbsp;&nbsp;&nbsp;
+                <md-tooltip md-direction="bottom">
+                    Logout
+                </md-tooltip>
+            </div>
+        </md-button>
     </div>
 </md-toolbar>

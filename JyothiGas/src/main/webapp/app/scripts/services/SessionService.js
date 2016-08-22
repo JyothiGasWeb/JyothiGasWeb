@@ -54,7 +54,7 @@ angular.module('clientApp')
                 localStorageService.cookie.set("accessToken", tokens.accessToken);
                 localStorageService.cookie.set("refreshToken", tokens.refreshToken);
             }
-        }
+        };
 
         this.checkSession = function() {
             if (localStorageService.isSupported) {
@@ -86,6 +86,48 @@ angular.module('clientApp')
                 return localStorageService.cookie.get("email");
             }
         };
+
+        this.createPriceSession = function(price) {
+            if (localStorageService.isSupported) {
+                localStorageService.set("gasRefill_charges", price.gasRefill_charges);
+                localStorageService.set("handling_charges", price.handling_charges);
+                localStorageService.set("delievery_charges", price.delievery_charges);
+
+            } else {
+                localStorageService.cookie.set("gasRefill_charges", price.gasRefill_charges);
+                localStorageService.cookie.set("handling_charges", price.handling_charges);
+                localStorageService.cookie.set("delievery_charges", price.delievery_charges);
+            }
+        };
+
+        this.getPriceSession = function() {
+            var priceObj = {};
+            if (localStorageService.isSupported) {
+                priceObj.gasRefill_charges = localStorageService.get("gasRefill_charges");
+                priceObj.handling_charges = localStorageService.get("handling_charges");
+                priceObj.delievery_charges = localStorageService.get("delievery_charges");
+            } else {
+                priceObj.gasRefill_charges = localStorageService.cookie.get("gasRefill_charges");
+                priceObj.handling_charges = localStorageService.cookie.get("handling_charges");
+                priceObj.delievery_charges = localStorageService.cookie.get("delievery_charges");
+            }
+            return priceObj;
+        };
+
+        this.deletePriceSession = function() {
+
+            if (localStorageService.isSupported) {
+                localStorageService.remove("gasRefill_charges");
+                localStorageService.remove("handling_charges");
+                localStorageService.remove("delievery_charges");
+            } else {
+                localStorageService.cookie.remove("gasRefill_charges");
+                localStorageService.cookie.remove("handling_charges");
+                localStorageService.cookie.remove("delievery_charges");
+            }
+        };
+
+
 
 
         this.deleteSession = function() {

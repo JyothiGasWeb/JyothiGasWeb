@@ -1,13 +1,13 @@
 angular.module('clientApp')
-    .controller('RegisterNewCtrl', ['$scope', 'RegisterService', '$state', 'AlertService', '$mdDialog', '$q', function($scope, RegisterService, $state, AlertService, $mdDialog, $q) {
+    .controller('RegisterNewCtrl', ['$scope', 'RegisterService', '$state', 'AlertService', '$mdDialog', '$timeout', function($scope, RegisterService, $state, AlertService, $mdDialog, $timeout) {
 
 
         $scope.dealers = [];
         $scope.availableDealers = [];
+        $scope.searchDeal = false;
         var getAllDealers = function() {
             RegisterService.getAllDealers().then(function(response) {
                 $scope.availableDealers = response;
-                console.log($scope.availableDealers)
             }, function(error) {
                 console.log("error getting dealers list");
             })
@@ -15,11 +15,16 @@ angular.module('clientApp')
 
         $scope.filterDealers = function() {
             $scope.dealers = [];
+            $scope.searchDeal = true;
             for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
                 if ($scope.user.areaCode == $scope.availableDealers[i].dealer_area_code) {
                     $scope.dealers.push($scope.availableDealers[i]);
                 }
-            }
+            };
+            $timeout(function() {
+                $scope.searchDeal = false;
+            }, 1000);
+
         };
 
         $scope.register = function() {
@@ -36,6 +41,7 @@ angular.module('clientApp')
                 "dealerId": $scope.user.dealerId,
                 "status": "New",
                 "connectionQty": 1,
+                "userType": $scope.user.user
             };
 
             RegisterService.register(userObj).then(function(response) {
