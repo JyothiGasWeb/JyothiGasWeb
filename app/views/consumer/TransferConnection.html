@@ -6,51 +6,67 @@
             <div layout="column">
                 <div layout="row">
                     <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs = "35" flex-sm="35" class="md-body-2">Dealer Name:</div>
+                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Dealer Name:</div>
                     <div>{{current.dealer_name}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs = "35" flex-sm="35" class="md-body-2">Address:</div>
+                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Address:</div>
                     <div>{{current.dealer_address}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs = "35" flex-sm="35" class="md-body-2">District:</div>
+                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">District:</div>
                     <div>{{current.dealer_city}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs = "35" flex-sm="35" class="md-body-2">Pin code:</div>
+                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Pin code:</div>
                     <div>{{current.dealer_area_code}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs = "35" flex-sm="35" class="md-body-2">Contact No:</div>
+                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Contact No:</div>
                     <div>{{current.dealer_contact_no}}</div>
                 </div>
                 <div layout="row">
                     <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs = "35" flex-sm="35" class="md-body-2">Email:</div>
+                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Email:</div>
                     <div>{{current.dealer_email}}</div>
                 </div>
             </div>
         </fieldset>
         <div layout="column" layout-padding>
             <form name="dealerForm">
+                <div layout="row">
+                    <md-input-container class="md-block" flex="40">
+                        <label>Pin Code</label>
+                        <input required name="areaCode" ng-model="user.areaCode" ng-pattern="/^\d{6}$/">
+                        <div ng-messages="dealerForm.areaCode.$error" role="alert">
+                            <div ng-message-exp="['required', 'pattern']">
+                                Add a valid pin code
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-button class="md-primary" ng-disabled="dealerForm.areaCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
+                    <md-progress-circular md-mode="indeterminate" ng-show="searchDeal"></md-progress-circular>
+                </div>
                 <md-input-container class="md-block">
-                    <label>New Address</label>
-                    <textarea ng-model="user.newAddress" md-maxlength="150" rows="1" md-select-on-focus></textarea>
-                </md-input-container>
-                <md-input-container class="md-block">
-                    <label>New Pin code</label>
-                    <input required name="pinCode" ng-model="user.newPinCode" ng-pattern="/^\d{6}$/">
-                    <div ng-messages="dealerForm.pinCode.$error" role="alert">
-                        <div ng-message-exp="['required', 'pattern']">
-                            Add a valid pin code
+                    <label>Dealers</label>
+                    <md-select ng-model="user.dealerId" required name="dealer" ng-disabled="isNoDealer">
+                        <md-option ng-repeat="dealer in dealers" ng-value="{{dealer.id}}">
+                            {{dealer.dealer_name}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="dealerForm.dealer.$error" role="alert">
+                        <div ng-message-exp="['required']">
+                            Dealer is mandatory
                         </div>
                     </div>
                 </md-input-container>
+                <div ng-show="emptyDealer">
+                    No dealers for current area, please enter another area code.
+                </div>
                 <div layout="row" layout-align="end end">
                     <md-button class="md-warn md-raised" ng-click="reset()">Reset</md-button>
                     <md-button class="md-primary md-raised">Submit</md-button>

@@ -28,39 +28,13 @@
         <div ui-sref="checkout">
             <ngcart-summary></ngcart-summary>
         </div>
-        <md-menu md-offset="0 30" md-position-mode="target-right target">
-            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
-                <!--<md-icon md-menu-origin md-svg-icon="call:phone"></md-icon>-->
-                <i md-menu-origin class="material-icons">account_box</i>
-            </md-button>
-            <md-menu-content width="4">
-                <md-menu-item>
-                    <md-button ui-sref="settings">
-                        <div layout="row" layout-align="center center">
-                            <i class="material-icons">settings</i> &nbsp;&nbsp;&nbsp;
-                            <p>Settings</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-                <md-menu-divider></md-menu-divider>
-                <!-- <md-menu-item>
-                    <md-button ui-sref="profile">
-                        <div layout="row" layout-align="center center">
-                            <i class="material-icons">person</i> &nbsp;&nbsp;&nbsp;
-                            <p>Profile</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-                <md-menu-divider></md-menu-divider> -->
-                <md-menu-item>
-                    <md-button ng-click="userLogout()">
-                        <div layout="row" layout-align="center center">
-                            <i class="material-icons">exit_to_app</i> &nbsp;&nbsp;&nbsp;
-                            <p>Logout</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-            </md-menu-content>
-        </md-menu>
+        <md-button ng-click="userLogout()">
+            <div layout="row" layout-align="center center">
+                <i class="material-icons">exit_to_app</i> &nbsp;&nbsp;&nbsp;
+                <md-tooltip md-direction="bottom">
+                    Logout
+                </md-tooltip>
+            </div>
+        </md-button>
     </div>
 </md-toolbar>

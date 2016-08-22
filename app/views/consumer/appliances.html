@@ -4,40 +4,17 @@
         <div layout="row">
             <div flex layout="column" class="layout-margin">
                 <md-content layout="column" layout-padding class="md-whiteframe-8dp">
-                    <div layout="row" layout-align="center center" layout-padding>
+                    <div layout="row" layout-align="center center" layout-padding ng-repeat="appliance in appliances">
                         <div>
                             <img src="app/images/3burner.png" style="width: 100px;">
                         </div>
                         <div flex layout="column" layout-padding>
-                            <div class="md-body-2">3 Burner Glass Top</div>
+                            <div class="md-body-2">{{appliance.appliance_Name}}</div>
                             <div>Offering you the flexibility</div>
-                            <div class="md-title">Price: Rs. 1450</div>
-                            <ngcart-addtocart id="item2" name="3 Burner Glass Top" price="1450" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
+                            <div class="md-title">Price: Rs. {{appliance.applliance_Cost}}</div>
+                            <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.applliance_Cost}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
                         </div>
-                    </div>
-                    <md-divider></md-divider>
-                    <div layout="row" layout-align="center center" layout-padding>
-                        <div>
-                            <img src="app/images/3burner.png" style="width: 100px;">
-                        </div>
-                        <div flex layout="column" layout-padding>
-                            <div class="md-body-2">Stainless Steel Gas Stove</div>
-                            <div>Offering you the flexibility</div>
-                            <div class="md-title">Price: Rs. 1750</div>
-                            <ngcart-addtocart id="item3" name="3 Burner Glass Top" price="1750" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
-                        </div>
-                    </div>
-                    <md-divider></md-divider>
-                    <div layout="row" layout-align="center center" layout-padding>
-                        <div>
-                            <img src="app/images/3burner.png" style="width: 100px;">
-                        </div>
-                        <div flex layout="column" layout-padding>
-                            <div class="md-body-2">Gas Tube</div>
-                            <div>Offering you the flexibility</div>
-                            <div class="md-title">Price: Rs. 1750</div>
-                            <ngcart-addtocart id="item" name="Gas Tube" price="1750" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
-                        </div>
+                        <md-divider></md-divider>
                     </div>
                 </md-content>
             </div>

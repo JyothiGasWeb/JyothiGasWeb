@@ -4,6 +4,7 @@
  * Description
  */
 angular.module('clientApp').
-controller('CheckoutCtrl', ['$scope', function($scope) {
+controller('CheckoutCtrl', ['$scope', 'ngCart', function($scope, ngCart) {
 
-}])
+	ngCart.isSuccess = false;
+}]);

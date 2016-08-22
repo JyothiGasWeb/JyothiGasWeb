@@ -15,7 +15,9 @@
         </svg>
     </div>
     <div flex>{{ ngCart.getTotalItems() }}
+        <span hide show-gt-sm show-xl show-lg show-md>
         <ng-pluralize count="ngCart.getTotalItems()" when="{1: 'item', 'other':'items'}"></ng-pluralize>
         {{ ngCart.totalCost() | currency: '&#8377;' }}
+        </span>
     </div>
 </div>

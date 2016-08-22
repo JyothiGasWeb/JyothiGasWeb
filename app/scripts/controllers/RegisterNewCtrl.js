@@ -8,7 +8,6 @@ angular.module('clientApp')
         var getAllDealers = function() {
             RegisterService.getAllDealers().then(function(response) {
                 $scope.availableDealers = response;
-                console.log($scope.availableDealers)
             }, function(error) {
                 console.log("error getting dealers list");
             })
