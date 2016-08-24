@@ -147,6 +147,16 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
+        conService.updateDealer = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.dealerUpdate().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
         return conService;
     }])
     .factory('ConsumerFactory', ['$resource', 'APP_CONFIG', function($resource, APP_CONFIG) {
@@ -265,6 +275,15 @@ angular.module('clientApp')
 
         conFact.connection = function() {
             return $resource(APP_CONFIG.API_URL + 'bookConnection', {}, {
+                'post': {
+                    method: 'POST'
+                }
+
+            })
+        };
+
+        conFact.dealerUpdate = function() {
+            return $resource(APP_CONFIG.API_URL + 'updateDealer', {}, {
                 'post': {
                     method: 'POST'
                 }

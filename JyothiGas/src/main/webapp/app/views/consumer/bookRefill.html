@@ -27,8 +27,8 @@
                     <md-input-container class="md-block">
                         <label>Product Type - Price</label>
                         <md-select ng-model="connectionType" required name="product">
-                            <md-option ng-repeat="item in connections" value="{{item}}">
-                                {{item.connectionDesc}} - {{item.connectionPrice}}
+                            <md-option ng-repeat="item in connections" ng-value="{{item}}">
+                                {{item.appliance_Name}} - {{item.applliance_Cost}}
                             </md-option>
                         </md-select>
                         <div ng-messages="dealerForm.product.$error" role="alert">

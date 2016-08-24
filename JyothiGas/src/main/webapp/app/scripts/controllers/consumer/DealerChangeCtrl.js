@@ -4,7 +4,7 @@
  * Description
  */
 angular.module('clientApp').
-controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '$timeout', function($scope, SessionService, RegisterService, $timeout) {
+controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '$timeout', 'ConsumerService', 'AlertService', 'LoginService', function($scope, SessionService, RegisterService, $timeout, ConsumerService, AlertService, LoginService) {
 
     $scope.current = {};
     $scope.user = {};
@@ -13,12 +13,14 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
     $scope.availableDealers = [];
     $scope.searchDeal = false;
     $scope.emptyDealer = false;
+    var user = SessionService.getConsumerSession().consumer;
 
-    var getCurrentAdd = function() {
+
+    var getCurrentDealer = function() {
         RegisterService.getAllDealers().then(function(response) {
             $scope.availableDealers = response;
             for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
-                if (SessionService.getConsumerSession().consumer.dealerId == $scope.availableDealers[i].id) {
+                if (user.dealerId == $scope.availableDealers[i].id) {
                     $scope.current = $scope.availableDealers[i];
                     break;
                 }
@@ -49,6 +51,35 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
 
     };
 
+    $scope.update = function() {
+        var obj = {
+            "id": user.reg_id,
+            "dealerId": $scope.user.dealerId
+        }
+        ConsumerService.updateDealer(obj).then(function(response) {
+            if (response.status == 'OK'){
+                updateUser();
+            }
+        }, function(error) {
+            AlertService.alert("Error Updating Dealer", 'md-warn');
+            console.log("error updating dealer");
+        })
+    }
+
+    var updateUser = function() {
+        var obj = {
+            "email": user.email
+        }
+        LoginService.getConsumer(obj).then(function(response) {
+            SessionService.setConsumerSession(response);
+            AlertService.alert("Dealer Updated Successfully", 'md-primary');
+            getCurrentDealer();
+            //$scope.reset();
+        }, function(response) {
+            console.log("errror");
+        });
+    };
+
     $scope.reset = function() {
         $scope.user = {
             "newPinCode": "",
@@ -57,7 +88,7 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
     }
 
     var init = function() {
-        getCurrentAdd();
+        getCurrentDealer();
     };
     init();
 }]);
