@@ -1,57 +1,42 @@
-package com.jyothigas.app.entity;
-
-import static javax.persistence.GenerationType.IDENTITY;
+package com.jyothigas.app.model;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@Table(name = "Consumer_Connection")
-public class ConsumerConnectionEntity implements java.io.Serializable {
+public class Booking implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -205671590628944910L;
+	private static final long serialVersionUID = -2242391092920269445L;
 	private int id;
 	private int consumer_id;
 	private Date booking_date;
 	private Date date_of_deleivery;
 	private Date last_issue;
 	private Date last_deleivery;
-	private int qunatity;
+	private int quantity;
 	private int connectionTypeId;
 	private String status;
 	private String reference;
-	
-	@Column(name = "Registration_charges")
-	private double registration_charges;
-	
-	@Column(name = "Regulator_charges")
-	private double regulator_charges;
-	
-	@Column(name = "GasRefill_charges")
 	private double gasRefill_charges;
-	
-	@Column(name = "Handling_charges")
 	private double handling_charges;
-	
-	@Column(name = "Delievery_charges")
 	private double delievery_charges;
-	
-	@Column(name = "Total")
 	private double total;
+	private List<ApplianceBooking> applianceIds;
+	private List<Appliances> appliancesObj;
+	private String bookingType;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "Id", nullable = false)
+	
+	
+	public String getBookingType() {
+		return bookingType;
+	}
+
+	public void setBookingType(String bookingType) {
+		this.bookingType = bookingType;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -60,7 +45,6 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "Cust_Id")
 	public int getConsumer_id() {
 		return consumer_id;
 	}
@@ -69,8 +53,6 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.consumer_id = consumer_id;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Booking_Date")
 	public Date getBooking_date() {
 		return booking_date;
 	}
@@ -79,8 +61,6 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.booking_date = booking_date;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Date_Of_Delivery")
 	public Date getDate_of_deleivery() {
 		return date_of_deleivery;
 	}
@@ -89,8 +69,6 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.date_of_deleivery = date_of_deleivery;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Last_Date_Of_Issue")
 	public Date getLast_issue() {
 		return last_issue;
 	}
@@ -99,8 +77,6 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.last_issue = last_issue;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "Last_Date_Of_Delivery")
 	public Date getLast_deleivery() {
 		return last_deleivery;
 	}
@@ -109,16 +85,16 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.last_deleivery = last_deleivery;
 	}
 
-	@Column(name = "Quantity")
-	public int getQunatity() {
-		return qunatity;
+
+
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQunatity(int qunatity) {
-		this.qunatity = qunatity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	@Column(name = "Status")
 	public String getStatus() {
 		return status;
 	}
@@ -127,7 +103,6 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@Column(name = "Connection_Type_Id")
 	public int getConnectionTypeId() {
 		return connectionTypeId;
 	}
@@ -136,7 +111,6 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.connectionTypeId = connectionTypeId;
 	}
 
-	@Column(name = "Reference")
 	public String getReference() {
 		return reference;
 	}
@@ -145,20 +119,20 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 		this.reference = reference;
 	}
 
-	public double getRegistration_charges() {
-		return registration_charges;
+	public List<ApplianceBooking> getApplianceIds() {
+		return applianceIds;
 	}
 
-	public void setRegistration_charges(double registration_charges) {
-		this.registration_charges = registration_charges;
+	public void setApplianceIds(List<ApplianceBooking> applianceIds) {
+		this.applianceIds = applianceIds;
 	}
 
-	public double getRegulator_charges() {
-		return regulator_charges;
+	public List<Appliances> getAppliancesObj() {
+		return appliancesObj;
 	}
 
-	public void setRegulator_charges(double regulator_charges) {
-		this.regulator_charges = regulator_charges;
+	public void setAppliancesObj(List<Appliances> appliancesObj) {
+		this.appliancesObj = appliancesObj;
 	}
 
 	public double getGasRefill_charges() {

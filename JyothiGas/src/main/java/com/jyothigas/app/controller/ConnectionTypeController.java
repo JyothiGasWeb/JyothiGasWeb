@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyothigas.app.model.AppResponse;
-import com.jyothigas.app.model.ConsumerConnection;
+import com.jyothigas.app.model.Booking;
 import com.jyothigas.app.model.ConnectionType;
 import com.jyothigas.app.service.ConnectionTypeService;
 import com.jyothigas.utils.Constant;

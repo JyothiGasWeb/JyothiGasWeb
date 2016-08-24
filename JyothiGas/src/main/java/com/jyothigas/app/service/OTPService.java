@@ -108,8 +108,10 @@ public class OTPService {
 	}
 
 	public OTP getOTP(OTP otp) {
+		System.out.println("=== "+otp.getVerificationId());
 		OTPEntity otpEntity = otpdao.findByVerificationId(otp.getVerificationId());
 		if (otpEntity != null) {
+			System.out.println("=== "+otp.getOtp());
 			otp.setOtp(PasswordProtector.decrypt(otpEntity.getOtp()));
 			otp.setType(otpEntity.getType());
 			otp.setStatus(otpEntity.getStatus());

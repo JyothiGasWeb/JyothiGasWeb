@@ -18,6 +18,7 @@ public class Constant {
 	public static final String ADD_APPLIANCES = "/addAppliance";
 	public static final String BOOK_CONNECTION = "/bookConnection";
 	public static final String BOOK_APPLIANCES = "/bookAppliances";
+	public static final String BOOK_REFILL = "/bookRefill";
 	public static final String GET_BOOKING_BY_STATUS = "/getBookingByStatus";
 	public static final String UPDATE_BOOKING = "/updateBooking";
 	public static final String GET_BOOKING_BY_CONSUMER = "/getBookingByConsumer";
