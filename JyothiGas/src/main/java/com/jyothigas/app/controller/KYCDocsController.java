@@ -52,7 +52,7 @@ public class KYCDocsController {
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
-
+				// Save document
 				kycService.saveDocument(file.getName(), serverFile.getAbsolutePath(), custId);
 				appResponse.setStatus("OK");
 				appResponse.setMessage("Success");
@@ -72,7 +72,7 @@ public class KYCDocsController {
 		}
 	}
 
-	@RequestMapping(value =Constant.KYC_DOWNLOAD, method = RequestMethod.POST)
+	@RequestMapping(value = Constant.KYC_DOWNLOAD, method = RequestMethod.POST)
 	public void downloadPDFResource(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("custId") int custId) {
 
