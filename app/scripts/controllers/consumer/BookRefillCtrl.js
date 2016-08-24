@@ -25,9 +25,9 @@ angular.module('clientApp')
 
         var getConnectionTypes = function() {
             var obj = {
-                "connectionType": $scope.refillObj.connectionTypeName
+                "connectionTypeID": $scope.refillObj.connectionTypeId
             }
-            ConsumerService.getConnectionTypes(obj).then(function(response) {
+            ConsumerService.getProductType(obj).then(function(response) {
                 $scope.connections = response;
             }, function(error) {
                 console.log("error getting connections");
@@ -37,8 +37,9 @@ angular.module('clientApp')
         $scope.bookRefill = function() {
             var obj = {
                 "consumer_id": $scope.refillObj.consumer_id,
-                "connectionTypeId": JSON.parse($scope.connectionType).id,
-                "qunatity": $scope.cylinders
+                "connectionTypeId": $scope.connectionType.id,
+                "qunatity": $scope.cylinders,
+                "bookingType":"REFILL" 
             };
 
             ConsumerService.bookRefill(obj).then(function(response) {

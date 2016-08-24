@@ -40,7 +40,7 @@ controller('AddressChangeCtrl', ['$scope', 'SessionService', 'ConsumerService', 
             SessionService.setConsumerSession(response);
             AlertService.alert("Address updated sucessfully", "md-primary");
             getCurrentAdd();
-            $scope.reset();
+            //$scope.reset();
         }, function(response) {
             console.log("errror");
         });

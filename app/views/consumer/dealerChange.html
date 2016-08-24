@@ -69,7 +69,7 @@
                 </div>
                 <div layout="row" layout-align="end end">
                     <md-button class="md-warn md-raised" ng-click="reset()">Reset</md-button>
-                    <md-button class="md-primary md-raised">Submit</md-button>
+                    <md-button class="md-primary md-raised" ng-disabled="dealerForm.$invalid" ng-click="update()">Submit</md-button>
                 </div>
             </form>
         </div>
