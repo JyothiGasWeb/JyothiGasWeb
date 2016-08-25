@@ -16,7 +16,7 @@ public class AuthenticationService implements AuthenticationProvider {
 		final String password = authentication.getCredentials().toString();
 		if (username != null && !username.trim().equalsIgnoreCase("")
 				&& password != null && !password.trim().equalsIgnoreCase("")) {
-			boolean isValidUser = false;
+//			boolean isValidUser = false;
 			/*if (authenticationEnabled) {
 				
 			} else {

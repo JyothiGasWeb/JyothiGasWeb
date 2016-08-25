@@ -2,6 +2,10 @@ package com.jyothigas.app.model;
 
 public class Consumer implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5019954032210541176L;
 	private int id;
 	private int reg_id;
 

@@ -25,7 +25,7 @@ public class OTPService {
 	private static final Log log = LogFactory.getLog(OTPService.class);
 
 	public OTP createOTP(OTP otp) {
-
+		log.info("Creating new OTP");
 		OTPEntity otpEntity = new OTPEntity();
 		otpEntity.setVerificationId(otp.getVerificationId());
 		otpEntity.setType(otp.getType());

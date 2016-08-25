@@ -2,6 +2,10 @@ package com.jyothigas.app.model;
 
 public class OTP implements java.io.Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7936174353018729534L;
 	private Integer id;
 	private String otp;
 	private String type;

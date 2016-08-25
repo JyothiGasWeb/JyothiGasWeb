@@ -1,6 +1,5 @@
 package com.jyothigas.app.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,13 +19,11 @@ import com.jyothigas.app.dao.ConsumerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.entity.ApplianceBookingEntity;
 import com.jyothigas.app.entity.BookingEntity;
-import com.jyothigas.app.entity.ConnectionTypeEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.ApplianceBooking;
 import com.jyothigas.app.model.Appliances;
 import com.jyothigas.app.model.Booking;
-import com.jyothigas.app.model.OrderDetail;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.OTPUtil;
 
@@ -62,8 +59,10 @@ public class BookingService {
 	 * 
 	 * @param booking
 	 */
-	// =======> NOTE : THIS API ASSOCIATED WITH THREE CALLS <=======
-	// PLEASE BE CAREFULL BEFORE CHNAGING ANYTHING IN THIS
+	/*
+	 * =======> NOTE : THIS API ASSOCIATED WITH THREE CALLS <======= PLEASE BE
+	 * CAREFULL BEFORE CHNAGING ANYTHING IN THIS
+	 */
 	public Booking bookProduct(Booking booking) {
 		logger.info("Inserting booking data...");
 		Booking bookingObj = new Booking();

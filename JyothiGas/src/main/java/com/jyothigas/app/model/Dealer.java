@@ -2,6 +2,10 @@ package com.jyothigas.app.model;
 
 public class Dealer implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6754340608321702640L;
 	private int id;
 	private String dealer_email;
 	private String dealer_name;
