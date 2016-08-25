@@ -62,7 +62,9 @@ public class BookingService {
 	 * 
 	 * @param booking
 	 */
-	public Booking insertBookingCylinder(Booking booking) {
+	// =======> NOTE : THIS API ASSOCIATED WITH THREE CALLS <=======
+	// PLEASE BE CAREFULL BEFORE CHNAGING ANYTHING IN THIS
+	public Booking bookProduct(Booking booking) {
 		logger.info("Inserting booking data...");
 		Booking bookingObj = new Booking();
 		String refToken = String.valueOf(OTPUtil.generateIntToken());
@@ -75,6 +77,7 @@ public class BookingService {
 			} else {
 				bookingEntity.setDate_of_deleivery(getDeliveryDate());
 			}
+			bookingEntity.setCreated_date(new Date());
 			bookingEntity.setReference(refToken);
 			bookingEntity.setStatus("PENDING");
 			BookingEntity bookingEntityObj = bookingDAO.merge(bookingEntity);
@@ -122,12 +125,13 @@ public class BookingService {
 	 * 
 	 * @param booking
 	 */
-	public int updateBookingCylinderStatus(Booking booking) {
+	public int updateProductBooking(Booking booking) {
 		logger.info("Update booking data...");
 		int result = 0;
 		try {
 			BookingEntity bookingEntity = bookingDAO.findById(BookingEntity.class, booking.getId());
 			bookingEntity.setStatus("IN PROGRESS");
+			bookingEntity.setUpdated_date(new Date());
 			bookingDAO.merge(bookingEntity);
 			result = 1;
 		} catch (Exception e) {
@@ -214,31 +218,6 @@ public class BookingService {
 		return bookingList;
 	}
 
-	/**
-	 * Method for fetch booking details by status and custid
-	 * 
-	 * @param booking
-	 * @return
-	 */
-	public OrderDetail findInProgressOrderDetail(int bookingId) {
-		logger.info("findInProgressOrderDetail...");
-		OrderDetail order = null;
-		try {
-			// Step-1 get booking detail
-			BookingEntity bookingEntity = bookingDAO.findInProgressOrderDetail(bookingId);
-			System.out.println(bookingEntity.getConnectionTypeId());
-			// Step-2 get connection type detail
-			ConnectionTypeEntity connectionType = connectionTypeDao.findById(ConnectionTypeEntity.class,
-					bookingEntity.getConnectionTypeId());
-			System.out.println(connectionType);
-			// Step-3 make booking details for UI
-			order = createOrderDetail(connectionType, bookingEntity);
-		} catch (Exception e) {
-			logger.error("Error in findByConnectionTypeId");
-			e.printStackTrace();
-		}
-		return order;
-	}
 
 	/**
 	 * Method fetch all booking details
@@ -298,27 +277,4 @@ public class BookingService {
 		return cal.getTime();
 	}
 
-	// For now only for cylinder
-	private OrderDetail createOrderDetail(ConnectionTypeEntity connectionType, BookingEntity entity) {
-		OrderDetail order = new OrderDetail();
-		order.setQunatity(entity.getQunatity());
-		order.setBooking_date(entity.getBooking_date());
-		BigDecimal price = new BigDecimal(String.valueOf(entity.getQunatity() * connectionType.getConnectionPrice()));
-		order.setConnectionPrice(price);
-		order.setConnectionDesc(connectionType.getConnectionDesc());
-		order.setConnectionType(connectionType.getConnectionType());
-		order.setConsumer_id(entity.getConsumer_id());
-		order.setBooking_id(entity.getId());
-		order.setLast_deleivery(entity.getLast_deleivery());
-		order.setLast_issue(entity.getLast_issue());
-		order.setStatus(entity.getStatus());
-		BigDecimal delvCharges = new BigDecimal("120.00");
-		order.setDeliveryCharges(delvCharges);
-		BigDecimal hndlCharges = new BigDecimal("70.00");
-		order.setHandlingCharges(hndlCharges);
-		BigDecimal totalCharges = price.add(delvCharges).add(hndlCharges);
-		order.setTotalCharges(totalCharges);
-		return order;
-
-	}
 }

@@ -28,6 +28,8 @@ public class NotificationEntity {
 	private Date created_date;
 	@Column(name = "updated_date")
 	private Date updated_date;
+	@Column(name = "User_Type")
+	private String userType;
 
 	public int getId() {
 		return id;
@@ -75,6 +77,14 @@ public class NotificationEntity {
 
 	public void setUpdated_date(Date updated_date) {
 		this.updated_date = updated_date;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 }

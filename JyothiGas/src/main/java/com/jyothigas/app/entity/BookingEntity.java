@@ -30,6 +30,26 @@ public class BookingEntity implements java.io.Serializable {
 	private int connectionTypeId;
 	private String status;
 	private String reference;
+	
+	private Date created_date;
+	private Date updated_date;
+
+	@Column(name = "Created_Date")
+	public Date getCreated_date() {
+		return created_date;
+	}
+
+	public void setCreated_date(Date created_date) {
+		this.created_date = created_date;
+	}
+	@Column(name = "Updated_Date")
+	public Date getUpdated_date() {
+		return updated_date;
+	}
+
+	public void setUpdated_date(Date updated_date) {
+		this.updated_date = updated_date;
+	}
 
 	@Column(name = "Booking_Type")
 	private String bookingType;

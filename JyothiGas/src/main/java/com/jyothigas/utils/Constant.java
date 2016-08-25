@@ -34,12 +34,16 @@ public class Constant {
 	public static final String GET_ALL_NOTIFICATION = "/getAllNotification";
 	public static final String KYC_UPLOAD = "/uploadFile";
 	public static final String KYC_DOWNLOAD = "/downloadFile";
+	public static final String UPLOAD_IMAGE = "/uploadProfileImage";
 	
 	public static final String ACTIVE = "ACTIVE";
 	public static final String INACTIVE = "INACTIVE";
 	public static final String STATUS_SURRENDER = "SURRENDERED";
 	public static final String STATUS_TRANSFERRED = "TRANSFERRED";
 	public static final String BOOKING_MESSAGE = "Dear consumer your booking reference no. is ";
+	
+	public static final String KYC = "KYC";
+	public static final String PROFILE_PIC = "PROFILE_PIC";
 
 	//Not Working API's
 	public static final String FORGOT_PASSWORD = "/forgotPassword";

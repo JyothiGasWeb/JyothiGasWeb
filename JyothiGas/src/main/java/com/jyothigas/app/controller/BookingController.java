@@ -12,12 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyothigas.app.model.AppResponse;
 import com.jyothigas.app.model.Booking;
-import com.jyothigas.app.model.OrderDetail;
 import com.jyothigas.app.service.BookingService;
 import com.jyothigas.utils.Constant;
 
@@ -34,14 +32,16 @@ public class BookingController {
 	 * 
 	 * @param register
 	 * @return
+	 * 
 	 */
+	/* =======> NOTE : THIS API ASSOCIATED WITH THREE CALLS <======= */
 	@RequestMapping(value = { Constant.BOOK_CONNECTION, Constant.BOOK_APPLIANCES,
 			Constant.BOOK_REFILL }, method = RequestMethod.POST)
 	public @ResponseBody Object insertBookingCylinder(@RequestBody Booking booking) {
 		logger.info("insertBookingCylinder....");
 		AppResponse appResponse = new AppResponse();
 		try {
-			Booking result = bookingService.insertBookingCylinder(booking);
+			Booking result = bookingService.bookProduct(booking);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,7 +54,7 @@ public class BookingController {
 	}
 
 	/**
-	 * API for updateBookingCylinder
+	 * API for updateBooking
 	 * 
 	 * @param register
 	 * @return
@@ -64,7 +64,7 @@ public class BookingController {
 		logger.info("updateBookingCylinder....");
 		AppResponse appResponse = new AppResponse();
 		try {
-			int result = bookingService.updateBookingCylinderStatus(booking);
+			int result = bookingService.updateProductBooking(booking);
 			if (result > 0) {
 				appResponse.setStatus("OK");
 				appResponse.setMessage("Success");
@@ -175,32 +175,6 @@ public class BookingController {
 		try {
 			List<Booking> bookingList = bookingService.findAllBookings();
 			return bookingList;
-		} catch (Exception e) {
-			logger.error("Error While Getting User Details..");
-			e.printStackTrace();
-			List<AppResponse> appObjList = new ArrayList<AppResponse>();
-			AppResponse appResponse = new AppResponse();
-			appResponse.setStatus("Error");
-			appResponse.setMessage("Please try after sometime");
-			appResponse.setHttpErrorCode(405);
-			appResponse.setOauth2ErrorCode("invalid_token");
-			appObjList.add(appResponse);
-			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	/**
-	 * API for fetch booking details using consumer
-	 * 
-	 * @param register
-	 * @return
-	 */
-	@RequestMapping(value = Constant.GET_IN_PROGRESS_BOOKING, method = RequestMethod.POST)
-	public @ResponseBody Object findInProgressOrderDetail(@RequestParam Integer bookingId) {
-		logger.info("Getting User Details..");
-		try {
-			OrderDetail bookingDetail = bookingService.findInProgressOrderDetail(bookingId);
-			return bookingDetail;
 		} catch (Exception e) {
 			logger.error("Error While Getting User Details..");
 			e.printStackTrace();

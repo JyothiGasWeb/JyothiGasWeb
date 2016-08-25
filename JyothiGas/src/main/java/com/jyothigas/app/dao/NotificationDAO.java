@@ -13,12 +13,12 @@ import com.jyothigas.app.entity.NotificationEntity;
 public class NotificationDAO extends JyothiGasDAO<NotificationEntity> {
 	private static final Log log = LogFactory.getLog(NotificationDAO.class);
 
-	public List<NotificationEntity> getAllNotification() {
+	public List<NotificationEntity> getAllNotification(String userType) {
 		List<NotificationEntity> notificationList = new ArrayList<NotificationEntity>();
 
 		try {
-			notificationList = entityManager.createQuery("select s from NotificationEntity s", NotificationEntity.class)
-					.getResultList();
+			notificationList = entityManager.createQuery("select s from NotificationEntity s where s.userType=:userType", NotificationEntity.class)
+					.setParameter("userType", userType).getResultList();
 			log.info("get successful");
 
 		} catch (RuntimeException re) {

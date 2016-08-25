@@ -111,7 +111,11 @@ public class ConsumerService {
 	 * 
 	 * @param register
 	 * @return
+	 * 
+	 * 
 	 */
+	// =======> NOTE : THIS API ASSOCIATED WITH THREE CALLS <=======
+	// PLEASE PAY ATTENTION BEFORE CHNAGING ANYTHING IN THIS
 	public int updateConsumer(Register register) {
 		int result = 0;
 		try {
