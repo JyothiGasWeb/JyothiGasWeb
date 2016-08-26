@@ -58,7 +58,9 @@ angular.module('clientApp')
         var validateuser = function(mobile) {
             $mdDialog.show({
                     controller: function($scope, $mdDialog, RegisterService, mobile) {
-                        $scope.otpObj = {};
+                        $scope.otpObj = {
+                            "verificationId": mobile
+                        };
                         $scope.create = function() {
                             RegisterService.validateOtp($scope.otpObj).then(function(response) {
                                 $mdDialog.hide(response);
