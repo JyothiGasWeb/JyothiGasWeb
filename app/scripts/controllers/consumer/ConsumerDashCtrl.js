@@ -1,7 +1,7 @@
 angular.module('clientApp')
     .controller('ConsumerDashCtrl', ['$scope', 'SessionService', '$state', '$mdDialog', 'ngCart', function($scope, SessionService, $state, $mdDialog, ngCart) {
 
-        var user = SessionService.getConsumerSession().consumer;
+        $scope.user = SessionService.getConsumerSession().consumer;
         $scope.userLogout = function() {
             SessionService.deleteSession();
             ngCart.empty();
@@ -9,8 +9,8 @@ angular.module('clientApp')
         };
 
         $scope.bookRefill = function(ev) {
-            if (user.userType == 'NEW') {
-                var message = "Being a  new customer, Please book a " + user.connectionTypeName + " connection.";
+            if ($scope.user.userType == 'NEW') {
+                var message = "Being a  new customer, Please book a " + $scope.user.connectionTypeName + " connection.";
                 var confirm = $mdDialog.confirm()
                     .title(message)
                     .textContent('')
@@ -28,10 +28,10 @@ angular.module('clientApp')
         };
 
         $scope.checkConnection = function(ev, type) {
-            if (type == user.connectionTypeName.toLowerCase()) {
+            if (type == $scope.user.connectionTypeName.toLowerCase()) {
                 $state.go(type)
             } else {
-                var message = "Being a " + user.connectionTypeName + " customer you are not allowed to book " + type + " connection. Please register separately for " + type + " connection";
+                var message = "Being a " + $scope.user.connectionTypeName + " customer you are not allowed to book " + type + " connection. Please register separately for " + type + " connection";
                 var confirm = $mdDialog.confirm()
                     .title(message)
                     .textContent('')
