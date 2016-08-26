@@ -23,6 +23,9 @@ angular.module('clientApp')
             };
             $timeout(function() {
                 $scope.searchDeal = false;
+                if($scope.dealers.length){
+                    $scope.user.dealerId = $scope.dealers[0].id;
+                }
             }, 1000);
 
         };
