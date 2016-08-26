@@ -75,14 +75,39 @@ angular.module('clientApp')
         };
         init();
     }])
-    .controller('NavCtrl', ['$scope', '$state', '$rootScope', function($scope, $state, $rootScope) {
+    .controller('NavCtrl', ['$scope', '$state', '$rootScope', '$mdDialog', 'SessionService', function($scope, $state, $rootScope, $mdDialog, SessionService) {
 
         $scope.currentPage = $state.current.data.name;
-
+        var user = SessionService.getConsumerSession().consumer;
         $rootScope.$on('$stateChangeStart',
             function(event, toState, toParams, fromState, fromParams) {
                 $scope.currentPage = toState.data.name;
-            })
+            });
+
+        $scope.goto = function(ev, item) {
+            switch (item.link) {
+                case 'bookRefill':
+                    if (user.userType == 'NEW') {
+                        var message = "Being a  new customer, Please book a " + user.connectionTypeName + " connection.";
+                        var confirm = $mdDialog.confirm()
+                            .title(message)
+                            .textContent('')
+                            .ariaLabel('Lucky day')
+                            .targetEvent(ev)
+                            .ok('Ok');
+                        $mdDialog.show(confirm).then(function() {
+
+                        }, function() {
+
+                        });
+                    } else {
+                        $state.go(item.link);
+                    }
+                    break;
+                default:
+                    $state.go(item.link);
+            }
+        }
         $scope.navList = [{
             "name": "Home",
             "icon": "fa fa-home",
@@ -93,7 +118,7 @@ angular.module('clientApp')
             "icon": "fa fa-user",
             "link": "profile",
             "extNmae": "profile"
-        },{
+        }, {
             "name": "Book Refill",
             "icon": "fa fa-external-link",
             "link": "bookRefill",
@@ -123,12 +148,12 @@ angular.module('clientApp')
             "icon": "fa fa fa-suitcase",
             "link": "mechanicService",
             "extNmae": "mechanicService"
-        },{
+        }, {
             "name": "Surrender Connection",
             "icon": "fa fa fa-ban",
             "link": "surrender",
             "extNmae": "surrender"
-        },{
+        }, {
             "name": "Contact your Dealer",
             "icon": "fa fa-phone",
             "link": "contactDealer",
