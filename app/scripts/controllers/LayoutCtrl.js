@@ -107,7 +107,8 @@ angular.module('clientApp')
                 default:
                     $state.go(item.link);
             }
-        }
+        };
+        
         $scope.navList = [{
             "name": "Home",
             "icon": "fa fa-home",
