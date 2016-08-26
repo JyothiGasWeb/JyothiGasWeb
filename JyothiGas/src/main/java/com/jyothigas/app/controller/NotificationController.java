@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jyothigas.app.model.AppResponse;
@@ -22,19 +23,17 @@ public class NotificationController {
 	NotificationService notificationService;
 	private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
 
-	@RequestMapping(value = Constant.GET_ALL_NOTIFICATION, method = RequestMethod.GET)
-	public @ResponseBody Object getAllNotification() {
+	@RequestMapping(value = Constant.GET_ALL_NOTIFICATION, method = RequestMethod.POST)
+	public @ResponseBody Object getAllNotification(@RequestParam String userType) {
 		logger.debug("Getting All Notification ..");
 		try {
-			List<Notification> list = notificationService.getAllNotification();
+			List<Notification> list = notificationService.getAllNotification(userType);
 			return list;
 		} catch (Exception e) {
 			logger.error("Error while fetching Notification List.." + e);
 			AppResponse appResponse = new AppResponse();
 			appResponse.setStatus("Error");
 			appResponse.setMessage("Please try after sometime");
-			appResponse.setHttpErrorCode(405);
-			appResponse.setOauth2ErrorCode("invalid_token");
 			e.printStackTrace();
 			return appResponse;
 		}

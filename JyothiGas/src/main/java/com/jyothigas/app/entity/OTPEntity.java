@@ -16,6 +16,10 @@ import javax.persistence.TemporalType;
 @Table(name = "t_otp")
 public class OTPEntity implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6313926088739177904L;
 	private Integer otpId;
 	private String otp;
 	private String type;

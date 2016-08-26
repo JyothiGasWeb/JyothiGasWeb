@@ -13,8 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "Consumer_Connection")
-public class ConsumerConnectionEntity implements java.io.Serializable {
+@Table(name = "Booking")
+public class BookingEntity implements java.io.Serializable {
 
 	/**
 	 * 
@@ -31,21 +31,44 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 	private String status;
 	private String reference;
 	
+	private Date created_date;
+	private Date updated_date;
+
+	@Column(name = "Created_Date")
+	public Date getCreated_date() {
+		return created_date;
+	}
+
+	public void setCreated_date(Date created_date) {
+		this.created_date = created_date;
+	}
+	@Column(name = "Updated_Date")
+	public Date getUpdated_date() {
+		return updated_date;
+	}
+
+	public void setUpdated_date(Date updated_date) {
+		this.updated_date = updated_date;
+	}
+
+	@Column(name = "Booking_Type")
+	private String bookingType;
+
 	@Column(name = "Registration_charges")
 	private double registration_charges;
-	
+
 	@Column(name = "Regulator_charges")
 	private double regulator_charges;
-	
+
 	@Column(name = "GasRefill_charges")
 	private double gasRefill_charges;
-	
+
 	@Column(name = "Handling_charges")
 	private double handling_charges;
-	
+
 	@Column(name = "Delievery_charges")
 	private double delievery_charges;
-	
+
 	@Column(name = "Total")
 	private double total;
 
@@ -191,6 +214,15 @@ public class ConsumerConnectionEntity implements java.io.Serializable {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	@Column(name = "Booking_Type")
+	public String getBookingType() {
+		return bookingType;
+	}
+
+	public void setBookingType(String bookingType) {
+		this.bookingType = bookingType;
 	}
 
 }

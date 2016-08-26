@@ -12,6 +12,10 @@ import javax.persistence.Table;
 @Table(name = "Dealer")
 public class DealerEntiy implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8611241394324140199L;
 	private int id;
 	private String dealer_email;
 	private String dealer_name;

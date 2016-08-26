@@ -3,7 +3,7 @@ package com.jyothigas.app.model;
 import java.util.Date;
 import java.util.List;
 
-public class ConsumerConnection implements java.io.Serializable {
+public class Booking implements java.io.Serializable {
 
 	/**
 	 * 
@@ -25,6 +25,17 @@ public class ConsumerConnection implements java.io.Serializable {
 	private double total;
 	private List<ApplianceBooking> applianceIds;
 	private List<Appliances> appliancesObj;
+	private String bookingType;
+
+	
+	
+	public String getBookingType() {
+		return bookingType;
+	}
+
+	public void setBookingType(String bookingType) {
+		this.bookingType = bookingType;
+	}
 
 	public int getId() {
 		return id;

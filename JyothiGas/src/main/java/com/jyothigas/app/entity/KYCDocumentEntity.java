@@ -11,27 +11,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "KYC_Documents")
+@Table(name = "Upload_Documents")
 public class KYCDocumentEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "Id", nullable = false)
 	private int id;
-	
+
 	@Column(name = "Location")
 	private String location;
-	
+
 	@Column(name = "Name")
 	private String documentName;
-	
+
+	@Column(name = "Type")
+	private String type;
+
 	@Column(name = "CreatedDate")
 	private Date createdDate;
 
 	@Column(name = "CustId")
 	private int custId;
-	
-	
+
 	public int getCustId() {
 		return custId;
 	}
@@ -42,6 +44,14 @@ public class KYCDocumentEntity {
 
 	public int getId() {
 		return id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setId(int id) {

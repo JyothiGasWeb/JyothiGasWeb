@@ -25,11 +25,11 @@ public class NotificationService {
 	NotificationDAO notificationDAO;
 	private static final Log log = LogFactory.getLog(NotificationService.class);
 
-	public List<Notification> getAllNotification() {
+	public List<Notification> getAllNotification(String userType) {
 		List<Notification> notifList = new ArrayList<Notification>();
 		try {
 			ConvertUtils.register(new SqlTimestampConverter(null), Date.class);
-			List<NotificationEntity> notificationList = notificationDAO.getAllNotification();
+			List<NotificationEntity> notificationList = notificationDAO.getAllNotification(userType);
 			for (NotificationEntity entity : notificationList) {
 				Notification ent = new Notification();
 				BeanUtils.copyProperties(ent, entity);

@@ -10,12 +10,11 @@ import com.jyothigas.app.entity.KYCDocumentEntity;
 @Repository
 public class KYCDocumentDAO extends JyothiGasDAO<KYCDocumentEntity> {
 
-	public KYCDocumentEntity findByCustomerId(int id) {
+	public KYCDocumentEntity findByCustomerId(int id, String type) {
 		List<KYCDocumentEntity> list = new ArrayList<KYCDocumentEntity>();
 		try {
-			list = entityManager
-					.createQuery("select s from KYCDocumentEntity s Where s.CustId = :id", KYCDocumentEntity.class)
-					.setParameter("id", id).getResultList();
+			list = entityManager.createQuery("select s from KYCDocumentEntity s Where s.custId =:id and s.type =:type",
+					KYCDocumentEntity.class).setParameter("id", id).setParameter("type", type).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

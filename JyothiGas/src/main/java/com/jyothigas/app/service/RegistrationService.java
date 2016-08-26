@@ -125,24 +125,24 @@ public class RegistrationService {
 		return result;
 	}
 
-	private void sendEmailForVerification(OTP emailOTP, String name) {
+/*	private void sendEmailForVerification(OTP emailOTP, String name) {
 		Mail mail = new Mail();
 		mail.setTemplateName(EmailService.VERIFY_EMAIL);
 		mail.setMailTo(emailOTP.getVerificationId());
-		// Map<String, String> domainValue = new HashMap<String, String>();
-		// String url =
-		// MedRepProperty.getInstance().getProperties("medrep.home") +
-		// "web/registration/verifyEmail/";
-		// String token = emailOTP.getVerificationId() + "MEDREP" +
-		// PasswordProtector.decrypt(emailOTP.getOtp());
-		// String encryteptoken = PasswordProtector.encrypt(token) ;
-		// encryteptoken = encryteptoken.replace('/', '.').replace('+','-');
-		// url = url + encryteptoken + "/";
-		// domainValue.put("URL", url);
-		// domainValue.put("NAME", name);
-		// mail.setValueMap(domainValue);
-		// emailService.sendMail(mail);
-	}
+		 Map<String, String> domainValue = new HashMap<String, String>();
+		 String url =
+		 MedRepProperty.getInstance().getProperties("medrep.home") +
+		 "web/registration/verifyEmail/";
+		 String token = emailOTP.getVerificationId() + "MEDREP" +
+		 PasswordProtector.decrypt(emailOTP.getOtp());
+		 String encryteptoken = PasswordProtector.encrypt(token) ;
+		 encryteptoken = encryteptoken.replace('/', '.').replace('+','-');
+		 url = url + encryteptoken + "/";
+		 domainValue.put("URL", url);
+		 domainValue.put("NAME", name);
+		 mail.setValueMap(domainValue);
+		 emailService.sendMail(mail);
+	}*/
 
 	private void sendSMSForVerification(OTP smsOTP) {
 

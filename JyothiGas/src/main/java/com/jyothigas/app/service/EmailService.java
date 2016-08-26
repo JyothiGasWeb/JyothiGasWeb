@@ -4,7 +4,6 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;

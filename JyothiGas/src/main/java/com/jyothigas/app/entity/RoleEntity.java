@@ -9,6 +9,10 @@ import javax.persistence.Table;
 @Table(name = "Role")
 public class RoleEntity implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3594311021868290765L;
 	private String name;
 	private int roleId;
 
