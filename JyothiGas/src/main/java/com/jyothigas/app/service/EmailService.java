@@ -84,7 +84,7 @@ public class EmailService {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			log.error("Send Email Error ", e);
 		}
 

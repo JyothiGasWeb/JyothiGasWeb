@@ -88,4 +88,23 @@ public class KYCDocsController {
 			e.printStackTrace();
 		}
 	}
+
+	@RequestMapping(value = Constant.GET_DOCUMENT_NAME, method = RequestMethod.POST)
+	public @ResponseBody Object getDocumentDetails(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("custId") int custId) {
+		AppResponse appResponse = new AppResponse();
+		try {
+			String fileName = uploader.getDocumentDetails(custId, Constant.KYC);
+			if (null != fileName) {
+				appResponse.setStatus("OK");
+				appResponse.setResult(fileName);
+			} else {
+				String errorMessage = "Sorry. No KYC Document available";
+				System.out.println(errorMessage);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return appResponse;
+	}
 }

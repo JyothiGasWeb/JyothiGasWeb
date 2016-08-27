@@ -2,6 +2,8 @@ package com.jyothigas.app.entity;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +34,49 @@ public class RegistrationEntity implements java.io.Serializable {
 	private int connectionQty;
 	private String surrenderInfo;
 	private String userType;
+
+	private String surrenderStatus;
+	private Date createdDate;
+	private Date updatedDate;
+	private Date Surrender_Date;
+	
+	
+	
+	@Column(name = "Surrender_Date")
+	public Date getSurrender_Date() {
+		return Surrender_Date;
+	}
+
+	public void setSurrender_Date(Date surrender_Date) {
+		Surrender_Date = surrender_Date;
+	}
+
+	@Column(name = "Surrender_Status")
+	public String getSurrenderStatus() {
+		return surrenderStatus;
+	}
+
+	public void setSurrenderStatus(String surrenderStatus) {
+		this.surrenderStatus = surrenderStatus;
+	}
+
+	@Column(name = "Created_Date")
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@Column(name = "Updated_Date")
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)

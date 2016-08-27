@@ -217,7 +217,6 @@ public class BookingService {
 		return bookingList;
 	}
 
-
 	/**
 	 * Method fetch all booking details
 	 * 
@@ -241,6 +240,54 @@ public class BookingService {
 			e.printStackTrace();
 		}
 		return bookingList;
+	}
+
+	/**
+	 * Method fetch all booking details
+	 * 
+	 * @param booking
+	 * @return
+	 */
+	public int findCylinderBookedFY(int year) {
+		logger.info("findAllBookings...");
+		try {
+			Calendar fromdate = Calendar.getInstance();
+			Calendar todate = Calendar.getInstance();
+			fromdate.set(Calendar.MONTH, Calendar.MARCH);
+			fromdate.set(Calendar.DAY_OF_MONTH, 31);
+			fromdate.set(Calendar.YEAR, year);
+
+			todate.set(Calendar.MONTH, Calendar.MARCH);
+			todate.set(Calendar.DAY_OF_MONTH, 31);
+			todate.set(Calendar.YEAR, year + 1);
+			return bookingDAO.findCylinderBookedFY(fromdate.getTime(), todate.getTime());
+
+		} catch (Exception e) {
+			logger.error("Error in findAllBookings");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int findCylinderSoldFY(int year,String type) {
+		logger.info("findAllBookings...");
+		try {
+			Calendar fromdate = Calendar.getInstance();
+			Calendar todate = Calendar.getInstance();
+			fromdate.set(Calendar.MONTH, Calendar.MARCH);
+			fromdate.set(Calendar.DAY_OF_MONTH, 31);
+			fromdate.set(Calendar.YEAR, year);
+
+			todate.set(Calendar.MONTH, Calendar.MARCH);
+			todate.set(Calendar.DAY_OF_MONTH, 31);
+			todate.set(Calendar.YEAR, year + 1);
+			return bookingDAO.findCylinderSoldFY(fromdate.getTime(), todate.getTime(),type);
+
+		} catch (Exception e) {
+			logger.error("Error in findAllBookings");
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	/**

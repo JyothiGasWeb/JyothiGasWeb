@@ -37,7 +37,7 @@ public class BookingController {
 	/* =======> NOTE : THIS API ASSOCIATED WITH THREE CALLS <======= */
 	@RequestMapping(value = { Constant.BOOK_CONNECTION, Constant.BOOK_APPLIANCES,
 			Constant.BOOK_REFILL }, method = RequestMethod.POST)
-	public @ResponseBody Object insertBookingCylinder(@RequestBody Booking booking) {
+	public @ResponseBody Object insertProductBooking(@RequestBody Booking booking) {
 		logger.info("insertBookingCylinder....");
 		AppResponse appResponse = new AppResponse();
 		try {
@@ -95,7 +95,7 @@ public class BookingController {
 			List<Booking> bookingList = bookingService.fetchBookingsByStatus(booking);
 			return bookingList;
 		} catch (Exception e) {
-			logger.error("Error While Getting User Details..");
+			logger.error("Error While Getting User Details.."+e);
 			e.printStackTrace();
 			List<AppResponse> appObjList = new ArrayList<AppResponse>();
 			AppResponse appResponse = new AppResponse();
@@ -122,7 +122,7 @@ public class BookingController {
 			List<Booking> bookingList = bookingService.findByConsumerId(booking);
 			return bookingList;
 		} catch (Exception e) {
-			logger.error("Error While Getting User Details..");
+			logger.error("Error While Getting User Details.."+e);
 			e.printStackTrace();
 			List<AppResponse> appObjList = new ArrayList<AppResponse>();
 			AppResponse appResponse = new AppResponse();
@@ -149,7 +149,7 @@ public class BookingController {
 			List<Booking> bookingList = bookingService.findByConnectionTypeId(booking);
 			return bookingList;
 		} catch (Exception e) {
-			logger.error("Error While Getting User Details..");
+			logger.error("Error While Getting User Details.."+e);
 			e.printStackTrace();
 			List<AppResponse> appObjList = new ArrayList<AppResponse>();
 			AppResponse appResponse = new AppResponse();
@@ -176,7 +176,7 @@ public class BookingController {
 			List<Booking> bookingList = bookingService.findAllBookings();
 			return bookingList;
 		} catch (Exception e) {
-			logger.error("Error While Getting User Details..");
+			logger.error("Error While Getting User Details.."+e);
 			e.printStackTrace();
 			List<AppResponse> appObjList = new ArrayList<AppResponse>();
 			AppResponse appResponse = new AppResponse();
@@ -189,4 +189,60 @@ public class BookingController {
 		}
 	}
 
+	/**
+	 * API for fetch booking details In financial Year
+	 * 
+	 * @param year
+	 * @return
+	 */
+	@RequestMapping(value = Constant.GET_FY_CYLINDER_BOOKING, method = RequestMethod.GET)
+	public @ResponseBody Object findCylinderBookedFY(@RequestBody Integer year) {
+		logger.info("Getting User Details..");
+		AppResponse appResponse = new AppResponse();
+		try {
+			int bookingCount = bookingService.findCylinderBookedFY(year);
+			appResponse.setStatus("OK");
+			appResponse.setResult(bookingCount);
+			return appResponse;
+		} catch (Exception e) {
+			logger.error("Error While Getting User Details.."+e);
+			e.printStackTrace();
+			List<AppResponse> appObjList = new ArrayList<AppResponse>();
+
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			appResponse.setHttpErrorCode(405);
+			appResponse.setOauth2ErrorCode("invalid_token");
+			appObjList.add(appResponse);
+			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
+	 * API for fetch booking details In financial Year
+	 * 
+	 * @param year
+	 * @return
+	 */
+	@RequestMapping(value = Constant.GET_FY_CYLINDER_SOLD, method = RequestMethod.GET)
+	public @ResponseBody Object findCylinderSoldFY(@RequestBody Integer year, @RequestBody String connectionType) {
+		logger.info("Getting Sold Cylinder Details..");
+		AppResponse appResponse = new AppResponse();
+		try {
+			int bookingCount = bookingService.findCylinderSoldFY(year, connectionType);
+			appResponse.setStatus("OK");
+			appResponse.setResult(bookingCount);
+			return appResponse;
+		} catch (Exception e) {
+			logger.error("Error While Getting Booking Details.."+e);
+			e.printStackTrace();
+			List<AppResponse> appObjList = new ArrayList<AppResponse>();
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			appResponse.setHttpErrorCode(405);
+			appResponse.setOauth2ErrorCode("invalid_token");
+			appObjList.add(appResponse);
+			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
+		}
+	}
 }

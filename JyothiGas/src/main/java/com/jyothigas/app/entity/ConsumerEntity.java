@@ -18,7 +18,7 @@ public class ConsumerEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 7345871070802456105L;
 	private int id;
 	private int reg_id;
-	private String connectionStatus;
+
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -39,13 +39,6 @@ public class ConsumerEntity implements java.io.Serializable {
 	public void setReg_id(int reg_id) {
 		this.reg_id = reg_id;
 	}
-	@Column(name = "Connection_Status")
-	public String getConnectionStatus() {
-		return connectionStatus;
-	}
 
-	public void setConnectionStatus(String connectionStatus) {
-		this.connectionStatus = connectionStatus;
-	}
 
 }

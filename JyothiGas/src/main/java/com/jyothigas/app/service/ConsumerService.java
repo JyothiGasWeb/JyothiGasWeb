@@ -1,5 +1,6 @@
 package com.jyothigas.app.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -69,6 +70,8 @@ public class ConsumerService {
 					consumerDetails.setStatus(registrationEntity.getStatus());
 					consumerDetails.setConnectionTypeId(registrationEntity.getConnectionTypeId());
 					consumerDetails.setUserType(registrationEntity.getUserType());
+					consumerDetails.setSurrenderStatus(registrationEntity.getSurrenderStatus());
+					consumerDetails.setSurrender_Date(registrationEntity.getSurrender_Date());
 					// Fetching the Role Details
 					List<RoleEntity> roleEntityList = roleDAO.findByRoleId(registrationEntity.getRoleId());
 					if (roleEntityList.size() > 0) {
@@ -146,9 +149,8 @@ public class ConsumerService {
 				if (register.getAreaCode() != null) {
 					registrationEntity.setAreaCode(register.getAreaCode());
 				}
-				if (register.getStatus() != null) {
-					registrationEntity.setStatus(register.getStatus());
-				}
+			
+				registrationEntity.setUpdatedDate(new Date());
 				registrationEntity.setId(register.getId());
 				RegistrationEntity entity = registrationDAO.merge(registrationEntity);
 				result = entity.getId();

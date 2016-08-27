@@ -1,5 +1,6 @@
 package com.jyothigas.app.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,24 +126,20 @@ public class RegistrationService {
 		return result;
 	}
 
-/*	private void sendEmailForVerification(OTP emailOTP, String name) {
-		Mail mail = new Mail();
-		mail.setTemplateName(EmailService.VERIFY_EMAIL);
-		mail.setMailTo(emailOTP.getVerificationId());
-		 Map<String, String> domainValue = new HashMap<String, String>();
-		 String url =
-		 MedRepProperty.getInstance().getProperties("medrep.home") +
-		 "web/registration/verifyEmail/";
-		 String token = emailOTP.getVerificationId() + "MEDREP" +
-		 PasswordProtector.decrypt(emailOTP.getOtp());
-		 String encryteptoken = PasswordProtector.encrypt(token) ;
-		 encryteptoken = encryteptoken.replace('/', '.').replace('+','-');
-		 url = url + encryteptoken + "/";
-		 domainValue.put("URL", url);
-		 domainValue.put("NAME", name);
-		 mail.setValueMap(domainValue);
-		 emailService.sendMail(mail);
-	}*/
+	/*
+	 * private void sendEmailForVerification(OTP emailOTP, String name) { Mail
+	 * mail = new Mail(); mail.setTemplateName(EmailService.VERIFY_EMAIL);
+	 * mail.setMailTo(emailOTP.getVerificationId()); Map<String, String>
+	 * domainValue = new HashMap<String, String>(); String url =
+	 * MedRepProperty.getInstance().getProperties("medrep.home") +
+	 * "web/registration/verifyEmail/"; String token =
+	 * emailOTP.getVerificationId() + "MEDREP" +
+	 * PasswordProtector.decrypt(emailOTP.getOtp()); String encryteptoken =
+	 * PasswordProtector.encrypt(token) ; encryteptoken =
+	 * encryteptoken.replace('/', '.').replace('+','-'); url = url +
+	 * encryteptoken + "/"; domainValue.put("URL", url); domainValue.put("NAME",
+	 * name); mail.setValueMap(domainValue); emailService.sendMail(mail); }
+	 */
 
 	private void sendSMSForVerification(OTP smsOTP) {
 
@@ -217,13 +214,14 @@ public class RegistrationService {
 		boolean result = false;
 		try {
 			RegistrationEntity registerEntity = registrationDAO.findById(RegistrationEntity.class, register.getId());
-			ConsumerEntity consumerEntity = consumerDAO.findByRegId(register.getId());
-			consumerEntity.setConnectionStatus(Constant.STATUS_SURRENDER);
-			System.out.println(consumerEntity.getReg_id());
-			consumerDAO.merge(consumerEntity);
-			registerEntity.setSurrenderInfo(register.getSurrenderInfo());
-			registerEntity.setStatus(Constant.INACTIVE);
-			registrationDAO.merge(registerEntity);
+//			ConsumerEntity consumerEntity = consumerDAO.findByRegId(register.getId());
+//			consumerDAO.merge(consumerEntity);
+			// user is allowed to login
+			 registerEntity.setSurrenderInfo(register.getSurrenderInfo());
+			 registerEntity.setSurrenderStatus(Constant.STATUS_SURRENDER);
+			 registerEntity.setUpdatedDate(new Date());
+			 registerEntity.setSurrender_Date(new Date());
+			 registrationDAO.merge(registerEntity);
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();

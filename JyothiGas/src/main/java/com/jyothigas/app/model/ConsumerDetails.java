@@ -1,5 +1,7 @@
 package com.jyothigas.app.model;
 
+import java.util.Date;
+
 public class ConsumerDetails {
 
 	private int reg_id;
@@ -20,8 +22,24 @@ public class ConsumerDetails {
 	private int connectionTypeId;
 	private String status;
 	private String userType;
+	
+	private String surrenderStatus;
+	private Date createdDate;
+	private Date updatedDate;
+	private Date surrender_Date;
 
 	private int connectionQty;
+
+	
+
+
+	public Date getSurrender_Date() {
+		return surrender_Date;
+	}
+
+	public void setSurrender_Date(Date surrender_Date) {
+		this.surrender_Date = surrender_Date;
+	}
 
 	public String getUserType() {
 		return userType;
@@ -173,6 +191,30 @@ public class ConsumerDetails {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getSurrenderStatus() {
+		return surrenderStatus;
+	}
+
+	public void setSurrenderStatus(String surrenderStatus) {
+		this.surrenderStatus = surrenderStatus;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 }
