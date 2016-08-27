@@ -2,7 +2,7 @@
     <md-sidenav class="md-sidenav-left side-bar" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
         <md-content flex ng-controller="NavCtrl">
             <md-list>
-                <md-list-item class="md-1-line left-nav-link" ng-class="{'active-tab': currentPage == listItem.extNmae}" ng-repeat="listItem in navList" ui-sref="{{listItem.link}}">
+                <md-list-item class="md-1-line left-nav-link" ng-class="{'active-tab': currentPage == listItem.extNmae}" ng-repeat="listItem in navList" ng-click="goto($event, listItem)">
                     <i class="{{listItem.icon}}" ng-if="listItem.icon"></i>
                     <div class="md-list-item-text" layout="column">
                         <div class="md-body-2" style="text-align:left; margin-left:5px">{{ listItem.name}}</div>

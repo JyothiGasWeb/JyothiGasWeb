@@ -42,6 +42,7 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
             if ($scope.dealers.length > 0) {
                 $scope.isNoDealer = false;
                 $scope.emptyDealer = false;
+                $scope.user.dealerId = $scope.dealers[0].id;
             } else {
                 $scope.isNoDealer = true;
                 $scope.emptyDealer = true;
