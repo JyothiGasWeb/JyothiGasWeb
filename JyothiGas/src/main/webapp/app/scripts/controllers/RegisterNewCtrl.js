@@ -23,7 +23,7 @@ angular.module('clientApp')
             };
             $timeout(function() {
                 $scope.searchDeal = false;
-                if($scope.dealers.length){
+                if ($scope.dealers.length) {
                     $scope.user.dealerId = $scope.dealers[0].id;
                 }
             }, 1000);
@@ -44,12 +44,12 @@ angular.module('clientApp')
                 "dealerId": $scope.user.dealerId,
                 "status": "New",
                 "connectionQty": 1,
-                "userType": $scope.user.user
+                "userType": $scope.user.userType
             };
 
             RegisterService.register(userObj).then(function(response) {
                 if (response && response.status == 'OK') {
-                    validateuser($scope.user.contactNo);
+                    validateuser($scope.user.contactNo, $scope.user.email);
                 } else if (response.status == 'Fail') {
                     AlertService.alert(response.message, 'md-warn', 2000);
                 }
@@ -58,11 +58,11 @@ angular.module('clientApp')
             })
         };
 
-        var validateuser = function(mobile) {
+        var validateuser = function(mobile, email) {
             $mdDialog.show({
-                    controller: function($scope, $mdDialog, RegisterService, mobile) {
+                    controller: function($scope, $mdDialog, RegisterService, mobile, email, LoginService) {
                         $scope.otpObj = {
-                            "verificationId": mobile
+                            "number": mobile
                         };
                         $scope.create = function() {
                             RegisterService.validateOtp($scope.otpObj).then(function(response) {
@@ -74,13 +74,25 @@ angular.module('clientApp')
 
                         $scope.closeDialog = function() {
                             $mdDialog.cancel();
+                        };
+
+                        $scope.resend = function() {
+                            var obj = {
+                                "verificationId": email
+                            };
+                            LoginService.newOtp(obj).then(function(response) {
+                                console.log("success");
+                            }, function(error) {
+                                console.log("error")
+                            })
                         }
                     },
                     templateUrl: 'app/views/consumer/registerOtp.html',
                     parent: angular.element(document.body),
                     targetEvent: document.body,
                     locals: {
-                        "mobile": mobile
+                        "mobile": mobile,
+                        "email": email
                     }
                 })
                 .then(function() {

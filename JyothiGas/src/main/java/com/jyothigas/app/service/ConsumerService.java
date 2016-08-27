@@ -23,11 +23,9 @@ import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.entity.RoleEntity;
 import com.jyothigas.app.model.ConsumerDetails;
 import com.jyothigas.app.model.Mail;
-import com.jyothigas.app.model.OTP;
 import com.jyothigas.app.model.Register;
 import com.jyothigas.app.model.SMS;
 import com.jyothigas.utils.Constant;
-import com.jyothigas.utils.PasswordProtector;
 
 @Service("consumerService")
 @Transactional
@@ -176,23 +174,32 @@ public class ConsumerService {
 				DealerEntiy oldDealerEntiy = dealerDAO.findById(DealerEntiy.class, register.getDealerId());
 				StringBuilder emailTo = new StringBuilder(newDealerEntiy.getDealer_email()).append(",")
 						.append(oldDealerEntiy).append(",").append(registrationEntity.getEmail());
-				if (changedEntity.length() > 1) {
+
+				if(changedEntity.length()>1){
 					sendNotificationSMS(changedEntity.toString(), registrationEntity.getName(),
 							registrationEntity.getContactNo());
-//					if (changedEntity.indexOf("Dealer") > 0) {
-//						// Email for customer
-//						sendNotificationEmail(changedEntity.toString(), registrationEntity.getName(),
-//								registrationEntity.getEmail());
-//						// Email for Old Dealer
-//
-//						// Email For New Dealer
-//					}
-
 				}
+/*				if (changedEntity.indexOf("Dealer") > 0) {
+					// Email for customer
+					sendNotificationEmail(changedEntity.toString(), registrationEntity.getName(),
+							registrationEntity.getEmail());
+					// Email for Old Dealer
+					sendEmailToDealer(oldDealerEntiy.getDealer_name(), registrationEntity.getEmail(),
+							oldDealerEntiy.getDealer_email(), "OLDDEALER");
+
+					// Email For New Dealer
+					sendEmailToDealer(oldDealerEntiy.getDealer_name(), registrationEntity.getEmail(),
+							oldDealerEntiy.getDealer_email(), "NEWDEALER");
+				} else {
+					sendNotificationSMS(changedEntity.toString(), registrationEntity.getName(),
+							registrationEntity.getContactNo());
+					// Email for customer
+					sendNotificationEmail(changedEntity.toString(), registrationEntity.getName(),
+							registrationEntity.getEmail());
+				}*/
 
 			}
 		} catch (Exception e) {
-			result = 0;
 			e.printStackTrace();
 		}
 		return result;
@@ -209,13 +216,16 @@ public class ConsumerService {
 		emailService.sendMail(mail);
 	}
 
-	private void sendEmailToDealer(String dealerName, String custEmail, String EmailTo) {
+	private void sendEmailToDealer(String dealerName, String custEmail, String EmailTo, String flag) {
 		Mail mail = new Mail();
 		mail.setTemplateName(EmailService.EMAIL_USER_UPDATE);
 		mail.setMailTo(EmailTo);
 		Map<String, String> valueMap = new HashMap<String, String>();
-		valueMap.put("MESSAGE", Constant.OLD_DEALER_EMAIL.replace("{EMAIL}", custEmail));
-		valueMap.put("NAME", dealerName);
+		if (flag.equalsIgnoreCase("OLDDEALER"))
+			valueMap.put("MESSAGE", Constant.OLD_DEALER_EMAIL.replace("{EMAIL}", custEmail));
+		else
+			valueMap.put("MESSAGE", Constant.NEW_DEALER_EMAIL.replace("{EMAIL}", custEmail));
+			valueMap.put("NAME", dealerName);
 		mail.setValueMap(valueMap);
 		emailService.sendMail(mail);
 	}

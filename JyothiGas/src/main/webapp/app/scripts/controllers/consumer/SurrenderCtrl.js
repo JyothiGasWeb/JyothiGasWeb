@@ -4,12 +4,16 @@
  * Description
  */
 angular.module('clientApp').
-controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionService', 'AlertService', function($scope, $mdDialog, ConsumerService, SessionService, AlertService) {
+controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionService', 'AlertService', 'LoginService', function($scope, $mdDialog, ConsumerService, SessionService, AlertService, LoginService) {
 
     var consumer = SessionService.getConsumerSession().consumer;
     $scope.isSurrender = false;
-    if(consumer && consumer.status == 'SURRENDERED'){
-        $scope.isSurrender = true;
+
+    var getSurrender = function() {
+        if (consumer && consumer.surrenderStatus == 'SURRENDERED') {
+            $scope.isSurrender = true;
+            $scope.surrenderedDate = new Date(consumer.surrender_Date);
+        }
     }
 
     $scope.surrender = function(ev) {
@@ -28,8 +32,8 @@ controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionS
             }
             ConsumerService.surrenderConnection(obj).then(function(response) {
                 if (response.status == 'OK') {
-                    $scope.isSurrender = true;
-                    AlertService.alert("Connection surrenderred Successfully", 'md-primary', 100000);
+                    updateUser();
+
                 }
             }, function(error) {
                 console.log("Error");
@@ -39,8 +43,23 @@ controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionS
         });
     };
 
-    var init = function() {
+    var updateUser = function() {
+        var obj = {
+            "email": $scope.current.email
+        }
+        LoginService.getConsumer(obj).then(function(response) {
+            SessionService.setConsumerSession(response);
+            $scope.isSurrender = true;
+            AlertService.alert("Connection surrenderred Successfully", 'md-primary', 100000);
+            getSurrender();
+            //$scope.reset();
+        }, function(response) {
+            console.log("errror");
+        });
+    };
 
+    var init = function() {
+        getSurrender();
     };
     init();
 }]);

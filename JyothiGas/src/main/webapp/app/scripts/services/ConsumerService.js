@@ -119,7 +119,7 @@ angular.module('clientApp')
 
         conService.getAllNotifications = function() {
             var deferred = $q.defer();
-            ConsumerFactory.notifications().get(function(success) {
+            ConsumerFactory.notifications().post(function(success) {
                 deferred.resolve(success);
             }, function(error) {
                 deferred.reject(error);
@@ -239,9 +239,9 @@ angular.module('clientApp')
         };
 
         conFact.notifications = function() {
-            return $resource(APP_CONFIG.API_URL + 'getAllNotification', {}, {
-                'get': {
-                    method: 'GET',
+            return $resource(APP_CONFIG.API_URL + 'getAllNotification?userType="CONSUMER"', {}, {
+                'post': {
+                    method: 'POST',
                     isArray: true
                 }
 

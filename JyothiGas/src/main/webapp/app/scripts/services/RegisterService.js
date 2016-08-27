@@ -24,7 +24,7 @@ angular.module('clientApp')
 
         regService.validateOtp = function(otp) {
             var deferred = $q.defer();
-            RegisterFactory.otpValidation().post(otp, function(success) {
+            RegisterFactory.otpValidation().get(otp, function(success) {
                 deferred.resolve(success);
             }, function(error) {
                 deferred.reject(error);
@@ -77,7 +77,7 @@ angular.module('clientApp')
         };
 
         regFactory.otpValidation = function() {
-            return $resource(APP_CONFIG.API_URL + 'getOtp', {}, {
+            return $resource(APP_CONFIG.API_URL + 'verifyMobileNo', {}, {
                 'get': {
                     method: 'GET'
                 },

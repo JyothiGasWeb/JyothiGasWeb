@@ -10,7 +10,7 @@ angular.module('clientApp')
                             controller: function($scope, $mdDialog, AlertService, username, LoginService, $timeout) {
                                 $scope.userObj = {
                                     "userName": username,
-                                    "verificationType": ""
+                                    "verificationType": "eMAIL"
                                 };
                                 $scope.create = function() {
                                     LoginService.forgotPasswd($scope.userObj).then(function(response) {

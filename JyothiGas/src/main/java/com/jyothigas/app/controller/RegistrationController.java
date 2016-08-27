@@ -104,7 +104,7 @@ public class RegistrationController {
 	 * @param number
 	 * @return
 	 */
-	@RequestMapping(value = Constant.PHONE_VERIFICATION, method = RequestMethod.POST)
+	@RequestMapping(value = Constant.PHONE_VERIFICATION, method = RequestMethod.GET)
 	public @ResponseBody AppResponse verifyMobileNo(@RequestParam String token, @RequestParam String number) {
 		logger.info("Request received for verify mobile");
 		OTP otp = new OTP();

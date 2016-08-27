@@ -53,5 +53,6 @@ public class Constant {
 	public static final String FORGOT_PASSWORD = "/forgotPassword";
 	
 	public static final String OLD_DEALER_EMAIL = "You are no longer dealer of {EMAIL}, as customer has changed his dealer.";
+	public static final String NEW_DEALER_EMAIL = "Customer {EMAIL} has assigned you as his dealer";
 
 }

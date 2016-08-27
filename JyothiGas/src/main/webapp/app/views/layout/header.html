@@ -12,16 +12,21 @@
                 <i md-menu-origin class="material-icons">notifications</i>
             </md-button>
             <md-menu-content width="4">
-                <md-menu-item ng-repeat="item in notifications">
-                    <md-button ng-click="openNotifi($event, item)">
-                        <div layout="row" layout-align="center center">
-                            <p>{{ item.title }}</p>
-                        </div>
-                    </md-button>
-                </md-menu-item>
-                <md-divider></md-divider>
-                <div layout="row" layout-align="end end">
-                    <md-button class="md-primary" ui-sref="notifications">more</md-button>
+                <div ng-if="notifications.length>0">
+                    <md-menu-item ng-repeat="item in notifications">
+                        <md-button ng-click="openNotifi($event, item)">
+                            <div layout="row" layout-align="center center">
+                                <p>{{ item.title }}</p>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-divider></md-divider>
+                    <div layout="row" layout-align="end end">
+                        <md-button class="md-primary" ui-sref="notifications">more</md-button>
+                    </div>
+                </div>
+                <div ng-if="notifications.length==0" class="md-padding">
+                    No Notifications to Show
                 </div>
             </md-menu-content>
         </md-menu>
