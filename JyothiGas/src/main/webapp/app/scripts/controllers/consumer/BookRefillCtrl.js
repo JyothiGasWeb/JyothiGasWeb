@@ -1,10 +1,10 @@
 angular.module('clientApp')
-    .controller('BookRefillCtrl', ['$scope', 'SessionService', 'AlertService', 'ConsumerService', 'RegisterService', function($scope, SessionService, AlertService, ConsumerService, RegisterService) {
+    .controller('BookRefillCtrl', ['$scope', 'SessionService', 'AlertService', 'ConsumerService', 'RegisterService', '$mdDialog', '$state', function($scope, SessionService, AlertService, ConsumerService, RegisterService, $mdDialog, $state) {
 
         $scope.isForm = true;
         $scope.connectionType = {};
+        $scope.refillObj = SessionService.getConsumerSession().consumer;
         var getDetails = function() {
-            $scope.refillObj = SessionService.getConsumerSession().consumer;
             $scope.cylinders = SessionService.getConsumerSession().consumer.connectionQty;
             getConnectionTypes();
         };
@@ -38,14 +38,13 @@ angular.module('clientApp')
             var obj = {
                 "consumer_id": $scope.refillObj.consumer_id,
                 "connectionTypeId": $scope.connectionType.id,
-                "qunatity": $scope.cylinders,
-                "bookingType":"REFILL" 
+                "quantity": $scope.cylinders,
+                "bookingType": "REFILL"
             };
 
             ConsumerService.bookRefill(obj).then(function(response) {
                 $scope.refNo = response.reference;
-                console.log($scope.connectionType.connectionPrice);
-                $scope.totalPrice = $scope.cylinders * JSON.parse($scope.connectionType).connectionPrice;
+                $scope.totalPrice = $scope.cylinders * $scope.connectionType.applliance_Cost;
                 var currentdate = new Date();
                 $scope.isForm = false;
                 if (currentdate.getHours() > "20") {
@@ -63,8 +62,24 @@ angular.module('clientApp')
         }
 
         var init = function() {
-            getDetails();
-            getDealer();
+            if ($scope.refillObj.userType == 'NEW') {
+                var message = "Being a  new customer, Please book a " + $scope.refillObj.connectionTypeName + " connection.";
+                var confirm = $mdDialog.confirm()
+                    .title(message)
+                    .textContent('')
+                    .ariaLabel('Lucky day')
+                    .targetEvent(document.body)
+                    .ok('Ok');
+                $mdDialog.show(confirm).then(function() {
+                    $state.go('consumerDash');
+                }, function() {
+                    $state.go('consumerDash');
+                });
+            } else {
+                getDetails();
+                getDealer();
+            }
+
         };
         init();
     }])

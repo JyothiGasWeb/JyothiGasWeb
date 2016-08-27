@@ -44,7 +44,7 @@ public class FileUploader {
 			entity = new KYCDocumentEntity();
 		}
 		entity.setCreatedDate(Calendar.getInstance().getTime());
-		entity.setDocumentName(file.getName());
+		entity.setDocumentName(file.getOriginalFilename());
 		entity.setLocation(serverFile.getAbsolutePath());
 		entity.setCustId(custId);
 		entity.setType(type);
@@ -59,6 +59,15 @@ public class FileUploader {
 			return file;
 		}
 		return null;
+	}
 
+	// Get Document details
+	public String getDocumentDetails(int custId, String type) {
+		KYCDocumentEntity doc = kycDao.findByCustomerId(custId, type);
+
+		if (null != doc && !doc.getDocumentName().isEmpty()) {
+			return doc.getDocumentName();
+		}
+		return null;
 	}
 }

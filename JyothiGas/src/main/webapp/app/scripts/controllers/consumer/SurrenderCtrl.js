@@ -19,7 +19,7 @@ controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionS
             .textContent('')
             .ariaLabel('Lucky day')
             .targetEvent(ev)
-            .ok('Yes!')
+            .ok('Yes')
             .cancel('No');
         $mdDialog.show(confirm).then(function() {
             var obj = {

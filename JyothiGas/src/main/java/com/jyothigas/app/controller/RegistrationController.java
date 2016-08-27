@@ -56,11 +56,11 @@ public class RegistrationController {
 
 		try {
 			if (!registrationService.verifyEmail(register.getEmail())) {
-				appResponse.setMessage("The Email Id you provided is already exiting in our system. Please use other email id.");
+				appResponse.setMessage("The Email Id you provided is already exist in our system. Please use other email id.");
 				appResponse.setStatus("Fail");
 				appResponse.setHttpErrorCode(405);
 			} else if (!registrationService.verifyMobileNO(register.getContactNo())) {
-				appResponse.setMessage("The Mobile Number you provided is already exiting in our system. Please use other Mobile No.");
+				appResponse.setMessage("The Mobile Number you provided is already exist in our system. Please use other Mobile No.");
 				appResponse.setStatus("Fail");
 				appResponse.setHttpErrorCode(405);
 			} else {
@@ -104,7 +104,7 @@ public class RegistrationController {
 	 * @param number
 	 * @return
 	 */
-	@RequestMapping(value = Constant.PHONE_VERIFICATION, method = RequestMethod.GET)
+	@RequestMapping(value = Constant.PHONE_VERIFICATION, method = RequestMethod.POST)
 	public @ResponseBody AppResponse verifyMobileNo(@RequestParam String token, @RequestParam String number) {
 		logger.info("Request received for verify mobile");
 		OTP otp = new OTP();

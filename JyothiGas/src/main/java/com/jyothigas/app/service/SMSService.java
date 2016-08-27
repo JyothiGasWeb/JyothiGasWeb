@@ -27,6 +27,9 @@ public class SMSService {
 	public static final String CONFIRM_APPOINTMENT = "CONFIRM_APPOINTMENT";
 	public static final String FEEDBACK = "FEEDBACK";
 	public static final String NOTIFICATION = "NOTIFICATION";
+	public static final String USER_UPDATE = "USER_UPDATE";
+	public static final String SURRENDER = "SURRENDER";
+	public static final String MECHANIC_SERVICE = "MECHANIC_SERVICE";
 	public static final String INVITE = "INVITE";
 
 	private Map<String, String> templateMap = new HashMap<String, String>();
@@ -45,6 +48,9 @@ public class SMSService {
 		templateMap.put(SMSService.FEEDBACK + "_TEMPLATE", "Mobile_Feedback.vm");
 		templateMap.put(SMSService.NOTIFICATION + "_TEMPLATE", "Mobile_Notification.vm");
 		templateMap.put(SMSService.INVITE + "_TEMPLATE", "Mobile_Invite.vm");
+		templateMap.put(SMSService.USER_UPDATE + "_TEMPLATE", "Mobile_UserUpdate.vm");
+		templateMap.put(SMSService.SURRENDER + "_TEMPLATE", "Mobile_SurrenderConnection.vm");
+		templateMap.put(SMSService.MECHANIC_SERVICE + "_TEMPLATE", "Mobile_MechanicService.vm");
 
 	}
 
