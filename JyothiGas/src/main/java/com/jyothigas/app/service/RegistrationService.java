@@ -214,19 +214,28 @@ public class RegistrationService {
 		boolean result = false;
 		try {
 			RegistrationEntity registerEntity = registrationDAO.findById(RegistrationEntity.class, register.getId());
-//			ConsumerEntity consumerEntity = consumerDAO.findByRegId(register.getId());
-//			consumerDAO.merge(consumerEntity);
-			// user is allowed to login
 			 registerEntity.setSurrenderInfo(register.getSurrenderInfo());
 			 registerEntity.setSurrenderStatus(Constant.STATUS_SURRENDER);
 			 registerEntity.setUpdatedDate(new Date());
 			 registerEntity.setSurrender_Date(new Date());
 			 registrationDAO.merge(registerEntity);
+			 sendNotificationSMS(registerEntity.getName(),registerEntity.getContactNo());
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	private void sendNotificationSMS(String name, String phoneNumber) {
+		SMS sms = new SMS();
+		sms.setPhoneNumber(phoneNumber);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("NAME", name);
+		sms.setTemplate(SMSService.SURRENDER);
+		sms.setValueMap(valueMap);
+		smsService.sendSMS(sms);
+
 	}
 
 }

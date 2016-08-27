@@ -1,7 +1,9 @@
 package com.jyothigas.app.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +22,10 @@ import com.jyothigas.app.entity.DealerEntiy;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.entity.RoleEntity;
 import com.jyothigas.app.model.ConsumerDetails;
+import com.jyothigas.app.model.OTP;
 import com.jyothigas.app.model.Register;
+import com.jyothigas.app.model.SMS;
+import com.jyothigas.utils.PasswordProtector;
 
 @Service("consumerService")
 @Transactional
@@ -42,6 +47,9 @@ public class ConsumerService {
 
 	@Autowired
 	ConnectionTypeDAO connectionTypeDAO;
+
+	@Autowired
+	SMSService smsService;
 
 	/**
 	 * Method for fetch Consumer Details
@@ -124,8 +132,10 @@ public class ConsumerService {
 		try {
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
 					register.getId());
+			StringBuilder changedEntity = new StringBuilder();
 			if (registrationEntity != null) {
 				if (register.getAddress() != null) {
+					changedEntity.append("Address,");
 					registrationEntity.setAddress(register.getAddress());
 				}
 				if (register.getContactNo() != null) {
@@ -141,6 +151,7 @@ public class ConsumerService {
 					registrationEntity.setEmail(register.getEmail());
 				}
 				if (register.getDealerId() > 0) {
+					changedEntity.append("Dealer,");
 					registrationEntity.setDealerId(register.getDealerId());
 				}
 				if (register.getConnectionTypeId() > 0) {
@@ -149,10 +160,15 @@ public class ConsumerService {
 				if (register.getAreaCode() != null) {
 					registrationEntity.setAreaCode(register.getAreaCode());
 				}
-			
+
 				registrationEntity.setUpdatedDate(new Date());
 				registrationEntity.setId(register.getId());
 				RegistrationEntity entity = registrationDAO.merge(registrationEntity);
+				if (changedEntity.length() > 1) {
+					changedEntity.deleteCharAt(changedEntity.length() - 1);
+					sendNotificationSMS(changedEntity.toString(), registrationEntity.getName(),
+							registrationEntity.getContactNo());
+				}
 				result = entity.getId();
 			}
 		} catch (Exception e) {
@@ -162,4 +178,15 @@ public class ConsumerService {
 		return result;
 	}
 
+	private void sendNotificationSMS(String entity, String name, String phoneNumber) {
+		SMS sms = new SMS();
+		sms.setPhoneNumber(phoneNumber);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("ENTITY", entity);
+		valueMap.put("NAME", name);
+		sms.setTemplate(SMSService.USER_UPDATE);
+		sms.setValueMap(valueMap);
+		smsService.sendSMS(sms);
+
+	}
 }
