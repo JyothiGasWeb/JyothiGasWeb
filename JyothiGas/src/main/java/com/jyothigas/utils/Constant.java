@@ -51,5 +51,7 @@ public class Constant {
 	public static final String GET_FY_CYLINDER_SOLD = "/getCylinderSoldFY";
 	// Not Working API's
 	public static final String FORGOT_PASSWORD = "/forgotPassword";
+	
+	public static final String OLD_DEALER_EMAIL = "You are no longer dealer of {EMAIL}, as customer has changed his dealer.";
 
 }

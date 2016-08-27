@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jyothigas.app.dao.OTPDAO;
+import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.entity.OTPEntity;
+import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.OTP;
+import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.OTPUtil;
 import com.jyothigas.utils.PasswordProtector;
 
@@ -21,6 +24,9 @@ public class OTPService {
 
 	@Autowired
 	OTPDAO otpdao;
+	
+	@Autowired
+	RegistrationDAO registrationDAO;
 
 	private static final Log log = LogFactory.getLog(OTPService.class);
 
@@ -58,7 +64,9 @@ public class OTPService {
 			if (otp.getType().equals(otpEntity.getType()) && PasswordProtector.encrypt(otp.getOtp()).equals(otpEntity.getOtp())) {
 				if (otpEntity.getValidUpto().getTime() > System.currentTimeMillis()) {
 					otp.setStatus("VERIFIED");
-
+					RegistrationEntity entity = registrationDAO.findByMobileNo(otp.getVerificationId()).get(0);
+					entity.setStatus(Constant.ACTIVE);
+					registrationDAO.merge(entity);
 				} else {
 					otp.setStatus("EXPIRED");
 				}
@@ -113,8 +121,9 @@ public class OTPService {
 			otp.setOtp(PasswordProtector.decrypt(otpEntity.getOtp()));
 			otp.setType(otpEntity.getType());
 			otp.setStatus(otpEntity.getStatus());
+			return otp;
 		}
-		return otp;
+		return null;
 	}
 
 }

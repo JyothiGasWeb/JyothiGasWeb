@@ -39,7 +39,7 @@ public class MechanicServService {
 		BeanUtils.copyProperties(mechServ, entity);
 		entity.setStatus("NEW");
 		entity = mechanicDAO.merge(entity);
-		ConsumerEntity consumer = consumerDAO.findById(ConsumerEntity.class, entity.getConsumerId());
+		ConsumerEntity consumer = consumerDAO.findById(ConsumerEntity.class, mechServ.getConsumerId());
 		RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class, consumer.getReg_id());
 		sendNotificationSMS(registrationEntity.getName(), registrationEntity.getContactNo());
 		result = 1;
@@ -61,7 +61,7 @@ public class MechanicServService {
 		sms.setPhoneNumber(phoneNumber);
 		Map<String, String> valueMap = new HashMap<String, String>();
 		valueMap.put("NAME", name);
-		sms.setTemplate(SMSService.SURRENDER);
+		sms.setTemplate(SMSService.MECHANIC_SERVICE);
 		sms.setValueMap(valueMap);
 		smsService.sendSMS(sms);
 

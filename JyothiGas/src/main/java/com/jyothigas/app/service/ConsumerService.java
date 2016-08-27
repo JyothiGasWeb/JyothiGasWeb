@@ -22,9 +22,11 @@ import com.jyothigas.app.entity.DealerEntiy;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.entity.RoleEntity;
 import com.jyothigas.app.model.ConsumerDetails;
+import com.jyothigas.app.model.Mail;
 import com.jyothigas.app.model.OTP;
 import com.jyothigas.app.model.Register;
 import com.jyothigas.app.model.SMS;
+import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.PasswordProtector;
 
 @Service("consumerService")
@@ -38,6 +40,9 @@ public class ConsumerService {
 
 	@Autowired
 	RoleDAO roleDAO;
+
+	@Autowired
+	EmailService emailService;
 
 	@Autowired
 	ConsumerDAO consumerDAO;
@@ -135,7 +140,7 @@ public class ConsumerService {
 			StringBuilder changedEntity = new StringBuilder();
 			if (registrationEntity != null) {
 				if (register.getAddress() != null) {
-					changedEntity.append("Address,");
+					changedEntity.append("Address");
 					registrationEntity.setAddress(register.getAddress());
 				}
 				if (register.getContactNo() != null) {
@@ -151,7 +156,7 @@ public class ConsumerService {
 					registrationEntity.setEmail(register.getEmail());
 				}
 				if (register.getDealerId() > 0) {
-					changedEntity.append("Dealer,");
+					changedEntity.append("Dealer");
 					registrationEntity.setDealerId(register.getDealerId());
 				}
 				if (register.getConnectionTypeId() > 0) {
@@ -164,18 +169,55 @@ public class ConsumerService {
 				registrationEntity.setUpdatedDate(new Date());
 				registrationEntity.setId(register.getId());
 				RegistrationEntity entity = registrationDAO.merge(registrationEntity);
+				result = entity.getId();
+				// Send Notification
+				// Fetching the Dealer Details
+				DealerEntiy newDealerEntiy = dealerDAO.findById(DealerEntiy.class, registrationEntity.getDealerId());
+				DealerEntiy oldDealerEntiy = dealerDAO.findById(DealerEntiy.class, register.getDealerId());
+				StringBuilder emailTo = new StringBuilder(newDealerEntiy.getDealer_email()).append(",")
+						.append(oldDealerEntiy).append(",").append(registrationEntity.getEmail());
 				if (changedEntity.length() > 1) {
-					changedEntity.deleteCharAt(changedEntity.length() - 1);
 					sendNotificationSMS(changedEntity.toString(), registrationEntity.getName(),
 							registrationEntity.getContactNo());
+//					if (changedEntity.indexOf("Dealer") > 0) {
+//						// Email for customer
+//						sendNotificationEmail(changedEntity.toString(), registrationEntity.getName(),
+//								registrationEntity.getEmail());
+//						// Email for Old Dealer
+//
+//						// Email For New Dealer
+//					}
+
 				}
-				result = entity.getId();
+
 			}
 		} catch (Exception e) {
 			result = 0;
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	private void sendNotificationEmail(String entity, String name, String EmailTo) {
+		Mail mail = new Mail();
+		mail.setTemplateName(EmailService.EMAIL_USER_UPDATE);
+		mail.setMailTo(EmailTo);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("ENTITY", entity);
+		valueMap.put("NAME", name);
+		mail.setValueMap(valueMap);
+		emailService.sendMail(mail);
+	}
+
+	private void sendEmailToDealer(String dealerName, String custEmail, String EmailTo) {
+		Mail mail = new Mail();
+		mail.setTemplateName(EmailService.EMAIL_USER_UPDATE);
+		mail.setMailTo(EmailTo);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("MESSAGE", Constant.OLD_DEALER_EMAIL.replace("{EMAIL}", custEmail));
+		valueMap.put("NAME", dealerName);
+		mail.setValueMap(valueMap);
+		emailService.sendMail(mail);
 	}
 
 	private void sendNotificationSMS(String entity, String name, String phoneNumber) {

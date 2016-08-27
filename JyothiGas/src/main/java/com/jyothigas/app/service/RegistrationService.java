@@ -59,6 +59,7 @@ public class RegistrationService {
 			BeanUtils.copyProperties(register, registrationEntity);
 			registrationEntity.setEncyPassword(PasswordProtector.encrypt(register.getEncyPassword()));
 			registrationEntity.setStatus(Constant.INACTIVE);
+			registrationEntity.setCreatedDate(new Date());
 			registrationEntity = registrationDAO.merge(registrationEntity);
 			result = registrationEntity.getId();
 

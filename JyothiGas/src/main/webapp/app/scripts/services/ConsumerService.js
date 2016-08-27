@@ -164,7 +164,7 @@ angular.module('clientApp')
         var conFact = {};
 
         conFact.refill = function() {
-            return $resource(APP_CONFIG.API_URL + 'bookCylinder', {}, {
+            return $resource(APP_CONFIG.API_URL + 'bookRefill', {}, {
                 'post': {
                     method: 'POST',
                 }

@@ -30,6 +30,8 @@ public class EmailService {
 		templateMap.put("EMAIL_FROM", "test@smsquaretech.com");
 		templateMap.put("EMAIL_OTP_TEMPLATE", "Email_OTP.vm");
 		templateMap.put("EMAIL_OTP_SUBJECT", "Verification: One Time Password");
+		templateMap.put("EMAIL_USER_UPDATE_TEMPLATE", "Email_UserUpdate.vm");
+		templateMap.put("EMAIL_USER_UPDATE_SUBJECT", "Update");
 		
 	}
 	
@@ -48,6 +50,7 @@ public class EmailService {
 	public static final String FEEDBACK_ACK = "FEEDBACK_ACK";
 	public static final String FEEDBACK_ADMIN_ACK = "FEEDBACK_ADMIN_ACK";
 	public static final String EMAIL_OTP = "EMAIL_OTP";
+	public static final String EMAIL_USER_UPDATE = "EMAIL_USER_UPDATE";
 	public static final String DOCTOR_ACCOUNT_ACTIVATION_INTIMATE = "DOCTOR_ACCOUNT_ACTIVATION_INTIMATE";
 
 	@Async
