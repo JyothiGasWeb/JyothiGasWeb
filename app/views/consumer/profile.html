@@ -48,10 +48,8 @@
                 <input name="contact" ng-model="consumer.contactNo" ng-disabled="true">
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
-               <!--  <input type="file" class="form-control fileUpload" ngf-select="" ng-model="kyc" name="file" /> -->
                 <md-button class="md-raised md-primary" ngf-select="" ng-model="kyc" name="file" >KYC Documents</md-button>
                 {{kyc.name}}
-                <!-- <input type='file' ng-model="kyc" base-sixty-four-input required> -->
             </md-input-container>
             <div layout="row" layout-align="center center">
                 <md-button class="md-raised md-primary" type="submit" ng-disabled="consumerForm.$invalid" style="width:50%;" ng-click="updateFile()">Update

@@ -5,7 +5,7 @@
             <div class="md-body-2">OTP has been sent to registered Email/ Mobile number</div>
             <md-input-container class="md-block">
                 <label>OTP</label>
-                <input required name="otp" ng-model="otpObj.otp">
+                <input required name="otp" ng-model="otpObj.token">
                 <div ng-messages="optForm.otp.$error" role="alert">
                     <div ng-message-exp="['required']">
                         OTP Cannot be Empty
@@ -15,7 +15,7 @@
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end end">
             <md-button md-no-ink class="md-warn md-raised" ng-click="closeDialog()">Cancel</md-button>
-            <md-button md-no-ink class="md-primary md-raised">Resend OTP</md-button>
+            <md-button md-no-ink class="md-primary md-raised" ng-click="resend()">Resend OTP</md-button>
             <md-button md-no-ink class="md-primary md-raised" ng-click="create()" ng-disabled="optForm.$invalid">Submit</md-button>
         </md-dialog-actions>
     </form>

@@ -11,7 +11,7 @@ controller('MechanicServiceCtrl', ['$scope', 'SessionService', 'ConsumerService'
     $scope.mechanicsList = [];
     var getCurrentAdd = function() {
         $scope.current = SessionService.getConsumerSession().consumer;
-        $scope.user.consumerId = $scope.current.consumer_id;
+
         getMechanics($scope.current.dealerId);
     };
 
@@ -27,10 +27,11 @@ controller('MechanicServiceCtrl', ['$scope', 'SessionService', 'ConsumerService'
     };
 
     $scope.addService = function() {
+        $scope.user.consumerId = $scope.current.consumer_id;
         ConsumerService.addMechanicService($scope.user).then(function(response) {
             if (response.status == 'Success') {
                 AlertService.alert("Mechanic Service added Successfully", 'md-primary', "5000");
-                $scope.user = {};
+                //$scope.user = {};
             }
         }, function(error) {
             console.log("error getting mechanics List")
