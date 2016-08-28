@@ -43,6 +43,9 @@ public class Dealer implements java.io.Serializable {
 	}
 
 	public void setDealer_contact_no(String dealer_contact_no) {
+		if (null != dealer_contact_no && dealer_contact_no.contains(".")) {
+			dealer_contact_no = dealer_contact_no.substring(0, dealer_contact_no.lastIndexOf("."));
+		}
 		this.dealer_contact_no = dealer_contact_no;
 	}
 
@@ -59,6 +62,9 @@ public class Dealer implements java.io.Serializable {
 	}
 
 	public void setDealer_area_code(String dealer_area_code) {
+		if (null != dealer_area_code && dealer_area_code.contains(".")) {
+			dealer_area_code = dealer_area_code.substring(0, dealer_area_code.lastIndexOf("."));
+		}
 		this.dealer_area_code = dealer_area_code;
 	}
 

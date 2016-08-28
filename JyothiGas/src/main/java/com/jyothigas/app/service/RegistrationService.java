@@ -215,19 +215,31 @@ public class RegistrationService {
 		boolean result = false;
 		try {
 			RegistrationEntity registerEntity = registrationDAO.findById(RegistrationEntity.class, register.getId());
-			 registerEntity.setSurrenderInfo(register.getSurrenderInfo());
-			 registerEntity.setSurrenderStatus(Constant.STATUS_SURRENDER);
-			 registerEntity.setUpdatedDate(new Date());
-			 registerEntity.setSurrender_Date(new Date());
-			 registrationDAO.merge(registerEntity);
-			 sendNotificationSMS(registerEntity.getName(),registerEntity.getContactNo());
+			registerEntity.setSurrenderInfo(register.getSurrenderInfo());
+			registerEntity.setSurrenderStatus(Constant.STATUS_SURRENDER);
+			registerEntity.setUpdatedDate(new Date());
+			registerEntity.setSurrender_Date(new Date());
+			registrationDAO.merge(registerEntity);
+			sendNotificationSMS(registerEntity.getName(), registerEntity.getContactNo());
+			sendNotificationEmail("Surrender Connection", registerEntity.getName(), registerEntity.getEmail());
 			result = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
+	private void sendNotificationEmail(String entity, String name, String EmailTo) {
+		Mail mail = new Mail();
+		mail.setTemplateName(EmailService.EMAIL_SERVICE_REQUEST);
+		mail.setMailTo(EmailTo);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("ENTITY", entity);
+		valueMap.put("NAME", name);
+		mail.setValueMap(valueMap);
+		emailService.sendMail(mail);
+	}
+
 	private void sendNotificationSMS(String name, String phoneNumber) {
 		SMS sms = new SMS();
 		sms.setPhoneNumber(phoneNumber);

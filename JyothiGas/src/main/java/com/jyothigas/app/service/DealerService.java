@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jyothigas.app.dao.DealerDAO;
-import com.jyothigas.app.entity.DealerEntiy;
+import com.jyothigas.app.entity.DealerEntity;
 import com.jyothigas.app.model.Dealer;
 
 @Service("dealerService")
@@ -27,8 +27,8 @@ public class DealerService {
 		logger.info("Fetching the Dealers List");
 		List<Dealer> dealerList = new ArrayList<Dealer>();
 		try {
-			List<DealerEntiy> dealerEntityList = dealerDAO.findAllDealers();
-			for (DealerEntiy dealerEntity : dealerEntityList) {
+			List<DealerEntity> dealerEntityList = dealerDAO.findAllDealers();
+			for (DealerEntity dealerEntity : dealerEntityList) {
 				Dealer dealer = new Dealer();
 				BeanUtils.copyProperties(dealerEntity, dealer);
 				dealerList.add(dealer);

@@ -9,18 +9,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Dealer")
-public class DealerEntiy implements java.io.Serializable {
+@Table(name = "Dealers")
+public class DealerEntity implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8611241394324140199L;
 	private int id;
+
 	private String dealer_email;
 	private String dealer_name;
 	private String dealer_contact_no;
-	private String dealer_city;
 	private String dealer_area_code;
 	private String dealer_address;
 
@@ -34,8 +34,8 @@ public class DealerEntiy implements java.io.Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	@Column(name = "Dealer_Email")
+	
+	@Column(name = "Email")
 	public String getDealer_email() {
 		return dealer_email;
 	}
@@ -43,8 +43,7 @@ public class DealerEntiy implements java.io.Serializable {
 	public void setDealer_email(String dealer_email) {
 		this.dealer_email = dealer_email;
 	}
-
-	@Column(name = "Dealer_Name")
+	@Column(name = "Dealer")
 	public String getDealer_name() {
 		return dealer_name;
 	}
@@ -52,8 +51,7 @@ public class DealerEntiy implements java.io.Serializable {
 	public void setDealer_name(String dealer_name) {
 		this.dealer_name = dealer_name;
 	}
-
-	@Column(name = "Dealer_Contact_No")
+	@Column(name = "Contact_No")
 	public String getDealer_contact_no() {
 		return dealer_contact_no;
 	}
@@ -61,17 +59,7 @@ public class DealerEntiy implements java.io.Serializable {
 	public void setDealer_contact_no(String dealer_contact_no) {
 		this.dealer_contact_no = dealer_contact_no;
 	}
-
-	@Column(name = "Dealer_City")
-	public String getDealer_city() {
-		return dealer_city;
-	}
-
-	public void setDealer_city(String dealer_city) {
-		this.dealer_city = dealer_city;
-	}
-
-	@Column(name = "Dealer_Area_Code")
+	@Column(name = "Pin_Code")
 	public String getDealer_area_code() {
 		return dealer_area_code;
 	}
@@ -79,8 +67,7 @@ public class DealerEntiy implements java.io.Serializable {
 	public void setDealer_area_code(String dealer_area_code) {
 		this.dealer_area_code = dealer_area_code;
 	}
-
-	@Column(name = "Dealer_Addresss")
+	@Column(name = "Adderss")
 	public String getDealer_address() {
 		return dealer_address;
 	}
