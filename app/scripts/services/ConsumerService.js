@@ -249,7 +249,7 @@ angular.module('clientApp')
         };
 
         conFact.notifications = function() {
-            return $resource(APP_CONFIG.API_URL + 'getAllNotification?userType="CONSUMER"', {}, {
+            return $resource(APP_CONFIG.API_URL + 'getAllNotification?userType=CONSUMER', {}, {
                 'post': {
                     method: 'POST',
                     isArray: true
