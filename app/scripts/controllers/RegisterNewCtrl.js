@@ -96,7 +96,11 @@ angular.module('clientApp')
                     }
                 })
                 .then(function() {
-                    $state.go('login');
+                    AlertService.alert("Mobile Validated Successfully", "1500");
+                    $timeout(function() {
+                        $state.go('login');
+                    }, 1000);
+                    
                 }, function() {
                     $scope.status = 'You cancelled the dialog.';
                 });
