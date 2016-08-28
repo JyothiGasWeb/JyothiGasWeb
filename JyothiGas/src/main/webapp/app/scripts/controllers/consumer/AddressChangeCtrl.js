@@ -17,7 +17,6 @@ controller('AddressChangeCtrl', ['$scope', 'SessionService', 'ConsumerService', 
         var obj = {
             "id": $scope.current.reg_id,
             "address": $scope.user.newAddress,
-            "dealerId": $scope.current.dealerId,
             "connectionTypeId": $scope.current.connectionTypeId,
             "areaCode": $scope.user.newPinCode
         };
