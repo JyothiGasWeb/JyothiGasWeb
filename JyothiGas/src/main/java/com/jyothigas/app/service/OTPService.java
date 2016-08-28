@@ -2,6 +2,8 @@ package com.jyothigas.app.service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,6 +15,7 @@ import com.jyothigas.app.dao.OTPDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.entity.OTPEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
+import com.jyothigas.app.model.Mail;
 import com.jyothigas.app.model.OTP;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.OTPUtil;
@@ -24,10 +27,13 @@ public class OTPService {
 
 	@Autowired
 	OTPDAO otpdao;
-	
+
 	@Autowired
 	RegistrationDAO registrationDAO;
 
+	@Autowired
+	EmailService emailService;
+	
 	private static final Log log = LogFactory.getLog(OTPService.class);
 
 	public OTP createOTP(OTP otp) {
@@ -61,12 +67,14 @@ public class OTPService {
 		OTPEntity otpEntity = otpdao.findByVerificationId(otp.getVerificationId());
 
 		if (otpEntity != null && "WAITING".equals(otpEntity.getStatus())) {
-			if (otp.getType().equals(otpEntity.getType()) && PasswordProtector.encrypt(otp.getOtp()).equals(otpEntity.getOtp())) {
+			if (otp.getType().equals(otpEntity.getType())
+					&& PasswordProtector.encrypt(otp.getOtp()).equals(otpEntity.getOtp())) {
 				if (otpEntity.getValidUpto().getTime() > System.currentTimeMillis()) {
 					otp.setStatus("VERIFIED");
 					RegistrationEntity entity = registrationDAO.findByMobileNo(otp.getVerificationId()).get(0);
 					entity.setStatus(Constant.ACTIVE);
-					registrationDAO.merge(entity);
+					entity = registrationDAO.merge(entity);
+					sendEmailToCustomer(entity.getName(), String.valueOf(entity.getId()), entity.getEmail());
 				} else {
 					otp.setStatus("EXPIRED");
 				}
@@ -81,6 +89,18 @@ public class OTPService {
 		}
 
 		return otp;
+	}
+
+	private void sendEmailToCustomer(String name, String regId, String EmailTo) {
+		Mail mail = new Mail();
+		mail.setTemplateName(EmailService.EMAIL_DEALER);
+		mail.setMailTo(EmailTo);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("MESSAGE", Constant.NEW_CUSTOMER_EMAIL.concat(regId));
+
+		valueMap.put("NAME", name);
+		mail.setValueMap(valueMap);
+		emailService.sendMail(mail);
 	}
 
 	public OTP reCreateOTP(OTP otp) {

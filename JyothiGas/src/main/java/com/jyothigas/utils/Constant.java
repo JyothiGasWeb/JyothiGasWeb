@@ -54,5 +54,6 @@ public class Constant {
 	
 	public static final String OLD_DEALER_EMAIL = "You are no longer dealer of {EMAIL}, as customer has changed his dealer.";
 	public static final String NEW_DEALER_EMAIL = "Customer {EMAIL} has assigned you as his dealer";
+	public static final String NEW_CUSTOMER_EMAIL = "You are successfully registered with Jyoti Gas, your registeration number is ";
 
 }
