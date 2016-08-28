@@ -11,21 +11,9 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row>
-                        <td md-cell>12kg Refill</td>
-                        <td md-cell>950</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell>15kg Refill</td>
-                        <td md-cell>840</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell>12kg Refill(Domestic)</td>
-                        <td md-cell>620</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell>5.5kgs Refill</td>
-                        <td md-cell>335</td>
+                    <tr md-row ng-repeat="list in priceList">
+                        <td md-cell>{{list.appliance_Name}}</td>
+                        <td md-cell>{{list.applliance_Cost}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -29,7 +29,7 @@ angular.module('clientApp')
 
         conService.getAppliances = function() {
             var deferred = $q.defer();
-            ConsumerFactory.appliances().get({ 'method': 'getAppliances' }, function(success) {
+            ConsumerFactory.appliances().get({ 'method': 'getAppliances', 'connectionTypeId': '0' }, function(success) {
                 deferred.resolve(success);
             }, function(error) {
                 deferred.reject(error);
@@ -150,6 +150,16 @@ angular.module('clientApp')
         conService.updateDealer = function(obj) {
             var deferred = $q.defer();
             ConsumerFactory.dealerUpdate().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        conService.getPriceList = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.appliances().get({ 'method': 'getAppliances'}, function(success) {
                 deferred.resolve(success);
             }, function(error) {
                 deferred.reject(error);
