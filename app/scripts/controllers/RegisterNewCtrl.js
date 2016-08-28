@@ -17,7 +17,7 @@ angular.module('clientApp')
             $scope.dealers = [];
             $scope.searchDeal = true;
             for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
-                if ($scope.user.areaCode == $scope.availableDealers[i].dealer_area_code) {
+                if ($scope.user.pinCode == $scope.availableDealers[i].dealer_area_code) {
                     $scope.dealers.push($scope.availableDealers[i]);
                 }
             };
@@ -96,7 +96,11 @@ angular.module('clientApp')
                     }
                 })
                 .then(function() {
-                    $state.go('login');
+                    AlertService.alert("Mobile Validated Successfully", "1500");
+                    $timeout(function() {
+                        $state.go('login');
+                    }, 1000);
+                    
                 }, function() {
                     $scope.status = 'You cancelled the dialog.';
                 });
