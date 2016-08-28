@@ -18,7 +18,7 @@ import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.dao.RoleDAO;
 import com.jyothigas.app.entity.ConnectionTypeEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
-import com.jyothigas.app.entity.DealerEntiy;
+import com.jyothigas.app.entity.DealerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.entity.RoleEntity;
 import com.jyothigas.app.model.ConsumerDetails;
@@ -96,7 +96,7 @@ public class ConsumerService {
 					}
 
 					// Fetching the Dealer Details
-					DealerEntiy dealerEntiy = dealerDAO.findById(DealerEntiy.class, registrationEntity.getDealerId());
+					DealerEntity dealerEntiy = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
 					if (dealerEntiy != null) {
 						consumerDetails.setDealerId(registrationEntity.getDealerId());
 						consumerDetails.setDealerName(dealerEntiy.getDealer_name());
@@ -170,8 +170,8 @@ public class ConsumerService {
 				result = entity.getId();
 				// Send Notification
 				// Fetching the Dealer Details
-				DealerEntiy newDealerEntiy = dealerDAO.findById(DealerEntiy.class, registrationEntity.getDealerId());
-				DealerEntiy oldDealerEntiy = dealerDAO.findById(DealerEntiy.class, register.getDealerId());
+				DealerEntity newDealerEntiy = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
+				DealerEntity oldDealerEntiy = dealerDAO.findById(DealerEntity.class, register.getDealerId());
 			
 
 				if (changedEntity.indexOf("Dealer") >= 0) {
