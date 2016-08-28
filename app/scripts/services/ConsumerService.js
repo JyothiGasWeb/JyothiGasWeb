@@ -29,7 +29,7 @@ angular.module('clientApp')
 
         conService.getAppliances = function() {
             var deferred = $q.defer();
-            ConsumerFactory.appliances().get({ 'method': 'getAppliances', 'connectionTypeId': '0' }, function(success) {
+            ConsumerFactory.productType().get({'connectionTypeID': '0' }, function(success) {
                 deferred.resolve(success);
             }, function(error) {
                 deferred.reject(error);
