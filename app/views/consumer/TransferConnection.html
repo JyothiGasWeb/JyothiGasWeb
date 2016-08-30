@@ -1,42 +1,40 @@
-<div class="md-padding">
+<div class="md-padding update-page">
     <h2 class="md-title page-title">Transfer Connection</h2>
     <div class="layout-padding">
-        <fieldset>
-            <legend>Current Dealer:</legend>
-            <div layout="column">
-                <div layout="row">
-                    <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Dealer Name:</div>
-                    <div flex="65" flex-xs="65" flex-sm="65">{{current.dealer_name}}</div>
-                </div>
-                <div layout="row">
-                    <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Address:</div>
-                    <div flex="65" flex-xs="65" flex-sm="65">{{current.dealer_address}}</div>
-                </div>
-                <div layout="row">
-                    <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">District:</div>
-                    <div flex="65" flex-xs="65" flex-sm="65">{{current.dealer_city}}</div>
-                </div>
-                <div layout="row">
-                    <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Pin code:</div>
-                    <div flex="65" flex-xs="65" flex-sm="65">{{current.dealer_area_code}}</div>
-                </div>
-                <div layout="row">
-                    <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Contact No:</div>
-                    <div flex="65" flex-xs="65" flex-sm="65">{{current.dealer_contact_no}}</div>
-                </div>
-                <div layout="row">
-                    <span flex="10" flex-xs="0" flex-sm="0"></span>
-                    <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Email:</div>
-                    <div flex="65" flex-xs="65" flex-sm="65">{{current.dealer_email}}</div>
-                </div>
+        <md-content class="md-padding md-whiteframe-8dp dash-content-bg" layout="column" flex="70" flex-sm="100" flex-xs="100">
+            <div layout="row">
+                <span flex="10" flex-xs="0" flex-sm="0"></span>
+                <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Dealer Name:</div>
+                <div flex="65" flex-xs="65" flex-sm="65" class="md-body-1">{{current.dealer_name}}</div>
             </div>
-        </fieldset>
-        <div layout="column" layout-padding>
+            <div layout="row">
+                <span flex="10" flex-xs="0" flex-sm="0"></span>
+                <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Address:</div>
+                <div flex="65" flex-xs="65" flex-sm="65" class="md-body-1">{{current.dealer_address}}</div>
+            </div>
+            <div layout="row">
+                <span flex="10" flex-xs="0" flex-sm="0"></span>
+                <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">District:</div>
+                <div flex="65" flex-xs="65" flex-sm="65" class="md-body-1">{{current.dealer_city}}</div>
+            </div>
+            <div layout="row">
+                <span flex="10" flex-xs="0" flex-sm="0"></span>
+                <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Pin code:</div>
+                <div flex="65" flex-xs="65" flex-sm="65" class="md-body-1">{{current.dealer_area_code}}</div>
+            </div>
+            <div layout="row">
+                <span flex="10" flex-xs="0" flex-sm="0"></span>
+                <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Email:</div>
+                <div flex="65" flex-xs="65" flex-sm="65" class="md-body-1">{{current.dealer_email}}</div>
+            </div>
+            <div layout="row">
+                <span flex="10" flex-xs="0" flex-sm="0"></span>
+                <div flex="25" flex-xs="35" flex-sm="35" class="md-body-2">Phone:</div>
+                <div flex="65" flex-xs="65" flex-sm="65" class="md-body-1">{{current.dealer_contact_no}}</div>
+            </div>
+        </md-content>
+        <br>
+        <div layout="column" class="update-form" layout-padding flex="70" flex-sm="100" flex-xs="100">
             <form name="dealerForm">
                 <div layout="row">
                     <md-input-container class="md-block" flex="40">
@@ -69,7 +67,7 @@
                 </div>
                 <div layout="row" layout-align="end end">
                     <md-button class="md-warn md-raised" ng-click="reset()">Reset</md-button>
-                    <md-button class="md-primary md-raised">Submit</md-button>
+                    <md-button class="md-primary md-raised" ng-disabled="dealerForm.$invalid" ng-click="update()">Submit</md-button>
                 </div>
             </form>
         </div>
