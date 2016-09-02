@@ -103,7 +103,8 @@ md-menu-divider {
   width: 200px;
 }
 .layout .layout-container {
-  background-image: url('../images/white-bg.jpeg');
+  /*background-image: url('../images/white-bg.jpeg');*/
+  background-color: #fff;
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -116,6 +117,7 @@ md-menu-divider {
   overflow-y: auto;
   overflow-x: hidden;
   background: #33435D !important;
+  box-shadow: 8px -2px 6px #888888;
 }
 .layout .layout-container .side-nav .left-nav-container .side-bar {
   width: 280px;
@@ -151,13 +153,13 @@ md-menu-divider {
   box-shadow: 0px 0px 150px #000000;
   z-index: 999;
   -webkit-transition: all 200ms ease-in;
-  -webkit-transform: scale(1.1);
+  -webkit-transform: scale(1.05);
   -ms-transition: all 200ms ease-in;
-  -ms-transform: scale(1.1);
+  -ms-transform: scale(1.05);
   -moz-transition: all 200ms ease-in;
-  -moz-transform: scale(1.1);
+  -moz-transform: scale(1.05);
   transition: all 200ms ease-in;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 .dashboard .dashboard-container .dashboard-cards .md-primary {
   color: #000;
@@ -182,8 +184,16 @@ md-menu-divider {
 }
 .bookings .bookings-list {
   border: 1px solid #ccc;
-  border-radius: 8px;
   margin: 10px 0;
+  background-color: #00AAE8;
+  color: #fff;
+}
+.bookings .bookings-list .download-icon {
+  float: right;
+  color: #fff !important;
+}
+.bookings .bookings-list .download-icon md-icon {
+  color: #fff !important;
 }
 .domestic .cylender-icon {
   height: 100px;
@@ -201,8 +211,8 @@ md-menu-divider {
 }
 .dash-content-bg {
   margin: 0 auto;
-  border-radius: 8px;
-  background: transparent;
+  background: #00AAE8;
+  color: #fff;
 }
 .price-table-container {
   border-radius: 8px;
@@ -227,22 +237,35 @@ md-menu-divider {
 }
 .surrender .md-body-2 {
   padding: 8px 8px 0 8px;
+  font-weight: 700;
 }
 .safety-tips md-content {
-  background-color: transparent !important;
-  border-radius: 8px;
+  background-color: #00AAE8 !important;
   text-align: justify;
+  color: #fff;
+}
+.safety-tips md-content .md-tab.md-active {
+  color: #fff !important;
 }
 .jyothi-form label {
   font-size: 16px !important;
   color: #33435D !important;
 }
-.contact-dealer .md-body-2 {
+.jyothi-form .md-input {
+  color: #fff !important;
+}
+.contact-dealer .md-body-2,
+.update-page .md-body-2 {
   font-weight: 600;
   font-size: 16px;
 }
-.contact-dealer .md-body-1 {
+.contact-dealer .md-body-1,
+.update-page .md-body-1 {
   line-height: 24px;
+}
+.contact-dealer .update-form,
+.update-page .update-form {
+  margin: 0 auto;
 }
 .notifications .notification-title {
   cursor: pointer;

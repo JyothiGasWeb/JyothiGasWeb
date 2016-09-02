@@ -27,6 +27,7 @@ angular.module('clientApp', [
     ])
     .constant('APP_CONFIG', {
         API_URL: 'http://122.175.36.113:8080/jyothigas/'
+        //API_URL: 'http://localhost:3000/space/'
     })
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         //cfpLoadingBarProvider.latencyThreshold = 100;

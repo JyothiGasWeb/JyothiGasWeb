@@ -8,7 +8,6 @@ controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionS
 
     var consumer = SessionService.getConsumerSession().consumer;
     $scope.isSurrender = false;
-
     var getSurrender = function() {
         if (consumer && consumer.surrenderStatus == 'SURRENDERED') {
             $scope.isSurrender = true;
@@ -50,7 +49,8 @@ controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionS
         LoginService.getConsumer(obj).then(function(response) {
             SessionService.setConsumerSession(response);
             $scope.isSurrender = true;
-            AlertService.alert("Connection surrenderred Successfully", 'md-primary', 100000);
+            AlertService.alert("Connection surrenderred Successfully. Thanks for surrendering, your dealer will get in touch with you", 'md-primary', 100000);
+            $scope.isTextSurrender = true;
             getSurrender();
             //$scope.reset();
         }, function(response) {
