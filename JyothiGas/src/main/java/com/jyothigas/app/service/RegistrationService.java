@@ -201,8 +201,11 @@ public class RegistrationService {
 		try {
 			RegistrationEntity entity = registrationDAO.checkLoginCredentials(loginRequest.getUsername(),
 					PasswordProtector.encrypt(loginRequest.getPassword()));
+			if (null == entity) {
+				return false;
+			}
 			if (null != entity && entity.getStatus().equalsIgnoreCase(Constant.INACTIVE)) {
-				result = false;
+				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
