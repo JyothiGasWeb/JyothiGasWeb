@@ -67,7 +67,7 @@ public class DealerEntity implements java.io.Serializable {
 	public void setDealer_area_code(String dealer_area_code) {
 		this.dealer_area_code = dealer_area_code;
 	}
-	@Column(name = "Adderss")
+	@Column(name = "Address")
 	public String getDealer_address() {
 		return dealer_address;
 	}
