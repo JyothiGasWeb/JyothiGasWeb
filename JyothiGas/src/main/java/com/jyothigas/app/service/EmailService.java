@@ -36,6 +36,8 @@ public class EmailService {
 		templateMap.put("EMAIL_DEALER_SUBJECT", "Update");
 		templateMap.put("EMAIL_SERVICE_REQUEST_TEMPLATE", "Email_Service_Request.vm");
 		templateMap.put("EMAIL_SERVICE_REQUEST_SUBJECT", "Request Received");
+		templateMap.put("EMAIL_BOOKING_TEMPLATE", "Email_Booking.vm");
+		templateMap.put("EMAIL_BOOKING_SUBJECT", "Booking");
 		
 		
 	}
@@ -56,6 +58,7 @@ public class EmailService {
 	public static final String FEEDBACK_ADMIN_ACK = "FEEDBACK_ADMIN_ACK";
 	public static final String EMAIL_OTP = "EMAIL_OTP";
 	public static final String EMAIL_USER_UPDATE = "EMAIL_USER_UPDATE";
+	public static final String EMAIL_BOOKING = "EMAIL_BOOKING";
 	public static final String EMAIL_SERVICE_REQUEST = "EMAIL_SERVICE_REQUEST";
 	public static final String EMAIL_DEALER = "EMAIL_DEALER";
 	public static final String DOCTOR_ACCOUNT_ACTIVATION_INTIMATE = "DOCTOR_ACCOUNT_ACTIVATION_INTIMATE";

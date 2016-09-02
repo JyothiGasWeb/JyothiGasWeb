@@ -3,7 +3,9 @@ package com.jyothigas.app.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,7 @@ import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.ApplianceBooking;
 import com.jyothigas.app.model.Appliances;
 import com.jyothigas.app.model.Booking;
+import com.jyothigas.app.model.Mail;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.OTPUtil;
 
@@ -53,6 +56,9 @@ public class BookingService {
 
 	@Autowired
 	CommonService commonService;
+	
+	@Autowired
+	EmailService emailService;
 
 	/**
 	 * Method for Insert booking data
@@ -87,7 +93,7 @@ public class BookingService {
 						booking.getApplianceIds(), bookingEntityObj.getId());
 				if (applianceBookingDAO.addApplianceBooking(applianceEntityList) == 0) {
 					bookingDAO.remove(bookingEntityObj);
-					throw new Exception("Error while saving appliances; Rollingback all Booking transactions");
+					throw new Exception("Error while saving appliances.");
 				}
 			}
 
@@ -96,7 +102,7 @@ public class BookingService {
 					consumerEntity.getReg_id());
 			// Send reference to mobile
 			smsService.sendMessage(Constant.BOOKING_MESSAGE + refToken, registrationEntity.getContactNo());
-
+			sendNotificationEmail(refToken, registrationEntity.getName(), registrationEntity.getEmail());
 			BeanUtils.copyProperties(bookingEntityObj, bookingObj);
 		} catch (Exception e) {
 			logger.error("Error in Inserting booking data...");
@@ -105,6 +111,21 @@ public class BookingService {
 		return bookingObj;
 	}
 
+	
+	private void sendNotificationEmail(String ref, String name, String EmailTo) {
+		Mail mail = new Mail();
+		mail.setTemplateName(EmailService.EMAIL_BOOKING);
+		mail.setMailTo(EmailTo);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("REFERENCE", ref);
+		valueMap.put("NAME", name);
+		mail.setValueMap(valueMap);
+		emailService.sendMail(mail);
+	}
+	
+	
+	
+	
 	// Will create applianceBooking Entity
 	private List<ApplianceBookingEntity> createAppliaceBookingEntity(List<ApplianceBooking> applianceIds,
 			int bookingId) {
