@@ -215,16 +215,16 @@ md-menu-divider {
   color: #fff;
 }
 .price-table-container {
-  border-radius: 8px;
+  background-color: #00AAE8;
 }
 .price-table-container .price-table th,
 .price-table-container .price-table td {
   text-align: left !important;
+  color: #fff !important;
 }
 .price-table-container .price-table th {
   font-size: 18px !important;
   font-weight: 600 !important;
-  color: #33435D !important;
 }
 .remove-cart {
   cursor: pointer;
