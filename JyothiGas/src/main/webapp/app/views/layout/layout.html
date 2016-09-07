@@ -1,8 +1,8 @@
                 
 <div layout="column" tabindex="-1" role="main" flex="" class="layout">
     <section ui-view="header"></section>
-    <div layout="row" class="layout-container">
-        <nav ui-view="nav" md-scroll-y layout="column" class="side-nav layout" flex-xs="0" flex-sm="0" flex-md="0">
+    <md-content layout="row" class="layout-container">
+        <nav ui-view="nav" md-scroll-y layout="column" class="side-nav layout" flex-xs="0" flex-sm="0" flex-md="0" style="height: inherit">
         </nav>
         <md-content md-scroll-y layout="column" flex class="layout-main-content" flex-xs="100" flex-sm="100" flex-md="100">
             <div ui-view flex="noshrink"></div>
@@ -12,5 +12,5 @@
                 </div>
             </div>
         </md-content>
-    </div>
+    </md-content>
 </div>
