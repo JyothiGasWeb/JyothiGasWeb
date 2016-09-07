@@ -48,7 +48,7 @@
                 <md-content layout="column" layout-padding class="md-whiteframe-8dp">
                     <div layout="row" layout-align="center center" layout-padding ng-repeat="appliance in appliances">
                         <div>
-                            <img src="app/images/3burner.png" style="width: 100px;">
+                            <img ng-src="{{appliance.imgSrc}}" style="width: 100px;" alt="{{appliance.appliance_Name}}">
                         </div>
                         <div flex layout="column" layout-padding>
                             <div class="md-body-2">{{appliance.appliance_Name}}</div>
@@ -58,29 +58,6 @@
                         </div>
                         <md-divider></md-divider>
                     </div>
-                    <!-- <div layout="row" layout-align="center center" layout-padding>
-                        <div>
-                            <img src="app/images/3burner.png" style="width: 100px;">
-                        </div>
-                        <div flex layout="column" layout-padding>
-                            <div class="md-body-2">Stainless Steel Gas Stove</div>
-                            <div>Offering you the flexibility</div>
-                            <div class="md-title">Price: Rs. 1750</div>
-                            <ngcart-addtocart id="item3" name="3 Burner Glass Top" price="1750" quantity="1">Add to Cart</ngcart-addtocart quantity-max="5">
-                        </div>
-                    </div>
-                    <md-divider></md-divider>
-                    <div layout="row" layout-align="center center" layout-padding>
-                        <div>
-                            <img src="app/images/3burner.png" style="width: 100px;">
-                        </div>
-                        <div flex layout="column" layout-padding>
-                            <div class="md-body-2">Gas Tube</div>
-                            <div>Offering you the flexibility</div>
-                            <div class="md-title">Price: Rs. 1750</div>
-                            <ngcart-addtocart id="item" name="Gas Tube" price="1750" quantity="1">Add to Cart</ngcart-addtocart quantity-max="5">
-                        </div>
-                    </div> -->
                 </md-content>
             </div>
         </div>

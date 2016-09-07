@@ -6,7 +6,7 @@
                 <md-content layout="column" layout-padding class="md-whiteframe-8dp">
                     <div layout="row" layout-align="center center" layout-padding ng-repeat="appliance in appliances">
                         <div>
-                            <img src="app/images/3burner.png" style="width: 100px;">
+                            <img ng-src="{{appliance.imgSrc}}" style="width: 100px;" alt="{{appliance.appliance_Name}}">
                         </div>
                         <div flex layout="column" layout-padding>
                             <div class="md-body-2">{{appliance.appliance_Name}}</div>
