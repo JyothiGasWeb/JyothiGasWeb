@@ -157,7 +157,7 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
-        conService.getPriceList = function(obj) {
+        conService.getPriceList = function() {
             var deferred = $q.defer();
             ConsumerFactory.appliances().get({ 'method': 'getAppliances'}, function(success) {
                 deferred.resolve(success);
