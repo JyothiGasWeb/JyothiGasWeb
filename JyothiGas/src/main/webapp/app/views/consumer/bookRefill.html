@@ -39,22 +39,23 @@
                     </md-input-container>
                     <div layout="row" layout-align="start center">
                         <div flex="30" class="md-body-2">No Of Cylinders</div>
-                        <md-slider-container>
-                            <md-slider flex ng-model="cylinders" min="1" max="150" aria-label="cylinder" step="1" id="cylinder-slider" class="md-accent">
-                            </md-slider>
-                            <md-input-container>
-                                <input flex type="number" ng-model="cylinders" aria-label="cylinder" aria-controls="cylinder-slider" min="1" max="150">
-                            </md-input-container>
-                        </md-slider-container>
+                        <md-input-container>
+                            <input flex type="number" ng-model="cylinders" aria-label="cylinder" aria-controls="cylinder-slider" min="1" max="3">
+                        </md-input-container>
                     </div>
                     <div layout="row" style="display:none;">
                         <span flex="10"></span>
                         <div flex="30" class="md-body-2">Preferred Time</div>
                         <mdp-time-picker ng-model="currentDate"></mdp-time-picker>
                     </div>
+                    <md-radio-group layout="row" ng-model="paymentType" name="paymentType" required>
+                        <md-radio-button value="credit" class="md-primary" ng-disabled="true">Credit Card</md-radio-button>
+                        <md-radio-button value="debit" class="md-primary" ng-disabled="true"> Debit Card </md-radio-button>
+                        <md-radio-button value="cod" class="md-primary"> Cash on Delovery </md-radio-button>
+                    </md-radio-group>
                     <div layout="row">
                         <span flex></span>
-                        <md-button class="md-primary md-raised" ng-click="bookRefill()">Confirm</md-button>
+                        <md-button class="md-primary md-raised" ng-click="bookRefill()" ng-disabled="dealerForm.$invalid">Confirm</md-button>
                     </div>
                 </div>
             </form>
