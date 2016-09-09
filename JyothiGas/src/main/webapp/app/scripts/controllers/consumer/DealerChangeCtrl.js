@@ -13,14 +13,14 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
     $scope.availableDealers = [];
     $scope.searchDeal = false;
     $scope.emptyDealer = false;
-    var user = SessionService.getConsumerSession().consumer;
 
 
     var getCurrentDealer = function() {
+        $scope.consumer = SessionService.getConsumerSession().consumer;
         RegisterService.getAllDealers().then(function(response) {
             $scope.availableDealers = response;
             for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
-                if (user.dealerId == $scope.availableDealers[i].id) {
+                if ($scope.consumer.dealerId == $scope.availableDealers[i].id) {
                     $scope.current = $scope.availableDealers[i];
                     break;
                 }
@@ -54,11 +54,11 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
 
     $scope.update = function() {
         var obj = {
-            "id": user.reg_id,
+            "id": $scope.consumer.reg_id,
             "dealerId": $scope.user.dealerId
         }
         ConsumerService.updateDealer(obj).then(function(response) {
-            if (response.status == 'OK'){
+            if (response.status == 'OK') {
                 updateUser();
             }
         }, function(error) {
@@ -69,23 +69,21 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
 
     var updateUser = function() {
         var obj = {
-            "email": user.email
+            "email": $scope.consumer.email
         }
         LoginService.getConsumer(obj).then(function(response) {
             SessionService.setConsumerSession(response);
             AlertService.alert("Dealer Updated Successfully", 'md-primary');
             getCurrentDealer();
-            //$scope.reset();
+            $scope.reset();
         }, function(response) {
             console.log("errror");
         });
     };
 
     $scope.reset = function() {
-        $scope.user = {
-            "newPinCode": "",
-            "newAddress": ""
-        };
+        $scope.user = {};
+        $scope.dealerForm.$setUntouched();
     }
 
     var init = function() {

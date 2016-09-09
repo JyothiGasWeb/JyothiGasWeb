@@ -4,6 +4,8 @@ angular.module('clientApp')
         $scope.isForm = true;
         $scope.connectionType = {};
         $scope.refillObj = SessionService.getConsumerSession().consumer;
+        $scope.paymentType = 'cod';
+        
         var getDetails = function() {
             $scope.cylinders = SessionService.getConsumerSession().consumer.connectionQty;
             getConnectionTypes();

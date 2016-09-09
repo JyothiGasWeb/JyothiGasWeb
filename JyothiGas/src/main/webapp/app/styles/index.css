@@ -148,6 +148,7 @@ md-menu-divider {
   -moz-transform: scale(1);
   transition: all 200ms ease-in;
   transform: scale(1);
+  cursor: pointer;
 }
 .dashboard .dashboard-container .dashboard-cards:hover {
   box-shadow: 0px 0px 150px #000000;
