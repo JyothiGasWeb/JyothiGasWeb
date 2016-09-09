@@ -17,6 +17,16 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
+        conService.getDocumentDetails = function(obj) {
+            var deferred = $q.defer();
+            ConsumerFactory.documentDetail().post(obj, function(success) {
+                deferred.resolve(success);
+            }, function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
         conService.getProductType = function(obj) {
             var deferred = $q.defer();
             ConsumerFactory.productType().get(obj, function(success) {
@@ -300,6 +310,17 @@ angular.module('clientApp')
 
             })
         };
+
+        conFact.documentDetail = function() {
+            return $resource(APP_CONFIG.API_URL + 'getDocumentDetail', {}, {
+                'post': {
+                    method: 'POST',
+                    isArray: true
+                }
+
+            })
+        };
+        
 
         return conFact;
     }])

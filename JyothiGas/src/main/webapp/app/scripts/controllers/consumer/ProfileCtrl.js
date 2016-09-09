@@ -36,25 +36,18 @@ controller('ProfileCtrl', ['$scope', 'SessionService', 'RegisterService', 'Consu
     };
 
     $scope.updateFile = function() {
-        var obj = {
-            "custId": $scope.consumer.consumer_id
-        };
+
 
         var arr = [];
         for (var i = 0, len = $scope.docsList.length; i < len; i++) {
-            if ($scope.docsList[i].kyc.name) {
+            if ($scope.docsList[i].kyc.name && $scope.docsList[i].kyc.type) {
                 var a = ConsumerService.updateFile($scope.consumer.consumer_id, $scope.docsList[i].docType, $scope.docsList[i].kyc);
                 arr.push(a);
             };
-        }
+        };
 
-        /*ConsumerService.updateFile($scope.consumer.consumer_id, $scope.kyc).then(function(response){
-            AlertService.alert("KYC Documents uploaded Successfully");
-        }, function(error){
-            console.log("error updating KYC documents")
-        })*/
         $q.all(arr).then(function(response) {
-            if (response.status == 'OK') {
+            if (response[0].status == 'OK') {
                 AlertService.alert("KYC Documents uploaded Successfully");
             }
         }, function(error) {
@@ -65,7 +58,27 @@ controller('ProfileCtrl', ['$scope', 'SessionService', 'RegisterService', 'Consu
 
     var getConsumer = function() {
         $scope.consumer = JSON.parse(JSON.stringify(SessionService.getConsumerSession().consumer));
+        getDocuments();
         $scope.filterDealers();
+    }
+
+    var getDocuments = function() {
+        var obj = {
+            "custId": $scope.consumer.consumer_id
+        };
+        ConsumerService.getDocumentDetails(obj).then(function(response) {
+            if (response && response.length) {
+                for (var i = 0, size = $scope.docsList.length; i < size; i++) {
+                    for (var j = 0, len = response.length; j < len; j++) {
+                        if ($scope.docsList[i].docType == response[j].docType){
+                            $scope.docsList[i].kyc.name = response[j].documentName;
+                        }
+                    }
+                }
+            }
+        }, function(error) {
+            console.log("error retreiving documents");
+        });
     }
 
     $scope.update = function(consumerForm) {

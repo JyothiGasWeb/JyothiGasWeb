@@ -58,14 +58,14 @@
                             <div layout="row">
                                 <md-input-container class="md-block" flex="40">
                                     <label>Dealer Pin Code</label>
-                                    <input required name="pinCode" ng-model="user.pinCode" ng-pattern="/^\d{6}$/">
-                                    <div ng-messages="registerForm.pinCode.$error" role="alert">
+                                    <input required name="areaCode" ng-model="user.areaCode" ng-pattern="/^\d{6}$/">
+                                    <div ng-messages="registerForm.areaCode.$error" role="alert">
                                         <div ng-message-exp="['required', 'pattern']">
                                             Add a valid pin code
                                         </div>
                                     </div>
                                 </md-input-container>
-                                <md-button class="md-primary" ng-disabled="registerForm.pinCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
+                                <md-button class="md-primary" ng-disabled="registerForm.areaCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
                                 <md-progress-circular md-mode="indeterminate" ng-show="searchDeal"></md-progress-circular>
                             </div>
                             <md-input-container class="md-block">
@@ -110,15 +110,6 @@
                                     </div>
                                 </div>
                             </md-input-container>
-                            <md-input-container class="md-block">
-                                    <label>Pin Code</label>
-                                    <input required name="areaCode" ng-model="user.areaCode" ng-pattern="/^\d{6}$/">
-                                    <div ng-messages="registerForm.areaCode.$error" role="alert">
-                                        <div ng-message-exp="['required', 'pattern']">
-                                            Add a valid pin code
-                                        </div>
-                                    </div>
-                                </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Address</label>
                                 <textarea ng-model="user.address" md-maxlength="150" rows="1" md-select-on-focus></textarea>
