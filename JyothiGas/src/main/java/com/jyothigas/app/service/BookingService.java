@@ -199,6 +199,7 @@ public class BookingService {
 		List<Booking> bookingList = new ArrayList<Booking>();
 		try {
 			List<BookingEntity> bookingEntityList = bookingDAO.findByConsumerId(booking.getConsumer_id());
+			System.out.println("--> "+bookingEntityList.size());
 			for (BookingEntity bookingEntity : bookingEntityList) {
 				Booking bookingObj = new Booking();
 				BeanUtils.copyProperties(bookingEntity, bookingObj);
