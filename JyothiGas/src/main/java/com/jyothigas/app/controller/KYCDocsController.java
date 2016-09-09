@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,10 +94,10 @@ public class KYCDocsController {
 
 	@RequestMapping(value = Constant.GET_DOCUMENT_NAME, method = RequestMethod.POST)
 	public @ResponseBody Object getDocumentDetails(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam("custId") int custId) {
+			@RequestBody KYCDocument doc) {
 		AppResponse appResponse = new AppResponse();
 		try {
-			List<KYCDocument> docNameList = uploader.getDocumentDetails(custId, Constant.KYC);
+			List<KYCDocument> docNameList = uploader.getDocumentDetails(doc.getCustId(), Constant.KYC);
 			return docNameList;
 		} catch (Exception e) {
 			e.printStackTrace();
