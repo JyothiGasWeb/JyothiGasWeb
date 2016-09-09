@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jyothigas.app.model.AppResponse;
+import com.jyothigas.app.model.KYCDocument;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.FileUploader;
 
@@ -32,11 +34,11 @@ public class KYCDocsController {
 
 	@RequestMapping(value = Constant.KYC_UPLOAD, method = RequestMethod.POST)
 	public @ResponseBody Object uploadDocument(@RequestParam("custId") Integer custId,
-			@RequestParam("file") MultipartFile file) {
+			@RequestParam("docType") String docType, @RequestParam("file") MultipartFile file) {
 		AppResponse appResponse = new AppResponse();
 		if (!file.isEmpty()) {
 			try {
-				uploader.uploadFile(custId, file, Constant.KYC);
+				uploader.uploadFile(custId, file, Constant.KYC, docType);
 				appResponse.setStatus("OK");
 				appResponse.setMessage("Success");
 				return appResponse;
@@ -94,14 +96,8 @@ public class KYCDocsController {
 			@RequestParam("custId") int custId) {
 		AppResponse appResponse = new AppResponse();
 		try {
-			String fileName = uploader.getDocumentDetails(custId, Constant.KYC);
-			if (null != fileName) {
-				appResponse.setStatus("OK");
-				appResponse.setResult(fileName);
-			} else {
-				String errorMessage = "Sorry. No KYC Document available";
-				System.out.println(errorMessage);
-			}
+			List<KYCDocument> docNameList = uploader.getDocumentDetails(custId, Constant.KYC);
+			return docNameList;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

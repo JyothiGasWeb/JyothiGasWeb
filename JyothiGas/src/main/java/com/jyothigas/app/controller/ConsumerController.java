@@ -101,7 +101,7 @@ public class ConsumerController {
 		AppResponse appResponse = new AppResponse();
 		if (!file.isEmpty()) {
 			try {
-				uploader.uploadFile(custId, file, Constant.PROFILE_PIC);
+				uploader.uploadFile(custId, file, Constant.PROFILE_PIC,"");
 				appResponse.setStatus("OK");
 				appResponse.setMessage("Success");
 				return appResponse;

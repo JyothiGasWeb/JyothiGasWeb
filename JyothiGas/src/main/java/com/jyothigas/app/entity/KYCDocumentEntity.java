@@ -27,6 +27,9 @@ public class KYCDocumentEntity {
 
 	@Column(name = "Type")
 	private String type;
+	
+	@Column(name = "DocType")
+	private String docType;
 
 	@Column(name = "CreatedDate")
 	private Date createdDate;
@@ -80,6 +83,14 @@ public class KYCDocumentEntity {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public String getDocType() {
+		return docType;
+	}
+
+	public void setDocType(String docType) {
+		this.docType = docType;
 	}
 
 }

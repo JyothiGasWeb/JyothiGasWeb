@@ -18,9 +18,11 @@ public class MechanicDAO extends JyothiGasDAO<MechanicEntity> {
 		List<MechanicEntity> instance = new ArrayList<MechanicEntity>();
 		try {
 
-			instance = entityManager
+			/*instance = entityManager
 					.createQuery("select s from MechanicEntity s where s.dealerId=:dealerId", MechanicEntity.class)
-					.setParameter("dealerId", id).getResultList();
+					.setParameter("dealerId", id).getResultList();*/
+			instance = entityManager
+					.createQuery("select s from MechanicEntity s", MechanicEntity.class).getResultList();
 			log.info("get successful");
 
 		} catch (RuntimeException re) {
