@@ -72,7 +72,7 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 		List<BookingEntity> bookingEntity = new ArrayList<BookingEntity>();
 		try {
 			bookingEntity = entityManager
-					.createQuery("select s from BookingEntity s Where s.consumer_id = :consumer_id ",
+					.createQuery("select s from BookingEntity s Where s.consumer_id = :consumer_id ORDER BY s.created_date DESC",
 							BookingEntity.class)
 					.setParameter("consumer_id", consumer_id).getResultList();
 			log.info("get successfull");
