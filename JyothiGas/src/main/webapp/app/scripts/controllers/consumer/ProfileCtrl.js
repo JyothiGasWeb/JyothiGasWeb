@@ -4,9 +4,28 @@
  * Description
  */
 angular.module('clientApp').
-controller('ProfileCtrl', ['$scope', 'SessionService', 'RegisterService', 'ConsumerService', 'AlertService', 'LoginService', function($scope, SessionService, RegisterService, ConsumerService, AlertService, LoginService) {
+controller('ProfileCtrl', ['$scope', 'SessionService', 'RegisterService', 'ConsumerService', 'AlertService', 'LoginService', '$q', function($scope, SessionService, RegisterService, ConsumerService, AlertService, LoginService, $q) {
 
     $scope.availableDealers = [];
+
+    $scope.docsList = [{
+        "docName": "Passport",
+        "docType": "PASSPORT",
+        "kyc": {}
+    }, {
+        "docName": "Voter Identity Card",
+        "docType": "VOTER IDENTITY CARD",
+        "kyc": {}
+    }, {
+        "docName": "Driving Licence",
+        "docType": "DRIVING LICENCE",
+        "kyc": {}
+    }, {
+        "docName": "Aadhaar Card",
+        "docType": "AADHAAR CARD",
+        "kyc": {}
+    }];
+
     var getAllDealers = function() {
         RegisterService.getAllDealers().then(function(response) {
             $scope.availableDealers = response;
@@ -16,15 +35,30 @@ controller('ProfileCtrl', ['$scope', 'SessionService', 'RegisterService', 'Consu
         })
     };
 
-    $scope.updateFile = function(){
+    $scope.updateFile = function() {
         var obj = {
             "custId": $scope.consumer.consumer_id
         };
-        ConsumerService.updateFile($scope.consumer.consumer_id, $scope.kyc).then(function(response){
-            console.log(response);
-            AlertService.alert("KYC Documents updated Successfully");
+
+        var arr = [];
+        for (var i = 0, len = $scope.docsList.length; i < len; i++) {
+            if ($scope.docsList[i].kyc.name) {
+                var a = ConsumerService.updateFile($scope.consumer.consumer_id, $scope.docsList[i].docType, $scope.docsList[i].kyc);
+                arr.push(a);
+            };
+        }
+
+        /*ConsumerService.updateFile($scope.consumer.consumer_id, $scope.kyc).then(function(response){
+            AlertService.alert("KYC Documents uploaded Successfully");
         }, function(error){
             console.log("error updating KYC documents")
+        })*/
+        $q.all(arr).then(function(response) {
+            if (response.status == 'OK') {
+                AlertService.alert("KYC Documents uploaded Successfully");
+            }
+        }, function(error) {
+            console.log("error uploading KYC documents");
         })
 
     };

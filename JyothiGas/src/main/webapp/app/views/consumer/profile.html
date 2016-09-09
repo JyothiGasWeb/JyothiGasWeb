@@ -14,18 +14,6 @@
                 <label>City</label>
                 <input name="city" ng-model="consumer.city" ng-disabled="true">
             </md-input-container>
-            <!-- <div layout="row">
-                <md-input-container class="md-block" flex="40">
-                    <label>Pin Code</label>
-                    <input required name="areaCode" ng-model="consumer.areaCode" ng-pattern="/^\d{6}$/">
-                    <div ng-messages="consumerForm.areaCode.$error" role="alert">
-                        <div ng-message-exp="['required', 'pattern']">
-                            Add a valid pin code
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-button class="md-primary" ng-disabled="consumerForm.areaCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
-            </div> -->
             <md-input-container class="md-block">
                 <label>Pin Code</label>
                 <input required name="areaCode" ng-model="consumer.areaCode" ng-pattern="/^\d{6}$/" ng-disabled="true">
@@ -47,12 +35,32 @@
                 <label>Contact No</label>
                 <input name="contact" ng-model="consumer.contactNo" ng-disabled="true">
             </md-input-container>
-            <md-input-container class="md-block" flex-gt-sm>
+            <!-- <md-input-container class="md-block" flex-gt-sm>
                 <md-button class="md-raised md-primary" ngf-select="" ng-model="kyc" name="file" >KYC Documents</md-button>
                 {{kyc.name}}
-            </md-input-container>
+            </md-input-container> -->
+            <md-table-container class="kyc-table">
+                <table md-table class="docs-table">
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column>Document Type</th>
+                            <th md-column>Name</th>
+                            <th md-column>Select</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="item in docsList">
+                            <td md-cell>{{item.docName}}</td>
+                            <td md-cell>{{item.kyc.name}}</td>
+                            <td md-cell>
+                                <md-button class="md-raised md-primary" ngf-select="" ng-model="item.kyc" name="file">Browse</md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
             <div layout="row" layout-align="center center">
-                <md-button class="md-raised md-primary" type="submit" ng-disabled="consumerForm.$invalid" style="width:50%;" ng-click="updateFile()">Upload
+                <md-button class="md-raised md-primary" type="submit" style="width:50%;" ng-click="updateFile()">Upload
                 </md-button>
             </div>
         </form>

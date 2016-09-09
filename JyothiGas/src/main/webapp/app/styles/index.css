@@ -271,3 +271,18 @@ md-menu-divider {
 .notifications .notification-title {
   cursor: pointer;
 }
+.kyc-table .docs-table th,
+.kyc-table .docs-table td {
+  text-align: left !important;
+  color: #fff !important;
+}
+.kyc-table .docs-table th {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+}
+.jyothi-radio ._md-off {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+}
+.jyothi-radio ._md-on {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}

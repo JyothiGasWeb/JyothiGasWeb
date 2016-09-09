@@ -2,11 +2,11 @@ angular.module('clientApp')
     .factory('ConsumerService', ['$q', 'ConsumerFactory', 'SessionService', 'Upload', 'APP_CONFIG', function($q, ConsumerFactory, SessionService, Upload, APP_CONFIG) {
         var conService = {};
 
-        conService.updateFile = function(id, file) {
+        conService.updateFile = function(id, docType, file) {
             var deferred = $q.defer();
             Upload.upload({
                 url: APP_CONFIG.API_URL + 'uploadFile',
-                data: { file: file, 'custId': id }
+                data: { file: file, 'custId': id, 'docType': docType }
             }).success(function(data, status, headers, config) {
                 deferred.resolve(data);
 

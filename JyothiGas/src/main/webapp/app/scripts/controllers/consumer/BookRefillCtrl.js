@@ -5,7 +5,7 @@ angular.module('clientApp')
         $scope.connectionType = {};
         $scope.refillObj = SessionService.getConsumerSession().consumer;
         $scope.paymentType = 'cod';
-        
+
         var getDetails = function() {
             $scope.cylinders = SessionService.getConsumerSession().consumer.connectionQty;
             getConnectionTypes();
@@ -37,16 +37,17 @@ angular.module('clientApp')
         }
 
         $scope.bookRefill = function() {
+            $scope.totalPrice = $scope.cylinders * $scope.connectionType.applliance_Cost;
             var obj = {
                 "consumer_id": $scope.refillObj.consumer_id,
                 "connectionTypeId": $scope.connectionType.id,
                 "quantity": $scope.cylinders,
+                "total": $scope.totalPrice,
                 "bookingType": "REFILL"
             };
 
             ConsumerService.bookRefill(obj).then(function(response) {
                 $scope.refNo = response.reference;
-                $scope.totalPrice = $scope.cylinders * $scope.connectionType.applliance_Cost;
                 var currentdate = new Date();
                 $scope.isForm = false;
                 if (currentdate.getHours() > "20") {
