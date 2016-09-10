@@ -56,7 +56,11 @@
                             <div class="md-title">Price: Rs. {{appliance.applliance_Cost}}</div>
                             <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.applliance_Cost}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
                         </div>
-                        <md-divider></md-divider>
+                    </div>
+                    <md-divider></md-divider>
+                    <div layout="row">
+                        <span flex></span>
+                        <md-button class="md-primary md-raised" ui-sref="checkout">Continue</md-button>
                     </div>
                 </md-content>
             </div>
