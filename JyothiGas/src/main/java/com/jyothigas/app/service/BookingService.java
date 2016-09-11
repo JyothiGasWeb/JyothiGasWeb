@@ -18,10 +18,12 @@ import com.jyothigas.app.dao.ApplianceBookingDAO;
 import com.jyothigas.app.dao.BookingDAO;
 import com.jyothigas.app.dao.ConnectionTypeDAO;
 import com.jyothigas.app.dao.ConsumerDAO;
+import com.jyothigas.app.dao.DealerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.entity.ApplianceBookingEntity;
 import com.jyothigas.app.entity.BookingEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
+import com.jyothigas.app.entity.DealerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.ApplianceBooking;
 import com.jyothigas.app.model.Appliances;
@@ -59,6 +61,9 @@ public class BookingService {
 	
 	@Autowired
 	EmailService emailService;
+	
+	@Autowired
+	DealerDAO dealerDAO;
 
 	/**
 	 * Method for Insert booking data
@@ -100,8 +105,10 @@ public class BookingService {
 			ConsumerEntity consumerEntity = consumerDAO.findById(ConsumerEntity.class, booking.getConsumer_id());
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
 					consumerEntity.getReg_id());
+			DealerEntity dealerEntity = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
 			// Send reference to mobile
-			smsService.sendMessage(Constant.BOOKING_MESSAGE + refToken, registrationEntity.getContactNo());
+			String mesg = Constant.BOOKING_MESSAGE.replace("{REF}", refToken).replace("{NAME}", registrationEntity.getName());
+			smsService.sendMessage(mesg + dealerEntity.getDealer_contact_no(), registrationEntity.getContactNo());
 			sendNotificationEmail(refToken, registrationEntity.getName(), registrationEntity.getEmail());
 			BeanUtils.copyProperties(bookingEntityObj, bookingObj);
 		} catch (Exception e) {
