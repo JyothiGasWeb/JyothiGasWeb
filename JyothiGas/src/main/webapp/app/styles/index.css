@@ -273,7 +273,7 @@ md-menu-divider {
 }
 .kyc-table .docs-table th,
 .kyc-table .docs-table td {
-  text-align: left !important;
+  text-align: center !important;
   color: #fff !important;
 }
 .kyc-table .docs-table th {

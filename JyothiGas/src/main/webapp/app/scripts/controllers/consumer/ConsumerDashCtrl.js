@@ -57,6 +57,19 @@ angular.module('clientApp')
                     }, function() {
 
                     });
+                } else if ($scope.user.userType == 'EXISTING') {
+                    var message = "You already have an active connection, Please book refill";
+                    var confirm = $mdDialog.confirm()
+                        .title(message)
+                        .textContent('')
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok('Ok');
+                    $mdDialog.show(confirm).then(function() {
+
+                    }, function() {
+
+                    });
                 } else {
                     $state.go(type)
                 }
