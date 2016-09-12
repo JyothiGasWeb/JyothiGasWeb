@@ -24,24 +24,27 @@ import com.jyothigas.utils.JyothiGasProperty;
 @Service("emailService")
 @EnableAsync
 public class EmailService {
-	private Map<String,String> templateMap = new HashMap<String, String>();
-	public EmailService()
-	{
+	private Map<String, String> templateMap = new HashMap<String, String>();
+
+	public EmailService() {
 		templateMap.put("EMAIL_FROM", "test@smsquaretech.com");
 		templateMap.put("EMAIL_OTP_TEMPLATE", "Email_OTP.vm");
 		templateMap.put("EMAIL_OTP_SUBJECT", "Verification: One Time Password");
 		templateMap.put("EMAIL_USER_UPDATE_TEMPLATE", "Email_UserUpdate.vm");
-		templateMap.put("EMAIL_USER_UPDATE_SUBJECT", "Update");
+		templateMap.put("EMAIL_USER_UPDATE_SUBJECT", " Update");
 		templateMap.put("EMAIL_DEALER_TEMPLATE", "Email_Dealer.vm");
-		templateMap.put("EMAIL_DEALER_SUBJECT", "Update");
+		templateMap.put("EMAIL_DEALER_SUBJECT", "Dealer Update");
 		templateMap.put("EMAIL_SERVICE_REQUEST_TEMPLATE", "Email_Service_Request.vm");
 		templateMap.put("EMAIL_SERVICE_REQUEST_SUBJECT", "Request Received");
 		templateMap.put("EMAIL_BOOKING_TEMPLATE", "Email_Booking.vm");
 		templateMap.put("EMAIL_BOOKING_SUBJECT", "Booking");
-		
-		
+		templateMap.put("EMAIL_BOOKING_REFILL_TEMPLATE", "Email_BookingRefill.vm");
+		templateMap.put("EMAIL_BOOKING_REFILL_SUBJECT", "Booking");
+		templateMap.put("EMAIL_USER_REGISTER_TEMPLATE", "Email_UserRegistration.vm");
+		templateMap.put("EMAIL_USER_REGISTER_SUBJECT", "Registration");
+
 	}
-	
+
 	private static final Log log = LogFactory.getLog(EmailService.class);
 
 	@Autowired
@@ -59,8 +62,10 @@ public class EmailService {
 	public static final String EMAIL_OTP = "EMAIL_OTP";
 	public static final String EMAIL_USER_UPDATE = "EMAIL_USER_UPDATE";
 	public static final String EMAIL_BOOKING = "EMAIL_BOOKING";
+	public static final String EMAIL_BOOKING_REFILL = "EMAIL_BOOKING_REFILL";
 	public static final String EMAIL_SERVICE_REQUEST = "EMAIL_SERVICE_REQUEST";
 	public static final String EMAIL_DEALER = "EMAIL_DEALER";
+	public static final String EMAIL_USER_REGISTER = "EMAIL_USER_REGISTER";
 	public static final String DOCTOR_ACCOUNT_ACTIVATION_INTIMATE = "DOCTOR_ACCOUNT_ACTIVATION_INTIMATE";
 
 	@Async
@@ -78,17 +83,23 @@ public class EmailService {
 				if (mail.getMailCc() != null && mail.getMailCc().length() > 0) {
 					helper.setCc(mail.getMailCc());
 				}
-				helper.setSubject(templateMap.get(mail.getTemplateName() + "_SUBJECT"));
-
+				
+				Map<String, String> valueMap = mail.getValueMap();
+				String ENTITY = "";
+				if (valueMap.containsKey("SUBJECT")) {
+					ENTITY = valueMap.get("SUBJECT");
+					System.out.println(ENTITY);
+				}
+				helper.setSubject(ENTITY+templateMap.get(mail.getTemplateName() + "_SUBJECT"));
 				Template template = velocityEngine.getTemplate(templateMap.get(mail.getTemplateName() + "_TEMPLATE"));
 				VelocityContext velocityContext = new VelocityContext();
-				Map<String, String> valueMap = mail.getValueMap();
 				valueMap.put("INFOMAILID", JyothiGasProperty.getInstance().getProperties("medrep.email.info.id"));
 				if (valueMap != null) {
 					for (String key : valueMap.keySet()) {
 						velocityContext.put(key, valueMap.get(key));
 					}
 				}
+
 				velocityContext.put("TITLE", templateMap.get(mail.getTemplateName() + "_SUBJECT"));
 				StringWriter stringWriter = new StringWriter();
 				template.merge(velocityContext, stringWriter);

@@ -210,6 +210,7 @@ public class ConsumerService {
 		Map<String, String> valueMap = new HashMap<String, String>();
 		valueMap.put("ENTITY", entity);
 		valueMap.put("NAME", name);
+		valueMap.put("SUBJECT", entity);
 		mail.setValueMap(valueMap);
 		emailService.sendMail(mail);
 	}

@@ -93,7 +93,7 @@ public class OTPService {
 
 	private void sendEmailToCustomer(String name, String regId, String EmailTo) {
 		Mail mail = new Mail();
-		mail.setTemplateName(EmailService.EMAIL_DEALER);
+		mail.setTemplateName(EmailService.EMAIL_USER_REGISTER);
 		mail.setMailTo(EmailTo);
 		Map<String, String> valueMap = new HashMap<String, String>();
 		valueMap.put("MESSAGE", Constant.NEW_CUSTOMER_EMAIL.concat(regId));

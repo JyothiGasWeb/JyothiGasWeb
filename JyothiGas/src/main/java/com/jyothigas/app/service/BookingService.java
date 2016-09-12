@@ -18,10 +18,12 @@ import com.jyothigas.app.dao.ApplianceBookingDAO;
 import com.jyothigas.app.dao.BookingDAO;
 import com.jyothigas.app.dao.ConnectionTypeDAO;
 import com.jyothigas.app.dao.ConsumerDAO;
+import com.jyothigas.app.dao.DealerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.entity.ApplianceBookingEntity;
 import com.jyothigas.app.entity.BookingEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
+import com.jyothigas.app.entity.DealerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.ApplianceBooking;
 import com.jyothigas.app.model.Appliances;
@@ -56,9 +58,12 @@ public class BookingService {
 
 	@Autowired
 	CommonService commonService;
-	
+
 	@Autowired
 	EmailService emailService;
+
+	@Autowired
+	DealerDAO dealerDAO;
 
 	/**
 	 * Method for Insert booking data
@@ -100,9 +105,17 @@ public class BookingService {
 			ConsumerEntity consumerEntity = consumerDAO.findById(ConsumerEntity.class, booking.getConsumer_id());
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
 					consumerEntity.getReg_id());
+			DealerEntity dealerEntity = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
 			// Send reference to mobile
-			smsService.sendMessage(Constant.BOOKING_MESSAGE + refToken, registrationEntity.getContactNo());
-			sendNotificationEmail(refToken, registrationEntity.getName(), registrationEntity.getEmail());
+			String mesg = Constant.BOOKING_MESSAGE.replace("{REF}", refToken).replace("{NAME}", registrationEntity.getName());
+			smsService.sendMessage(mesg + dealerEntity.getDealer_contact_no(), registrationEntity.getContactNo());
+			Map<String,String> tokenMap = new HashMap<String,String>();
+			tokenMap.put("REFERENCE", refToken);
+			tokenMap.put("NAME", registrationEntity.getName());
+			tokenMap.put("PRICE", String.valueOf(booking.getTotal()));
+			tokenMap.put("DEALER_NAME", dealerEntity.getDealer_name());
+			tokenMap.put("DEALER_NO", dealerEntity.getDealer_contact_no());
+			sendNotificationEmail(booking.getBookingType(), registrationEntity.getEmail(),tokenMap);
 			BeanUtils.copyProperties(bookingEntityObj, bookingObj);
 		} catch (Exception e) {
 			logger.error("Error in Inserting booking data...");
@@ -111,21 +124,30 @@ public class BookingService {
 		return bookingObj;
 	}
 
-	
-	private void sendNotificationEmail(String ref, String name, String EmailTo) {
+	private void sendNotificationEmail(String bookingType, String EmailTo, Map<String, String> refillMap) {
 		Mail mail = new Mail();
-		mail.setTemplateName(EmailService.EMAIL_BOOKING);
-		mail.setMailTo(EmailTo);
-		Map<String, String> valueMap = new HashMap<String, String>();
-		valueMap.put("REFERENCE", ref);
-		valueMap.put("NAME", name);
-		mail.setValueMap(valueMap);
+		if (bookingType.equals("REFILL")) {
+			mail.setTemplateName(EmailService.EMAIL_BOOKING_REFILL);
+			mail.setMailTo(EmailTo);
+			Map<String, String> valueMap = new HashMap<String, String>();
+			valueMap.put("REFERENCE", refillMap.get("REFERENCE"));
+			valueMap.put("NAME", refillMap.get("NAME"));
+			valueMap.put("PRICE", refillMap.get("PRICE"));
+			valueMap.put("DEALER_NAME", refillMap.get("DEALER_NAME"));
+			valueMap.put("DEALER_NO", refillMap.get("DEALER_NO"));
+			mail.setValueMap(valueMap);
+		} else {
+			mail.setTemplateName(EmailService.EMAIL_BOOKING);
+			mail.setMailTo(EmailTo);
+			Map<String, String> valueMap = new HashMap<String, String>();
+			valueMap.put("REFERENCE", refillMap.get("REFERENCE"));
+			valueMap.put("NAME", refillMap.get("NAME"));
+			mail.setValueMap(valueMap);
+		}
+
 		emailService.sendMail(mail);
 	}
-	
-	
-	
-	
+
 	// Will create applianceBooking Entity
 	private List<ApplianceBookingEntity> createAppliaceBookingEntity(List<ApplianceBooking> applianceIds,
 			int bookingId) {
@@ -199,7 +221,7 @@ public class BookingService {
 		List<Booking> bookingList = new ArrayList<Booking>();
 		try {
 			List<BookingEntity> bookingEntityList = bookingDAO.findByConsumerId(booking.getConsumer_id());
-			System.out.println("--> "+bookingEntityList.size());
+			System.out.println("--> " + bookingEntityList.size());
 			for (BookingEntity bookingEntity : bookingEntityList) {
 				Booking bookingObj = new Booking();
 				BeanUtils.copyProperties(bookingEntity, bookingObj);
@@ -290,8 +312,8 @@ public class BookingService {
 		}
 		return 0;
 	}
-	
-	public int findCylinderSoldFY(int year,String type) {
+
+	public int findCylinderSoldFY(int year, String type) {
 		logger.info("findAllBookings...");
 		try {
 			Calendar fromdate = Calendar.getInstance();
@@ -303,7 +325,7 @@ public class BookingService {
 			todate.set(Calendar.MONTH, Calendar.MARCH);
 			todate.set(Calendar.DAY_OF_MONTH, 31);
 			todate.set(Calendar.YEAR, year + 1);
-			return bookingDAO.findCylinderSoldFY(fromdate.getTime(), todate.getTime(),type);
+			return bookingDAO.findCylinderSoldFY(fromdate.getTime(), todate.getTime(), type);
 
 		} catch (Exception e) {
 			logger.error("Error in findAllBookings");

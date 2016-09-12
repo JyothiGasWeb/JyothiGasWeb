@@ -41,7 +41,7 @@ public class Constant {
 	public static final String INACTIVE = "INACTIVE";
 	public static final String STATUS_SURRENDER = "SURRENDERED";
 	public static final String STATUS_TRANSFERRED = "TRANSFERRED";
-	public static final String BOOKING_MESSAGE = "Dear consumer your booking reference no. is ";
+	public static final String BOOKING_MESSAGE = "Dear {NAME}, Thanks for booking with us, your booking reference no. is {REF}.For more details you can contact your dealer at ";
 
 	public static final String KYC = "KYC";
 	public static final String PROFILE_PIC = "PROFILE_PIC";

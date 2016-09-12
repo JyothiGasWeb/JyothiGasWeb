@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+			<title>Excel To HTML using codebeautify.org</title>
 		</head>
 		<body>
 			<!-- Inliner Build Version 4380b7741bb759d6cb997545f3add21ad48f010b -->
@@ -24,7 +25,7 @@
 												<tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6em; margin: 0; padding: 0;">
 													<td style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6em; margin: 0; padding: 0;">
 														<p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.6em; font-weight: normal; margin: 0 0 10px; padding: 0;">Dear ${NAME},</p>
-														<p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.6em; font-weight: normal; margin: 0 0 10px; padding: 0;">${MESSAGE}</p>
+														<p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.6em; font-weight: normal; margin: 0 0 10px; padding: 0;">Thank you for booking with us. Your total bill amount is Rs. ${PRICE}/-, your booking reference no is ${REFERENCE}. Your Cylinder will be delivered in 6hrs from booking Please contact ${DEALER_NAME} in case of any queries at ${DEALER_NO}  </p>
 														<p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.6em; font-weight: normal; margin: 0 0 10px; padding: 0;">Regards,
 												<br/>Jyoti Gas Team
 											</p>
