@@ -107,15 +107,16 @@ public class BookingService {
 					consumerEntity.getReg_id());
 			DealerEntity dealerEntity = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
 			// Send reference to mobile
-			String mesg = Constant.BOOKING_MESSAGE.replace("{REF}", refToken).replace("{NAME}", registrationEntity.getName());
+			String mesg = Constant.BOOKING_MESSAGE.replace("{REF}", refToken).replace("{NAME}",
+					registrationEntity.getName());
 			smsService.sendMessage(mesg + dealerEntity.getDealer_contact_no(), registrationEntity.getContactNo());
-			Map<String,String> tokenMap = new HashMap<String,String>();
+			Map<String, String> tokenMap = new HashMap<String, String>();
 			tokenMap.put("REFERENCE", refToken);
 			tokenMap.put("NAME", registrationEntity.getName());
 			tokenMap.put("PRICE", String.valueOf(booking.getTotal()));
 			tokenMap.put("DEALER_NAME", dealerEntity.getDealer_name());
 			tokenMap.put("DEALER_NO", dealerEntity.getDealer_contact_no());
-			sendNotificationEmail(booking.getBookingType(), registrationEntity.getEmail(),tokenMap);
+			sendNotificationEmail(booking.getBookingType(), registrationEntity.getEmail(), tokenMap);
 			BeanUtils.copyProperties(bookingEntityObj, bookingObj);
 		} catch (Exception e) {
 			logger.error("Error in Inserting booking data...");
@@ -135,6 +136,12 @@ public class BookingService {
 			valueMap.put("PRICE", refillMap.get("PRICE"));
 			valueMap.put("DEALER_NAME", refillMap.get("DEALER_NAME"));
 			valueMap.put("DEALER_NO", refillMap.get("DEALER_NO"));
+			Calendar currentTime = Calendar.getInstance();
+			if (currentTime.get(Calendar.HOUR_OF_DAY) > 20) {
+				valueMap.put("TIME_MSG", "Since your booking is recorded after 8PM, the cylinder will be delivered tomorrow.");
+			} else {
+				valueMap.put("TIME_MSG", "Your Cylinder will be delivered in 6hrs from booking.");
+			}
 			mail.setValueMap(valueMap);
 		} else {
 			mail.setTemplateName(EmailService.EMAIL_BOOKING);
