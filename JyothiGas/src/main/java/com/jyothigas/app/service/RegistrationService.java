@@ -1,5 +1,6 @@
 package com.jyothigas.app.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,25 +10,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jyothigas.app.dao.ConsumerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
+import com.jyothigas.app.dao.RoleDAO;
 import com.jyothigas.app.entity.ConsumerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
+import com.jyothigas.app.entity.RoleEntity;
 import com.jyothigas.app.model.ForgotPassword;
 import com.jyothigas.app.model.LoginRequest;
 import com.jyothigas.app.model.Mail;
 import com.jyothigas.app.model.OTP;
 import com.jyothigas.app.model.Register;
+import com.jyothigas.app.model.Role;
 import com.jyothigas.app.model.SMS;
+import com.jyothigas.app.model.UserSecurityContext;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.PasswordProtector;
 
 @Service("registrationService")
 @Transactional
-public class RegistrationService {
+public class RegistrationService implements UserDetailsService{
 
 	private static final Logger logger = LoggerFactory.getLogger(RegistrationService.class);
 
@@ -45,10 +52,12 @@ public class RegistrationService {
 
 	@Autowired
 	EmailService emailService;
+	@Autowired
+	RoleDAO roleDAO;
 
 	/**
 	 * Method for Registration
-	 * 
+	 *
 	 * @param register
 	 */
 	public int registerUser(Register register) {
@@ -92,7 +101,7 @@ public class RegistrationService {
 
 	/**
 	 * Method for create consumer after registration
-	 * 
+	 *
 	 * @param regId
 	 */
 	public void createConsumer(int regId) {
@@ -142,7 +151,7 @@ public class RegistrationService {
 	 * name); mail.setValueMap(domainValue); emailService.sendMail(mail); }
 	 */
 
-	private void sendSMSForVerification(OTP smsOTP) {
+	public void sendSMSForVerification(OTP smsOTP) {
 
 		SMS sms = new SMS();
 		sms.setPhoneNumber(smsOTP.getVerificationId());
@@ -155,7 +164,7 @@ public class RegistrationService {
 
 	}
 
-	private void sendEmailOTP(OTP emailOTP) {
+	public void sendEmailOTP(OTP emailOTP) {
 
 		Mail mail = new Mail();
 		mail.setTemplateName(EmailService.EMAIL_OTP);
@@ -232,7 +241,7 @@ public class RegistrationService {
 		return result;
 	}
 
-	private void sendNotificationEmail(String entity, String name, String EmailTo) {
+	public void sendNotificationEmail(String entity, String name, String EmailTo) {
 		Mail mail = new Mail();
 		mail.setTemplateName(EmailService.EMAIL_SERVICE_REQUEST);
 		mail.setMailTo(EmailTo);
@@ -243,7 +252,7 @@ public class RegistrationService {
 		emailService.sendMail(mail);
 	}
 
-	private void sendNotificationSMS(String name, String phoneNumber) {
+	public void sendNotificationSMS(String name, String phoneNumber) {
 		SMS sms = new SMS();
 		sms.setPhoneNumber(phoneNumber);
 		Map<String, String> valueMap = new HashMap<String, String>();
@@ -252,6 +261,68 @@ public class RegistrationService {
 		sms.setValueMap(valueMap);
 		smsService.sendSMS(sms);
 
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		List<RegistrationEntity> users=registrationDAO.findByEmailId(username);
+		if(users==null || users.isEmpty())
+			throw new UsernameNotFoundException("User Not Found");
+		RegistrationEntity registrationEntity=users.get(0);
+		UserSecurityContext userDetails=new UserSecurityContext();
+		userDetails.setUsername(registrationEntity.getEmail());
+		userDetails.setPassword(registrationEntity.getEncyPassword());
+		userDetails.setLoginTime(new Date());
+		userDetails.setEnabled("ACTIVE".equalsIgnoreCase(registrationEntity.getStatus()));
+		List<Role> authorities=new ArrayList<Role>();
+		if(registrationEntity.getRoleId()!=0){
+			List<RoleEntity> roleEntities=roleDAO.findByRoleId(registrationEntity.getRoleId());
+			if(roleEntities!=null){
+				for(RoleEntity roleEntity:roleEntities){
+					Role role=new Role();
+					role.setName(roleEntity.getName());
+					role.setRoleId(roleEntity.getRoleId());
+					authorities.add(role);
+				}
+			}
+		}
+		userDetails.setAuthorities(authorities);
+
+		return userDetails;
+	}
+
+	@Override
+	public void updateRegistrationToken(String regToken, String username) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public UserSecurityContext getUserDetailsByAccessToken(String accessToken) {
+		UserSecurityContext userDetails=null;
+		RegistrationEntity registrationEntity=registrationDAO.getUserDetailsByAccessToken(accessToken);
+		if(registrationEntity!=null){
+			userDetails=new UserSecurityContext();
+			userDetails.setUsername(registrationEntity.getEmail());
+			userDetails.setPassword(registrationEntity.getEncyPassword());
+			userDetails.setLoginTime(new Date());
+			userDetails.setEnabled("ACTIVE".equalsIgnoreCase(registrationEntity.getStatus()));
+			List<Role> authorities=new ArrayList<Role>();
+			if(registrationEntity.getRoleId()!=0){
+				List<RoleEntity> roleEntities=roleDAO.findByRoleId(registrationEntity.getRoleId());
+				if(roleEntities!=null){
+					for(RoleEntity roleEntity:roleEntities){
+						Role role=new Role();
+						role.setName(roleEntity.getName());
+						role.setRoleId(roleEntity.getRoleId());
+						authorities.add(role);
+					}
+				}
+			}
+			userDetails.setAuthorities(authorities);
+		}
+		return userDetails;
 	}
 
 }

@@ -8,12 +8,13 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Repository;
 
 import com.jyothigas.app.entity.RegistrationEntity;
 
 @Repository("registrationDAO")
-public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
+public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity>{
 
 	@PersistenceContext
 	EntityManager entityManger;
@@ -34,7 +35,7 @@ public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
 		}
 		return registrationEntity;
 	}
-	
+
 	public List<RegistrationEntity> findByStatus(String status) {
 		log.info("Getting UserEntity Instance with status: " + status);
 		List<RegistrationEntity> registrationEntity = new ArrayList<RegistrationEntity>();
@@ -48,8 +49,8 @@ public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
 		}
 		return registrationEntity;
 	}
-	
-	
+
+
 	public List<RegistrationEntity> findByMobileNo(String contactNo) {
 		log.info("Getting UserEntity Instance with contactNo: " + contactNo);
 		List<RegistrationEntity> registrationEntity = new ArrayList<RegistrationEntity>();
@@ -75,6 +76,17 @@ public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
 			log.info("get successfull");
 		} catch (Exception e) {
 			log.error("Failed : " + e);
+		}
+		return registrationEntity;
+	}
+// AUTHENICATION
+	public RegistrationEntity getUserDetailsByAccessToken(String accessToken) {
+		RegistrationEntity registrationEntity = null;
+		try {
+			registrationEntity = entityManager.createQuery("select s from RegistrationEntity s Where s.accessToken = :accessToken",RegistrationEntity.class)
+					.setParameter("accessToken", accessToken)
+					.getSingleResult();
+		} catch (Exception e) {
 		}
 		return registrationEntity;
 	}

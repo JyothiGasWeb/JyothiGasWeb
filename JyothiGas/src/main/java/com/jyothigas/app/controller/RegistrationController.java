@@ -22,8 +22,8 @@ import com.jyothigas.app.model.Register;
 import com.jyothigas.app.model.SMS;
 import com.jyothigas.app.service.EmailService;
 import com.jyothigas.app.service.OTPService;
-import com.jyothigas.app.service.RegistrationService;
 import com.jyothigas.app.service.SMSService;
+import com.jyothigas.app.service.UserDetailsService;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.PasswordProtector;
 
@@ -32,7 +32,7 @@ public class RegistrationController {
 	private static final Logger logger = LoggerFactory.getLogger(RegistrationController.class);
 
 	@Autowired
-	RegistrationService registrationService;
+	UserDetailsService registrationService;
 
 	@Autowired
 	OTPService otpService;
@@ -45,7 +45,7 @@ public class RegistrationController {
 
 	/**
 	 * API for register
-	 * 
+	 *
 	 * @param register
 	 * @return
 	 */
@@ -85,7 +85,7 @@ public class RegistrationController {
 
 	/**
 	 * API for get existing OTP
-	 * 
+	 *
 	 * @param otp
 	 * @return
 	 */
@@ -99,7 +99,7 @@ public class RegistrationController {
 
 	/**
 	 * API for verify Phone
-	 * 
+	 *
 	 * @param token
 	 * @param number
 	 * @return
@@ -135,7 +135,7 @@ public class RegistrationController {
 
 	/**
 	 * API for create new OTP
-	 * 
+	 *
 	 * @param email
 	 * @return
 	 */
@@ -179,7 +179,7 @@ public class RegistrationController {
 
 	/**
 	 * API for forgot password
-	 * 
+	 *
 	 * @param forgotPassword
 	 * @return
 	 */
@@ -233,7 +233,7 @@ public class RegistrationController {
 		AppResponse appResponse = new AppResponse();
 
 		try {
-			
+
 			if (!registrationService.verifyLoginCredentials(loginRequest)) {
 				appResponse.setMessage("Invalid Username and Password");
 				appResponse.setStatus("Fail");
@@ -250,10 +250,10 @@ public class RegistrationController {
 		}
 		return appResponse;
 	}
-	
+
 	/**
 	 * API for register
-	 * 
+	 *
 	 * @param register
 	 * @return
 	 */
