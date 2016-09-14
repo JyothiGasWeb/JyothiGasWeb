@@ -115,6 +115,7 @@ public class RegistrationController {
 		try {
 			otp = otpService.verifyOTP(otp);
 			if ("VERIFIED".equals(otp.getStatus())) {
+				otpService.sendRegEmailToCustomer(otp);
 				response.setMessage("Success");
 				response.setStatus("OK");
 			} else if ("EXPIRED".equals(otp.getStatus())) {
@@ -200,6 +201,7 @@ public class RegistrationController {
 					otpService.verifyOTP(otp);
 					if ("VERIFIED".equals(otp.getStatus())) {
 						registrationService.updatePassword(forgotPassword);
+						registrationService.sendChngPswdEmail(register.getName(),register.getEmail());
 						response.setMessage("Success");
 						response.setStatus("OK");
 					} else if ("EXPIRED".equals(otp.getStatus())) {

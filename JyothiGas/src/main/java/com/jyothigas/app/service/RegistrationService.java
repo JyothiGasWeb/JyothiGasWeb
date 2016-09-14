@@ -253,5 +253,16 @@ public class RegistrationService {
 		smsService.sendSMS(sms);
 
 	}
+	public void sendChngPswdEmail(String name, String EmailTo) {
+		Mail mail = new Mail();
+		mail.setTemplateName(EmailService.EMAIL_USER_UPDATE);
+		mail.setMailTo(EmailTo);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("ENTITY", "Password");
+		valueMap.put("NAME", name);
+		valueMap.put("SUBJECT", "Password");
+		mail.setValueMap(valueMap);
+		emailService.sendMail(mail);
+	}
 
 }

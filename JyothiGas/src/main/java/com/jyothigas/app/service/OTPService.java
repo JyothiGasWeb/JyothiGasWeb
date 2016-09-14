@@ -33,7 +33,7 @@ public class OTPService {
 
 	@Autowired
 	EmailService emailService;
-	
+
 	private static final Log log = LogFactory.getLog(OTPService.class);
 
 	public OTP createOTP(OTP otp) {
@@ -74,7 +74,8 @@ public class OTPService {
 					RegistrationEntity entity = registrationDAO.findByMobileNo(otp.getVerificationId()).get(0);
 					entity.setStatus(Constant.ACTIVE);
 					entity = registrationDAO.merge(entity);
-					sendEmailToCustomer(entity.getName(), String.valueOf(entity.getId()), entity.getEmail());
+					// sendEmailToCustomer(entity.getName(),
+					// String.valueOf(entity.getId()), entity.getEmail());
 				} else {
 					otp.setStatus("EXPIRED");
 				}
@@ -91,8 +92,12 @@ public class OTPService {
 		return otp;
 	}
 
-	private void sendEmailToCustomer(String name, String regId, String EmailTo) {
+	public void sendRegEmailToCustomer(OTP otp) {
+		RegistrationEntity entity = registrationDAO.findByMobileNo(otp.getVerificationId()).get(0);
 		Mail mail = new Mail();
+		String name = entity.getName();
+		String regId = String.valueOf(entity.getId());
+		String EmailTo = entity.getEmail();
 		mail.setTemplateName(EmailService.EMAIL_USER_REGISTER);
 		mail.setMailTo(EmailTo);
 		Map<String, String> valueMap = new HashMap<String, String>();
