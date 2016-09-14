@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -117,6 +118,8 @@ public class BookingService {
 			tokenMap.put("DEALER_NAME", dealerEntity.getDealer_name());
 			tokenMap.put("DEALER_NO", dealerEntity.getDealer_contact_no());
 			sendNotificationEmail(booking.getBookingType(), registrationEntity.getEmail(), tokenMap);
+			sendEmailToDealer(refToken, registrationEntity.getEmail(), dealerEntity.getDealer_email(),
+					dealerEntity.getDealer_name(), registrationEntity.getContactNo(), booking.getBookingType());
 			BeanUtils.copyProperties(bookingEntityObj, bookingObj);
 		} catch (Exception e) {
 			logger.error("Error in Inserting booking data...");
@@ -125,7 +128,7 @@ public class BookingService {
 		return bookingObj;
 	}
 
-	private void sendNotificationEmail(String bookingType, String EmailTo, Map<String, String> refillMap) {
+	private void sendNotificationEmail(String bookingType, String EmailTo, Map<String, String> refillMap) throws MailException, InterruptedException {
 		Mail mail = new Mail();
 		if (bookingType.equals("REFILL")) {
 			mail.setTemplateName(EmailService.EMAIL_BOOKING_REFILL);
@@ -138,7 +141,8 @@ public class BookingService {
 			valueMap.put("DEALER_NO", refillMap.get("DEALER_NO"));
 			Calendar currentTime = Calendar.getInstance();
 			if (currentTime.get(Calendar.HOUR_OF_DAY) > 20) {
-				valueMap.put("TIME_MSG", "Since your booking is recorded after 8PM, the cylinder will be delivered tomorrow.");
+				valueMap.put("TIME_MSG",
+						"Since your booking is recorded after 8PM, the cylinder will be delivered tomorrow.");
 			} else {
 				valueMap.put("TIME_MSG", "Your Cylinder will be delivered in 6hrs from booking.");
 			}
@@ -151,6 +155,22 @@ public class BookingService {
 			valueMap.put("NAME", refillMap.get("NAME"));
 			mail.setValueMap(valueMap);
 		}
+
+		emailService.sendMail(mail);
+	}
+
+	private void sendEmailToDealer(String ref, String custEmail, String EmailTo, String name, String custNo,
+			String entity) throws MailException, InterruptedException {
+		Mail mail = new Mail();
+		mail.setTemplateName(EmailService.EMAIL_BOOKING_DEALER);
+		mail.setMailTo(EmailTo);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("REFERENCE", ref);
+		valueMap.put("NAME", name);
+		valueMap.put("CUST_PH", custNo);
+		valueMap.put("CUST_EMAIL", custEmail);
+		valueMap.put("ENTITY", entity);
+		mail.setValueMap(valueMap);
 
 		emailService.sendMail(mail);
 	}

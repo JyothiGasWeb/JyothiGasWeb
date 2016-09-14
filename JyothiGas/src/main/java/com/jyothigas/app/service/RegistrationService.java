@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -164,7 +165,15 @@ public class RegistrationService {
 		String otp = PasswordProtector.decrypt(emailOTP.getOtp());
 		domainValue.put("OTP", otp);
 		mail.setValueMap(domainValue);
-		emailService.sendMail(mail);
+		try {
+			emailService.sendMail(mail);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -240,7 +249,15 @@ public class RegistrationService {
 		valueMap.put("ENTITY", entity);
 		valueMap.put("NAME", name);
 		mail.setValueMap(valueMap);
-		emailService.sendMail(mail);
+		try {
+			emailService.sendMail(mail);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void sendNotificationSMS(String name, String phoneNumber) {
@@ -262,7 +279,15 @@ public class RegistrationService {
 		valueMap.put("NAME", name);
 		valueMap.put("SUBJECT", "Password");
 		mail.setValueMap(valueMap);
-		emailService.sendMail(mail);
+		try {
+			emailService.sendMail(mail);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

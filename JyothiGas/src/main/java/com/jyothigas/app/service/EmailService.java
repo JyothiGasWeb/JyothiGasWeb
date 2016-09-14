@@ -12,6 +12,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -42,6 +43,8 @@ public class EmailService {
 		templateMap.put("EMAIL_BOOKING_REFILL_SUBJECT", "Booking");
 		templateMap.put("EMAIL_USER_REGISTER_TEMPLATE", "Email_UserRegistration.vm");
 		templateMap.put("EMAIL_USER_REGISTER_SUBJECT", "Registration");
+		templateMap.put("EMAIL_BOOKING_DEALER_TEMPLATE", "Email_BookingDealer.vm");
+		templateMap.put("EMAIL_BOOKING_DEALER_SUBJECT", " Booking");
 
 	}
 
@@ -62,16 +65,17 @@ public class EmailService {
 	public static final String EMAIL_OTP = "EMAIL_OTP";
 	public static final String EMAIL_USER_UPDATE = "EMAIL_USER_UPDATE";
 	public static final String EMAIL_BOOKING = "EMAIL_BOOKING";
+	public static final String EMAIL_BOOKING_DEALER = "EMAIL_BOOKING_DEALER";
 	public static final String EMAIL_BOOKING_REFILL = "EMAIL_BOOKING_REFILL";
 	public static final String EMAIL_SERVICE_REQUEST = "EMAIL_SERVICE_REQUEST";
 	public static final String EMAIL_DEALER = "EMAIL_DEALER";
 	public static final String EMAIL_USER_REGISTER = "EMAIL_USER_REGISTER";
 	public static final String DOCTOR_ACCOUNT_ACTIVATION_INTIMATE = "DOCTOR_ACCOUNT_ACTIVATION_INTIMATE";
 
-	@Async
-	public void sendMail(Mail mail) {
+	@Async("emailExecutor")
+	public void sendMail(Mail mail)throws MailException, InterruptedException {
 		try {
-
+			Thread.sleep(1000);
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
 			helper.setFrom(templateMap.get("EMAIL_FROM"));

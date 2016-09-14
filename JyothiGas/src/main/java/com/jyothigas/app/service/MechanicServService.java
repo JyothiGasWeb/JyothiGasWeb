@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +60,15 @@ public class MechanicServService {
 		valueMap.put("ENTITY", entity);
 		valueMap.put("NAME", name);
 		mail.setValueMap(valueMap);
-		emailService.sendMail(mail);
+		try {
+			emailService.sendMail(mail);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int updateMechanicService(MechanicServiceModel mechServ) {

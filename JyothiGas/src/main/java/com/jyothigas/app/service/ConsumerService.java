@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -135,6 +136,7 @@ public class ConsumerService {
 		try {
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
 					register.getId());
+			int oldDealerId = registrationEntity.getDealerId();
 			StringBuilder changedEntity = new StringBuilder();
 			if (registrationEntity != null) {
 				if (register.getAddress() != null) {
@@ -171,7 +173,7 @@ public class ConsumerService {
 				// Send Notification
 				// Fetching the Dealer Details
 				DealerEntity newDealerEntiy = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
-				DealerEntity oldDealerEntiy = dealerDAO.findById(DealerEntity.class, register.getDealerId());
+				DealerEntity oldDealerEntiy = dealerDAO.findById(DealerEntity.class, oldDealerId);
 			
 
 				if (changedEntity.indexOf("Dealer") >= 0) {
@@ -212,7 +214,15 @@ public class ConsumerService {
 		valueMap.put("NAME", name);
 		valueMap.put("SUBJECT", entity);
 		mail.setValueMap(valueMap);
-		emailService.sendMail(mail);
+		try {
+			emailService.sendMail(mail);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void sendEmailToDealer(String dealerName, String custEmail, String EmailTo, String flag) {
@@ -226,7 +236,15 @@ public class ConsumerService {
 			valueMap.put("MESSAGE", Constant.NEW_DEALER_EMAIL.replace("{EMAIL}", custEmail));
 		valueMap.put("NAME", dealerName);
 		mail.setValueMap(valueMap);
-		emailService.sendMail(mail);
+		try {
+			emailService.sendMail(mail);
+		} catch (MailException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void sendNotificationSMS(String entity, String name, String phoneNumber) {
