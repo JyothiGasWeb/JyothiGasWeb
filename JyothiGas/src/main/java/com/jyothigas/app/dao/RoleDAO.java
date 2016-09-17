@@ -11,27 +11,26 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
 
 import com.jyothigas.app.entity.RoleEntity;
+import java.util.Collections;
 
 @Repository("roleDAO")
-public class RoleDAO  extends JyothiGasDAO<RoleEntity> {
+public class RoleDAO extends JyothiGasDAO<RoleEntity> {
 
-	@PersistenceContext
-	EntityManager entityManger;
+    @PersistenceContext
+    EntityManager entityManger;
 
-	private static final Log log = LogFactory.getLog(RoleDAO.class);
+    private static final Log log = LogFactory.getLog(RoleDAO.class);
 
-	public List<RoleEntity> findByRoleId(Integer roleId) {
-		log.info("Getting RoleEntity Instance with roleId: " + roleId);
-		List<RoleEntity> registrationEntity = new ArrayList<RoleEntity>();
-		try {
-			registrationEntity = entityManager.createQuery("select s from RoleEntity s Where s.roleId = :roleId ",RoleEntity.class)
-					.setParameter("roleId", roleId)
-					.getResultList();
-			log.info("get successfull");
-		} catch (Exception e) {
-			log.error("Failed : " + e);
-		}
-		return registrationEntity;
-	}
-	
+    public List<RoleEntity> getRoles() {
+        log.info("Getting RoleEntity Instance ");
+        List<RoleEntity> roleList = Collections.emptyList();
+        try {
+            roleList = entityManager.createQuery("select s from RoleEntity s", RoleEntity.class).getResultList();
+            log.info("get successfull");
+        } catch (Exception e) {
+            log.error("Failed : " + e);
+        }
+        return roleList;
+    }
+
 }
