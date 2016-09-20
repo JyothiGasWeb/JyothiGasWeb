@@ -10,7 +10,7 @@ public class Dealer implements java.io.Serializable {
 	private String dealer_email;
 	private String dealer_name;
 	private String dealer_contact_no;
-	private String dealer_city;
+//	private String dealer_city;
 	private String dealer_area_code;
 	private String dealer_address;
 
@@ -50,13 +50,13 @@ public class Dealer implements java.io.Serializable {
 		this.dealer_contact_no = dealer_contact_no;
 	}
 
-	public String getDealer_city() {
-		return dealer_city;
-	}
-
-	public void setDealer_city(String dealer_city) {
-		this.dealer_city = dealer_city;
-	}
+//	public String getDealer_city() {
+//		return dealer_city;
+//	}
+//
+//	public void setDealer_city(String dealer_city) {
+//		this.dealer_city = dealer_city;
+//	}
 
 	public String getDealer_area_code() {
 		return dealer_area_code;
