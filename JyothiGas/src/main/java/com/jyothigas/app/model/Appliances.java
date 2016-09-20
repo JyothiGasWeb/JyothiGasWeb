@@ -11,6 +11,9 @@ public class Appliances implements java.io.Serializable {
 	private String appliance_Pic;
 	private String appliance_Details;
 	private int applliance_Cost;
+	private float dealerWithoutTax;
+	private float customerWithoutTax;
+	private float tax;
 	// quantity will be used to show booked appliances quantity
 	private int quantity;
 
@@ -60,6 +63,30 @@ public class Appliances implements java.io.Serializable {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public float getDealerWithoutTax() {
+		return dealerWithoutTax;
+	}
+
+	public void setDealerWithoutTax(float dealerWithoutTax) {
+		this.dealerWithoutTax = dealerWithoutTax;
+	}
+
+	public float getCustomerWithoutTax() {
+		return customerWithoutTax;
+	}
+
+	public void setCustomerWithoutTax(float customerWithoutTax) {
+		this.customerWithoutTax = customerWithoutTax;
+	}
+
+	public float getTax() {
+		return tax;
+	}
+
+	public void setTax(float tax) {
+		this.tax = tax;
 	}
 
 }

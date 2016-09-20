@@ -28,6 +28,7 @@ public class ApplianceDAO extends JyothiGasDAO<ApplianceEntity> {
 					.getResultList();
 			log.info("get successfull");
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("Failed : " + e);
 		}
 		return applianceList;
