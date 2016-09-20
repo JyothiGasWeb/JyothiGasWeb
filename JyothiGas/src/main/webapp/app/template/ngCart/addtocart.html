@@ -8,11 +8,11 @@
                     ng-options=" v for v in qtyOpt"></select>
         </span>
         <md-button class="md-primary md-raised" ng-click="ngCart.addItem(id, name, price, q, data)" ng-transclude>Buy Now</md-button>
-        <md-button class="md-icon-button" aria-label="remove">
+        <md-button class="md-icon-button" aria-label="remove" ng-show="inCart()" ng-click="ngCart.removeItemById(id)">
             <md-tooltip md-direction="top">
                 Remove From Cart
             </md-tooltip>
-            <i class="material-icons remove-cart" ng-show="inCart()" ng-click="ngCart.removeItemById(id)">remove_shopping_cart</i>
+            <i class="material-icons remove-cart">remove_shopping_cart</i>
         </md-button>
     </div>
 </div>

@@ -37,7 +37,7 @@ angular.module('clientApp')
         }
 
         $scope.bookRefill = function() {
-            $scope.totalPrice = $scope.cylinders * $scope.connectionType.applliance_Cost;
+            $scope.totalPrice = $scope.cylinders * $scope.connectionType.customerWithoutTax;
             var obj = {
                 "consumer_id": $scope.refillObj.consumer_id,
                 "connectionTypeId": $scope.connectionType.id,

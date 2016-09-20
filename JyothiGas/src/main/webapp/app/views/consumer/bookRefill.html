@@ -28,7 +28,7 @@
                         <label>Product Type - Price</label>
                         <md-select ng-model="connectionType" required name="product">
                             <md-option ng-repeat="item in connections" ng-value="{{item}}">
-                                {{item.appliance_Name}} - {{item.applliance_Cost}}
+                                {{item.appliance_Name}} - {{item.customerWithoutTax}}
                             </md-option>
                         </md-select>
                         <div ng-messages="dealerForm.product.$error" role="alert">
