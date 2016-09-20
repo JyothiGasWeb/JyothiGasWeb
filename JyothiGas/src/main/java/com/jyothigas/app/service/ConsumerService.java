@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jyothigas.app.dao.ConnectionTypeDAO;
 import com.jyothigas.app.dao.ConsumerDAO;
-import com.jyothigas.app.dao.DealerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.dao.RoleDAO;
 import com.jyothigas.app.entity.ConnectionTypeEntity;
@@ -32,230 +31,229 @@ import com.jyothigas.utils.Constant;
 @Transactional
 public class ConsumerService {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
 
-	@Autowired
-	RegistrationDAO registrationDAO;
+    @Autowired
+    RegistrationDAO registrationDAO;
 
-	@Autowired
-	RoleDAO roleDAO;
+    @Autowired
+    RoleDAO roleDAO;
 
-	@Autowired
-	EmailService emailService;
+    @Autowired
+    EmailService emailService;
 
-	@Autowired
-	ConsumerDAO consumerDAO;
+    @Autowired
+    ConsumerDAO consumerDAO;
 
-	@Autowired
-	DealerDAO dealerDAO;
+    @Autowired
+    ConnectionTypeDAO connectionTypeDAO;
 
-	@Autowired
-	ConnectionTypeDAO connectionTypeDAO;
+    @Autowired
+    SMSService smsService;
 
-	@Autowired
-	SMSService smsService;
+    /**
+     * Method for fetch Consumer Details
+     *
+     * @param email
+     * @return
+     */
+    public ConsumerDetails fetchConsumerDetailsByEmail(String email) {
+        logger.info("Fetching the Consumer Details..");
+        ConsumerDetails consumerDetails = new ConsumerDetails();
 
-	/**
-	 * Method for fetch Consumer Details
-	 * 
-	 * @param email
-	 * @return
-	 */
-	public ConsumerDetails fetchConsumerDetailsByEmail(String email) {
-		logger.info("Fetching the Consumer Details..");
-		ConsumerDetails consumerDetails = new ConsumerDetails();
+        try {
+            List<RegistrationEntity> registrationEntityList = registrationDAO.findByEmailId(email);
+            for (RegistrationEntity registrationEntity : registrationEntityList) {
 
-		try {
-			List<RegistrationEntity> registrationEntityList = registrationDAO.findByEmailId(email);
-			for (RegistrationEntity registrationEntity : registrationEntityList) {
+                if (registrationEntity != null && registrationEntity.getId() > 0) {
+                    consumerDetails.setReg_id(registrationEntity.getId());
+                    consumerDetails.setEmail(registrationEntity.getEmail());
+                    consumerDetails.setName(registrationEntity.getName());
+                    consumerDetails.setContactNo(registrationEntity.getContactNo());
+                    consumerDetails.setCity(registrationEntity.getCity());
+                    consumerDetails.setAreaCode(registrationEntity.getAreaCode());
+                    consumerDetails.setRoleId(registrationEntity.getRoleId());
+                    consumerDetails.setAddress(registrationEntity.getAddress());
+                    consumerDetails.setConnectionQty(registrationEntity.getConnectionQty());
+                    consumerDetails.setStatus(registrationEntity.getStatus());
+                    consumerDetails.setConnectionTypeId(registrationEntity.getConnectionTypeId());
+                    consumerDetails.setUserType(registrationEntity.getUserType());
+                    consumerDetails.setSurrenderStatus(registrationEntity.getSurrenderStatus());
+                    consumerDetails.setSurrender_Date(registrationEntity.getSurrender_Date());
+                    // Fetching the Role Details
+                    RoleEntity roleEntity = roleDAO.findById(RoleEntity.class, registrationEntity.getRoleId());
+                    if (null != roleEntity && roleEntity.getRoleId() != 0) {
+                        consumerDetails.setRoleName(roleEntity.getName());
+                    }
 
-				if (registrationEntity != null && registrationEntity.getId() > 0) {
-					consumerDetails.setReg_id(registrationEntity.getId());
-					consumerDetails.setEmail(registrationEntity.getEmail());
-					consumerDetails.setName(registrationEntity.getName());
-					consumerDetails.setContactNo(registrationEntity.getContactNo());
-					consumerDetails.setCity(registrationEntity.getCity());
-					consumerDetails.setAreaCode(registrationEntity.getAreaCode());
-					consumerDetails.setRoleId(registrationEntity.getRoleId());
-					consumerDetails.setAddress(registrationEntity.getAddress());
-					consumerDetails.setConnectionQty(registrationEntity.getConnectionQty());
-					consumerDetails.setStatus(registrationEntity.getStatus());
-					consumerDetails.setConnectionTypeId(registrationEntity.getConnectionTypeId());
-					consumerDetails.setUserType(registrationEntity.getUserType());
-					consumerDetails.setSurrenderStatus(registrationEntity.getSurrenderStatus());
-					consumerDetails.setSurrender_Date(registrationEntity.getSurrender_Date());
-					// Fetching the Role Details
-					List<RoleEntity> roleEntityList = roleDAO.findByRoleId(registrationEntity.getRoleId());
-					if (roleEntityList.size() > 0) {
-						consumerDetails.setRoleName(roleEntityList.get(0).getName());
-					}
+                    // Fetching the Consumer Id
+                    ConsumerEntity consumerEntity = consumerDAO.findByRegId(registrationEntity.getId());
+                    if (consumerEntity != null) {
+                        consumerDetails.setConsumer_id(consumerEntity.getId());
+                    }
 
-					// Fetching the Consumer Id
-					ConsumerEntity consumerEntity = consumerDAO.findByRegId(registrationEntity.getId());
-					if (consumerEntity != null) {
-						consumerDetails.setConsumer_id(consumerEntity.getId());
-					}
+                    // Fetching the Dealer Details
+                    RegistrationEntity dealerEntity = registrationDAO.findById(RegistrationEntity.class,
+                            registrationEntity.getId());
+                    if (dealerEntity != null) {
+                        consumerDetails.setDealerId(registrationEntity.getDealerId());
+                        consumerDetails.setDealerName(dealerEntity.getName());
+                    }
+                    // Fetching the connection type details
+                    ConnectionTypeEntity connectionTypeEntity = connectionTypeDAO.findById(ConnectionTypeEntity.class,
+                            registrationEntity.getConnectionTypeId());
+                    if (connectionTypeEntity != null) {
+                        consumerDetails.setConnectionTypeName(connectionTypeEntity.getConnectionType());
+                        consumerDetails.setConnectionTypeDesc(connectionTypeEntity.getConnectionDesc());
+                        consumerDetails.setConnectionPrice(connectionTypeEntity.getConnectionPrice());
+                    }
 
-					// Fetching the Dealer Details
-					DealerEntity dealerEntiy = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
-					if (dealerEntiy != null) {
-						consumerDetails.setDealerId(registrationEntity.getDealerId());
-						consumerDetails.setDealerName(dealerEntiy.getDealer_name());
-					}
-					// Fetching the connection type details
-					ConnectionTypeEntity connectionTypeEntity = connectionTypeDAO.findById(ConnectionTypeEntity.class,
-							registrationEntity.getConnectionTypeId());
-					if (connectionTypeEntity != null) {
-						consumerDetails.setConnectionTypeName(connectionTypeEntity.getConnectionType());
-						consumerDetails.setConnectionTypeDesc(connectionTypeEntity.getConnectionDesc());
-						consumerDetails.setConnectionPrice(connectionTypeEntity.getConnectionPrice());
-					}
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error while fetching consumer Details....." + e.getMessage());
+            e.printStackTrace();
+        }
 
-				}
-			}
-		} catch (Exception e) {
-			logger.error("Error while fetching consumer Details....." + e.getMessage());
-			e.printStackTrace();
-		}
+        return consumerDetails;
+    }
 
-		return consumerDetails;
-	}
+    /**
+     * Method for update consumer data
+     *
+     * @param register
+     * @return
+     *
+     *
+     */
+    // =======> NOTE : THIS API ASSOCIATED WITH THREE CALLS <=======
+    // PLEASE PAY ATTENTION BEFORE CHNAGING ANYTHING IN THIS
+    public int updateConsumer(Register register) {
+        int result = 0;
+        try {
+            RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
+                    register.getId());
+            int oldDealerId = registrationEntity.getDealerId();
+            StringBuilder changedEntity = new StringBuilder();
+            if (registrationEntity != null) {
+                if (register.getAddress() != null) {
+                    changedEntity.append("Address");
+                    registrationEntity.setAddress(register.getAddress());
+                }
+                if (register.getContactNo() != null) {
+                    registrationEntity.setContactNo(register.getContactNo());
+                }
+                if (register.getName() != null) {
+                    registrationEntity.setName(register.getName());
+                }
+                if (register.getCity() != null) {
+                    registrationEntity.setCity(register.getCity());
+                }
+                if (register.getEmail() != null) {
+                    registrationEntity.setEmail(register.getEmail());
+                }
+                if (register.getDealerId() > 0) {
+                    changedEntity.append("Dealer");
+                    registrationEntity.setDealerId(register.getDealerId());
+                }
+                if (register.getConnectionTypeId() > 0) {
+                    registrationEntity.setConnectionTypeId(register.getConnectionTypeId());
+                }
+                if (register.getAreaCode() != null) {
+                    registrationEntity.setAreaCode(register.getAreaCode());
+                }
 
-	/**
-	 * Method for update consumer data
-	 * 
-	 * @param register
-	 * @return
-	 * 
-	 * 
-	 */
-	// =======> NOTE : THIS API ASSOCIATED WITH THREE CALLS <=======
-	// PLEASE PAY ATTENTION BEFORE CHNAGING ANYTHING IN THIS
-	public int updateConsumer(Register register) {
-		int result = 0;
-		try {
-			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
-					register.getId());
-			int oldDealerId = registrationEntity.getDealerId();
-			StringBuilder changedEntity = new StringBuilder();
-			if (registrationEntity != null) {
-				if (register.getAddress() != null) {
-					changedEntity.append("Address");
-					registrationEntity.setAddress(register.getAddress());
-				}
-				if (register.getContactNo() != null) {
-					registrationEntity.setContactNo(register.getContactNo());
-				}
-				if (register.getName() != null) {
-					registrationEntity.setName(register.getName());
-				}
-				if (register.getCity() != null) {
-					registrationEntity.setCity(register.getCity());
-				}
-				if (register.getEmail() != null) {
-					registrationEntity.setEmail(register.getEmail());
-				}
-				if (register.getDealerId() > 0) {
-					changedEntity.append("Dealer");
-					registrationEntity.setDealerId(register.getDealerId());
-				}
-				if (register.getConnectionTypeId() > 0) {
-					registrationEntity.setConnectionTypeId(register.getConnectionTypeId());
-				}
-				if (register.getAreaCode() != null) {
-					registrationEntity.setAreaCode(register.getAreaCode());
-				}
+                registrationEntity.setUpdatedDate(new Date());
+                registrationEntity.setId(register.getId());
+                RegistrationEntity entity = registrationDAO.merge(registrationEntity);
+                result = entity.getId();
+                // Send Notification
+                // Fetching the Dealer Detail
+                RegistrationEntity newDealerEntiy = registrationDAO.findById(RegistrationEntity.class,
+                        registrationEntity.getDealerId());
+                RegistrationEntity oldDealerEntiy = registrationDAO.findById(RegistrationEntity.class,
+                        oldDealerId);
+                if (changedEntity.indexOf("Dealer") >= 0) {
+                    // Send SMS
+                    sendNotificationSMS(changedEntity.toString(), registrationEntity.getName(),
+                            registrationEntity.getContactNo());
+                    // Email for customer
+                    sendNotificationEmail(changedEntity.toString(), registrationEntity.getName(),
+                            registrationEntity.getEmail());
+                    // Email for Old Dealer
+                    sendEmailToDealer(oldDealerEntiy.getName(), registrationEntity.getEmail(),
+                            oldDealerEntiy.getEmail(), "OLDDEALER");
 
-				registrationEntity.setUpdatedDate(new Date());
-				registrationEntity.setId(register.getId());
-				RegistrationEntity entity = registrationDAO.merge(registrationEntity);
-				result = entity.getId();
-				// Send Notification
-				// Fetching the Dealer Details
-				DealerEntity newDealerEntiy = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
-				DealerEntity oldDealerEntiy = dealerDAO.findById(DealerEntity.class, oldDealerId);
-			
+                    // Email For New Dealer
+                    sendEmailToDealer(newDealerEntiy.getName(), registrationEntity.getEmail(),
+                            newDealerEntiy.getEmail(), "NEWDEALER");
+                } else {
+                    sendNotificationSMS(changedEntity.toString(), registrationEntity.getName(),
+                            registrationEntity.getContactNo());
+                    // Email for customer
+                    sendNotificationEmail(changedEntity.toString(), registrationEntity.getName(),
+                            registrationEntity.getEmail());
+                }
 
-				if (changedEntity.indexOf("Dealer") >= 0) {
-					// Send SMS
-					sendNotificationSMS(changedEntity.toString(), registrationEntity.getName(),
-							registrationEntity.getContactNo());
-					// Email for customer
-					sendNotificationEmail(changedEntity.toString(), registrationEntity.getName(),
-							registrationEntity.getEmail());
-					// Email for Old Dealer
-					sendEmailToDealer(oldDealerEntiy.getDealer_name(), registrationEntity.getEmail(),
-							oldDealerEntiy.getDealer_email(), "OLDDEALER");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
-					// Email For New Dealer
-					sendEmailToDealer(newDealerEntiy.getDealer_name(), registrationEntity.getEmail(),
-							newDealerEntiy.getDealer_email(), "NEWDEALER");
-				} else {
-					sendNotificationSMS(changedEntity.toString(), registrationEntity.getName(),
-							registrationEntity.getContactNo());
-					// Email for customer
-					sendNotificationEmail(changedEntity.toString(), registrationEntity.getName(),
-							registrationEntity.getEmail());
-				}
+    private void sendNotificationEmail(String entity, String name, String EmailTo) {
+        Mail mail = new Mail();
+        mail.setTemplateName(EmailService.EMAIL_USER_UPDATE);
+        mail.setMailTo(EmailTo);
+        Map<String, String> valueMap = new HashMap<String, String>();
+        valueMap.put("ENTITY", entity);
+        valueMap.put("NAME", name);
+        valueMap.put("SUBJECT", entity);
+        mail.setValueMap(valueMap);
+        try {
+            emailService.sendMail(mail);
+        } catch (MailException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+    private void sendEmailToDealer(String dealerName, String custEmail, String EmailTo, String flag) {
+        Mail mail = new Mail();
+        mail.setTemplateName(EmailService.EMAIL_DEALER);
+        mail.setMailTo(EmailTo);
+        Map<String, String> valueMap = new HashMap<String, String>();
+        if (flag.equalsIgnoreCase("OLDDEALER")) {
+            valueMap.put("MESSAGE", Constant.OLD_DEALER_EMAIL.replace("{EMAIL}", custEmail));
+        } else {
+            valueMap.put("MESSAGE", Constant.NEW_DEALER_EMAIL.replace("{EMAIL}", custEmail));
+        }
+        valueMap.put("NAME", dealerName);
+        mail.setValueMap(valueMap);
+        try {
+            emailService.sendMail(mail);
+        } catch (MailException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	private void sendNotificationEmail(String entity, String name, String EmailTo) {
-		Mail mail = new Mail();
-		mail.setTemplateName(EmailService.EMAIL_USER_UPDATE);
-		mail.setMailTo(EmailTo);
-		Map<String, String> valueMap = new HashMap<String, String>();
-		valueMap.put("ENTITY", entity);
-		valueMap.put("NAME", name);
-		valueMap.put("SUBJECT", entity);
-		mail.setValueMap(valueMap);
-		try {
-			emailService.sendMail(mail);
-		} catch (MailException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    private void sendNotificationSMS(String entity, String name, String phoneNumber) {
+        SMS sms = new SMS();
+        sms.setPhoneNumber(phoneNumber);
+        Map<String, String> valueMap = new HashMap<String, String>();
+        valueMap.put("ENTITY", entity);
+        valueMap.put("NAME", name);
+        sms.setTemplate(SMSService.USER_UPDATE);
+        sms.setValueMap(valueMap);
+        smsService.sendSMS(sms);
 
-	private void sendEmailToDealer(String dealerName, String custEmail, String EmailTo, String flag) {
-		Mail mail = new Mail();
-		mail.setTemplateName(EmailService.EMAIL_DEALER);
-		mail.setMailTo(EmailTo);
-		Map<String, String> valueMap = new HashMap<String, String>();
-		if (flag.equalsIgnoreCase("OLDDEALER"))
-			valueMap.put("MESSAGE", Constant.OLD_DEALER_EMAIL.replace("{EMAIL}", custEmail));
-		else
-			valueMap.put("MESSAGE", Constant.NEW_DEALER_EMAIL.replace("{EMAIL}", custEmail));
-		valueMap.put("NAME", dealerName);
-		mail.setValueMap(valueMap);
-		try {
-			emailService.sendMail(mail);
-		} catch (MailException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private void sendNotificationSMS(String entity, String name, String phoneNumber) {
-		SMS sms = new SMS();
-		sms.setPhoneNumber(phoneNumber);
-		Map<String, String> valueMap = new HashMap<String, String>();
-		valueMap.put("ENTITY", entity);
-		valueMap.put("NAME", name);
-		sms.setTemplate(SMSService.USER_UPDATE);
-		sms.setValueMap(valueMap);
-		smsService.sendSMS(sms);
-
-	}
+    }
 }

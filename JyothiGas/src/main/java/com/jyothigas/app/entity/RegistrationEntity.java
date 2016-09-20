@@ -12,207 +12,216 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "Registration", uniqueConstraints = { @UniqueConstraint(columnNames = "Role_Id") })
+@Table(name = "Registration", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "Role_Id")})
 public class RegistrationEntity implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1240300618104412980L;
-	private int id;
-	private String email;
-	private String name;
-	private String contactNo;
-	private String city;
-	private String areaCode;
-	private String encyPassword;
-	private int roleId;
-	private String address;
-	private int connectionTypeId;
-	private int dealerId;
-	private String status;
-	private int connectionQty;
-	private String surrenderInfo;
-	private String userType;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1240300618104412980L;
+    private int id;
+    private String email;
+    private String name;
+    private String contactNo;
+    private String city;
+    private String areaCode;
+    private String encyPassword;
+    private int roleId;
+    private String address;
+    private int connectionTypeId;
+    private int dealerId;
+    private int distributorId;
+    private String status;
+    private int connectionQty;
+    private String surrenderInfo;
+    private String userType;
 
-	private String surrenderStatus;
-	private Date createdDate;
-	private Date updatedDate;
-	private Date Surrender_Date;
-	
-	
-	
-	@Column(name = "Surrender_Date")
-	public Date getSurrender_Date() {
-		return Surrender_Date;
-	}
+    private String surrenderStatus;
+    private Date createdDate;
+    private Date updatedDate;
+    private Date Surrender_Date;
 
-	public void setSurrender_Date(Date surrender_Date) {
-		Surrender_Date = surrender_Date;
-	}
+    @Column(name = "Surrender_Date")
+    public Date getSurrender_Date() {
+        return Surrender_Date;
+    }
 
-	@Column(name = "Surrender_Status")
-	public String getSurrenderStatus() {
-		return surrenderStatus;
-	}
+    public void setSurrender_Date(Date surrender_Date) {
+        Surrender_Date = surrender_Date;
+    }
 
-	public void setSurrenderStatus(String surrenderStatus) {
-		this.surrenderStatus = surrenderStatus;
-	}
+    @Column(name = "Surrender_Status")
+    public String getSurrenderStatus() {
+        return surrenderStatus;
+    }
 
-	@Column(name = "Created_Date")
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+    public void setSurrenderStatus(String surrenderStatus) {
+        this.surrenderStatus = surrenderStatus;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    @Column(name = "Created_Date")
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-	@Column(name = "Updated_Date")
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    @Column(name = "Updated_Date")
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "Id", nullable = false)
-	public int getId() {
-		return id;
-	}
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "Id", nullable = false)
+    public int getId() {
+        return id;
+    }
 
-	@Column(name = "Email")
-	public String getEmail() {
-		return email;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @Column(name = "Email")
+    public String getEmail() {
+        return email;
+    }
 
-	@Column(name = "Name")
-	public String getName() {
-		return name;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Column(name = "Name")
+    public String getName() {
+        return name;
+    }
 
-	@Column(name = "Contact_No")
-	public String getContactNo() {
-		return contactNo;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setContactNo(String contactNo) {
-		this.contactNo = contactNo;
-	}
+    @Column(name = "Contact_No")
+    public String getContactNo() {
+        return contactNo;
+    }
 
-	@Column(name = "City")
-	public String getCity() {
-		return city;
-	}
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    @Column(name = "City")
+    public String getCity() {
+        return city;
+    }
 
-	@Column(name = "Area_Code")
-	public String getAreaCode() {
-		return areaCode;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
-	}
+    @Column(name = "Area_Code")
+    public String getAreaCode() {
+        return areaCode;
+    }
 
-	@Column(name = "Ency_Password")
-	public String getEncyPassword() {
-		return encyPassword;
-	}
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
+    }
 
-	public void setEncyPassword(String encyPassword) {
-		this.encyPassword = encyPassword;
-	}
+    @Column(name = "Ency_Password")
+    public String getEncyPassword() {
+        return encyPassword;
+    }
 
-	@Column(name = "Role_Id")
-	public int getRoleId() {
-		return roleId;
-	}
+    public void setEncyPassword(String encyPassword) {
+        this.encyPassword = encyPassword;
+    }
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
-	}
+    @Column(name = "Role_Id")
+    public int getRoleId() {
+        return roleId;
+    }
 
-	@Column(name = "Address")
-	public String getAddress() {
-		return address;
-	}
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    @Column(name = "Address")
+    public String getAddress() {
+        return address;
+    }
 
-	@Column(name = "Connection_Type_Id")
-	public int getConnectionTypeId() {
-		return connectionTypeId;
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-	public void setConnectionTypeId(int connectionTypeId) {
-		this.connectionTypeId = connectionTypeId;
-	}
+    @Column(name = "Connection_Type_Id")
+    public int getConnectionTypeId() {
+        return connectionTypeId;
+    }
 
-	@Column(name = "Dealer_Id")
-	public int getDealerId() {
-		return dealerId;
-	}
+    public void setConnectionTypeId(int connectionTypeId) {
+        this.connectionTypeId = connectionTypeId;
+    }
 
-	public void setDealerId(int dealerId) {
-		this.dealerId = dealerId;
-	}
+    @Column(name = "Dealer_Id")
+    public int getDealerId() {
+        return dealerId;
+    }
 
-	@Column(name = "Status")
-	public String getStatus() {
-		return status;
-	}
+    public void setDealerId(int dealerId) {
+        this.dealerId = dealerId;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    @Column(name = "Status")
+    public String getStatus() {
+        return status;
+    }
 
-	@Column(name = "Connection_Qty")
-	public int getConnectionQty() {
-		return connectionQty;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setConnectionQty(int connectionQty) {
-		this.connectionQty = connectionQty;
-	}
+    @Column(name = "Connection_Qty")
+    public int getConnectionQty() {
+        return connectionQty;
+    }
 
-	@Column(name = "Surrender_info")
-	public String getSurrenderInfo() {
-		return surrenderInfo;
-	}
+    public void setConnectionQty(int connectionQty) {
+        this.connectionQty = connectionQty;
+    }
 
-	public void setSurrenderInfo(String surrenderInfo) {
-		this.surrenderInfo = surrenderInfo;
-	}
+    @Column(name = "Surrender_info")
+    public String getSurrenderInfo() {
+        return surrenderInfo;
+    }
 
-	@Column(name = "UserType")
-	public String getUserType() {
-		return userType;
-	}
+    public void setSurrenderInfo(String surrenderInfo) {
+        this.surrenderInfo = surrenderInfo;
+    }
 
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
+    @Column(name = "UserType")
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+      @Column(name = "Distributor_Id")
+    public int getDistributorId() {
+        return distributorId;
+    }
+
+    public void setDistributorId(int distributorId) {
+        this.distributorId = distributorId;
+    }
 
 }

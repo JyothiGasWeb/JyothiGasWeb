@@ -16,17 +16,21 @@ public class ApplianceEntity implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 657092305171893359L;
+        @Id
+        @GeneratedValue(strategy = IDENTITY)
+        @Column(name = "Id", nullable = false)
 	private int id;
+        @Column(name = "Appliance_Name")
 	private String appliance_Name;
+        @Column(name = "Appliance_Pic")
 	private String appliance_Pic;
+        @Column(name = "Appliance_Details")
 	private String appliance_Details;
+        @Column(name = "Applliance_Cost")
 	private int applliance_Cost;
 	@Column(name = "ConnectionTypeId")
 	private int connectionTypeId;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "Id", nullable = false)
 	public int getId() {
 		return id;
 	}
@@ -35,7 +39,6 @@ public class ApplianceEntity implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "Appliance_Name")
 	public String getAppliance_Name() {
 		return appliance_Name;
 	}
@@ -44,7 +47,6 @@ public class ApplianceEntity implements java.io.Serializable {
 		this.appliance_Name = appliance_Name;
 	}
 
-	@Column(name = "Appliance_Pic")
 	public String getAppliance_Pic() {
 		return appliance_Pic;
 	}
@@ -53,7 +55,6 @@ public class ApplianceEntity implements java.io.Serializable {
 		this.appliance_Pic = appliance_Pic;
 	}
 
-	@Column(name = "Appliance_Details")
 	public String getAppliance_Details() {
 		return appliance_Details;
 	}
@@ -62,7 +63,6 @@ public class ApplianceEntity implements java.io.Serializable {
 		this.appliance_Details = appliance_Details;
 	}
 
-	@Column(name = "Applliance_Cost")
 	public int getApplliance_Cost() {
 		return applliance_Cost;
 	}

@@ -19,17 +19,17 @@ import com.jyothigas.app.dao.ApplianceBookingDAO;
 import com.jyothigas.app.dao.BookingDAO;
 import com.jyothigas.app.dao.ConnectionTypeDAO;
 import com.jyothigas.app.dao.ConsumerDAO;
-import com.jyothigas.app.dao.DealerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.entity.ApplianceBookingEntity;
 import com.jyothigas.app.entity.BookingEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
-import com.jyothigas.app.entity.DealerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.ApplianceBooking;
 import com.jyothigas.app.model.Appliances;
 import com.jyothigas.app.model.Booking;
 import com.jyothigas.app.model.Mail;
+import com.jyothigas.app.model.Reports;
+import com.jyothigas.app.model.SMS;
 import com.jyothigas.utils.Constant;
 import com.jyothigas.utils.OTPUtil;
 
@@ -63,12 +63,9 @@ public class BookingService {
 	@Autowired
 	EmailService emailService;
 
-	@Autowired
-	DealerDAO dealerDAO;
-
 	/**
 	 * Method for Insert booking data
-	 * 
+	 *
 	 * @param booking
 	 */
 	/*
@@ -103,23 +100,30 @@ public class BookingService {
 				}
 			}
 
+			// Send Notification to Customer
 			ConsumerEntity consumerEntity = consumerDAO.findById(ConsumerEntity.class, booking.getConsumer_id());
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
 					consumerEntity.getReg_id());
-			DealerEntity dealerEntity = dealerDAO.findById(DealerEntity.class, registrationEntity.getDealerId());
-			// Send reference to mobile
+			RegistrationEntity dealerEntity = registrationDAO.findById(RegistrationEntity.class,
+					registrationEntity.getId());
 			String mesg = Constant.BOOKING_MESSAGE.replace("{REF}", refToken).replace("{NAME}",
 					registrationEntity.getName());
-			smsService.sendMessage(mesg + dealerEntity.getDealer_contact_no(), registrationEntity.getContactNo());
+			smsService.sendMessage(mesg + dealerEntity.getContactNo(), registrationEntity.getContactNo());
 			Map<String, String> tokenMap = new HashMap<String, String>();
 			tokenMap.put("REFERENCE", refToken);
 			tokenMap.put("NAME", registrationEntity.getName());
 			tokenMap.put("PRICE", String.valueOf(booking.getTotal()));
-			tokenMap.put("DEALER_NAME", dealerEntity.getDealer_name());
-			tokenMap.put("DEALER_NO", dealerEntity.getDealer_contact_no());
+			tokenMap.put("DEALER_NAME", dealerEntity.getName());
+			tokenMap.put("DEALER_NO", dealerEntity.getContactNo());
 			sendNotificationEmail(booking.getBookingType(), registrationEntity.getEmail(), tokenMap);
-			sendEmailToDealer(refToken, registrationEntity.getEmail(), dealerEntity.getDealer_email(),
-					dealerEntity.getDealer_name(), registrationEntity.getContactNo(), booking.getBookingType());
+
+			// Send Notification to Dealer
+			sendEmailToDealer(refToken, registrationEntity.getEmail(), dealerEntity.getEmail(), dealerEntity.getName(),
+					registrationEntity.getContactNo(), booking.getBookingType());
+			// sendSMSToDealer(refToken, registrationEntity.getEmail(),
+			// dealerEntity.getDealer_contact_no(),
+			// dealerEntity.getDealer_name(), registrationEntity.getContactNo(),
+			// booking.getBookingType());
 			BeanUtils.copyProperties(bookingEntityObj, bookingObj);
 		} catch (Exception e) {
 			logger.error("Error in Inserting booking data...");
@@ -128,7 +132,25 @@ public class BookingService {
 		return bookingObj;
 	}
 
-	private void sendNotificationEmail(String bookingType, String EmailTo, Map<String, String> refillMap) throws MailException, InterruptedException {
+	private void sendSMSToDealer(String refToken, String CustEmail, String DealerNo, String dealerName, String custNO,
+			String BookingType) {
+
+		SMS sms = new SMS();
+		sms.setPhoneNumber(DealerNo);
+		Map<String, String> valueMap = new HashMap<String, String>();
+		valueMap.put("DEALER_NAME", dealerName);
+		valueMap.put("CUST_EMAIL", CustEmail);
+		valueMap.put("ENTITY", BookingType);
+		valueMap.put("REFERENCE", refToken);
+		valueMap.put("CUST_PH", custNO);
+		sms.setTemplate(SMSService.BOOKING_MSG_DEALER);
+		sms.setValueMap(valueMap);
+		smsService.sendSMS(sms);
+
+	}
+
+	private void sendNotificationEmail(String bookingType, String EmailTo, Map<String, String> refillMap)
+			throws MailException, InterruptedException {
 		Mail mail = new Mail();
 		if (bookingType.equals("REFILL")) {
 			mail.setTemplateName(EmailService.EMAIL_BOOKING_REFILL);
@@ -191,7 +213,7 @@ public class BookingService {
 
 	/**
 	 * Method for update booking status
-	 * 
+	 *
 	 * @param booking
 	 */
 	public int updateProductBooking(Booking booking) {
@@ -213,7 +235,7 @@ public class BookingService {
 
 	/**
 	 * Method for fetch booking details by status
-	 * 
+	 *
 	 * @param booking
 	 * @return
 	 */
@@ -239,7 +261,7 @@ public class BookingService {
 
 	/**
 	 * Method for fetch booking details by consumer
-	 * 
+	 *
 	 * @param booking
 	 * @return
 	 */
@@ -265,7 +287,7 @@ public class BookingService {
 
 	/**
 	 * Method for fetch booking details by Connection type
-	 * 
+	 *
 	 * @param booking
 	 * @return
 	 */
@@ -290,7 +312,7 @@ public class BookingService {
 
 	/**
 	 * Method fetch all booking details
-	 * 
+	 *
 	 * @param booking
 	 * @return
 	 */
@@ -315,7 +337,7 @@ public class BookingService {
 
 	/**
 	 * Method fetch all booking details
-	 * 
+	 *
 	 * @param booking
 	 * @return
 	 */
@@ -352,7 +374,7 @@ public class BookingService {
 			todate.set(Calendar.MONTH, Calendar.MARCH);
 			todate.set(Calendar.DAY_OF_MONTH, 31);
 			todate.set(Calendar.YEAR, year + 1);
-			return bookingDAO.findCylinderSoldFY(fromdate.getTime(), todate.getTime(), type);
+			return bookingDAO.findCylinderSoldFY(fromdate.getTime(), todate.getTime(), Integer.parseInt(type));
 
 		} catch (Exception e) {
 			logger.error("Error in findAllBookings");
@@ -363,7 +385,7 @@ public class BookingService {
 
 	/**
 	 * Method for check booking DateTime (Before 6 PM)
-	 * 
+	 *
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
@@ -379,7 +401,7 @@ public class BookingService {
 
 	/**
 	 * Method for get Delivery Date
-	 * 
+	 *
 	 * @return
 	 */
 	private Date getDeliveryDate() {
@@ -392,6 +414,41 @@ public class BookingService {
 			e.printStackTrace();
 		}
 		return cal.getTime();
+	}
+
+	// Reporting
+	public Map<String, Integer> cylinderBookForFY(int year) {
+		List<ConsumerEntity> consumerList = consumerDAO.getAllCustomer();
+		Calendar fromdate = Calendar.getInstance();
+		Calendar todate = Calendar.getInstance();
+		fromdate.set(Calendar.MONTH, Calendar.MARCH);
+		fromdate.set(Calendar.DAY_OF_MONTH, 31);
+		fromdate.set(Calendar.YEAR, year);
+
+		todate.set(Calendar.MONTH, Calendar.MARCH);
+		todate.set(Calendar.DAY_OF_MONTH, 31);
+		todate.set(Calendar.YEAR, year + 1);
+		Map<String, Integer> custMap = new HashMap<String, Integer>();
+		Map<Integer, Integer> customerBooking = bookingDAO.findCylinderSoldFYbyCustId(fromdate.getTime(),
+				todate.getTime(), consumerList);
+		for (int regId : customerBooking.keySet()) {
+			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class, regId);
+			custMap.put(registrationEntity.getEmail(), customerBooking.get(regId));
+		}
+		return custMap;
+	}
+
+	// Report report for Dealer
+	public List<Reports> salesReportForDealer(int dealerId) {
+		List<Reports> customerBooking = new ArrayList<Reports>();
+		List<Integer> regList = registrationDAO.getRegIdByDealer(dealerId);
+		if (null != regList) {
+			List<Integer> custList = consumerDAO.findByRegIds(regList);
+			if (null != custList) {
+				customerBooking = bookingDAO.salesReportForDealer(custList);
+			}
+		}
+		return customerBooking;
 	}
 
 }
