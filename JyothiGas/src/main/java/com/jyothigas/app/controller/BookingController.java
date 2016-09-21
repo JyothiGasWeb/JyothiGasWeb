@@ -207,6 +207,7 @@ public class BookingController {
     @RequestMapping(value = Constant.GET_FY_CYLINDER_BOOKING, method = RequestMethod.GET)
     public @ResponseBody
     Object findCylinderBookedFY(@RequestParam Integer year) {
+
         logger.info("Getting User Details..");
         AppResponse appResponse = new AppResponse();
         try {
@@ -234,6 +235,7 @@ public class BookingController {
      * @param year
      * @return
      */
+
     @RequestMapping(value = Constant.GET_FY_CYLINDER_BOOKING_CUST, method = RequestMethod.GET)
     public @ResponseBody
     Object findCylinderBookedCustomerFY(@RequestParam Integer year) {

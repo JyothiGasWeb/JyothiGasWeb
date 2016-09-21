@@ -11,8 +11,8 @@
                         <div flex layout="column" layout-padding>
                             <div class="md-body-2">{{appliance.appliance_Name}}</div>
                             <div>Offering you the flexibility</div>
-                            <div class="md-title">Price: Rs. {{appliance.applliance_Cost}}</div>
-                            <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.applliance_Cost}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
+                            <div class="md-title">Price: Rs. {{appliance.customerWithoutTax}}</div>
+                            <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.customerWithoutTax}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
                         </div>
                         <md-divider></md-divider>
                     </div>

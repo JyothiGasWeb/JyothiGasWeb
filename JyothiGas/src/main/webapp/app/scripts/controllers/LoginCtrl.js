@@ -42,10 +42,6 @@ angular.module('clientApp')
             $state.go('registerNew');
         };
 
-        $scope.registerOld = function() {
-            $state.go('registerOld');
-        }
-
         var init = function() {
             //console.log(SessionService.getSession())
         }

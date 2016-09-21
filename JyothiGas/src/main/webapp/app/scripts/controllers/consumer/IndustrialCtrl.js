@@ -30,7 +30,7 @@ controller('IndustrialCtrl', ['$scope', 'ConsumerService', 'SessionService', '_'
     };
 
     $scope.calculate = function() {
-        $scope.total = 2000 + 400 + 200 + $scope.connection.connectionType.applliance_Cost;
+        $scope.total = 2000 + 400 + 200 + $scope.connection.connectionType.customerWithoutTax;
     };
 
     var getAppliances = function() {

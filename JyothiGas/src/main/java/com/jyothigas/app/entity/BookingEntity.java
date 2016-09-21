@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
 @Table(name = "Booking")
 public class BookingEntity implements java.io.Serializable {
 
+
     /**
      *
      */

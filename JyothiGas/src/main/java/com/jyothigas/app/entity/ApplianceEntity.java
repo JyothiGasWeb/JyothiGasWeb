@@ -28,6 +28,36 @@ public class ApplianceEntity implements java.io.Serializable {
 	private String appliance_Details;
         @Column(name = "Applliance_Cost")
 	private int applliance_Cost;
+	private float dealerWithoutTax;
+	private float customerWithoutTax;
+	private float tax;
+	
+	@Column(name = "DealerWithoutTax")
+	public float getDealerWithoutTax() {
+		return dealerWithoutTax;
+	}
+
+	public void setDealerWithoutTax(float dealerWithoutTax) {
+		this.dealerWithoutTax = dealerWithoutTax;
+	}
+
+	@Column(name = "CustomerWithoutTax")
+	public float getCustomerWithoutTax() {
+		return customerWithoutTax;
+	}
+
+	public void setCustomerWithoutTax(float customerWithoutTax) {
+		this.customerWithoutTax = customerWithoutTax;
+	}
+	@Column(name = "Tax")
+	public float getTax() {
+		return tax;
+	}
+
+	public void setTax(float tax) {
+		this.tax = tax;
+	}
+
 	@Column(name = "ConnectionTypeId")
 	private int connectionTypeId;
 

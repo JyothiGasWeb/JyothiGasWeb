@@ -5,121 +5,136 @@ import java.util.List;
 
 public class Booking implements java.io.Serializable {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -2242391092920269445L;
-    private int id;
-    private int consumer_id;
+
     private int user_id;
-    private Date booking_date;
-    private Date date_of_deleivery;
-    private Date last_issue;
-    private Date last_deleivery;
-    private int quantity;
-    private int connectionTypeId;
-    private String status;
-    private String reference;
-    private double gasRefill_charges;
-    private double handling_charges;
-    private double delievery_charges;
-    private double total;
-    private List<ApplianceBooking> applianceIds;
-    private List<Appliances> appliancesObj;
-    private String bookingType;
+
     private String userType;
 
-    public String getBookingType() {
-        return bookingType;
-    }
+   
+	private static final long serialVersionUID = -2242391092920269445L;
+	private int id;
+	private int consumer_id;
+	private Date booking_date;
+	private Date date_of_deleivery;
+	private Date last_issue;
+	private Date last_deleivery;
+	private int quantity;
+	private int connectionTypeId;
+	private String status;
+	private String reference;
+	private double gasRefill_charges;
+	private double handling_charges;
+	private double delievery_charges;
+	private double regulator_charges;
+	private double total;
+	private double deposite_charges;
+	private List<ApplianceBooking> applianceIds;
+	private List<Appliances> appliancesObj;
+	private String bookingType;
 
-    public void setBookingType(String bookingType) {
-        this.bookingType = bookingType;
-    }
+	
+	
+	public double getRegulator_charges() {
+		return regulator_charges;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setRegulator_charges(double regulator_charges) {
+		this.regulator_charges = regulator_charges;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String getBookingType() {
+		return bookingType;
+	}
 
-    public int getConsumer_id() {
-        return consumer_id;
-    }
+	public void setBookingType(String bookingType) {
+		this.bookingType = bookingType;
+	}
 
-    public void setConsumer_id(int consumer_id) {
-        this.consumer_id = consumer_id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public Date getBooking_date() {
-        return booking_date;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setBooking_date(Date booking_date) {
-        this.booking_date = booking_date;
-    }
+	public int getConsumer_id() {
+		return consumer_id;
+	}
 
-    public Date getDate_of_deleivery() {
-        return date_of_deleivery;
-    }
+	public void setConsumer_id(int consumer_id) {
+		this.consumer_id = consumer_id;
+	}
 
-    public void setDate_of_deleivery(Date date_of_deleivery) {
-        this.date_of_deleivery = date_of_deleivery;
-    }
+	public Date getBooking_date() {
+		return booking_date;
+	}
 
-    public Date getLast_issue() {
-        return last_issue;
-    }
+	public void setBooking_date(Date booking_date) {
+		this.booking_date = booking_date;
+	}
 
-    public void setLast_issue(Date last_issue) {
-        this.last_issue = last_issue;
-    }
+	public Date getDate_of_deleivery() {
+		return date_of_deleivery;
+	}
 
-    public Date getLast_deleivery() {
-        return last_deleivery;
-    }
+	public void setDate_of_deleivery(Date date_of_deleivery) {
+		this.date_of_deleivery = date_of_deleivery;
+	}
 
-    public void setLast_deleivery(Date last_deleivery) {
-        this.last_deleivery = last_deleivery;
-    }
+	public Date getLast_issue() {
+		return last_issue;
+	}
 
-    public int getQuantity() {
-        return quantity;
-    }
+	public void setLast_issue(Date last_issue) {
+		this.last_issue = last_issue;
+	}
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+	public Date getLast_deleivery() {
+		return last_deleivery;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setLast_deleivery(Date last_deleivery) {
+		this.last_deleivery = last_deleivery;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
-    public int getConnectionTypeId() {
-        return connectionTypeId;
-    }
 
-    public void setConnectionTypeId(int connectionTypeId) {
-        this.connectionTypeId = connectionTypeId;
-    }
+	public int getQuantity() {
+		return quantity;
+	}
 
-    public String getReference() {
-        return reference;
-    }
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public List<ApplianceBooking> getApplianceIds() {
-        return applianceIds;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getConnectionTypeId() {
+		return connectionTypeId;
+	}
+
+	public void setConnectionTypeId(int connectionTypeId) {
+		this.connectionTypeId = connectionTypeId;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public List<ApplianceBooking> getApplianceIds() {
+		return applianceIds;
+	}
 
     public void setApplianceIds(List<ApplianceBooking> applianceIds) {
         this.applianceIds = applianceIds;
@@ -182,5 +197,13 @@ public class Booking implements java.io.Serializable {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
+	public double getDeposite_charges() {
+		return deposite_charges;
+	}
+
+	public void setDeposite_charges(double deposite_charges) {
+		this.deposite_charges = deposite_charges;
+	}
 
 }

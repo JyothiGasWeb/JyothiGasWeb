@@ -1,5 +1,5 @@
 angular.module('clientApp')
-    .controller('RegisterNewCtrl', ['$scope', 'RegisterService', '$state', 'AlertService', '$mdDialog', '$timeout', function($scope, RegisterService, $state, AlertService, $mdDialog, $timeout) {
+    .controller('RegisterNewCtrl', ['$scope', 'RegisterService', '$state', 'AlertService', '$mdDialog', '$timeout', 'LoginService', function($scope, RegisterService, $state, AlertService, $mdDialog, $timeout, LoginService) {
 
 
         $scope.dealers = [];
@@ -98,13 +98,53 @@ angular.module('clientApp')
                 .then(function() {
                     AlertService.alert("Mobile Validated Successfully", "1500");
                     $timeout(function() {
-                        $state.go('login');
+                        gotoLogin();
                     }, 1000);
                     
                 }, function() {
                     $scope.status = 'You cancelled the dialog.';
                 });
         };
+
+        var saveUser = function(username) {
+            var obj = {
+                "email": username
+            }
+            LoginService.getConsumer(obj).then(function(response) {
+                var userObj = {
+                    "consumer_id": response.consumer_id,
+                    "email": response.email,
+                    "connectionTypeName": response.connectionTypeName,
+                    "connectionTypeId": response.connectionTypeId
+                }
+                SessionService.setConsumerSession(response);
+                SessionService.setSession(userObj);
+                $state.go('consumerDash');
+                console.log(response)
+            }, function(response) {
+                console.log("errror");
+            });
+        };
+
+        var gotoLogin = function() {
+            $scope.loginObj = {
+                "username": $scope.user.email,
+                "password": $scope.user.encyPassword
+            }
+            LoginService.login($scope.loginObj).then(function(response) {
+                if (response && response.status == 'OK') {
+                    saveUser($scope.loginObj.username);
+                } else if (response.accessToken && !response.username) {
+                    AlertService.alert("Account not activated", 'md-warn');
+                } else {
+                    AlertService.alert("Email and password did not match", 'md-warn');
+                }
+            }, function(response) {
+                console.log(response);
+            })
+
+        };
+
 
         function init() {
             getAllDealers();

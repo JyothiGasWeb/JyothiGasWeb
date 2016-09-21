@@ -37,31 +37,31 @@ import com.jyothigas.utils.OTPUtil;
 @Transactional
 public class BookingService {
 
-	private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
 
-	@Autowired
-	BookingDAO bookingDAO;
+    @Autowired
+    BookingDAO bookingDAO;
 
-	@Autowired
-	SMSService smsService;
+    @Autowired
+    SMSService smsService;
 
-	@Autowired
-	RegistrationDAO registrationDAO;
+    @Autowired
+    RegistrationDAO registrationDAO;
 
-	@Autowired
-	ConsumerDAO consumerDAO;
+    @Autowired
+    ConsumerDAO consumerDAO;
 
-	@Autowired
-	ConnectionTypeDAO connectionTypeDao;
+    @Autowired
+    ConnectionTypeDAO connectionTypeDao;
 
-	@Autowired
-	ApplianceBookingDAO applianceBookingDAO;
+    @Autowired
+    ApplianceBookingDAO applianceBookingDAO;
 
-	@Autowired
-	CommonService commonService;
+    @Autowired
+    CommonService commonService;
 
-	@Autowired
-	EmailService emailService;
+    @Autowired
+    EmailService emailService;
 
 	/**
 	 * Method for Insert booking data
@@ -416,6 +416,8 @@ public class BookingService {
 		return cal.getTime();
 	}
 
+
+   
 	// Reporting
 	public Map<String, Integer> cylinderBookForFY(int year) {
 		List<ConsumerEntity> consumerList = consumerDAO.getAllCustomer();

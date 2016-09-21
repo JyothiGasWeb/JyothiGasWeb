@@ -15,7 +15,7 @@
                         <div flex>
                             <md-select ng-model="connection.connectionType" ng-model-options="{trackBy: '$value.id'}" required name="product" ng-change="calculate()">
                                 <md-option ng-repeat="item in products" ng-value="{{item}}">
-                                    {{item.appliance_Name}} - {{item.applliance_Cost}}
+                                    {{item.appliance_Name}} - {{item.customerWithoutTax}}
                                 </md-option>
                             </md-select>
                         </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div layout="row">
                         <div flex="30">Gas Refill Charges:</div>
-                        <div flex>Rs. {{connection.connectionType.applliance_Cost}}</div>
+                        <div flex>Rs. {{connection.connectionType.customerWithoutTax}}</div>
                     </div>
                     <md-divider></md-divider>
                     <div layout="row">
@@ -53,8 +53,8 @@
                         <div flex layout="column" layout-padding>
                             <div class="md-body-2">{{appliance.appliance_Name}}</div>
                             <div>Offering you the flexibility</div>
-                            <div class="md-title">Price: Rs. {{appliance.applliance_Cost}}</div>
-                            <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.applliance_Cost}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
+                            <div class="md-title">Price: Rs. {{appliance.customerWithoutTax}}</div>
+                            <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.customerWithoutTax}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
                         </div>
                     </div>
                     <md-divider></md-divider>
