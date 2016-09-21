@@ -22,13 +22,23 @@ public class Booking implements java.io.Serializable {
 	private double gasRefill_charges;
 	private double handling_charges;
 	private double delievery_charges;
+	private double regulator_charges;
 	private double total;
+	private double deposite_charges;
 	private List<ApplianceBooking> applianceIds;
 	private List<Appliances> appliancesObj;
 	private String bookingType;
 
 	
 	
+	public double getRegulator_charges() {
+		return regulator_charges;
+	}
+
+	public void setRegulator_charges(double regulator_charges) {
+		this.regulator_charges = regulator_charges;
+	}
+
 	public String getBookingType() {
 		return bookingType;
 	}
@@ -165,6 +175,14 @@ public class Booking implements java.io.Serializable {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public double getDeposite_charges() {
+		return deposite_charges;
+	}
+
+	public void setDeposite_charges(double deposite_charges) {
+		this.deposite_charges = deposite_charges;
 	}
 
 }

@@ -26,11 +26,10 @@ public class BookingEntity implements java.io.Serializable {
 	private Date date_of_deleivery;
 	private Date last_issue;
 	private Date last_deleivery;
-	private int qunatity;
+	private int quantity;
 	private int connectionTypeId;
 	private String status;
 	private String reference;
-	
 	private Date created_date;
 	private Date updated_date;
 
@@ -69,6 +68,9 @@ public class BookingEntity implements java.io.Serializable {
 	@Column(name = "Delievery_charges")
 	private double delievery_charges;
 
+	@Column(name = "Deposite_Charges")
+	private double deposite_charges;
+	
 	@Column(name = "Total")
 	private double total;
 
@@ -132,13 +134,14 @@ public class BookingEntity implements java.io.Serializable {
 		this.last_deleivery = last_deleivery;
 	}
 
+	
 	@Column(name = "Quantity")
-	public int getQunatity() {
-		return qunatity;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setQunatity(int qunatity) {
-		this.qunatity = qunatity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	@Column(name = "Status")
@@ -214,6 +217,14 @@ public class BookingEntity implements java.io.Serializable {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public double getDeposite_charges() {
+		return deposite_charges;
+	}
+
+	public void setDeposite_charges(double deposite_charges) {
+		this.deposite_charges = deposite_charges;
 	}
 
 	@Column(name = "Booking_Type")
