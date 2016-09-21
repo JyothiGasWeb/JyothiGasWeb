@@ -1,5 +1,5 @@
-angular.module('clientApp')
-    .controller('RegisterNewCtrl', ['$scope', 'RegisterService', '$state', 'AlertService', '$mdDialog', '$timeout', 'LoginService', function($scope, RegisterService, $state, AlertService, $mdDialog, $timeout, LoginService) {
+ angular.module('clientApp')
+    .controller('RegisterNewCtrl', ['$scope', 'RegisterService', '$state', 'AlertService', '$mdDialog', '$timeout', 'LoginService', 'SessionService', function($scope, RegisterService, $state, AlertService, $mdDialog, $timeout, LoginService, SessionService) {
 
 
         $scope.dealers = [];

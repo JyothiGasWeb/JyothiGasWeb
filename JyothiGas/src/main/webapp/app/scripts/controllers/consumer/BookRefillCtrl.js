@@ -37,7 +37,12 @@ angular.module('clientApp')
         }
 
         $scope.bookRefill = function() {
-            $scope.totalPrice = $scope.cylinders * $scope.connectionType.customerWithoutTax;
+            if($scope.connectionType.id ==1){
+                $scope.tax = 1;
+            }else{
+                $scope.tax = 14.5;
+            }
+            $scope.totalPrice = $scope.cylinders * Math.round(($scope.tax / 100 * $scope.connectionType.customerWithoutTax) + $scope.connectionType.customerWithoutTax);
             var obj = {
                 "consumer_id": $scope.refillObj.consumer_id,
                 "connectionTypeId": $scope.connectionType.id,

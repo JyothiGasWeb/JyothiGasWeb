@@ -36,7 +36,10 @@ controller('BookingHistoryCtrl', ['$scope', 'SessionService', 'ConsumerService',
 
     $scope.download = function(item) {
         console.log(item)
-        var docDefinition = {
+        if(item.bookingType == 'CYLINDER'){
+            
+        }
+        /*var docDefinition = {
             content: [{
                 text: 'JYOTHI GAS'
             }, {
@@ -63,7 +66,7 @@ controller('BookingHistoryCtrl', ['$scope', 'SessionService', 'ConsumerService',
                 }
             }
         };
-        pdfMake.createPdf(docDefinition).download('JyothiGas.pdf');
+        pdfMake.createPdf(docDefinition).download('JyothiGas.pdf');*/
         //pdfMake.createPdf(docDefinition).open();
 
     };

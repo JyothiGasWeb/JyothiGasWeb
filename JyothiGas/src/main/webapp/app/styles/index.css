@@ -137,6 +137,10 @@ md-menu-divider {
 .layout .layout-container .side-nav .left-nav-container .side-bar md-content .active-tab {
   background-color: #00AAE8 !important;
 }
+.layout .layout-container .side-nav .left-nav-container .side-bar md-content i.fa {
+  width: 20px;
+  text-align: left;
+}
 .dashboard .dashboard-container .dashboard-cards {
   margin: 0;
   border-radius: 0;

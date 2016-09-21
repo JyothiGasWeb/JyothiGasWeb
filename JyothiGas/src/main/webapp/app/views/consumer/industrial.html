@@ -19,15 +19,15 @@
                     </div>
                     <div layout="row">
                         <div flex="30">Cylinder Deposit:</div>
-                        <div flex>Rs. 2000</div>
+                        <div flex>Rs. 1200</div>
                     </div>
                     <div layout="row">
                         <div flex="30">Registration Charges:</div>
-                        <div flex>Rs. 400</div>
+                        <div flex>Rs. 345</div>
                     </div>
                     <div layout="row">
                         <div flex="30">Regulator Charges:</div>
-                        <div flex>Rs. 200</div>
+                        <div flex>Rs. 300</div>
                     </div>
                     <div layout="row">
                         <div flex="30">Gas Refill Charges:</div>
@@ -48,8 +48,8 @@
                             <img ng-src="{{appliance.imgSrc}}" style="width: 100px;" alt="{{appliance.appliance_Name}}">
                         </div>
                         <div flex layout="column" layout-padding>
-                            <div class="md-body-2">{{appliance.appliance_Name}}</div>
-                            <div>Offering you the flexibility</div>
+                            <div class="md-headline">{{appliance.appliance_Name}}</div>
+                            <div class="md-body-1">Offering you the flexibility</div>
                             <div class="md-title">Price: Rs. {{appliance.customerWithoutTax}}</div>
                             <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.customerWithoutTax}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
                         </div>
