@@ -30,11 +30,11 @@ controller('DomesticConnectionCtrl', ['$scope', 'ConsumerService', 'SessionServi
             "deposite_charges": 1200,
             "regulator_charges": 300,
             "gasRefill_charges": Math.round((1 / 100 * $scope.connection.connectionType.customerWithoutTax) + $scope.connection.connectionType.customerWithoutTax),
-            "handling_charges": 300,
+            "handling_charges": 345,
             "delievery_charges": 120
         };
         SessionService.createPriceSession(priceObj);
-        $scope.total = Math.round(1200 + 345 + 300 + (1 / 100 * $scope.connection.connectionType.customerWithoutTax) + $scope.connection.connectionType.customerWithoutTax);
+        $scope.total = Math.round(1200 + 345 + 300 + 120 + (1 / 100 * $scope.connection.connectionType.customerWithoutTax) + $scope.connection.connectionType.customerWithoutTax);
     };
 
     var getAppliances = function() {
