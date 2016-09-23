@@ -9,8 +9,16 @@
                             <img ng-src="{{appliance.imgSrc}}" style="width: 100px;" alt="{{appliance.appliance_Name}}">
                         </div>
                         <div flex layout="column" layout-padding>
-                            <div class="md-body-2">{{appliance.appliance_Name}}</div>
-                            <div>Offering you the flexibility</div>
+                            <div class="md-headline">{{appliance.appliance_Name}}</div>
+                            <div class="md-body-1" ng-if="appliance.appliance_Name == 'Single Burner Stove' || appliance.appliance_Name == 'Double Burner Stove' || appliance.appliance_Name == 'Triple Burner Stove'">
+                                <ul>
+                                    <li>Aesthetically Designed Stainless Steel Body</li>
+                                    <li>Specially designed Mixing Tube and Pure Brass burners with uniform openings for perfect Blue Flame and high Thermal Efficiency.</li>
+                                    <li>ABS Knob for durability and long life.</li>
+                                    <li>ISI Certified / 2 year warranty.</li>
+                                </ul>
+                            </div>
+                            <div class="md-body-1" ng-if="appliance.appliance_Name != 'Single Burner Stove' && appliance.appliance_Name != 'Double Burner Stove' && appliance.appliance_Name != 'Triple Burner Stove'">Offering you the flexibility</div>
                             <div class="md-title">Price: Rs. {{appliance.customerWithoutTax}}</div>
                             <ngcart-addtocart id="{{appliance.id}}" name="{{appliance.appliance_Name}}" price="{{appliance.customerWithoutTax}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>
                         </div>

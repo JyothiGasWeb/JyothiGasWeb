@@ -89,11 +89,15 @@ angular.module('clientApp')
 
         this.createPriceSession = function(price) {
             if (localStorageService.isSupported) {
+                localStorageService.set("deposite_charges", price.deposite_charges);
+                localStorageService.set("regulator_charges", price.regulator_charges);
                 localStorageService.set("gasRefill_charges", price.gasRefill_charges);
                 localStorageService.set("handling_charges", price.handling_charges);
                 localStorageService.set("delievery_charges", price.delievery_charges);
 
             } else {
+                localStorageService.cookie.set("deposite_charges", price.deposite_charges);
+                localStorageService.cookie.set("regulator_charges", price.regulator_charges);
                 localStorageService.cookie.set("gasRefill_charges", price.gasRefill_charges);
                 localStorageService.cookie.set("handling_charges", price.handling_charges);
                 localStorageService.cookie.set("delievery_charges", price.delievery_charges);
@@ -103,10 +107,14 @@ angular.module('clientApp')
         this.getPriceSession = function() {
             var priceObj = {};
             if (localStorageService.isSupported) {
+                priceObj.deposite_charges = localStorageService.get("deposite_charges");
+                priceObj.regulator_charges = localStorageService.get("regulator_charges");
                 priceObj.gasRefill_charges = localStorageService.get("gasRefill_charges");
                 priceObj.handling_charges = localStorageService.get("handling_charges");
                 priceObj.delievery_charges = localStorageService.get("delievery_charges");
             } else {
+                priceObj.deposite_charges = localStorageService.cookie.get("deposite_charges");
+                priceObj.regulator_charges = localStorageService.cookies.get("regulator_charges");
                 priceObj.gasRefill_charges = localStorageService.cookie.get("gasRefill_charges");
                 priceObj.handling_charges = localStorageService.cookie.get("handling_charges");
                 priceObj.delievery_charges = localStorageService.cookie.get("delievery_charges");

@@ -35,19 +35,43 @@ controller('BookingHistoryCtrl', ['$scope', 'SessionService', 'ConsumerService',
     };
 
     $scope.download = function(item) {
-        console.log(item)
+        var itemsDetailed = [
+            [{ text: 'Booking Name', style: 'subheader' }, { text: 'Quantity', style: 'subheader' },
+                { text: 'Price', style: 'subheader' }, { text: 'Total Amount', style: 'subheader' },
+            ]
+        ];
+        if (item.bookingType == 'CYLINDER') {
+            var price = item.gasRefill_charges + item.handling_charges + item.delievery_charges + item.regulator_charges + item.deposite_charges;
+            var total = item.quantity * price;
+            var cylinderArr = [];
+            cylinderArr.push("Cylinder", item.quantity.toString(), price.toString(), total.toString());
+            itemsDetailed.push(cylinderArr);
+        }
+        for (var i = 0, len = item.appliancesObj.length; i < len; i++) {
+            var fila = [];
+            fila.push(item.appliancesObj[i].appliance_Name.toString(), item.appliancesObj[i].quantity.toString(), item.appliancesObj[i].customerWithoutTax.toString(), (item.appliancesObj[i].quantity * item.appliancesObj[i].customerWithoutTax).toString());
+            itemsDetailed.push(fila);
+        }
+        console.log(itemsDetailed)
+
         var docDefinition = {
             content: [{
-                text: 'JYOTHI GAS'
+                text: 'JYOTHI GAS',
+                style: 'header',
+                alignment: 'center'
+            }, {
+                text: '\nORDER ID:' + item.id
             }, {
                 style: 'demoTable',
                 table: {
                     widths: ['*', '*', '*', '*'],
+                    body: itemsDetailed
+                }
+            }, {
+                table: {
+                    widths: ['*', '*', '*', '*'],
                     body: [
-                        [{ text: 'Order No', style: 'header' }, { text: 'Booking Type', style: 'header' },
-                            { text: 'Amount', style: 'header' }, { text: 'Booking Date', style: 'header' },
-                        ],
-                        [item.id.toString(), item.bookingType, item.total.toString(), item.booking_date]
+                        ["", "", "Total ", item.total.toString()]
                     ]
                 }
             }],
@@ -55,7 +79,12 @@ controller('BookingHistoryCtrl', ['$scope', 'SessionService', 'ConsumerService',
                 header: {
                     bold: true,
                     color: '#000',
-                    fontSize: 11
+                    fontSize: 16
+                },
+                subheader: {
+                    bold: true,
+                    color: '#000',
+                    fontSize: 12
                 },
                 demoTable: {
                     color: '#666',

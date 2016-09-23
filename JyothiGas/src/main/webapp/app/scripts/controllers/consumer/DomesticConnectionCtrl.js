@@ -15,22 +15,26 @@ controller('DomesticConnectionCtrl', ['$scope', 'ConsumerService', 'SessionServi
         }
         ConsumerService.getProductType(obj).then(function(response) {
             $scope.products = response;
+            console.log($scope.products);
             $scope.connection.connectionType = response[0];
             $scope.calculate();
-            var priceObj = {
-                "gasRefill_charges": 200,
-                "handling_charges": 300,
-                "delievery_charges": 120
-            };
-            SessionService.createPriceSession(priceObj);
+
             getAppliances();
         }, function(error) {
-
-        })
+            console.log("error");
+        });
     };
 
     $scope.calculate = function() {
-        $scope.total = 2000 + 400 + 200 + $scope.connection.connectionType.customerWithoutTax;
+        var priceObj = {
+            "deposite_charges": 1200,
+            "regulator_charges": 300,
+            "gasRefill_charges": Math.round((1 / 100 * $scope.connection.connectionType.customerWithoutTax) + $scope.connection.connectionType.customerWithoutTax),
+            "handling_charges": 345,
+            "delievery_charges": 120
+        };
+        SessionService.createPriceSession(priceObj);
+        $scope.total = Math.round(1200 + 345 + 300 + 120 + (1 / 100 * $scope.connection.connectionType.customerWithoutTax) + $scope.connection.connectionType.customerWithoutTax);
     };
 
     var getAppliances = function() {
