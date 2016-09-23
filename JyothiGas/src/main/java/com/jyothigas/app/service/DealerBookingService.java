@@ -12,6 +12,7 @@ import com.jyothigas.app.entity.DealerApplianceEntity;
 import com.jyothigas.app.entity.DealerBookingEntity;
 import com.jyothigas.app.model.ApplianceBooking;
 import com.jyothigas.app.model.Booking;
+import com.jyothigas.app.model.Reports;
 import com.jyothigas.utils.OTPUtil;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,130 +33,129 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DealerBookingService {
 
-    @Autowired
-    SMSService smsService;
+	@Autowired
+	SMSService smsService;
 
-    @Autowired
-    EmailService emailService;
+	@Autowired
+	EmailService emailService;
 
-    @Autowired
-    DealerBookingDAO dealerBookingDAO;
+	@Autowired
+	DealerBookingDAO dealerBookingDAO;
 
-    @Autowired
-    DealerApplianceBookingDAO dealerAppliacneDAO;
+	@Autowired
+	DealerApplianceBookingDAO dealerAppliacneDAO;
 
-    private static final Logger logger = LoggerFactory.getLogger(DealerBookingService.class);
+	private static final Logger logger = LoggerFactory.getLogger(DealerBookingService.class);
 
-    public Booking bookProduct(Booking booking) {
-        logger.info("Inserting booking data...");
-        Booking bookingObj = new Booking();
-        String refToken = String.valueOf(OTPUtil.generateIntToken());
-        DealerBookingEntity bookingEntity = new DealerBookingEntity();
-        try {
-            BeanUtils.copyProperties(booking, bookingEntity);
-            bookingEntity.setBooking_date(new Date());
-            if (checkDeliveryDate().before(new Date())) {
-                bookingEntity.setDate_of_deleivery(new Date());
-            } else {
-                bookingEntity.setDate_of_deleivery(getDeliveryDate());
-            }
-            bookingEntity.setCreated_date(new Date());
-            bookingEntity.setReference(refToken);
-            bookingEntity.setStatus("PENDING");
-            DealerBookingEntity bookingEntityObj = dealerBookingDAO.merge(bookingEntity);
+	public Booking bookProduct(Booking booking) {
+		logger.info("Inserting booking data...");
+		Booking bookingObj = new Booking();
+		String refToken = String.valueOf(OTPUtil.generateIntToken());
+		DealerBookingEntity bookingEntity = new DealerBookingEntity();
+		try {
+			BeanUtils.copyProperties(booking, bookingEntity);
+			bookingEntity.setBooking_date(new Date());
+			if (checkDeliveryDate().before(new Date())) {
+				bookingEntity.setDate_of_deleivery(new Date());
+			} else {
+				bookingEntity.setDate_of_deleivery(getDeliveryDate());
+			}
+			bookingEntity.setCreated_date(new Date());
+			bookingEntity.setReference(refToken);
+			bookingEntity.setStatus("PENDING");
+			DealerBookingEntity bookingEntityObj = dealerBookingDAO.merge(bookingEntity);
 
-            // Saving AppliancesIds to booking
-            if (booking.getApplianceIds() != null && !booking.getApplianceIds().isEmpty()) {
-                List<DealerApplianceEntity> applianceEntityList = createAppliaceBookingEntity(
-                        booking.getApplianceIds(), bookingEntityObj.getId());
-                if (dealerAppliacneDAO.addApplianceBooking(applianceEntityList) == 0) {
-                    dealerBookingDAO.remove(bookingEntityObj);
-                    throw new Exception("Error while saving appliances for dealer");
-                }
-            }
+			// Saving AppliancesIds to booking
+			if (booking.getApplianceIds() != null && !booking.getApplianceIds().isEmpty()) {
+				List<DealerApplianceEntity> applianceEntityList = createAppliaceBookingEntity(booking.getApplianceIds(),
+						bookingEntityObj.getId());
+				if (dealerAppliacneDAO.addApplianceBooking(applianceEntityList) == 0) {
+					dealerBookingDAO.remove(bookingEntityObj);
+					throw new Exception("Error while saving appliances for dealer");
+				}
+			}
 
-            BeanUtils.copyProperties(bookingEntityObj, bookingObj);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bookingObj;
-    }
+			BeanUtils.copyProperties(bookingEntityObj, bookingObj);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bookingObj;
+	}
 
-//    Dealer for report
-    public int noOfCylinderBookedFYbyDealer(int year,int userId) {
-        int count = 0;
-        try {
-            Calendar fromdate = Calendar.getInstance();
-            Calendar todate = Calendar.getInstance();
-            fromdate.set(Calendar.MONTH, Calendar.MARCH);
-            fromdate.set(Calendar.DAY_OF_MONTH, 31);
-            fromdate.set(Calendar.YEAR, year);
+	// Purchase report
+	public List<Reports> getPurchaseReport(int year, int userId) {
+		List<Reports> report = new ArrayList<Reports>();
+		try {
+			Calendar fromdate = Calendar.getInstance();
+			Calendar todate = Calendar.getInstance();
+			fromdate.set(Calendar.MONTH, Calendar.MARCH);
+			fromdate.set(Calendar.DAY_OF_MONTH, 31);
+			fromdate.set(Calendar.YEAR, year);
 
-            todate.set(Calendar.MONTH, Calendar.MARCH);
-            todate.set(Calendar.DAY_OF_MONTH, 31);
-            todate.set(Calendar.YEAR, year + 1);
-            count = dealerBookingDAO.noOfCylinderBookedFYbyDealer(fromdate.getTime(), todate.getTime(),userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return count;
-    }
-    
-    
-//Report for distributor
-    public int noOfCylinderBookedFYbyDistributor(int year,int userId) {
-        int count = 0;
-        try {
-            Calendar fromdate = Calendar.getInstance();
-            Calendar todate = Calendar.getInstance();
-            fromdate.set(Calendar.MONTH, Calendar.MARCH);
-            fromdate.set(Calendar.DAY_OF_MONTH, 31);
-            fromdate.set(Calendar.YEAR, year);
+			todate.set(Calendar.MONTH, Calendar.MARCH);
+			todate.set(Calendar.DAY_OF_MONTH, 31);
+			todate.set(Calendar.YEAR, year + 1);
+			report = dealerBookingDAO.getPurchaseReport(fromdate.getTime(), todate.getTime(), userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return report;
+	}
 
-            todate.set(Calendar.MONTH, Calendar.MARCH);
-            todate.set(Calendar.DAY_OF_MONTH, 31);
-            todate.set(Calendar.YEAR, year + 1);
-            count = dealerBookingDAO.noOfCylinderBookedFYbyDistributor(fromdate.getTime(), todate.getTime(),userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return count;
-    }
+	// Report for distributor
+	public int noOfCylinderBookedFYbyDistributor(int year, int userId) {
+		int count = 0;
+		try {
+			Calendar fromdate = Calendar.getInstance();
+			Calendar todate = Calendar.getInstance();
+			fromdate.set(Calendar.MONTH, Calendar.MARCH);
+			fromdate.set(Calendar.DAY_OF_MONTH, 31);
+			fromdate.set(Calendar.YEAR, year);
 
-    @SuppressWarnings("deprecation")
-    private Date checkDeliveryDate() {
-        Date date = null;
-        try {
-            date = new Date(new Date().getYear(), new Date().getMonth(), new Date().getDate(), 18, 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
+			todate.set(Calendar.MONTH, Calendar.MARCH);
+			todate.set(Calendar.DAY_OF_MONTH, 31);
+			todate.set(Calendar.YEAR, year + 1);
+			count = dealerBookingDAO.noOfCylinderBookedFYbyDistributor(fromdate.getTime(), todate.getTime(), userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 
-    private Date getDeliveryDate() {
-        Calendar cal = null;
-        try {
-            cal = Calendar.getInstance();
-            cal.setTime(new Date()); // sets calendar time/date
-            cal.add(Calendar.DAY_OF_MONTH, 1); // adds one day
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return cal.getTime();
-    }
+	@SuppressWarnings("deprecation")
+	private Date checkDeliveryDate() {
+		Date date = null;
+		try {
+			date = new Date(new Date().getYear(), new Date().getMonth(), new Date().getDate(), 18, 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
 
-    private List<DealerApplianceEntity> createAppliaceBookingEntity(List<ApplianceBooking> applianceIds,
-            int bookingId) {
-        List<DealerApplianceEntity> entityList = new ArrayList<DealerApplianceEntity>();
-        for (ApplianceBooking appliance : applianceIds) {
-            DealerApplianceEntity entity = new DealerApplianceEntity();
-            entity.setApplianceId(appliance.getApplianceId());
-            entity.setBookingId(bookingId);
-            entity.setQuantity(appliance.getQuantity());
-            entityList.add(entity);
-        }
-        return entityList;
-    }
+	private Date getDeliveryDate() {
+		Calendar cal = null;
+		try {
+			cal = Calendar.getInstance();
+			cal.setTime(new Date()); // sets calendar time/date
+			cal.add(Calendar.DAY_OF_MONTH, 1); // adds one day
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cal.getTime();
+	}
+
+	private List<DealerApplianceEntity> createAppliaceBookingEntity(List<ApplianceBooking> applianceIds,
+			int bookingId) {
+		List<DealerApplianceEntity> entityList = new ArrayList<DealerApplianceEntity>();
+		for (ApplianceBooking appliance : applianceIds) {
+			DealerApplianceEntity entity = new DealerApplianceEntity();
+			entity.setApplianceId(appliance.getApplianceId());
+			entity.setBookingId(bookingId);
+			entity.setQuantity(appliance.getQuantity());
+			entityList.add(entity);
+		}
+		return entityList;
+	}
 
 }

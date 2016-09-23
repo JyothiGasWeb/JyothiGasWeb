@@ -31,9 +31,19 @@ public class Booking implements java.io.Serializable {
 	private List<ApplianceBooking> applianceIds;
 	private List<Appliances> appliancesObj;
 	private String bookingType;
+	private int dealerDistributorId;
 
 	
 	
+
+	public int getDealerDistributorId() {
+		return dealerDistributorId;
+	}
+
+	public void setDealerDistributorId(int dealerDistributorId) {
+		this.dealerDistributorId = dealerDistributorId;
+	}
+
 	public double getRegulator_charges() {
 		return regulator_charges;
 	}

@@ -57,7 +57,8 @@ public class Constant {
     public static final String GET_FY_CYLINDER_BOOKING = "/getCylinderBookingsFY";
     public static final String GET_FY_CYLINDER_BOOKING_CUST = "/getCylinderBookingsCustomerFY";
     public static final String GET_FY_CYLINDER_SOLD = "/getCylinderSoldFY";
-    public static final String GET_SALES_REPORT_DEALER = "/getSalesReportDealer";
+    public static final String GET_SALES_REPORT = "/getSalesReportDealer";
+    public static final String GET_PURCHASE_REPORT = "/getPurchaseReport";
     // Not Working API's
     public static final String FORGOT_PASSWORD = "/forgotPassword";
 

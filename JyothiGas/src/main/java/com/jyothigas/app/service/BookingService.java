@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import com.jyothigas.app.dao.ConsumerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.entity.ApplianceBookingEntity;
 import com.jyothigas.app.entity.BookingEntity;
+import com.jyothigas.app.entity.ConnectionTypeEntity;
 import com.jyothigas.app.entity.ConsumerEntity;
 import com.jyothigas.app.entity.RegistrationEntity;
 import com.jyothigas.app.model.ApplianceBooking;
@@ -37,31 +39,31 @@ import com.jyothigas.utils.OTPUtil;
 @Transactional
 public class BookingService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
+	private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
 
-    @Autowired
-    BookingDAO bookingDAO;
+	@Autowired
+	BookingDAO bookingDAO;
 
-    @Autowired
-    SMSService smsService;
+	@Autowired
+	SMSService smsService;
 
-    @Autowired
-    RegistrationDAO registrationDAO;
+	@Autowired
+	RegistrationDAO registrationDAO;
 
-    @Autowired
-    ConsumerDAO consumerDAO;
+	@Autowired
+	ConsumerDAO consumerDAO;
 
-    @Autowired
-    ConnectionTypeDAO connectionTypeDao;
+	@Autowired
+	ConnectionTypeDAO connectionTypeDao;
 
-    @Autowired
-    ApplianceBookingDAO applianceBookingDAO;
+	@Autowired
+	ApplianceBookingDAO applianceBookingDAO;
 
-    @Autowired
-    CommonService commonService;
+	@Autowired
+	CommonService commonService;
 
-    @Autowired
-    EmailService emailService;
+	@Autowired
+	EmailService emailService;
 
 	/**
 	 * Method for Insert booking data
@@ -341,7 +343,8 @@ public class BookingService {
 	 * @param booking
 	 * @return
 	 */
-	public int findCylinderBookedFY(int year) {
+	// REPORT-1-DEALER
+	public int findCylinderBookedWithDealerFY(int year, int dealerId) {
 		logger.info("findAllBookings...");
 		try {
 			Calendar fromdate = Calendar.getInstance();
@@ -353,7 +356,7 @@ public class BookingService {
 			todate.set(Calendar.MONTH, Calendar.MARCH);
 			todate.set(Calendar.DAY_OF_MONTH, 31);
 			todate.set(Calendar.YEAR, year + 1);
-			return bookingDAO.findCylinderBookedFY(fromdate.getTime(), todate.getTime());
+			return bookingDAO.findCylinderBookedWithDealerFY(fromdate.getTime(), todate.getTime(), dealerId);
 
 		} catch (Exception e) {
 			logger.error("Error in findAllBookings");
@@ -362,8 +365,10 @@ public class BookingService {
 		return 0;
 	}
 
-	public int findCylinderSoldFY(int year, String type) {
+	// Report -2 -DEALER
+	public Map<String, Integer> findCylinderSoldProductWiseFY(int year, int typeId, int dealerId) {
 		logger.info("findAllBookings...");
+		Map<String, Integer> reportMap = new HashMap<String, Integer>();
 		try {
 			Calendar fromdate = Calendar.getInstance();
 			Calendar todate = Calendar.getInstance();
@@ -374,13 +379,27 @@ public class BookingService {
 			todate.set(Calendar.MONTH, Calendar.MARCH);
 			todate.set(Calendar.DAY_OF_MONTH, 31);
 			todate.set(Calendar.YEAR, year + 1);
-			return bookingDAO.findCylinderSoldFY(fromdate.getTime(), todate.getTime(), Integer.parseInt(type));
+			Map<Integer, Integer> bookingData = bookingDAO.findCylinderSoldProductWiseFY(fromdate.getTime(),
+					todate.getTime(), typeId, dealerId);
+			if (bookingData.size() > 0) {
+				System.out.println(" MAP > 0 ");
+				Set<Integer> productId = bookingData.keySet();
+				for (Integer id : productId) {
+					System.out.println(" Set " + id);
+					ConnectionTypeEntity product = connectionTypeDao.findById(ConnectionTypeEntity.class, id);
+					if (null != product) {
+						System.out.println(" List " + product.getConnectionType() + " - " + bookingData.get(id));
+						reportMap.put(product.getConnectionType(), bookingData.get(id));
+					}
+				}
+
+			}
 
 		} catch (Exception e) {
 			logger.error("Error in findAllBookings");
 			e.printStackTrace();
 		}
-		return 0;
+		return reportMap;
 	}
 
 	/**
@@ -416,11 +435,9 @@ public class BookingService {
 		return cal.getTime();
 	}
 
-
-   
 	// Reporting
-	public Map<String, Integer> cylinderBookForFY(int year) {
-		List<ConsumerEntity> consumerList = consumerDAO.getAllCustomer();
+	public Map<String, Integer> cylinderBookBYeachCustForFY(int year, int userId) {
+
 		Calendar fromdate = Calendar.getInstance();
 		Calendar todate = Calendar.getInstance();
 		fromdate.set(Calendar.MONTH, Calendar.MARCH);
@@ -432,24 +449,28 @@ public class BookingService {
 		todate.set(Calendar.YEAR, year + 1);
 		Map<String, Integer> custMap = new HashMap<String, Integer>();
 		Map<Integer, Integer> customerBooking = bookingDAO.findCylinderSoldFYbyCustId(fromdate.getTime(),
-				todate.getTime(), consumerList);
+				todate.getTime(), userId);
 		for (int regId : customerBooking.keySet()) {
+			System.out.println(regId);
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class, regId);
-			custMap.put(registrationEntity.getEmail(), customerBooking.get(regId));
+			if (null != registrationEntity)
+				custMap.put(registrationEntity.getEmail(), customerBooking.get(regId));
 		}
 		return custMap;
 	}
 
 	// Report report for Dealer
-	public List<Reports> salesReportForDealer(int dealerId) {
-		List<Reports> customerBooking = new ArrayList<Reports>();
-		List<Integer> regList = registrationDAO.getRegIdByDealer(dealerId);
-		if (null != regList) {
-			List<Integer> custList = consumerDAO.findByRegIds(regList);
-			if (null != custList) {
-				customerBooking = bookingDAO.salesReportForDealer(custList);
-			}
-		}
+	public List<Reports> salesReportForDealer(int dealerId, int year) {
+		Calendar fromdate = Calendar.getInstance();
+		Calendar todate = Calendar.getInstance();
+		fromdate.set(Calendar.MONTH, Calendar.MARCH);
+		fromdate.set(Calendar.DAY_OF_MONTH, 31);
+		fromdate.set(Calendar.YEAR, year);
+
+		todate.set(Calendar.MONTH, Calendar.MARCH);
+		todate.set(Calendar.DAY_OF_MONTH, 31);
+		todate.set(Calendar.YEAR, year + 1);
+		List<Reports> customerBooking = bookingDAO.salesReportForDealer(dealerId, fromdate.getTime(), todate.getTime());
 		return customerBooking;
 	}
 

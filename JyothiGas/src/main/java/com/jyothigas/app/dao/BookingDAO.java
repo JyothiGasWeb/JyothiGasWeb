@@ -39,15 +39,19 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 		return bookingEntity;
 	}
 
-	public int findCylinderBookedFY(Date fromDate, Date toDate) {
+	// Report-1-DEALER - • Number of Cylinder booked for the financial year
+	// 'WITH' Dealer
+	public int findCylinderBookedWithDealerFY(Date fromDate, Date toDate, int dealerId) {
 		log.info("Getting bookingEntity Instance");
 		int bookingCount = 0;
 		try {
-			bookingCount = entityManager
+			List<Object[]> count = entityManager
 					.createQuery(
-							"select s from BookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate and s.bookingType='REFILL'",
-							BookingEntity.class)
-					.setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList().size();
+							"select SUM(s.quantity) from BookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate and s.bookingType='REFILL' and s.dealerId=:dealer",
+							Object[].class)
+					.setParameter("fromDate", fromDate).setParameter("toDate", toDate).setParameter("dealer", dealerId)
+					.getResultList();
+			bookingCount = Integer.parseInt(String.valueOf(count.get(0)));
 			log.info("get successfull");
 		} catch (Exception e) {
 			log.error("Failed : " + e);
@@ -56,19 +60,22 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 		return bookingCount;
 	}
 
-	public Map<Integer, Integer> findCylinderSoldFYbyCustId(Date fromDate, Date toDate, List<ConsumerEntity> custIds) {
+	// Report -3
+	public Map<Integer, Integer> findCylinderSoldFYbyCustId(Date fromDate, Date toDate, int userId) {
 		log.info("Getting bookingEntity Instance");
-		int bookingCount = 0;
 		Map<Integer, Integer> report = new HashMap<Integer, Integer>();
 		try {
-			for (ConsumerEntity custId : custIds) {
-				bookingCount = entityManager
-						.createQuery(
-								"select s from BookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate and s.status ='DELIVERED' and s.bookingType='REFILL' and s.consumer_id =:custId",
-								BookingEntity.class)
-						.setParameter("fromDate", fromDate).setParameter("custId", custId.getId())
-						.setParameter("toDate", toDate).getResultList().size();
-				report.put(custId.getReg_id(), bookingCount);
+			List<Object[]> object = entityManager
+					.createQuery(
+							"select SUM(s.quantity),s.consumer_id from BookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate and s.status ='DELIVERED' and s.bookingType='REFILL' and s.dealerId =:userId group by consumer_id",
+							Object[].class)
+					.setParameter("fromDate", fromDate).setParameter("userId", userId).setParameter("toDate", toDate)
+					.getResultList();
+			for (int i = 0; i < object.size(); i++) {
+				// key -> ConnectionTypeID
+				// Value -> Count
+				report.put(Integer.parseInt(String.valueOf(object.get(i)[1])),
+						Integer.parseInt(String.valueOf(object.get(i)[0])));
 			}
 
 			log.info("get successfull");
@@ -79,22 +86,32 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 		return report;
 	}
 
-	public int findCylinderSoldFY(Date fromDate, Date toDate, int connectionType) {
+	// REPORT -2 - Number of Cylinder booked for the financial year
+	public Map<Integer, Integer> findCylinderSoldProductWiseFY(Date fromDate, Date toDate, int connectionType,
+			int dealerId) {
 		log.info("Getting bookingEntity Instance");
-		int bookingCount = 0;
+		Map<Integer, Integer> booking = new HashMap<Integer, Integer>();
 		try {
-			bookingCount = entityManager
+			List<Object[]> object = entityManager
 					.createQuery(
-							"select s from BookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate and s.status ='DELIVERED' and s.bookingType='REFILL' and s.connectionTypeId=:connectionType",
-							BookingEntity.class)
+							"select SUM(quantity),connectionTypeId from BookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate "
+									+ "and s.status ='DELIVERED' and s.bookingType='REFILL' and s.connectionTypeId=:connectionType and s.dealerId=:dealerId"
+									+ " group by connectionTypeId",
+							Object[].class)
 					.setParameter("fromDate", fromDate).setParameter("connectionType", connectionType)
-					.setParameter("toDate", toDate).getResultList().size();
+					.setParameter("dealerId", dealerId).setParameter("toDate", toDate).getResultList();
+			for (int i = 0; i < object.size(); i++) {
+				// key -> ConnectionTypeID
+				// Value -> Count
+				booking.put(Integer.parseInt(String.valueOf(object.get(i)[1])),
+						Integer.parseInt(String.valueOf(object.get(i)[0])));
+			}
 			log.info("get successfull");
 		} catch (Exception e) {
 			log.error("Failed : " + e);
 			e.printStackTrace();
 		}
-		return bookingCount;
+		return booking;
 	}
 
 	public List<BookingEntity> findByConsumerId(Integer consumer_id) {
@@ -162,14 +179,16 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Reports> salesReportForDealer(List<Integer> cust_ids) {
+	public List<Reports> salesReportForDealer(Integer userId, Date fromDate, Date toDate) {
 		log.info("Getting bookingEntity Instance");
 		List<Reports> report = null;
 		try {
 
-			Query query = entityManager.createQuery(
-					"SELECT count(Cust_Id) as Count,bookingType,sum(total) FROM BookingEntity s where bookingType='REFILL' and s.consumer_id in (:cust_ids) group by bookingType",
-					Object[].class).setParameter("cust_ids", cust_ids);
+			Query query = entityManager
+					.createQuery(
+							"SELECT  SUM(quantity),bookingType,dealerId FROM BookingEntity s where status='DELIVERED' and s.created_date >=:fromDate and s.created_date <=:toDate and s.dealerId =:userId group by bookingType,dealerId",
+							Object[].class)
+					.setParameter("userId", userId).setParameter("fromDate", fromDate).setParameter("toDate", toDate);
 
 			List<Object[]> resultList = query.getResultList();
 			report = new ArrayList<Reports>(resultList.size());

@@ -47,7 +47,7 @@ public class DealerBookingEntity implements Serializable {
     @Column(name = "Last_Date_Of_Delivery")
     private Date last_deleivery;
     @Column(name = "Quantity")
-    private int qunatity;
+    private int quantity;
     @Column(name = "Status")
     private String status;
     @Column(name = "Reference")
@@ -136,15 +136,17 @@ public class DealerBookingEntity implements Serializable {
         this.last_deleivery = last_deleivery;
     }
 
-    public int getQunatity() {
-        return qunatity;
-    }
 
-    public void setQunatity(int qunatity) {
-        this.qunatity = qunatity;
-    }
 
-    public String getStatus() {
+    public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getStatus() {
         return status;
     }
 
