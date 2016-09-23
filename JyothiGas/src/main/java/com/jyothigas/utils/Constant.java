@@ -42,6 +42,7 @@ public class Constant {
     public static final String KYC_DOWNLOAD = "/downloadFile";
     public static final String GET_DOCUMENT_NAME = "/getDocumentDetail";
     public static final String UPLOAD_IMAGE = "/uploadProfileImage";
+    public static final String GET_DEALER_SUBREGION = "/getDealerSubRegions";
 
     public static final String ACTIVE = "ACTIVE";
     public static final String INACTIVE = "INACTIVE";

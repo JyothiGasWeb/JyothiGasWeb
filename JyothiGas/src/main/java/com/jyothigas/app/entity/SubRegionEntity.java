@@ -6,13 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Dealer_SubRegion")
+@Table(name = "Sub_Region")
 public class SubRegionEntity {
 
 	private int id;
 	private String name;
 	private int pinCode;
-	private int description;
+	private String description;
 
 	@Id
 	@Column(name = "Id")
@@ -43,11 +43,11 @@ public class SubRegionEntity {
 	}
 
 	@Column(name = "Description")
-	public int getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(int description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 

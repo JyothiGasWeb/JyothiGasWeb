@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jyothigas.app.dao.MechanicDAO;
 import com.jyothigas.app.entity.MechanicEntity;
 import com.jyothigas.app.model.Mechanic;
 
 @Service
+@Transactional
 public class MechanicService {
 
 	@Autowired

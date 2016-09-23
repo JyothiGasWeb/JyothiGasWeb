@@ -18,11 +18,11 @@ public class DealerSubRegionDAO extends JyothiGasDAO<KYCDocumentEntity> {
 		List<Integer> regionIds = new ArrayList<Integer>();
 		Query query = entityManager
 				.createQuery("SELECT regionId from DealerRegionEntity s where dealerId=:dealerId", Object[].class)
-				.setParameter("cust_ids", dealerId);
+				.setParameter("dealerId", dealerId);
 		List<Object[]> resultList = query.getResultList();
 		regionIds = new ArrayList<Integer>(resultList.size());
-		for (Object[] result : resultList) {
-			regionIds.add(Integer.parseInt(String.valueOf(result)));
+		for (int i=0;i<resultList.size();i++) {
+			regionIds.add(Integer.parseInt(String.valueOf(resultList.get(i))));
 		}
 		return regionIds;
 	}
