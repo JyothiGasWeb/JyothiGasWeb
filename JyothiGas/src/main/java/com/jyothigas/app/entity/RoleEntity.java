@@ -16,7 +16,7 @@ public class RoleEntity implements java.io.Serializable {
 	private String name;
 	private int roleId;
 
-	@Id
+	
 	@Column(name = "Role")
 	public String getName() {
 		return name;
@@ -26,6 +26,7 @@ public class RoleEntity implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@Id
 	@Column(name = "Role_Id")
 	public int getRoleId() {
 		return roleId;

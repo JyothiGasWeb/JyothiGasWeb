@@ -47,7 +47,7 @@ public class BookingEntity implements java.io.Serializable {
 	@Column(name = "Reference")
 	private String reference;
 	@Column(name = "Dealer_Distributor_Id")
-	private Integer dealerId;
+	private Integer dealerDistributorId;
 	@Column(name = "Created_Date")
 	private Date created_date;
 	@Column(name = "Updated_Date")
@@ -226,12 +226,14 @@ public class BookingEntity implements java.io.Serializable {
 		this.bookingType = bookingType;
 	}
 
-	public Integer getDealerId() {
-		return dealerId;
+	public Integer getDealerDistributorId() {
+		return dealerDistributorId;
 	}
 
-	public void setDealerId(Integer dealerId) {
-		this.dealerId = dealerId;
+	public void setDealerDistributorId(Integer dealerDistributorId) {
+		this.dealerDistributorId = dealerDistributorId;
 	}
+
+
 
 }
