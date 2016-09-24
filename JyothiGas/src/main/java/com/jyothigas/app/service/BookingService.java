@@ -260,6 +260,32 @@ public class BookingService {
 		}
 		return bookingList;
 	}
+	
+	/**
+	 * Method for fetch booking details by status
+	 *
+	 * @param booking
+	 * @return
+	 */
+	public List<Booking> findByDealerOrDistId(int bookToId) {
+		logger.info("fetchBookingsByStatus...");
+		List<Booking> bookingList = new ArrayList<Booking>();
+		try {
+			List<BookingEntity> bookingEntityList = bookingDAO.findByDealerOrDistId(bookToId);
+			for (BookingEntity bookingEntity : bookingEntityList) {
+				Booking bookingObj = new Booking();
+				BeanUtils.copyProperties(bookingEntity, bookingObj);
+				bookingEntity.getId();
+				List<Appliances> applianceList = commonService.getApplianceByBookingId(bookingEntity.getId());
+				bookingObj.setAppliancesObj(applianceList);
+				bookingList.add(bookingObj);
+			}
+		} catch (Exception e) {
+			logger.error("Error in fetchBookingsByStatus");
+			e.printStackTrace();
+		}
+		return bookingList;
+	}
 
 	/**
 	 * Method for fetch booking details by consumer

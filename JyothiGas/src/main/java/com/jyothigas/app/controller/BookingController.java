@@ -71,15 +71,11 @@ public class BookingController {
 			if (result > 0) {
 				appResponse.setStatus("OK");
 				appResponse.setMessage("Success");
-				appResponse.setHttpErrorCode(200);
-				appResponse.setOauth2ErrorCode("valid_token");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			appResponse.setStatus("Error");
 			appResponse.setMessage("Please try after sometime");
-			appResponse.setHttpErrorCode(405);
-			appResponse.setOauth2ErrorCode("invalid_token");
 		}
 		return appResponse;
 	}
@@ -106,6 +102,30 @@ public class BookingController {
 			appResponse.setMessage("Please try after sometime");
 			appResponse.setHttpErrorCode(405);
 			appResponse.setOauth2ErrorCode("invalid_token");
+			appObjList.add(appResponse);
+			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
+	 * API for fetch booking details using status
+	 *
+	 * @param register
+	 * @return
+	 */
+	@RequestMapping(value = Constant.GET_PENDING_BOOKING, method = RequestMethod.GET)
+	public @ResponseBody Object findByDealerOrDistId(@RequestParam Integer bookToId) {
+		logger.info("Getting User Details..");
+		try {
+			List<Booking> bookingList = bookingService.findByDealerOrDistId(bookToId);
+			return bookingList;
+		} catch (Exception e) {
+			logger.error("Error While Getting User Details.." + e);
+			e.printStackTrace();
+			List<AppResponse> appObjList = new ArrayList<AppResponse>();
+			AppResponse appResponse = new AppResponse();
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
 			appObjList.add(appResponse);
 			return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
 		}

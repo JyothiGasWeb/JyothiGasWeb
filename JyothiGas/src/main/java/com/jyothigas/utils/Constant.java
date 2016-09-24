@@ -26,6 +26,7 @@ public class Constant {
     public static final String BOOK_DEALER_REFILL = "/bookDealerRefill";
     public static final String BOOK_DISTRIBUTOR_REFILL = "/bookDistributorRefill";
     public static final String GET_BOOKING_BY_STATUS = "/getBookingByStatus";
+    public static final String GET_PENDING_BOOKING = "/getPendingBooking";
     public static final String UPDATE_BOOKING = "/updateBooking";
     public static final String GET_BOOKING_BY_CONSUMER = "/getBookingByConsumer";
     public static final String GET_BOOKING_BY_CONNECTION_TYPE = "/getBookingByConnectionType";

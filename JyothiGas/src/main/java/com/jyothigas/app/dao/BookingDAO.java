@@ -177,6 +177,20 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 		}
 		return bookingEntity;
 	}
+	
+	public List<BookingEntity> findByDealerOrDistId(int bookToId) {
+		log.info("Getting bookingEntity Instance with status: " + bookToId);
+		List<BookingEntity> bookingEntity = new ArrayList<BookingEntity>();
+		try {
+			bookingEntity = entityManager
+					.createQuery("select s from BookingEntity s Where s.status = 'PENDING' and s.dealerDistributorId =:bookToId", BookingEntity.class)
+					.setParameter("bookToId", bookToId).getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			log.error("Failed : " + e);
+		}
+		return bookingEntity;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Reports> salesReportForDealer(Integer userId, Date fromDate, Date toDate) {
