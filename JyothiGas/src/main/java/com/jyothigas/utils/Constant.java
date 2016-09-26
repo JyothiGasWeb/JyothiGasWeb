@@ -11,13 +11,14 @@ public class Constant {
     public static final String LOGIN = "/login";
     public static final String GET_CONSUMER_DETAILS = "/getConsumerDetails";
 
-    public static final String GET_DEALER_DETAILS = "/getDealers";
+    public static final String GET_USER_LIST = "/getUserList";
     public static final String UPDATE_CONSUMER = "/updateConsumer";
     public static final String UPDATE_ADDRESS = "/updateAddress";
     public static final String UPDATE_DEALER = "/updateDealer";
     public static final String GET_APPLIANCES = "/getAppliances";
     public static final String GET_PRODUCT_BY_TYPE = "/getProductByType";
     public static final String ADD_APPLIANCES = "/addAppliance";
+    public static final String REMOVE_APPLIANCES = "/removeAppliance";
     public static final String BOOK_CONNECTION = "/bookConnection";
     public static final String BOOK_APPLIANCES = "/bookAppliances";
     public static final String BOOK_DEALER_APPLIANCES = "/bookDealerAppliances";

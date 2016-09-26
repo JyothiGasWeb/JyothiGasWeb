@@ -309,13 +309,13 @@ public class RegistrationController {
         return appResponse;
     }
 
-    @RequestMapping(value = Constant.GET_DEALER_DETAILS, method = RequestMethod.GET)
+    @RequestMapping(value = Constant.GET_USER_LIST, method = RequestMethod.GET)
     public @ResponseBody
-    Object getDealersDetail() {
+    Object getUsersDetail(@RequestParam Integer roleId) {
         logger.info("Getting Dealer Details..");
 
         try {
-            List<Dealer>  dealers = registrationService.getAllDealers();
+            List<Dealer>  dealers = registrationService.getUserList(roleId);
             return dealers;
         } catch (Exception e) {
             logger.error("Error While Getting User Details..");
@@ -330,4 +330,5 @@ public class RegistrationController {
             return new ResponseEntity<List<AppResponse>>(appObjList, HttpStatus.BAD_REQUEST);
         }
     }
+    
 }

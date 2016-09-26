@@ -103,12 +103,12 @@ public class RegistrationDAO extends JyothiGasDAO<RegistrationEntity> {
         return registrationEntity;
     }
 
-    public List<RegistrationEntity> getAllDealers() {
+    public List<RegistrationEntity> getUserList(Integer roleId) {
         log.info("Getting UserEntity Instance with status: ");
         List<RegistrationEntity> registrationEntity = new ArrayList<RegistrationEntity>();
         try {
-            registrationEntity = entityManager.createQuery("select s from RegistrationEntity s Where s.roleId = :roleId", RegistrationEntity.class)
-                    .setParameter("roleId", 2)
+            registrationEntity = entityManager.createQuery("select s from RegistrationEntity s Where s.status='ACTIVE' and s.roleId = :roleId", RegistrationEntity.class)
+                    .setParameter("roleId", roleId)
                     .getResultList();
             log.info("get successfull");
         } catch (Exception e) {

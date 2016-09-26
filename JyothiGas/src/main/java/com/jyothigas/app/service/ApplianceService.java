@@ -38,7 +38,7 @@ public class ApplianceService {
 		}
 		return appliancesList;
 	}
-	
+
 	public List<Appliances> findAppliancesByConnectionTypeId(int id) {
 		List<Appliances> appliancesList = new ArrayList<Appliances>();
 		try {
@@ -62,5 +62,17 @@ public class ApplianceService {
 		ApplianceEntity entityObj = applianceDAO.merge(entity);
 		BeanUtils.copyProperties(entityObj, applianceBean);
 		return appliance;
+	}
+
+	public boolean removeAppliance(int id) {
+		try {
+			ApplianceEntity entity = applianceDAO.findById(ApplianceEntity.class, id);
+			if (null != entity)
+				applianceDAO.remove(entity);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

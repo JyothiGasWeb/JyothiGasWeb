@@ -80,6 +80,7 @@ public class ConsumerService {
                     consumerDetails.setUserType(registrationEntity.getUserType());
                     consumerDetails.setSurrenderStatus(registrationEntity.getSurrenderStatus());
                     consumerDetails.setSurrender_Date(registrationEntity.getSurrender_Date());
+                    consumerDetails.setDistributor_Id(registrationEntity.getDistributer_id());
                     // Fetching the Role Details
                     RoleEntity roleEntity = roleDAO.findById(RoleEntity.class, registrationEntity.getRoleId());
                     if (null != roleEntity && roleEntity.getRoleId() != 0) {
@@ -96,7 +97,7 @@ public class ConsumerService {
                     RegistrationEntity dealerEntity = registrationDAO.findById(RegistrationEntity.class,
                             registrationEntity.getId());
                     if (dealerEntity != null) {
-                        consumerDetails.setDealerId(registrationEntity.getDealerId());
+                        consumerDetails.setDealerId(registrationEntity.getDealer_id());
                         consumerDetails.setDealerName(dealerEntity.getName());
                     }
                     // Fetching the connection type details
@@ -133,7 +134,7 @@ public class ConsumerService {
         try {
             RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
                     register.getId());
-            int oldDealerId = registrationEntity.getDealerId();
+            int oldDealerId = registrationEntity.getDealer_id();
             StringBuilder changedEntity = new StringBuilder();
             if (registrationEntity != null) {
                 if (register.getAddress() != null) {
@@ -152,9 +153,9 @@ public class ConsumerService {
                 if (register.getEmail() != null) {
                     registrationEntity.setEmail(register.getEmail());
                 }
-                if (register.getDealerId() > 0) {
+                if (register.getDealer_id() > 0) {
                     changedEntity.append("Dealer");
-                    registrationEntity.setDealerId(register.getDealerId());
+                    registrationEntity.setDealer_id(register.getDealer_id());
                 }
                 if (register.getConnectionTypeId() > 0) {
                     registrationEntity.setConnectionTypeId(register.getConnectionTypeId());
@@ -162,7 +163,9 @@ public class ConsumerService {
                 if (register.getAreaCode() != null) {
                     registrationEntity.setAreaCode(register.getAreaCode());
                 }
-
+                if (register.getDistributer_id() > 0) {
+                    registrationEntity.setDealer_id(register.getDistributer_id());
+                }
                 registrationEntity.setUpdatedDate(new Date());
                 registrationEntity.setId(register.getId());
                 RegistrationEntity entity = registrationDAO.merge(registrationEntity);
@@ -170,7 +173,7 @@ public class ConsumerService {
                 // Send Notification
                 // Fetching the Dealer Detail
                 RegistrationEntity newDealerEntiy = registrationDAO.findById(RegistrationEntity.class,
-                        registrationEntity.getDealerId());
+                        registrationEntity.getDealer_id());
                 RegistrationEntity oldDealerEntiy = registrationDAO.findById(RegistrationEntity.class,
                         oldDealerId);
                 if (changedEntity.indexOf("Dealer") >= 0) {

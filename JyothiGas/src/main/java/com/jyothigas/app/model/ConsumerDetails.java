@@ -16,22 +16,20 @@ public class ConsumerDetails {
 	private String address;
 	private String dealerName;
 	private int dealerId;
+	private int distributor_Id;
 	private String connectionTypeName;
 	private String connectionTypeDesc;
 	private int connectionPrice;
 	private int connectionTypeId;
 	private String status;
 	private String userType;
-	
+
 	private String surrenderStatus;
 	private Date createdDate;
 	private Date updatedDate;
 	private Date surrender_Date;
 
 	private int connectionQty;
-
-	
-
 
 	public Date getSurrender_Date() {
 		return surrender_Date;
@@ -215,6 +213,14 @@ public class ConsumerDetails {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public int getDistributor_Id() {
+		return distributor_Id;
+	}
+
+	public void setDistributor_Id(int distributor_Id) {
+		this.distributor_Id = distributor_Id;
 	}
 
 }

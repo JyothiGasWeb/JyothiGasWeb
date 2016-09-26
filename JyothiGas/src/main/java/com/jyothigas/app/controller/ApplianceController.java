@@ -73,6 +73,24 @@ public class ApplianceController {
 		}
 	}
 
+	@RequestMapping(value = Constant.ADD_APPLIANCES, method = RequestMethod.DELETE)
+	public @ResponseBody Object removeAppliance(@RequestParam Integer id) {
+		AppResponse appResponse = new AppResponse();
+		logger.info("Fetch all Appliances..");
+		try {
+			boolean result = applianceService.removeAppliance(id);
+			appResponse.setResult(result);
+			return appResponse;
+		} catch (Exception e) {
+			logger.error("Error while Saving appliance.." + e);
+
+			appResponse.setStatus("Error");
+			appResponse.setMessage("Please try after sometime");
+			e.printStackTrace();
+			return appResponse;
+		}
+	}
+
 	@RequestMapping(value = Constant.GET_PRODUCT_BY_TYPE, method = RequestMethod.GET)
 	public @ResponseBody Object getAppliancesByType(@RequestParam Integer connectionTypeID) {
 		logger.info("Fetch all Appliances..");

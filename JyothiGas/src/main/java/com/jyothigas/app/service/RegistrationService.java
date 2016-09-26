@@ -310,10 +310,10 @@ public class RegistrationService {
         return roleList;
     }
     
-    public List<Dealer> getAllDealers() {
+    public List<Dealer> getUserList(Integer roleId) {
         List<Dealer> dealerList = new ArrayList<Dealer>();
         try {
-            List<RegistrationEntity> dealerEntityList = registrationDAO.getAllDealers();
+            List<RegistrationEntity> dealerEntityList = registrationDAO.getUserList(roleId);
             for (RegistrationEntity entity : dealerEntityList) {
                 Dealer info = new Dealer();
                 info.setDealer_name(entity.getName());                

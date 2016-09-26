@@ -30,8 +30,8 @@ public class RegistrationEntity implements java.io.Serializable {
     private int roleId;
     private String address;
     private int connectionTypeId;
-    private int dealerId;
-    private int distributorId;
+    private int dealer_id;
+    private int distributer_id;
     private String status;
     private int connectionQty;
     private String surrenderInfo;
@@ -171,13 +171,14 @@ public class RegistrationEntity implements java.io.Serializable {
     }
 
     @Column(name = "Dealer_Id")
-    public int getDealerId() {
-        return dealerId;
-    }
+    public int getDealer_id() {
+		return dealer_id;
+	}
 
-    public void setDealerId(int dealerId) {
-        this.dealerId = dealerId;
-    }
+	public void setDealer_id(int dealer_id) {
+		this.dealer_id = dealer_id;
+	}
+
 
     @Column(name = "Status")
     public String getStatus() {
@@ -214,14 +215,16 @@ public class RegistrationEntity implements java.io.Serializable {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+    
+    @Column(name = "Distributor_Id")
+	public int getDistributer_id() {
+		return distributer_id;
+	}
 
-      @Column(name = "Distributor_Id")
-    public int getDistributorId() {
-        return distributorId;
-    }
+	public void setDistributer_id(int distributer_id) {
+		this.distributer_id = distributer_id;
+	}
 
-    public void setDistributorId(int distributorId) {
-        this.distributorId = distributorId;
-    }
+     
 
 }
