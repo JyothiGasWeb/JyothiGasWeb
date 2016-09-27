@@ -61,6 +61,7 @@ public class Constant {
     public static final String GET_FY_CYLINDER_SOLD = "/getCylinderSoldFY";
     public static final String GET_SALES_REPORT = "/getSalesReportDealer";
     public static final String GET_PURCHASE_REPORT = "/getPurchaseReport";
+    public static final String GET_FY_REPORT = "/getFYreport";
     // Not Working API's
     public static final String FORGOT_PASSWORD = "/forgotPassword";
 

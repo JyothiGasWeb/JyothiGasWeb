@@ -166,6 +166,9 @@ public class ConsumerService {
                 if (register.getDistributer_id() > 0) {
                     registrationEntity.setDealer_id(register.getDistributer_id());
                 }
+                if(register.getUserType() != null){
+                	registrationEntity.setUserType(register.getUserType());
+                }
                 registrationEntity.setUpdatedDate(new Date());
                 registrationEntity.setId(register.getId());
                 RegistrationEntity entity = registrationDAO.merge(registrationEntity);

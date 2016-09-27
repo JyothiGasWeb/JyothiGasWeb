@@ -51,7 +51,7 @@ public class DealerBookingDAO extends JyothiGasDAO<DealerBookingEntity> {
 			List<Object[]> object = entityManager
 					.createQuery(
 							"select SUM(s.quantity),bookingType,SUM(total) from DealerBookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate "
-									+ "and s.status='DELIVERED' and s.user_id=:userId group by bookingType",
+									+ " and s.user_id=:userId group by bookingType",
 							Object[].class)
 					.setParameter("userId", userId).setParameter("fromDate", fromDate).setParameter("toDate", toDate)
 					.getResultList();
@@ -103,5 +103,22 @@ public class DealerBookingDAO extends JyothiGasDAO<DealerBookingEntity> {
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+	// Get Booking within time period
+	public List<DealerBookingEntity> bookingInFY(Date fromDate, Date toDate) {
+		log.info("Getting bookingEntity Instance");
+		List<DealerBookingEntity> bookingEntity = new ArrayList<DealerBookingEntity>();
+		try {
+			bookingEntity = entityManager
+					.createQuery(
+							"select s from DealerBookingEntity s where s.created_date >:fromDate and s.created_date <:toDate  order by s.monthOfBooking ",
+							DealerBookingEntity.class)
+					.setParameter("fromDate", fromDate).setParameter("toDate", toDate).getResultList();
+			log.info("get successfull");
+		} catch (Exception e) {
+			log.error("Failed : " + e);
+		}
+		return bookingEntity;
 	}
 }

@@ -58,6 +58,8 @@ public class DealerBookingEntity implements Serializable {
     private Date created_date;
     @Column(name = "Updated_Date")
     private Date updated_date;
+    @Column(name = "Month")
+    private String monthOfBooking;
 
     public Date getCreated_date() {
         return created_date;
@@ -67,7 +69,16 @@ public class DealerBookingEntity implements Serializable {
         this.created_date = created_date;
     }
 
-    public Date getUpdated_date() {
+    
+    public String getMonthOfBooking() {
+		return monthOfBooking;
+	}
+
+	public void setMonthOfBooking(String monthOfBooking) {
+		this.monthOfBooking = monthOfBooking;
+	}
+
+	public Date getUpdated_date() {
         return updated_date;
     }
 
