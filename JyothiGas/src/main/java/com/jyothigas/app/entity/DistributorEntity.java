@@ -9,15 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Dealer")
-public class DealerEntity {
+@Table(name = "Distributor")
+public class DistributorEntity {
 
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "Dealer_Id", nullable = false)
+	@Column(name = "Distributor_Id", nullable = false)
 	private int dealer_id;
 
-	@Column(name = "Reg_Id")
+	@Column(name = "Reg_id")
 	private int reg_id;
 
 	public int getDealer_id() {
@@ -35,5 +36,6 @@ public class DealerEntity {
 	public void setReg_id(int reg_id) {
 		this.reg_id = reg_id;
 	}
-
+	
+	
 }

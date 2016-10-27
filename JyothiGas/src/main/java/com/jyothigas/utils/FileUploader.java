@@ -66,12 +66,20 @@ public class FileUploader {
 	}
 
 	public File downloadFile(int custId, String type) {
-//		KYCDocumentEntity doc = kycDao.findByCustomerId(custId, type);
-//
-//		File file = new File(doc.getLocation());
-//		if (file.exists()) {
-//			return file;
-//		}
+		try {
+			List<KYCDocument> doc = getDocumentDetails(custId, type);
+			if (doc.size() > 0) {
+				File file = new File(doc.get(0).getLocation());
+				if (file.exists()) {
+					return file;
+				}
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 

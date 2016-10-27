@@ -41,15 +41,15 @@ public class BookingDAO extends JyothiGasDAO<BookingEntity> {
 
 	// Report-1-DEALER - • Number of Cylinder booked for the financial year
 	// 'WITH' Dealer
-	public int findCylinderBookedWithDealerFY(Date fromDate, Date toDate, int dealerId) {
+	public int findCylinderBookedWithDealerFY(Date fromDate, Date toDate, int bookToID) {
 		log.info("Getting bookingEntity Instance");
 		int bookingCount = 0;
 		try {
 			List<Object[]> count = entityManager
 					.createQuery(
-							"select SUM(s.quantity) from BookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate and s.bookingType='REFILL' and s.dealerId=:dealer",
+							"select SUM(s.quantity) from BookingEntity s where s.created_date >=:fromDate and s.created_date <=:toDate and s.bookingType='REFILL' and s.dealerDistributorId=:bookToID",
 							Object[].class)
-					.setParameter("fromDate", fromDate).setParameter("toDate", toDate).setParameter("dealer", dealerId)
+					.setParameter("fromDate", fromDate).setParameter("toDate", toDate).setParameter("bookToID", bookToID)
 					.getResultList();
 			bookingCount = Integer.parseInt(String.valueOf(count.get(0)));
 			log.info("get successfull");

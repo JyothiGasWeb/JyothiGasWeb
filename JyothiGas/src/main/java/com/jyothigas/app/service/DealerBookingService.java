@@ -14,10 +14,14 @@ import com.jyothigas.app.model.ApplianceBooking;
 import com.jyothigas.app.model.Booking;
 import com.jyothigas.app.model.Reports;
 import com.jyothigas.utils.OTPUtil;
+import com.jyothigas.utils.Utility;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -60,9 +64,12 @@ public class DealerBookingService {
 			} else {
 				bookingEntity.setDate_of_deleivery(getDeliveryDate());
 			}
-			bookingEntity.setCreated_date(new Date());
+			Calendar date = Calendar.getInstance();
+			bookingEntity.setCreated_date(date.getTime());
 			bookingEntity.setReference(refToken);
 			bookingEntity.setStatus("PENDING");
+			bookingEntity.setUser_id(booking.getDealerDistributorId());
+			bookingEntity.setMonthOfBooking(Utility.MONTH[date.get(Calendar.MONTH)]);
 			DealerBookingEntity bookingEntityObj = dealerBookingDAO.merge(bookingEntity);
 
 			// Saving AppliancesIds to booking
@@ -156,6 +163,38 @@ public class DealerBookingService {
 			entityList.add(entity);
 		}
 		return entityList;
+	}
+
+	// Report For FY
+	public List<DealerBookingEntity> bookingInFY(int year, int month) {
+		
+		List<DealerBookingEntity> bookings = new ArrayList<DealerBookingEntity>();
+		try {
+			Calendar fromdate = Calendar.getInstance();
+			Calendar todate = Calendar.getInstance();
+			if (month > 0) {
+				fromdate.set(Calendar.YEAR, year);
+				fromdate.set(Calendar.MONTH, month);
+				fromdate.set(Calendar.DAY_OF_MONTH, 1);
+
+				todate.set(Calendar.YEAR, year);
+				todate.set(Calendar.MONTH, month);
+				todate.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+			} else {
+				fromdate.set(Calendar.YEAR, year);
+				fromdate.set(Calendar.MONTH, Calendar.MARCH);
+				fromdate.set(Calendar.DAY_OF_MONTH, 31);
+
+				todate.set(Calendar.YEAR, year + 1);
+				todate.set(Calendar.MONTH, Calendar.MARCH);
+				todate.set(Calendar.DAY_OF_MONTH, 31);
+			}
+
+			bookings = dealerBookingDAO.bookingInFY(fromdate.getTime(), todate.getTime());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bookings;
 	}
 
 }

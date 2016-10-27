@@ -370,7 +370,7 @@ public class BookingService {
 	 * @return
 	 */
 	// REPORT-1-DEALER
-	public int findCylinderBookedWithDealerFY(int year, int dealerId) {
+	public int findCylinderBookedWithDealerFY(int year, int bookToID) {
 		logger.info("findAllBookings...");
 		try {
 			Calendar fromdate = Calendar.getInstance();
@@ -382,7 +382,7 @@ public class BookingService {
 			todate.set(Calendar.MONTH, Calendar.MARCH);
 			todate.set(Calendar.DAY_OF_MONTH, 31);
 			todate.set(Calendar.YEAR, year + 1);
-			return bookingDAO.findCylinderBookedWithDealerFY(fromdate.getTime(), todate.getTime(), dealerId);
+			return bookingDAO.findCylinderBookedWithDealerFY(fromdate.getTime(), todate.getTime(), bookToID);
 
 		} catch (Exception e) {
 			logger.error("Error in findAllBookings");

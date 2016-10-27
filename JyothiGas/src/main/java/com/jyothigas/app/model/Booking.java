@@ -32,9 +32,18 @@ public class Booking implements java.io.Serializable {
 	private List<Appliances> appliancesObj;
 	private String bookingType;
 	private int dealerDistributorId;
+	private String monthOfBooking;
 
 	
 	
+
+	public String getMonthOfBooking() {
+		return monthOfBooking;
+	}
+
+	public void setMonthOfBooking(String monthOfBooking) {
+		this.monthOfBooking = monthOfBooking;
+	}
 
 	public int getDealerDistributorId() {
 		return dealerDistributorId;

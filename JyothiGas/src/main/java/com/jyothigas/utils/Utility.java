@@ -2,8 +2,7 @@ package com.jyothigas.utils;
 
 public class Utility {
 
-	public static void main(String[] args) {
-		System.out.println(String.valueOf(OTPUtil.generateIntToken()));
-	}
+	public static final String[] MONTH = { "January", "February", "March", "April", "May", "June", "July", "August",
+			"September", "October", "November", "December" };
 
 }

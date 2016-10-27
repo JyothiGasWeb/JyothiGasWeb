@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jyothigas.app.dao.ConnectionTypeDAO;
 import com.jyothigas.app.dao.ConsumerDAO;
+import com.jyothigas.app.dao.DealerDAO;
 import com.jyothigas.app.dao.RegistrationDAO;
 import com.jyothigas.app.dao.RoleDAO;
 import com.jyothigas.app.entity.ConnectionTypeEntity;
@@ -45,6 +46,9 @@ public class ConsumerService {
     @Autowired
     ConsumerDAO consumerDAO;
 
+    @Autowired
+    DealerDAO dealerDAO;
+    
     @Autowired
     ConnectionTypeDAO connectionTypeDAO;
 
@@ -94,11 +98,13 @@ public class ConsumerService {
                     }
 
                     // Fetching the Dealer Details
-                    RegistrationEntity dealerEntity = registrationDAO.findById(RegistrationEntity.class,
+                    RegistrationEntity dealerReg = registrationDAO.findById(RegistrationEntity.class,
+                            registrationEntity.getId());
+                    DealerEntity dealerEntity = dealerDAO.findById(DealerEntity.class,
                             registrationEntity.getId());
                     if (dealerEntity != null) {
-                        consumerDetails.setDealerId(registrationEntity.getDealer_id());
-                        consumerDetails.setDealerName(dealerEntity.getName());
+                        consumerDetails.setDealerId(dealerEntity.getDealer_id());
+                        consumerDetails.setDealerName(dealerReg.getName());
                     }
                     // Fetching the connection type details
                     ConnectionTypeEntity connectionTypeEntity = connectionTypeDAO.findById(ConnectionTypeEntity.class,
@@ -165,6 +171,9 @@ public class ConsumerService {
                 }
                 if (register.getDistributer_id() > 0) {
                     registrationEntity.setDealer_id(register.getDistributer_id());
+                }
+                if(register.getUserType() != null){
+                	registrationEntity.setUserType(register.getUserType());
                 }
                 registrationEntity.setUpdatedDate(new Date());
                 registrationEntity.setId(register.getId());
