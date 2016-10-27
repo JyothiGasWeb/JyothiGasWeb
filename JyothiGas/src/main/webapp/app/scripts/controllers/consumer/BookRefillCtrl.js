@@ -4,6 +4,7 @@ angular.module('clientApp')
         $scope.isForm = true;
         $scope.connectionType = {};
         $scope.refillObj = SessionService.getConsumerSession().consumer;
+        console.log($scope.refillObj);
         $scope.paymentType = 'cod';
 
         var getDetails = function() {
@@ -12,8 +13,17 @@ angular.module('clientApp')
         };
 
         var getDealer = function() {
-            RegisterService.getAllDealers().then(function(response) {
+            RegisterService.getAllDealers(2).then(function(response) {
                 $scope.availableDealers = response;
+
+            }, function(error) {
+                console.log("error getting dealers list");
+            })
+        };
+
+        var getAllDistributors = function() {
+            RegisterService.getAllDealers(3).then(function(response) {
+                $scope.availableDealers.push(response);
                 for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
                     if (SessionService.getConsumerSession().consumer.dealerId == $scope.availableDealers[i].id) {
                         $scope.dealer = $scope.availableDealers[i];
@@ -31,15 +41,16 @@ angular.module('clientApp')
             }
             ConsumerService.getProductType(obj).then(function(response) {
                 $scope.connections = response;
+                getAllDistributors();
             }, function(error) {
                 console.log("error getting connections");
             });
         }
 
         $scope.bookRefill = function() {
-            if($scope.connectionType.id ==1){
+            if ($scope.connectionType.id == 1) {
                 $scope.tax = 1;
-            }else{
+            } else {
                 $scope.tax = 14.5;
             }
             $scope.totalPrice = $scope.cylinders * Math.round(($scope.tax / 100 * $scope.connectionType.customerWithoutTax) + $scope.connectionType.customerWithoutTax);
@@ -50,6 +61,11 @@ angular.module('clientApp')
                 "total": $scope.totalPrice,
                 "bookingType": "REFILL"
             };
+            if($scope.refillObj.dealerId !=0){
+                obj.dealerDistributorId = $scope.refillObj.dealerId;
+            }else{
+                obj.dealerDistributorId = $scope.refillObj.distributor_Id;
+            }
 
             ConsumerService.bookRefill(obj).then(function(response) {
                 $scope.refNo = response.reference;

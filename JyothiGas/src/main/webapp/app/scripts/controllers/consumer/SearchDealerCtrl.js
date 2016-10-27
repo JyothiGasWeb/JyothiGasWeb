@@ -9,8 +9,17 @@ controller('SearchDealerCtrl', ['$scope', 'RegisterService', 'ConsumerService', 
     $scope.showDealers = false;
     var user = SessionService.getConsumerSession().consumer;
     var getAllDealers = function() {
-        RegisterService.getAllDealers().then(function(response) {
+        RegisterService.getAllDealers(2).then(function(response) {
             $scope.availableDealers = response;
+            getAllDistributors();
+        }, function(error) {
+            console.log("error getting dealers list");
+        })
+    };
+
+    var getAllDistributors = function() {
+        RegisterService.getAllDealers(3).then(function(response) {
+            $scope.availableDealers.push(response);
         }, function(error) {
             console.log("error getting dealers list");
         })
@@ -20,7 +29,7 @@ controller('SearchDealerCtrl', ['$scope', 'RegisterService', 'ConsumerService', 
         //Need to integrate with API
         var obj = {
             "id": user.reg_id,
-            "dealerId": item.id
+            "dealer_id": item.id
         }
         ConsumerService.updateDealer(obj).then(function(response) {
             if (response.status == 'OK') {

@@ -79,6 +79,7 @@ angular.module('clientApp')
 
         $scope.currentPage = $state.current.data.name;
         var user = SessionService.getConsumerSession().consumer;
+        var roleId = SessionService.getSession().roleId;
         $rootScope.$on('$stateChangeStart',
             function(event, toState, toParams, fromState, fromParams) {
                 $scope.currentPage = toState.data.name;
@@ -108,66 +109,123 @@ angular.module('clientApp')
                     $state.go(item.link);
             }
         };
-        
-        $scope.navList = [{
-            "name": "Home",
-            "icon": "fa fa-home",
-            "link": "consumerDash",
-            "extNmae": "consumerDash"
-        }, {
-            "name": "My Profile",
-            "icon": "fa fa-user",
-            "link": "profile",
-            "extNmae": "profile"
-        }, {
-            "name": "Book Refill",
-            "icon": "fa fa-external-link",
-            "link": "bookRefill",
-            "extNmae": "bookRefill"
-        }, {
-            "name": "Price List",
-            "icon": "fa fa-money",
-            "link": "priceList",
-            "extNmae": "priceList"
-        }, {
-            "name": "Change Dealer",
-            "icon": "fa fa-copy",
-            "link": "dealerChange",
-            "extNmae": "dealerChange"
-        }, {
-            "name": "Update Address",
-            "icon": "fa fa-map-marker",
-            "link": "addressChange",
-            "extNmae": "addressChange"
-        }, {
-            "name": "Transfer Connection",
-            "icon": "fa fa-exchange",
-            "link": "transferConnection",
-            "extNmae": "transferConnection"
-        }, {
-            "name": "Mechanic Service",
-            "icon": "fa fa fa-suitcase",
-            "link": "mechanicService",
-            "extNmae": "mechanicService"
-        }, {
-            "name": "Surrender Connection",
-            "icon": "fa fa fa-ban",
-            "link": "surrender",
-            "extNmae": "surrender"
-        }, {
-            "name": "Contact your Dealer",
-            "icon": "fa fa-phone",
-            "link": "contactDealer",
-            "extNmae": "contactDealer"
-        }, {
-            "name": "Safety Tips",
-            "icon": "fa fa-info",
-            "link": "safetyTips",
-            "extNmae": "safetyTips"
-        }, {
-            "name": "Booking History",
-            "icon": "fa fa-history",
-            "link": "bookingHistory",
-            "extNmae": "bookingHistory"
-        }]
+
+        var init = function() {
+            switch (roleId) {
+                case 1:
+                    $scope.navList = [{
+                        "name": "Home",
+                        "icon": "fa fa-home",
+                        "link": "consumerDash",
+                        "extNmae": "consumerDash"
+                    }, {
+                        "name": "My Profile",
+                        "icon": "fa fa-user",
+                        "link": "profile",
+                        "extNmae": "profile"
+                    }, {
+                        "name": "Book Refill",
+                        "icon": "fa fa-external-link",
+                        "link": "bookRefill",
+                        "extNmae": "bookRefill"
+                    }, {
+                        "name": "Price List",
+                        "icon": "fa fa-money",
+                        "link": "priceList",
+                        "extNmae": "priceList"
+                    }, {
+                        "name": "Change Dealer",
+                        "icon": "fa fa-copy",
+                        "link": "dealerChange",
+                        "extNmae": "dealerChange"
+                    }, {
+                        "name": "Update Address",
+                        "icon": "fa fa-map-marker",
+                        "link": "addressChange",
+                        "extNmae": "addressChange"
+                    }, {
+                        "name": "Transfer Connection",
+                        "icon": "fa fa-exchange",
+                        "link": "transferConnection",
+                        "extNmae": "transferConnection"
+                    }, {
+                        "name": "Mechanic Service",
+                        "icon": "fa fa fa-suitcase",
+                        "link": "mechanicService",
+                        "extNmae": "mechanicService"
+                    }, {
+                        "name": "Surrender Connection",
+                        "icon": "fa fa fa-ban",
+                        "link": "surrender",
+                        "extNmae": "surrender"
+                    }, {
+                        "name": "Contact your Dealer",
+                        "icon": "fa fa-phone",
+                        "link": "contactDealer",
+                        "extNmae": "contactDealer"
+                    }, {
+                        "name": "Safety Tips",
+                        "icon": "fa fa-info",
+                        "link": "safetyTips",
+                        "extNmae": "safetyTips"
+                    }, {
+                        "name": "Booking History",
+                        "icon": "fa fa-history",
+                        "link": "bookingHistory",
+                        "extNmae": "bookingHistory"
+                    }];
+                    break;
+                case 2:
+                    $scope.navList = [{
+                        "name": "Home",
+                        "icon": "fa fa-home",
+                        "link": "dealerDash",
+                        "extNmae": "dealerDash"
+                    },{
+                        "name": "My Profile",
+                        "icon": "fa fa-user",
+                        "link": "profile",
+                        "extNmae": "profile"
+                    },{
+                        "name": "Book Refill",
+                        "icon": "fa fa-external-link",
+                        "link": "dealerRefill",
+                        "extNmae": "dealerRefill"
+                    },{
+                        "name": "Price List",
+                        "icon": "fa fa-money",
+                        "link": "priceList",
+                        "extNmae": "priceList"
+                    },{
+                        "name": "Update Address",
+                        "icon": "fa fa-map-marker",
+                        "link": "addressChange",
+                        "extNmae": "addressChange"
+                    },{
+                        "name": "Cylinders Bookings",
+                        "icon": "fa fa-map-marker",
+                        "link": "dealerCylinderBookings",
+                        "extNmae": "dealerCylinderBookings"
+                    },{
+                        "name": "Cylinders Sold",
+                        "icon": "fa fa-map-marker",
+                        "link": "dealerCylinderSold",
+                        "extNmae": "dealerCylinderSold"
+                    },{
+                        "name": "Purchase Report",
+                        "icon": "fa fa-map-marker",
+                        "link": "dealerPurchaseReport",
+                        "extNmae": "dealerPurchaseReport"
+                    },{
+                        "name": "Sales Report",
+                        "icon": "fa fa-map-marker",
+                        "link": "dealerSalesReport",
+                        "extNmae": "dealerSalesReport"
+                    },]
+                    break;
+
+            }
+        };
+        init();
+
     }]);

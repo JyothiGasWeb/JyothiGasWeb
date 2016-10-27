@@ -10,7 +10,6 @@ controller('PriceListCtrl', ['$scope', 'SessionService', 'ConsumerService', '_',
     var getPriceList = function() {
 
         ConsumerService.getPriceList().then(function(response) {
-            //$scope.priceList = connection;
             for (var i = 0, len = response.length; i < len; i++) {
                 if (response[i].appliance_Name.indexOf('Cylinder') == -1) {
                     $scope.priceList.push(response[i]);
@@ -23,7 +22,6 @@ controller('PriceListCtrl', ['$scope', 'SessionService', 'ConsumerService', '_',
     };
 
     var init = function() {
-        console.log(SessionService.getConsumerSession().consumer);
         $scope.connectionType = SessionService.getConsumerSession().consumer.connectionTypeName;
         getPriceList();
     };

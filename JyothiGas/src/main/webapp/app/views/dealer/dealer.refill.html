@@ -1,0 +1,65 @@
+<section class="md-padding bookRefill">
+    <h2 class="md-title page-title">Book Refill</h2>
+    <div layout="row" layout-align="center center">
+        <md-content flex="60" layout-padding class="md-whiteframe-8dp dash-content-bg" flex-sm="100" flex-xs="100">
+            <form name="dealerForm" class="jyothi-form">
+                <div ng-show="isForm">
+                    <md-input-container class="md-block">
+                        <label>Dealer</label>
+                        <input name="name" ng-model="refillObj.dealerName" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Address</label>
+                        <input name="name" ng-model="refillObj.address" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Contact No</label>
+                        <input name="name" ng-model="refillObj.contactNo" ng-disabled="true">
+                    </md-input-container>
+                    <p style="margin-top: 0;">Connection Type: </p>
+                    <md-radio-group  layout="row" ng-model="refillObj.connectionTypeId" required class="jyothi-radio" ng-change="updateType()">
+                        <md-radio-button value="1" class="md-primary">Domestic</md-radio-button>
+                        <md-radio-button value="3">Industrial</md-radio-button>
+                        <md-radio-button value="2">Commercial</md-radio-button>
+                    </md-radio-group>
+                    <br>
+                    <md-input-container class="md-block">
+                        <label>Product Type - Price</label>
+                        <md-select ng-model="connectionType" required name="product">
+                            <md-option ng-repeat="item in connections" ng-value="{{item}}">
+                                {{item.appliance_Name}} - {{item.dealerWithoutTax}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div layout="row" layout-align="start center">
+                        <div flex="30" class="md-body-2">No Of Cylinders</div>
+                        <md-input-container>
+                            <input flex type="number" ng-model="cylinders" aria-label="cylinder" aria-controls="cylinder-slider" min="1" max="200">
+                        </md-input-container>
+                    </div>
+                    <md-radio-group layout="row" ng-model="paymentType" name="paymentType" required class="jyothi-radio">
+                        <md-radio-button value="credit" class="md-primary" ng-disabled="true">Credit Card</md-radio-button>
+                        <md-radio-button value="debit" class="md-primary" ng-disabled="true"> Debit Card </md-radio-button>
+                        <md-radio-button value="cod" class="md-primary"> Cash on Delivery </md-radio-button>
+                    </md-radio-group>
+                    <div layout="row">
+                        <span flex></span>
+                        <md-button class="md-primary md-raised" ng-click="bookRefill()" ng-disabled="dealerForm.$invalid">Confirm</md-button>
+                    </div>
+                </div>
+            </form>
+            <div ng-show="!isForm">
+                <div class="md-body-1" ng-show="!isNextDay">
+                    Thank you for booking with us. Your total bill amount is Rs. {{totalPrice}}, your booking reference no is {{refNo}}.
+                    <br/> Your Cylinder will be delivered from 6hrs from booking
+                    <br/> Please contact {{dealer.dealer_name}} in case of any queries at {{dealer.dealer_contact_no}}
+                </div>
+                <div class="md-body-1" ng-show="isNextDay">
+                    Thank you for booking with us. Your total bill amount is Rs. {{totalPrice}}, your booking reference no is {{refNo}}.
+                    <br/> Since your booking is recorded after 8PM, the cylinder will be delivered tomorrow.
+                    <br/> Please contact {{dealer.dealer_name}} in case of any queries at {{dealer.dealer_contact_no}}
+                </div>
+            </div>
+        </md-content>
+    </div>
+</section>

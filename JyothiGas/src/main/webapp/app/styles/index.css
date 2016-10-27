@@ -50,7 +50,6 @@ md-menu-divider {
 }
 .login md-toolbar .logo {
   cursor: pointer;
-  width: 200px;
 }
 .login .login-container {
   background-image: url('../images/Jyoti-gas-bg.jpg');
@@ -73,7 +72,6 @@ md-menu-divider {
 }
 .register md-toolbar .logo {
   cursor: pointer;
-  width: 200px;
 }
 .register .register-container {
   background-image: url('../images/Jyoti-gas-bg.jpg');
@@ -100,13 +98,13 @@ md-menu-divider {
 }
 .layout md-toolbar .logo {
   cursor: pointer;
-  width: 200px;
 }
 .layout .layout-container {
   /*background-image: url('../images/white-bg.jpeg');*/
   background-color: #fff;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  min-height: 570px;
 }
 .layout .layout-container .layout-main-content {
   background-color: transparent !important;

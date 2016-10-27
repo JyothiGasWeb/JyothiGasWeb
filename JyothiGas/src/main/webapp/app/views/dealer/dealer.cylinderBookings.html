@@ -1,0 +1,14 @@
+<div layout="column" layout-padding>
+    <h2 class="md-title page-title">Cylinder Bookings</h2>
+    <div layout-padding layout-wrap layout="column">
+        <div layout="row">
+            <div class="md-body-1">Pick Year</div>
+            <!-- <md-datepicker ng-model="myDate" md-current-view="year"></md-datepicker> -->
+            <md-select ng-model="year" ng-change="getBookings()">
+                <md-option ng-repeat="item in yearsList" ng-value="item">
+                    {{item}}
+                </md-option>
+            </md-select>
+        </div>
+    </div>
+</div>

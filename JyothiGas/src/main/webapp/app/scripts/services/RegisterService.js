@@ -12,9 +12,9 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
-        regService.registerCompany = function(companyObj) {
+        regService.registerDealer = function(dealerObj) {
             var deferred = $q.defer();
-            RegisterFactory.companyRegister().save(companyObj, function(success) {
+            RegisterFactory.dealerRegister().save(dealerObj, function(success) {
                 deferred.resolve(success);
             }, function(error) {
                 deferred.reject(error);
@@ -42,9 +42,9 @@ angular.module('clientApp')
             return deferred.promise;
         };
 
-        regService.getAllDealers = function(mobileno) {
+        regService.getAllDealers = function(roleId) {
             var deferred = $q.defer();
-            RegisterFactory.dealers().get(function(success) {
+            RegisterFactory.dealers().get({'roleId': roleId},function(success) {
                 deferred.resolve(success);
             }, function(error) {
                 deferred.reject(error);
@@ -67,8 +67,8 @@ angular.module('clientApp')
             })
         }
 
-        regFactory.companyRegister = function() {
-            return $resource(APP_CONFIG.API_URL + 'companyRegistration', {}, {
+        regFactory.dealerRegister = function() {
+            return $resource(APP_CONFIG.API_URL + 'register', {}, {
                 'save': {
                     method: 'POST'
                 }
@@ -99,7 +99,7 @@ angular.module('clientApp')
             })
         };
         regFactory.dealers = function() {
-            return $resource(APP_CONFIG.API_URL + 'getDealers', {
+            return $resource(APP_CONFIG.API_URL + 'getUserList', {
 
             }, {
                 'get': {

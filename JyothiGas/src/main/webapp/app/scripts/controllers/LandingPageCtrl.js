@@ -7,9 +7,12 @@ angular.module('clientApp')
         };
         $scope.init = function() {
             var session = SessionService.getSession();
-            switch (session.roleName) {
-                case 'Consumer':
+            switch (session.roleId) {
+                case 1:
                     $state.go('consumerDash');
+                    break;
+                case 2:
+                    $state.go('dealerDash');
                     break;
             }
 

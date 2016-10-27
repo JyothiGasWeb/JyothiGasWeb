@@ -26,7 +26,7 @@ angular.module('clientApp', [
         'mdPickers'
     ])
     .constant('APP_CONFIG', {
-        API_URL: 'http://localhost:8081/jyothigas/'
+        API_URL: 'http://122.175.36.113:8080/jyothigas/'
         //API_URL: 'http://localhost:3000/space/'
     })
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
@@ -97,7 +97,8 @@ angular.module('clientApp', [
                 controller: "ConsumerDashCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 1
                 }
             })
             .state('bookRefill', {
@@ -106,7 +107,8 @@ angular.module('clientApp', [
                 controller: "BookRefillCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'bookRefill'
+                    name: 'bookRefill',
+                    roleId: 1
                 }
             })
             .state('profile', {
@@ -115,7 +117,8 @@ angular.module('clientApp', [
                 controller: "ProfileCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'profile'
+                    name: 'profile',
+                    roleId: 0
                 }
             })
             .state('domestic', {
@@ -124,7 +127,8 @@ angular.module('clientApp', [
                 controller: "DomesticConnectionCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 1
                 }
             })
             .state('notifications', {
@@ -133,7 +137,8 @@ angular.module('clientApp', [
                 controller: "NotificationsCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 0
                 }
             })
             .state('commercial', {
@@ -142,7 +147,8 @@ angular.module('clientApp', [
                 controller: "CommercialCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 1
                 }
             })
             .state('industrial', {
@@ -151,7 +157,8 @@ angular.module('clientApp', [
                 controller: "IndustrialCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 1
                 }
             })
             .state('appliances', {
@@ -160,7 +167,8 @@ angular.module('clientApp', [
                 controller: "AppliancesCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 1
                 }
             })
             .state('searchDealer', {
@@ -169,7 +177,8 @@ angular.module('clientApp', [
                 controller: "SearchDealerCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 1
                 }
             })
             .state('dealerChange', {
@@ -178,7 +187,8 @@ angular.module('clientApp', [
                 controller: "DealerChangeCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'dealerChange'
+                    name: 'dealerChange',
+                    roleId: 1
                 }
             })
             .state('transferConnection', {
@@ -187,7 +197,8 @@ angular.module('clientApp', [
                 controller: "DealerChangeCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'transferConnection'
+                    name: 'transferConnection',
+                    roleId: 1
                 }
             })
             .state('addressChange', {
@@ -196,7 +207,8 @@ angular.module('clientApp', [
                 controller: "AddressChangeCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'addressChange'
+                    name: 'addressChange',
+                    roleId: 1
                 }
             })
             .state('mechanicService', {
@@ -205,7 +217,8 @@ angular.module('clientApp', [
                 controller: "MechanicServiceCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'mechanicService'
+                    name: 'mechanicService',
+                    roleId: 1
                 }
             })
             .state('priceList', {
@@ -214,7 +227,8 @@ angular.module('clientApp', [
                 controller: "PriceListCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'priceList'
+                    name: 'priceList',
+                    roleId: 1
                 }
             })
             .state('contactDealer', {
@@ -223,7 +237,8 @@ angular.module('clientApp', [
                 controller: "ContactDealerCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'contactDealer'
+                    name: 'contactDealer',
+                    roleId: 1
                 }
             })
             .state('safetyTips', {
@@ -231,7 +246,8 @@ angular.module('clientApp', [
                 templateUrl: "app/views/consumer/safetyTips.html",
                 parent: 'layout',
                 data: {
-                    name: 'safetyTips'
+                    name: 'safetyTips',
+                    roleId: 1
                 }
             })
             .state('bookingHistory', {
@@ -240,7 +256,8 @@ angular.module('clientApp', [
                 controller: "BookingHistoryCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'bookingHistory'
+                    name: 'bookingHistory',
+                    roleId: 1
                 }
             })
             .state('surrender', {
@@ -249,7 +266,8 @@ angular.module('clientApp', [
                 controller: "SurrenderCtrl",
                 parent: 'layout',
                 data: {
-                    name: 'surrender'
+                    name: 'surrender',
+                    roleId: 1
                 }
             })
             .state('checkout', {
@@ -257,7 +275,8 @@ angular.module('clientApp', [
                 templateUrl: "app/views/consumer/checkout.html",
                 controller: "CheckoutCtrl",
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 1
                 }
             })
             .state('contactUs', {
@@ -265,17 +284,100 @@ angular.module('clientApp', [
                 templateUrl: "app/views/consumer/contactUs.html",
                 parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'consumerDash',
+                    roleId: 1
                 }
             })
-            .state('success', {
-                url: '/success',
-                templateUrl: "app/views/consumer/success.html",
-                controller: "SuccessCtrl",
+            .state('dealerDash', {
+                url: '/dealerDash',
+                templateUrl: "app/views/dealer/dealerDash.html",
+                controller: "DealerDashCtrl",
+                parent: 'layout',
                 data: {
-                    name: 'consumerDash'
+                    name: 'dealerDash',
+                    roleId: 2
                 }
             })
+            .state('dealerAppliances', {
+                url: '/dealerAppliances',
+                templateUrl: "app/views/dealer/dealer.appliances.html",
+                controller: "DealerAppliancesCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'dealerDash',
+                    roleId: 2
+                }
+            })
+            .state('dealerRefill', {
+                url: '/dealerRefill',
+                templateUrl: "app/views/dealer/dealer.refill.html",
+                controller: "DealerRefillCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'dealerRefill',
+                    roleId: 2
+                }
+            })
+            .state('dealerSubRegions', {
+                url: '/dealerSubRegions',
+                templateUrl: "app/views/dealer/dealer.subRegions.html",
+                controller: "DealerSubRegionsCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'dealerDash',
+                    roleId: 2
+                }
+            })
+            .state('dealerCylinderBookings', {
+                url: '/dealerCylinderBookings',
+                templateUrl: "app/views/dealer/dealer.cylinderBookings.html",
+                controller: "DealerCylinderBookingsCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'dealerCylinderBookings',
+                    roleId: 2
+                }
+            })
+            .state('dealerCylinderSold', {
+                url: '/dealerCylinderSold',
+                templateUrl: "app/views/dealer/dealer.cylinderSold.html",
+                controller: "DealerCylinderSoldCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'dealerCylinderSold',
+                    roleId: 2
+                }
+            })
+            .state('dealerPurchaseReport', {
+                url: '/dealerPurchaseReport',
+                templateUrl: "app/views/dealer/dealer.purchaseReport.html",
+                controller: "DealerPurchaseReportCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'dealerPurchaseReport',
+                    roleId: 2
+                }
+            })
+            .state('dealerSalesReport', {
+                url: '/dealerSalesReport',
+                templateUrl: "app/views/dealer/dealer.salesReport.html",
+                controller: "DealerSalesReportCtrl",
+                parent: 'layout',
+                data: {
+                    name: 'dealerSalesReport',
+                    roleId: 2
+                }
+            })
+
+        .state('success', {
+            url: '/success',
+            templateUrl: "app/views/consumer/success.html",
+            controller: "SuccessCtrl",
+            data: {
+                name: 'consumerDash',
+                roleId: 0
+            }
+        })
 
 
     }])
@@ -292,20 +394,39 @@ angular.module('clientApp', [
         $mdThemingProvider.theme('altTheme')
             .primaryPalette('blue')
     }])
-    .run(function($state, $rootScope, $stateParams, LoginService) {
+    .run(function($state, $rootScope, $stateParams, LoginService, SessionService) {
 
         $rootScope.$on('$stateChangeStart', function(event, next, params) {
 
             if (LoginService.isAuthenticated()) {
 
                 console.log("In .run(), app.js - User Authenticated");
-
+                var roleId = SessionService.getSession().roleId;
                 if (LoginService.hasSessionObject()) {
                     console.log("In .run(), app.js - User has session object");
 
                     if (angular.isDefined(next.data) && angular.isDefined(next.data.type) && next.data.type === 'login') {
                         event.preventDefault();
-                        $state.go('consumerDash');
+                        if (roleId == 1) {
+                            $state.go('consumerDash');
+                        } else if (roleId == 2) {
+                            $state.go('dealerDash');
+                        }
+                    } else {
+                        console.log(SessionService.getSession());
+                        if (next.data && roleId == next.data.roleId) {
+
+                        } else if (next.data && next.data.roleId == 0) {
+
+                        } else {
+                            if (roleId == 1) {
+                                $state.go('consumerDash');
+                            } else if (roleId == 2) {
+                                $state.go('dealerDash');
+                            } else {
+                                console.log("here")
+                            }
+                        }
                     }
 
                 } else {

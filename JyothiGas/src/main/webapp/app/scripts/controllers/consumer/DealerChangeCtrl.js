@@ -17,8 +17,17 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
 
     var getCurrentDealer = function() {
         $scope.consumer = SessionService.getConsumerSession().consumer;
-        RegisterService.getAllDealers().then(function(response) {
+        RegisterService.getAllDealers(2).then(function(response) {
             $scope.availableDealers = response;
+            getAllDistributors();
+        }, function(error) {
+            console.log("error getting dealers list");
+        })
+    };
+
+    var getAllDistributors = function() {
+        RegisterService.getAllDealers(3).then(function(response) {
+            $scope.availableDealers.push(response);
             for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
                 if ($scope.consumer.dealerId == $scope.availableDealers[i].id) {
                     $scope.current = $scope.availableDealers[i];
@@ -55,7 +64,7 @@ controller('DealerChangeCtrl', ['$scope', 'SessionService', 'RegisterService', '
     $scope.update = function() {
         var obj = {
             "id": $scope.consumer.reg_id,
-            "dealerId": $scope.user.dealerId
+            "dealer_id": $scope.user.dealerId
         }
         ConsumerService.updateDealer(obj).then(function(response) {
             if (response.status == 'OK') {

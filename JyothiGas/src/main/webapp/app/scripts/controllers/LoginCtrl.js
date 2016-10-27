@@ -11,13 +11,20 @@ angular.module('clientApp')
                 var userObj = {
                     "consumer_id": response.consumer_id,
                     "email": response.email,
-                    "connectionTypeName": response.connectionTypeName,
-                    "connectionTypeId": response.connectionTypeId
+                    "roleId": response.roleId,
+                    "roleName": response.roleName
                 }
                 SessionService.setConsumerSession(response);
                 SessionService.setSession(userObj);
-                $state.go('consumerDash');
-                console.log(response)
+                switch (userObj.roleId) {
+                    case 1:
+                        $state.go('consumerDash');
+                        break;
+                    case 2:
+                        $state.go('dealerDash');
+                        break;
+                };
+                
             }, function(response) {
                 console.log("errror");
             });

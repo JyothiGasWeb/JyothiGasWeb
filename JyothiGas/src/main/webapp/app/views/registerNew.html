@@ -9,144 +9,249 @@
             <div class="layout-content">
                 <section layout="row" layout-align="center center">
                     <md-content flex="50" layout-padding class="register-content md-whiteframe-8dp" flex-sm="100" flex-xs="100">
-                        <h1 class="md-title">SIGN UP - New Customer</h1>
-                        <md-divider></md-divider>
-                        <form name="registerForm" ng-submit="validateuser(registerForm);" autocomplete="off">
-                            <md-input-container class="md-block">
-                                <label>Full Name</label>
-                                <input required name="fullName" ng-model="user.name">
-                                <div ng-messages="registerForm.fullName.$error" role="alert">
-                                    <div ng-message-exp="['required']">
-                                        Enter valid Full Name
+                        <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+                            <md-nav-item md-nav-click="goto('consumer')" name="consumer">Consumer</md-nav-item>
+                            <md-nav-item md-nav-click="goto('dealer')" name="dealer">Dealer/Distributor</md-nav-item>
+                        </md-nav-bar>
+                        <div ng-if="currentNavItem == 'consumer'">
+                            <div class="md-title">SIGN UP - Consumer</div>
+                            <md-divider></md-divider>
+                            <form name="registerForm" autocomplete="off">
+                                <md-input-container class="md-block">
+                                    <label>Full Name</label>
+                                    <input required name="fullName" ng-model="user.name">
+                                    <div ng-messages="registerForm.fullName.$error" role="alert">
+                                        <div ng-message-exp="['required']">
+                                            Enter valid Full Name
+                                        </div>
                                     </div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>Mobile</label>
-                                <input required name="mobile" ng-model="user.contactNo" ng-pattern="/^\d{10}$/">
-                                <div ng-messages="registerForm.mobile.$error" role="alert">
-                                    <div ng-message-exp="['required', 'pattern']">
-                                        Enter valid Mobile Number
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Mobile</label>
+                                    <input required name="mobile" ng-model="user.contactNo" ng-pattern="/^\d{10}$/">
+                                    <div ng-messages="registerForm.mobile.$error" role="alert">
+                                        <div ng-message-exp="['required', 'pattern']">
+                                            Enter valid Mobile Number
+                                        </div>
                                     </div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>Email</label>
-                                <input required name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/">
-                                <div ng-messages="registerForm.email.$error" role="alert">
-                                    <div ng-message-exp="['required', 'pattern']">
-                                        Enter valid email address
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Email</label>
+                                    <input required name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/">
+                                    <div ng-messages="registerForm.email.$error" role="alert">
+                                        <div ng-message-exp="['required', 'pattern']">
+                                            Enter valid email address
+                                        </div>
                                     </div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>City</label>
-                                <md-select ng-model="user.city" name="city" required>
-                                    <md-option value="bangalore">
-                                        Bangalore
-                                    </md-option>
-                                    <md-option value="hyderabad">
-                                        Hyderabad
-                                    </md-option>
-                                </md-select>
-                                <div ng-messages="registerForm.city.$error" role="alert">
-                                    <div ng-message-exp="['required']">
-                                        City is Required
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>City</label>
+                                    <md-select ng-model="user.city" name="city" required>
+                                        <md-option value="bangalore">
+                                            Bangalore
+                                        </md-option>
+                                        <md-option value="hyderabad">
+                                            Hyderabad
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="registerForm.city.$error" role="alert">
+                                        <div ng-message-exp="['required']">
+                                            City is Required
+                                        </div>
                                     </div>
+                                </md-input-container>
+                                <div layout="row">
+                                    <md-input-container class="md-block" flex="40">
+                                        <label>Dealer Pin Code</label>
+                                        <input required name="areaCode" ng-model="user.areaCode" ng-pattern="/^\d{6}$/">
+                                        <div ng-messages="registerForm.areaCode.$error" role="alert">
+                                            <div ng-message-exp="['required', 'pattern']">
+                                                Add a valid pin code
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-button class="md-primary" ng-disabled="registerForm.areaCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
+                                    <md-progress-circular md-mode="indeterminate" ng-show="searchDeal"></md-progress-circular>
                                 </div>
-                            </md-input-container>
-                            <div layout="row">
-                                <md-input-container class="md-block" flex="40">
+                                <md-input-container class="md-block">
+                                    <label>Dealers</label>
+                                    <md-select ng-model="user.dealerId" required name="dealer">
+                                        <md-option ng-repeat="dealer in dealers" value="{{dealer.id}}">
+                                            {{dealer.dealer_name}}
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="registerForm.dealer.$error" role="alert">
+                                        <div ng-message-exp="['required']">
+                                            Dealer is mandatory
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Password</label>
+                                    <input required type="password" name="userPassword" ng-model="user.encyPassword" minlength="8" maxlength="12" />
+                                    <div ng-messages="registerForm.userPassword.$error" role="alert">
+                                        <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                            Your password was required to have a minimum length of 8 and maximum length of 12.
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Confirm Password</label>
+                                    <input required type="password" name="ConfirmPasswd" ng-model="user.confirmPassword" required compare-to="user.encyPassword" />
+                                    <div ng-messages="registerForm.ConfirmPasswd.$error" role="alert">
+                                        <div ng-message-exp="['required', 'compareTo']">
+                                            Your password Should Match.
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <md-radio-group layout="row" ng-model="user.userType" name="userType" required>
+                                        <md-radio-button value="EXISTING" class="md-primary">Existing User</md-radio-button>
+                                        <md-radio-button value="NEW" class="md-primary"> New User </md-radio-button>
+                                    </md-radio-group>
+                                    <div ng-messages="registerForm.userType.$error" role="alert">
+                                        <div ng-message-exp="['required']">
+                                            User Type is Required.
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Address</label>
+                                    <textarea ng-model="user.address" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Connection Type</label>
+                                    <md-select ng-model="user.connectionTypeId" name="connection" required>
+                                        <md-option value="1">
+                                            Domestic
+                                        </md-option>
+                                        <md-option value="2">
+                                            Industrial
+                                        </md-option>
+                                        <md-option value="3">
+                                            Commercial
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="registerForm.connection.$error" role="alert">
+                                        <div ng-message-exp="['required']">
+                                            Connection Type is Required
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <div layout="row" layout-align="center center">
+                                        <md-button class="md-raised md-primary" type="submit" ng-disabled="registerForm.$invalid || disableLogin" style="width:50%;" ng-click="register()">Sign Up
+                                        </md-button>
+                                    </div>
+                                </md-input-container>
+                            </form>
+                        </div>
+                        <!-- DEALER REGISTRATION -->
+
+                        <div layout-padding flex="noshrink" ng-if="currentNavItem == 'dealer'">
+                            <div class="md-title">SIGN UP - Dealer</div>
+                            <md-divider></md-divider>
+                            <form name="dealerForm" autocomplete="off">
+                                <md-input-container class="md-block">
+                                    <label>Full Name</label>
+                                    <input required name="fullName" ng-model="dealer.name">
+                                    <div ng-messages="dealerForm.fullName.$error" role="alert">
+                                        <div ng-message-exp="['required']">
+                                            Enter valid Full Name
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Mobile</label>
+                                    <input required name="mobile" ng-model="dealer.contactNo" ng-pattern="/^\d{10}$/">
+                                    <div ng-messages="dealerForm.mobile.$error" role="alert">
+                                        <div ng-message-exp="['required', 'pattern']">
+                                            Enter valid Mobile Number
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Email</label>
+                                    <input required name="email" ng-model="dealer.email" ng-pattern="/^.+@.+\..+$/">
+                                    <div ng-messages="dealerForm.email.$error" role="alert">
+                                        <div ng-message-exp="['required', 'pattern']">
+                                            Enter valid email address
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>City</label>
+                                    <md-select ng-model="dealer.city" name="city" required>
+                                        <md-option value="bangalore">
+                                            Bangalore
+                                        </md-option>
+                                        <md-option value="hyderabad">
+                                            Hyderabad
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="dealerForm.city.$error" role="alert">
+                                        <div ng-message-exp="['required']">
+                                            City is Required
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
                                     <label>Dealer Pin Code</label>
-                                    <input required name="areaCode" ng-model="user.areaCode" ng-pattern="/^\d{6}$/">
-                                    <div ng-messages="registerForm.areaCode.$error" role="alert">
+                                    <input required name="areaCode" ng-model="dealer.areaCode" ng-pattern="/^\d{6}$/">
+                                    <div ng-messages="dealerForm.areaCode.$error" role="alert">
                                         <div ng-message-exp="['required', 'pattern']">
                                             Add a valid pin code
                                         </div>
                                     </div>
                                 </md-input-container>
-                                <md-button class="md-primary" ng-disabled="registerForm.areaCode.$invalid" ng-click="filterDealers()">Search Dealer</md-button>
-                                <md-progress-circular md-mode="indeterminate" ng-show="searchDeal"></md-progress-circular>
-                            </div>
-                            <md-input-container class="md-block">
-                                <label>Dealers</label>
-                                <md-select ng-model="user.dealerId" required name="dealer">
-                                    <md-option ng-repeat="dealer in dealers" value="{{dealer.id}}">
-                                        {{dealer.dealer_name}}
-                                    </md-option>
-                                </md-select>
-                                <div ng-messages="registerForm.dealer.$error" role="alert">
-                                    <div ng-message-exp="['required']">
-                                        Dealer is mandatory
+                                <md-input-container class="md-block">
+                                    <label>Password</label>
+                                    <input required type="password" name="userPassword" ng-model="dealer.encyPassword" minlength="8" maxlength="12" />
+                                    <div ng-messages="dealerForm.userPassword.$error" role="alert">
+                                        <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                            Your password was required to have a minimum length of 8 and maximum length of 12.
+                                        </div>
                                     </div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>Password</label>
-                                <input required type="password" name="userPassword" ng-model="user.encyPassword" minlength="8" maxlength="12" />
-                                <div ng-messages="registerForm.userPassword.$error" role="alert">
-                                    <div ng-message-exp="['required', 'minlength', 'maxlength']">
-                                        Your password was required to have a minimum length of 8 and maximum length of 12.
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Confirm Password</label>
+                                    <input required type="password" name="ConfirmPasswd" ng-model="dealer.confirmPassword" required compare-to="dealer.encyPassword" />
+                                    <div ng-messages="dealerForm.ConfirmPasswd.$error" role="alert">
+                                        <div ng-message-exp="['required', 'compareTo']">
+                                            Your password Should Match.
+                                        </div>
                                     </div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>Confirm Password</label>
-                                <input required type="password" name="ConfirmPasswd" ng-model="user.confirmPassword" required compare-to="user.encyPassword" />
-                                <div ng-messages="registerForm.ConfirmPasswd.$error" role="alert">
-                                    <div ng-message-exp="['required', 'compareTo']">
-                                        Your password Should Match.
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <md-radio-group layout="row" ng-model="dealer.userType" name="userType" required>
+                                        <md-radio-button value="EXISTING" class="md-primary">Existing User</md-radio-button>
+                                        <md-radio-button value="NEW" class="md-primary"> New User </md-radio-button>
+                                    </md-radio-group>
+                                    <div ng-messages="dealerForm.userType.$error" role="alert">
+                                        <div ng-message-exp="['required']">
+                                            User Type is Required.
+                                        </div>
                                     </div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <md-radio-group layout="row" ng-model="user.userType" name="userType" required>
-                                    <md-radio-button value="EXISTING" class="md-primary">Existing User</md-radio-button>
-                                    <md-radio-button value="NEW" class="md-primary"> New User </md-radio-button>
-                                </md-radio-group>
-                                <div ng-messages="registerForm.userType.$error" role="alert">
-                                    <div ng-message-exp="['required']">
-                                        User Type is Required.
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>Address</label>
+                                    <textarea ng-model="dealer.address" md-maxlength="150" rows="1" md-select-on-focus></textarea>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <div layout="row" layout-align="center center">
+                                        <md-button class="md-raised md-primary" type="submit" ng-disabled="dealerForm.$invalid || disableLogin" style="width:50%;" ng-click="registerDealer()">Sign Up
+                                        </md-button>
                                     </div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>Address</label>
-                                <textarea ng-model="user.address" md-maxlength="150" rows="1" md-select-on-focus></textarea>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>Connection Type</label>
-                                <md-select ng-model="user.connectionTypeId" name="connection" required>
-                                    <md-option value="1">
-                                        Domestic
-                                    </md-option>
-                                    <md-option value="2">
-                                        Industrial
-                                    </md-option>
-                                    <md-option value="3">
-                                        Commercial
-                                    </md-option>
-                                </md-select>
-                                <div ng-messages="registerForm.connection.$error" role="alert">
-                                    <div ng-message-exp="['required']">
-                                        Connection Type is Required
-                                    </div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <div layout="row" layout-align="center center">
-                                    <md-button class="md-raised md-primary" type="submit" ng-disabled="registerForm.$invalid || disableLogin" style="width:50%;" ng-click="register()">Sign Up
-                                    </md-button>
-                                </div>
-                            </md-input-container>
-                        </form>
+                                </md-input-container>
+                            </form>
+                        </div>
                     </md-content>
                 </section>
             </div>
         </div>
         <div layout="row" flex="noshrink" layout-align="center center" class="layout-align-center-center layout-row">
             <div id="license-footer" flex="" class="ng-binding flex">
-                Powered by Jyothi Gas ©2014–2016.
+                Powered by OITBS ©2014–2016.
             </div>
         </div>
     </md-content>

@@ -31,7 +31,7 @@
 </head>
 
 <body layout="column" layout-fill>
-    <div ui-view layout="column" flex="100"></div>
+    <md-content ui-view layout="column" flex="100"></md-content>
     <!-- 3rd Party files-->
     <script src="app/scripts/libs/less.min.js" data-env="development"></script>
     <script src="app/scripts/libs/jquery.js"></script>
@@ -87,12 +87,24 @@
     <script src="app/scripts/controllers/consumer/ProfileCtrl.js"></script>
     <script src="app/scripts/controllers/consumer/PriceListCtrl.js"></script>
     <script src="app/scripts/controllers/consumer/NotificationsCtrl.js"></script>
+
+    <!-- Dealer Controllers -->
+    <script src="app/scripts/controllers/dealer/DealerDashCtrl.js"></script>
+    <script src="app/scripts/controllers/dealer/DealerAppliancesCtrl.js"></script>
+    <script src="app/scripts/controllers/dealer/DealerRefillCtrl.js"></script>
+    <script src="app/scripts/controllers/dealer/DealerSubRegionsCtrl.js"></script>
+    <script src="app/scripts/controllers/dealer/DealerCylinderBookingsCtrl.js"></script>
+    <script src="app/scripts/controllers/dealer/DealerCylinderSoldCtrl.js"></script>
+    <script src="app/scripts/controllers/dealer/DealerPurchaseReportCtrl.js"></script>
+    <script src="app/scripts/controllers/dealer/DealerSalesReportCtrl.js"></script>
+
     <!-- Services -->
     <script src="app/scripts/services/AlertService.js"></script>
     <script src="app/scripts/services/LoginService.js"></script>
     <script src="app/scripts/services/RegisterService.js"></script>
     <script src="app/scripts/services/SessionService.js"></script>
     <script src="app/scripts/services/ConsumerService.js"></script>
+    <script src="app/scripts/services/DealerService.js"></script>
 </body>
 
 </html>
