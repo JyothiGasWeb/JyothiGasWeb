@@ -53,7 +53,7 @@
                  "roleId": 1,
                  "address": $scope.user.address,
                  "connectionTypeId": $scope.user.connectionTypeId,
-                 "dealerId": $scope.user.dealerId,
+                 "dealer_id": $scope.user.dealerId,
                  "status": "New",
                  "connectionQty": 1,
                  "userType": $scope.user.userType

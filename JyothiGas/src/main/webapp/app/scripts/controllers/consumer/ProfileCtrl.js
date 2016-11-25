@@ -27,7 +27,7 @@ controller('ProfileCtrl', ['$scope', 'SessionService', 'RegisterService', 'Consu
     }];
 
     var getAllDealers = function() {
-        RegisterService.getAllDealers().then(function(response) {
+        RegisterService.getAllDealers(2).then(function(response) {
             $scope.availableDealers = response;
             getConsumer();
         }, function(error) {

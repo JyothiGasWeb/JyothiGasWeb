@@ -107,7 +107,7 @@ public class BookingService {
 			RegistrationEntity registrationEntity = registrationDAO.findById(RegistrationEntity.class,
 					consumerEntity.getReg_id());
 			RegistrationEntity dealerEntity = registrationDAO.findById(RegistrationEntity.class,
-					registrationEntity.getId());
+					registrationEntity.getDealer_id());
 			String mesg = Constant.BOOKING_MESSAGE.replace("{REF}", refToken).replace("{NAME}",
 					registrationEntity.getName());
 			smsService.sendMessage(mesg + dealerEntity.getContactNo(), registrationEntity.getContactNo());

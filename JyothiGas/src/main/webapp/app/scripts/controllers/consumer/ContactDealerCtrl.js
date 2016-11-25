@@ -8,7 +8,7 @@ controller('ContactDealerCtrl', ['$scope', 'RegisterService', 'SessionService', 
 
 
     var getContactDetails = function() {
-        RegisterService.getAllDealers().then(function(response) {
+        RegisterService.getAllDealers(2).then(function(response) {
             $scope.availableDealers = response;
             for (var i = 0, len = $scope.availableDealers.length; i < len; i++) {
                 if(SessionService.getConsumerSession().consumer.dealerId == $scope.availableDealers[i].id){

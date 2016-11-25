@@ -101,7 +101,8 @@ public class ConsumerService {
                     RegistrationEntity dealerReg = registrationDAO.findById(RegistrationEntity.class,
                             registrationEntity.getId());
                     DealerEntity dealerEntity = dealerDAO.findById(DealerEntity.class,
-                            registrationEntity.getId());
+                            registrationEntity.getDealer_id());
+                    System.out.println(" ---  "+registrationEntity.getId());
                     if (dealerEntity != null) {
                         consumerDetails.setDealerId(dealerEntity.getDealer_id());
                         consumerDetails.setDealerName(dealerReg.getName());

@@ -44,7 +44,7 @@ controller('SurrenderCtrl', ['$scope', '$mdDialog', 'ConsumerService', 'SessionS
 
     var updateUser = function() {
         var obj = {
-            "email": $scope.current.email
+            "email": consumer.email
         }
         LoginService.getConsumer(obj).then(function(response) {
             SessionService.setConsumerSession(response);
